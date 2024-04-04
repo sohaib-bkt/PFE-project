@@ -1,0 +1,93 @@
+.submenu {
+    display: none; /* Cache le sous-menu par défaut */
+    position: absolute; /* Positionne le sous-menu par rapport à son parent */
+    left: 0; /* Aligner le sous-menu à gauche avec l'élément parent */
+    z-index: 1000; /* Assurez-vous que le sous-menu est au-dessus des autres éléments */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Optionnel: ajoute de l'ombre pour le sous-menu */
+    background-color: #f9f9f9; /* Couleur de fond du sous-menu */
+}
+
+/* Affiche le sous-menu au survol de l'élément 'Shop' */
+.nav-menu li:hover > .submenu {
+    display: block; /* Affiche le sous-menu lorsque l'élément parent est survolé */
+}
+
+/* Style pour les éléments à l'intérieur du sous-menu */
+.submenu li {
+    position: relative; /* Important pour le positionnement */
+}
+
+.submenu li a {
+    padding: 10px 15px; /* Espacement pour les liens du sous-menu */
+    display: block; 
+    color: #333; 
+    text-decoration: none; 
+}
+
+.submenu li a:hover {
+    background-color: #ddd;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+:root {
+	--vs-primary: 29 92 255;
+}
+
+/*Dialog Styles*/
+dialog {
+	padding: 1rem 3rem;
+	background: white;
+	max-width: 400px;
+	padding-top: 2rem;
+	border-radius: 20px;
+	border: 0;
+	box-shadow: 0 5px 30px 0 rgb(0 0 0 / 10%);
+	animation: fadeIn 1s ease both;
+	&::backdrop {
+		animation: fadeIn 1s ease both;
+		background: rgb(255 255 255 / 40%);
+		z-index: 2;
+		backdrop-filter: blur(20px);
+	}
+	.x {
+		filter: grayscale(1);
+		border: none;
+		background: none;
+		position: absolute;
+		top: 15px;
+		right: 10px;
+		transition: ease filter, transform 0.3s;
+		cursor: pointer;
+		transform-origin: center;
+		&:hover {
+			filter: grayscale(0);
+			transform: scale(1.1);
+		}
+	}
+	h2 {
+		font-weight: 600;
+		font-size: 2rem;
+		padding-bottom: 1rem;
+	}
+	p {
+		font-size: 1rem;
+		line-height: 1.3rem;
+		padding: 0.5rem 0;
+		a {
+			&:visited {
+				color: rgb(var(--vs-primary));
+			}
+		}
+	}
+}
+
+
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
