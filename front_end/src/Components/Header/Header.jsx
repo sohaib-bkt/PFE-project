@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import feather from 'feather-icons';
+import logo from '@Public/assets/images/logo.png';
 import $ from 'jquery';
-
 import '@Public/assets/css/style.css';
-import '@Public/assets/css/vendors/font-awesome.css';
-import '@Public/assets/css/vendors/bootstrap.css';
-import '@Public/assets/css/demo4.css';
-import '@Public/assets/css/demo2.css';
-import '@Public/assets/css/custom.css';
 import '@Css/Header.css';
 
 const Header = ({ children }) => {
@@ -63,7 +58,7 @@ const Header = ({ children }) => {
                   <div className="menu-left">
                     <div className="brand-logo">
                       <Link to="/">
-                        <img src="../../../public/assets/images/logo.png" className="h-logo img-fluid lazyload" alt="logo" />
+                        <img src={logo} className="h-logo img-fluid lazyload" alt="logo" />
                       </Link>
                     </div>
                   </div>
@@ -85,17 +80,16 @@ const Header = ({ children }) => {
                           <li>
                             <Link to="/" className="nav-link ">Home</Link>
                           </li>
-                          <li>
-                            <Link to="/shop" className="nav-link">Shop</Link>
-                            <ul className="submenu">
-                              <li>
-                                <Link to="/shop/vetement" className="nav-link">Shop Vetement</Link>
-                              </li>
-                              <li>
-                                <Link to="/shop/info" className="nav-link">Shop Info</Link>
-                              </li>
+
+                        <li className="onhover-dropdown">
+                          <Link to="#" className="onhover-dropdown">Shop</Link>
+                          <div  className="onhover-div profile-dropdown">
+                            <ul>
+                                  <li><Link to="/shop/clothes" className="d-block" style={{ color: "#e87316" }}>Shop Vetement</Link></li>
+                                  <li><Link to="/shop/info" className="d-block" style={{ color: "#e87316" }}>Shop Info</Link></li>
                             </ul>
-                          </li>
+                            </div>
+                        </li>
                           <li>
                             <Link to="/about" className="nav-link">About Us</Link>
                           </li>
@@ -103,7 +97,7 @@ const Header = ({ children }) => {
                             <Link to="/contact" className="nav-link">Contact Us</Link>
                           </li>
                           <li>
-                            <Link to="/login" className="nav-link ">Login</Link>
+                            <Link to="/blog" className="nav-link ">Blog</Link>
                           </li>
                         </ul>
                       </div>
@@ -150,13 +144,13 @@ const Header = ({ children }) => {
             </Link>
           </li>
           <li>
-            <a href="#">
+            <a href="/wishlist">
               <i data-feather="heart"></i>
               <span>Wishlist</span>
             </a>
           </li>
           <li>
-            <a href="user-dashboard.php">
+            <a href="/profile">
               <i data-feather="user"></i>
               <span>Account</span>
             </a>
