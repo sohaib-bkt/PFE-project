@@ -3,7 +3,7 @@ import axios from "../../../api/axios";
 axios.defaults.withCredentials = true;
 axios.defaults.withXSRFToken = true;
 
-const BASE_URL = 'http://localhost:8000'; // Set your base URL here
+const BASE_URL = 'http://localhost:8000'; 
 
 const UserApi = {
   getCsrf: async () => {

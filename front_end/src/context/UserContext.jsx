@@ -21,7 +21,6 @@ export default function UserContextProvider({ children }) {
 
   const login = async (email, password) => {
     await UserApi.getCsrf();
-    window.localStorage.setItem("auth_token",);
     return await UserApi.login(email, password);
   };
 

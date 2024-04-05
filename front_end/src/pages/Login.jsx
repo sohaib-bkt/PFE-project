@@ -30,6 +30,7 @@ export default function Login() {
       navigate('/');
     } catch (error) {
       setError(error.response.data.message);
+   
     }
     setLoading(false);
   };
@@ -45,14 +46,14 @@ export default function Login() {
               </div>
               <div className="input">
                 <label
-                  htmlFor="name"
+                  htmlFor="email"
                   className={`floating-label ${emailFocused ? 'active' : ''}`}
                 >
                   Email
                 </label>
                 <input
                   type="email"
-                  id="name"
+                  id="email"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -64,14 +65,14 @@ export default function Login() {
 
               <div className="input">
                 <label
-                  htmlFor="pass"
+                  htmlFor="password"
                   className={`floating-label ${passwordFocused ? 'active' : ''}`}
                 >
                   Password
                 </label>
                 <input
                   type="password"
-                  id="pass"
+                  id="password"
                   className="block mt-1 w-full"
                   name="password"
                   value={password}
@@ -82,9 +83,9 @@ export default function Login() {
                 <span className="text-danger mt-3">{error}</span>
               </div>
 
-              <a href="#" className="pass-forgot">
+              <Link to="/forgot-password" className="pass-forgot">
                 Forgot your password?
-              </a>
+              </Link>
 
               <div className="button login flex justify-center items-center">
                 <button type="submit" disabled={loading}>
