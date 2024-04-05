@@ -1,10 +1,18 @@
 import  { useContext } from 'react';
 import Header from './Header.jsx';
 import { UserContext } from '../../context/UserContext.jsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import UserApi from '../../services/api/user/UserApi.js';
 
 export default function UserHeader() {
-    const {  user, logout  } = useContext(UserContext);
+    const {  user, logout : contextLogout  } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const logout = async() => {
+        UserApi.logout();
+        contextLogout();
+        navigate("/");
+    }
 
     return (
         <>
@@ -21,7 +29,7 @@ export default function UserHeader() {
                                 <li><Link to="/profile" className="d-block">Profile</Link></li>
                                 <li><Link to="/account" className="d-block">My Account</Link></li>
                                 <li>
-                                    <a href="#" onClick={logout} className="d-block">Logout</a>
+                                    <button onClick={logout} className="d-block">Logout</button>
                                 </li>
                             </ul>
                         </div>
