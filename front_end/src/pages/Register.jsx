@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import '@Css/floatingLabel.css';
-import axios from '../api/axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useUserContext } from '../context/UserContext';
 
 export default function Register() {
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
+  const [phoneFocused, setPhoneFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
   const [error, setError] = useState("");
+  const { register, setAuthenticated } = useUserContext();
+  const navigate = useNavigate();
 
   const handleFocusName = () => {
     setNameFocused(true);
@@ -16,6 +19,10 @@ export default function Register() {
 
   const handleFocusEmail = () => {
     setEmailFocused(true);
+  };
+
+  const handleFocusPhone = () => {
+    setPhoneFocused(true);
   };
 
   const handleFocusPassword = () => {
@@ -26,8 +33,6 @@ export default function Register() {
     setConfirmPasswordFocused(true);
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,17 +40,16 @@ export default function Register() {
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
+      phone: formData.get('phone'),
       password: formData.get('password'),
       password_confirmation: formData.get('password_confirmation')
     };
 
     try {
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie');
-      const response = await axios.post('http://localhost:8000/register', data);
+      await register(data);
+      setAuthenticated(true);
+      navigate("/");
 
-      if (response.status === 201) {
-        navigate("/login");
-      }
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -68,7 +72,7 @@ export default function Register() {
                   className="block mt-1 w-full"
                   name="name"
                   required=""
-                  onClick={handleFocusName}
+                  onFocus={handleFocusName}
                 />
                 <span className="text-danger mt-3">{error}</span>
               </div>
@@ -80,10 +84,24 @@ export default function Register() {
                   className="block mt-1 w-full"
                   name="email"
                   required=""
-                  onClick={handleFocusEmail}
+                  onFocus={handleFocusEmail}
                 />
                 <span className="text-danger mt-3">{error}</span>
               </div>
+
+              <div className="input">
+                <label htmlFor="phone" className={`floating-label ${phoneFocused ? 'active' : ''}`}>Phone</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  className="block mt-1 w-full"
+                  name="phone"
+                  required=""
+                  onFocus={handleFocusPhone}
+                />
+                <span className="text-danger mt-3">{error}</span>
+              </div>
+
               <div className="input">
                 <label htmlFor="password" className={`floating-label ${passwordFocused ? 'active' : ''}`}>Password</label>
                 <input
@@ -92,7 +110,7 @@ export default function Register() {
                   className="block mt-1 w-full"
                   name="password"
                   required=""
-                  onClick={handleFocusPassword}
+                  onFocus={handleFocusPassword}
                 />
                 <span className="text-danger mt-3">{error}</span>
               </div>
@@ -104,7 +122,7 @@ export default function Register() {
                   className="block mt-1 w-full"
                   name="password_confirmation"
                   required=""
-                  onClick={handleFocusConfirmPassword}
+                  onFocus={handleFocusConfirmPassword}
                 />
                 <span className="text-danger mt-3">{error}</span>
               </div>

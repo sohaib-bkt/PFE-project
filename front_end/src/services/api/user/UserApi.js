@@ -18,7 +18,10 @@ const UserApi = {
   getUser: async () => {
     return await axios.get(`${BASE_URL}/api/user`);
 
-  }
+  },
+  register: async (data) => {
+    return await axios.post(`${BASE_URL}/register`, data);
+  },
 };
 
 export default UserApi;
