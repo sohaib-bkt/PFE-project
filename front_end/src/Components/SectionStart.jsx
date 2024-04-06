@@ -3,7 +3,7 @@ export default function SectionStart({ title, activeBreadcrumb }) {
         <>
             <section
                 className="breadcrumb-section section-b-space"
-                style={{ paddingTop: 20, paddingBottom: 20 }}
+                style={{ paddingTop: "20px" , paddingBottom: "20px" }}
             >
                 <ul className="circles">
                     {[...Array(10)].map((_, index) => (
