@@ -1,7 +1,7 @@
 import image from '@Public/assets/images/newletter-icon.png';
 export default function Product() {
     return (
-        <div className="row g-sm-4 g-3 row-cols-lg-4 row-cols-md-3 row-cols-2 mt-1 custom-gy-5 product-style-2 ratio_asos product-list-section">
+        <div className=" flex flex-row mt-1" >
         <div>
           <div className="product-box">
             <div className="img-wrapper">
