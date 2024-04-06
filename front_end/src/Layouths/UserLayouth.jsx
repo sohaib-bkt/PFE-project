@@ -10,8 +10,7 @@ export default function UserLayouth() {
 
     useEffect(() => {
         UserApi.getUser().then((data) => {
-            context.setUser(data.data);
-            
+            context.setUser(data.data);    
             context.setAuthenticated(true);
         }).catch(() => {
             context.logout();
