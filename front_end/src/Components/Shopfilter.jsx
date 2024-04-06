@@ -5,19 +5,17 @@ import '@Public/assets/css/style.css';
 import '@Public/assets/css/demo2.css';
 import '@Public/assets/css/demo4.css';
 import '@Public/assets/css/custom.css';
-import { useEffect } from 'react';
-import $ from 'jquery';
 
 export default function Shopfilter() {
     return (
         <>
-         <section  class="section-b-space">
+         <section  className="section-b-space">
      <div className="container">
   <div className="row">
     <div className="col-lg-3 category-side col-md-4">
       <div className="category-option">
-      <div class="button-close mb-3">
-                        <button class="btn p-0"><i data-feather="arrow-left"></i> Close</button>
+      <div className="button-close mb-3">
+                        <button className="btn p-0"><i data-feather="arrow-left"></i> Close</button>
                     </div>
         <div className="accordion category-name" id="accordionExample">
           <div className="accordion-item category-rating">
@@ -200,8 +198,17 @@ export default function Shopfilter() {
       </div>
     </div>
   </div>
+
+  <div className="grid grid-cols-2 md:grid-cols-3 justify-items-center pt-3">
         <Product/>
         <Product/>
+        <Product/>
+        <Product/>
+        <Product/>
+        <Product/>
+        <Product/>
+        <Product/>
+  </div>
 
 
 </div>

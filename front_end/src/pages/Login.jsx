@@ -2,6 +2,7 @@ import { useState } from 'react';
 import '@Css/floatingLabel.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
+import UserApi from '../services/api/user/UserApi';
 
 export default function Login() {
   const [emailFocused, setEmailFocused] = useState(false);
@@ -11,7 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login, setAuthenticated } = useUserContext();
+  const { login, setAuthenticated , setUser} = useUserContext();
 
   const handleFocusEmail = () => {
     setEmailFocused(true);
@@ -27,12 +28,19 @@ export default function Login() {
     try {
       await login(email, password);
       setAuthenticated(true);
-      navigate('/');
+      const res = await UserApi.getUser(); 
+      setUser(res.data);     
+      if (res.data.utype == "admin") {
+        navigate('/dashboard');
+      }else{
+        navigate('/');
+      }
+      
     } catch (error) {
       setError(error.response.data.message);
-   
+    } finally {  
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

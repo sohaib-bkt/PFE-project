@@ -8,12 +8,14 @@ export const UserContext = createContext({
   setUser: () => {},
   logout: () => {},
   login: () => {},
+  getUser: () => {},
   register: () => {},
 });
 
 export default function UserContextProvider({ children }) {
+  
   const [user, setUser] = useState({});
-  const [authenticated, _setAuthenticated] = useState(window.localStorage.getItem("authenticated"));
+  const [authenticated, _setAuthenticated] = useState(Boolean(window.localStorage.getItem("authenticated")  ));
 
   const setAuthenticated = (value) => {
     _setAuthenticated(value);
@@ -35,9 +37,17 @@ export default function UserContextProvider({ children }) {
     return await UserApi.login(email, password);
     
   };
+  const getUser = () => {
+    UserApi.getUser().then((data) => {
+      console.log(data.data);
+      setUser(data.data); // Mettre à jour l'état de l'utilisateur dans le bloc then
+      console.log(user); // Cela va maintenant afficher les données de l'utilisateur récupérées
+    });
+  };
+  
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout, login, authenticated, setAuthenticated, register }}>
+    <UserContext.Provider value={{ user, setUser, logout, login, authenticated, setAuthenticated, register , getUser }}>
       {children}
     </UserContext.Provider>
   );
