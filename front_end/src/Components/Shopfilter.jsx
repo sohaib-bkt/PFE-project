@@ -7,6 +7,7 @@ import svg2 from '@Public/assets/svg/grid-2.svg'
 import '@Public/assets/css/style.css';
 import '@Public/assets/css/demo2.css';
 import '@Public/assets/css/demo4.css';
+import ProdCard from './ProdCard.jsx';
 import '@Public/assets/css/custom.css';
 import $ from 'jquery';
 import { useEffect } from 'react';
@@ -262,14 +263,16 @@ export default function Shopfilter() {
   </div>
 
   <div className = {gridClass}>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+       <ProdCard/>
+
   </div>
 
 

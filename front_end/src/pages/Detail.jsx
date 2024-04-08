@@ -1,5 +1,16 @@
+import ProdCard from '@Components/ProdCard.jsx';
+import '@Public/assets/css/style.css';
+import '@Public/assets/css/demo4.css';
+import '@Public/assets/css/demo2.css';
+import '@Public/assets/css/custom.css';
+import '@Public/assets/css/vendors/slick/slick.css';
+import '@Public/assets/css/vendors/slick/slick-theme.css';
+import '@Public/assets/js/slick/slick.js';
+
+import img from '@Public/assets/images/blog/sample.jpg';
 import SectionStart from "@Components/SectionStart.jsx";
 export default function Detail() {
+
     return (
         <>
         <SectionStart/>
@@ -15,16 +26,16 @@ export default function Detail() {
                   <div className="details-image-vertical black-slide rounded">
                     <div>
                       <img
-                        src=" {{ asset('storage/'.$product->image) }}"
-                        className="img-fluid blur-up lazyload"
+                        src={img}
+                        className="img-fluid lazyload"
                         alt="{{$product->name}}"
                       />
                     </div>
                 
                     <div>
                       <img
-                        src=" {{ asset('storage/'.$product->image) }}"
-                        className="img-fluid blur-up lazyload"
+                        src= {img}
+                        className="img-fluid lazyload"
                         alt=""
                       />
                     </div>
@@ -34,8 +45,8 @@ export default function Detail() {
                   <div className="details-image-1 ratio_asos">
                     <div>
                       <img
-                        src=" {{ asset('storage/'.$product->image) }}"
-                        className="img-fluid w-100 image_zoom_cls-0 blur-up lazyload"
+                        src={img}
+                        className="img-fluid w-100 image_zoom_cls-0  lazyload"
                         alt="{{$product->name}}"
                       />
                     </div>
@@ -43,7 +54,7 @@ export default function Detail() {
                     <div>
                       <img
                         src=" {{ asset('storage/'.$product->image) }}"
-                        className="img-fluid w-100 image_zoom_cls-1 blur-up lazyload"
+                        className="img-fluid w-100 image_zoom_cls-1  lazyload"
                         alt=""
                       />
                     </div>
@@ -58,7 +69,7 @@ export default function Detail() {
                     <li>
                       <img
                         src="../assets/images/gif/fire.gif"
-                        className="img-fluid blur-up lazyload"
+                        className="img-fluid  lazyload"
                         alt="image"
                       />
                       <span className="p-counter">37</span>
@@ -67,7 +78,7 @@ export default function Detail() {
                     <li>
                       <img
                         src="../assets/images/gif/person.gif"
-                        className="img-fluid user_img blur-up lazyload"
+                        className="img-fluid user_img  lazyload"
                         alt="image"
                       />
                       <span className="p-counter">44</span>
@@ -77,7 +88,7 @@ export default function Detail() {
                 </div>
                 <div className="details-image-concept">
                   <h2>
-                   prod Name
+                   <b>prod Name</b>
                   </h2>
                 </div>
                 <div className="label-section">
@@ -85,26 +96,9 @@ export default function Detail() {
                   <span className="label-text">in fashion</span>
                 </div>
                 <h3 className="price-detail">
-                  @if($product-&gt;sale_price) ${"{"}
-                  {"{"}$product-&gt;sale_price{"}"}
-                  {"}"}
-                  <del>
-                    ${"{"}
-                    {"{"}$product-&gt;regular_price{"}"}
-                    {"}"}
-                  </del>
-                  <span>
-                    {"{"}
-                    {"{"} round((($product-&gt;regular_price -
-                    $product-&gt;sale_price)/$product-&gt;regular_price)*100){" "}
-                    {"}"}
-                    {"}"}% off
-                  </span>
-                  @else
-                  {"{"}
-                  {"{"}$product-&gt;regular_price{"}"}
-                  {"}"}
-                  @endif
+                $70.00
+                <del> $90.00</del>
+                <span>71 % off</span>
                 </h3>
                 {/* Votre bouton Commande */}
                 <div className="product-buttons">
@@ -121,7 +115,7 @@ export default function Detail() {
                   <li>
                     <img
                       src="../assets/images/gif/truck.png"
-                      className="img-fluid blur-up lazyload"
+                      className="img-fluid  lazyload"
                       alt="image"
                     />
                     <span className="lang">
@@ -131,8 +125,7 @@ export default function Detail() {
                 </ul>
                 <div className="mt-2 mt-md-3 border-product">
                   <h6 className="product-title hurry-title d-block">
-                    @if($product-&gt;stock_status=='instock') InStock @else Out
-                    Of Stock @endif
+                    in stock OR out of stock
                   </h6>
                   <div className="progress">
                     <div
@@ -250,9 +243,7 @@ export default function Detail() {
           <div className="tab-content" id="nav-tabContent">
             <div className="tab-pane fade show active" id="desc">
               <div className="shipping-chart">
-                {"{"}
-                {"{"}$product-&gt;description{"}"}
-                {"}"}
+                product description
               </div>
             </div>
             <div className="tab-pane fade" id="speci">
@@ -619,7 +610,7 @@ export default function Detail() {
                       <div className="customer-profile">
                         <img
                           src="../assets/images/inner-page/review-image/1.jpg"
-                          className="img-fluid blur-up lazyload"
+                          className="img-fluid  lazyload"
                           alt=""
                         />
                       </div>
@@ -658,7 +649,7 @@ export default function Detail() {
                       <div className="customer-profile">
                         <img
                           src="../assets/images/inner-page/review-image/2.jpg"
-                          className="img-fluid blur-up lazyload"
+                          className="img-fluid  lazyload"
                           alt=""
                         />
                       </div>
@@ -695,7 +686,7 @@ export default function Detail() {
                       <div className="customer-profile">
                         <img
                           src="../assets/images/inner-page/review-image/3.jpg"
-                          className="img-fluid blur-up lazyload"
+                          className="img-fluid  lazyload"
                           alt=""
                         />
                       </div>
@@ -729,7 +720,7 @@ export default function Detail() {
                       <div className="customer-profile">
                         <img
                           src="../assets/images/inner-page/review-image/4.jpg"
-                          className="img-fluid blur-up lazyload"
+                          className="img-fluid  lazyload"
                           alt=""
                         />
                       </div>
@@ -771,129 +762,36 @@ export default function Detail() {
     </div>
   </div>
 </section>
-<>
-  {/* product section start */}
   <section className="ratio_asos section-b-space overflow-hidden">
     <div className="container">
       <div className="row">
         <div className="col-12">
           <h2 className="mb-lg-4 mb-3">Customers Also Bought These</h2>
-          <div className="product-wrapper product-style-2 slide-4 p-0 light-arrow bottom-space">
-            <div>
-              <div className="product-box">
-                <div className="img-wrapper">
-                  <div className="front">
-                    <a href="{{route('shop.product.details',['slug'=>$rproduct->slug])}}">
-                      <img
-                        src=" {{ asset('storage/'.$rproduct->image) }}"
-                        className="bg-img blur-up lazyload"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  <div className="back">
-                    <a href="{{route('shop.product.details',['slug'=>$rproduct->slug])}}">
-                      <img src="" className="bg-img blur-up lazyload" alt="" />
-                    </a>
-                  </div>
-                  <div className="cart-wrap">
-                    <ul>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          className="addtocart-btn"
-                          data-bs-toggle="modal"
-                          data-bs-target="#addtocart"
-                        >
-                          <i data-feather="shopping-bag" />
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="javascript:void(0)"
-                          data-bs-toggle="modal"
-                          data-bs-target="#quick-view"
-                        >
-                          <i data-feather="eye" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)" className="wishlist">
-                          <i data-feather="heart" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="product-details">
-                  <div className="rating-details">
-                    <span className="font-light grid-content">
-                      Cupiditate Minus
-                    </span>
-                    <ul className="rating mt-0">
-                      <li>
-                        <i className="fas fa-star theme-color" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star theme-color" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star" />
-                      </li>
-                      <li>
-                        <i className="fas fa-star" />
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="main-price">
-                    <a
-                      href="{{route('shop.product.details',['slug'=>$rproduct->slug])}}"
-                      className="font-default"
-                    >
-                      <h5>
-                        {"{"}
-                        {"{"}$rproduct-&gt;name{"}"}
-                        {"}"}
-                      </h5>
-                    </a>
-                    <div className="listing-content">
-                      <span className="font-light">
-                        {"{"}
-                        {"{"}$rproduct-&gt;category-&gt;name{"}"}
-                        {"}"}
-                      </span>
-                      <p className="font-light">
-                        {"{"}
-                        {"{"}$rproduct-&gt;short_description{"}"}
-                        {"}"}
-                      </p>
-                    </div>
-                    <h3 className="theme-color">
-                      @if($rproduct-&gt;sale_price) {"{"}
-                      {"{"} $product-&gt;sale_price {"}"}
-                      {"}"} @else {"{"}
-                      {"{"}$rproduct-&gt;regular_price{"}"}
-                      {"}"} @endif
-                    </h3>
-                    <button
-                      onclick="location.href = 'cart.html';"
-                      className="btn listing-content"
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="product-wrapper product-style-2 slide-4 p-0 light-arrow bottom-space ">
+          <div className="product-box">
+           <ProdCard/>
+           </div>
+           <div className="product-box">
+           <ProdCard/>
+           </div>           
+           <div className="product-box">
+           <ProdCard/>
+           </div>           
+           <div className="product-box">
+           <ProdCard/>
+           </div>          
+           <div className="product-box">
+           <ProdCard/>
+           </div>           
           </div>
-        </div>
-      </div>
-    </div>
+          </div>
+          </div>
+          </div>
   </section>
-</>
+  <div id="qvmodal"></div>
+
+  
+
 
         </>
     )
