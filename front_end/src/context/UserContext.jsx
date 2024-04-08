@@ -10,6 +10,7 @@ export const UserContext = createContext({
   login: () => {},
   getUser: () => {},
   register: () => {},
+  setToken: () => {},
 });
 
 export default function UserContextProvider({ children }) {
@@ -44,10 +45,13 @@ export default function UserContextProvider({ children }) {
       console.log(user); // Cela va maintenant afficher les données de l'utilisateur récupérées
     });
   };
+  const setToken = (token) => {
+    window.localStorage.setItem("token", token);
+  };
   
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout, login, authenticated, setAuthenticated, register , getUser }}>
+    <UserContext.Provider value={{ user, setUser, logout, login, setToken ,authenticated, setAuthenticated, register , getUser }}>
       {children}
     </UserContext.Provider>
   );
