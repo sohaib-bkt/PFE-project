@@ -1,7 +1,7 @@
 import image from '@Public/assets/images/newletter-icon.png';
 export default function Product() {
     return (
-        <div className=" flex flex-row mt-1" >
+        
         <div>
           <div className="product-box">
             <div className="img-wrapper">
@@ -12,7 +12,7 @@ export default function Product() {
               </div>
               <div className="back">
                 <a href="#">
-                  <img src="#" className="bg-img blur-up lazyload" alt="" />
+                  <img src="#" className="bg-img  lazyload" alt="" />
                 </a>
               </div>
               <div className="cart-wrap">
@@ -60,11 +60,10 @@ export default function Product() {
                   <p className="font-light">prod desc</p>
                 </div>
                 <h3 className="theme-color">$price</h3>
-                <button className="btn listing-content">Add To Cart</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      
     )
 }

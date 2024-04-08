@@ -14,6 +14,7 @@ import GuestLayouth from "@Layouths/GuestLayouth.jsx"
 import AdminLayouth from "@Layouths/AdminLayouth.jsx"
 import ShopClothes from "@Pages/ShopClothes.jsx"
 import ShopInfo from "@Pages/ShopInfo.jsx"
+import Detail from "@Pages/Detail.jsx"
 export const router = createBrowserRouter([
 
             {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
                     {
                         path: "/wishlist",
                         element: <Wishlist/>
+                    },
+                    {
+                        path: "/detail",
+                        element: <Detail/>
                     },
                 ]
             },
