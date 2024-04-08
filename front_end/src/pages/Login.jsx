@@ -30,18 +30,18 @@ export default function Login() {
       setAuthenticated(true);
       const res = await UserApi.getUser(); 
       setUser(res.data);     
-      if (res.data.utype == "admin") {
+      if (res.data.utype === "admin") {
         navigate('/dashboard');
-      }else{
+      } else {
         navigate('/');
       }
-      
     } catch (error) {
       setError(error.response.data.message);
-    } finally {  
+    } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
