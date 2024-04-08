@@ -1,4 +1,5 @@
 import ProdCard from '@Components/ProdCard.jsx';
+import Slider from '@Components/Slider.jsx';
 import '@Public/assets/css/style.css';
 import '@Public/assets/css/demo4.css';
 import '@Public/assets/css/demo2.css';
@@ -768,21 +769,7 @@ export default function Detail() {
         <div className="col-12">
           <h2 className="mb-lg-4 mb-3">Customers Also Bought These</h2>
           <div className="product-wrapper product-style-2 slide-4 p-0 light-arrow bottom-space ">
-          <div className="product-box">
-           <ProdCard/>
-           </div>
-           <div className="product-box">
-           <ProdCard/>
-           </div>           
-           <div className="product-box">
-           <ProdCard/>
-           </div>           
-           <div className="product-box">
-           <ProdCard/>
-           </div>          
-           <div className="product-box">
-           <ProdCard/>
-           </div>           
+          <Slider/>
           </div>
           </div>
           </div>

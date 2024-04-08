@@ -1,9 +1,10 @@
 import '@Css/ProdCard.scss';
+
 export default function ProdCard() {
     return (
       <>
       <main role="main">
-  <div className="product">
+      <div className="product">
     <figure>
       <img
         src="https://raw.githubusercontent.com/itbruno/productpreview/master/assets/img/t-shirt.jpg"
