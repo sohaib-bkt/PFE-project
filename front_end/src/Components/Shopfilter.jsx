@@ -1,5 +1,6 @@
 import 'feather-icons';
 import Product from './product';
+import Slider from './Slider.jsx';
 import svg4 from '@Public/assets/svg/list.svg'
 import svg1 from '@Public/assets/svg/grid.svg'
 import svg3 from '@Public/assets/svg/grid-3.svg'
@@ -7,80 +8,33 @@ import svg2 from '@Public/assets/svg/grid-2.svg'
 import '@Public/assets/css/style.css';
 import '@Public/assets/css/demo2.css';
 import '@Public/assets/css/demo4.css';
+import ProdCard from './ProdCard.jsx';
 import '@Public/assets/css/custom.css';
 import $ from 'jquery';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
 export default function Shopfilter() {
-  const [gridClass, setGridClass] = useState('grid grid-cols-2 md:grid-cols-3 justify-items-center pt-3');
+
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed2, setIsCollapsed2] = useState(true);
 
   const toggleAccordion = () => {
     setIsCollapsed(!isCollapsed);
   };
-  const [isCollapsed2, setIsCollapsed2] = useState(true);
 
   const toggleAccordion2 = () => {
     setIsCollapsed2(!isCollapsed2);
   };
-    const handleTwoGridClick = () => {
-        setGridClass("row g-sm-4 g-3 mt-1 custom-gy-5 product-style-2 ratio_asos product-list-section row-cols-2");
-    };
 
-    const handleThreeGridClick = () => {
-        setGridClass("row g-sm-4 g-3 mt-1 custom-gy-5 product-style-2 ratio_asos product-list-section row-cols-md-3 row-cols-2");
-    };
-
-    const handleFourGridClick = () => {
-        setGridClass("row g-sm-4 g-3 mt-1 custom-gy-5 product-style-2 ratio_asos product-list-section row-cols-lg-4 row-cols-md-3 row-cols-2");
-    };
-
-    const handleListGridClick = () => {
-        setGridClass("row g-sm-4 g-3 mt-1 custom-gy-5 product-style-2 ratio_asos product-list-section row-cols-lg-4 row-cols-md-3 row-cols-2 list-style");
-    };
   useEffect(() => {
-    
-    $(".grid-options .grid-btn").on("click", function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".product-list-section").removeClass("list-style");
-    });
-
-    $(".grid-options .list-btn").on("click", function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".product-list-section").addClass("list-style");
-    });
-
-    $('.two-grid').on('click', function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".product-list-section").removeClass("row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 list-style").addClass("row-cols-2");
-    });
-
-    $('.three-grid').on('click', function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".product-list-section").removeClass("row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 list-style").addClass("row-cols-md-3 row-cols-2");
-    });
-
-    $('.grid-btn').on('click', function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".product-list-section").removeClass("row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 list-style").addClass("row-cols-lg-4 row-cols-md-3 row-cols-2");
-    });
-
-    $('.five-grid').on('click', function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".product-list-section").removeClass("list-style").addClass("row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2");
-    });
-
     $(".grid-options ul li").click(function (e) {
-        e.preventDefault(); // Prevent default behavior
-        $(".grid-options li.active").removeClass("active");
-        $(this).addClass("active")
-    });
-    $(".two-grid").on("click", function (e) {
       e.preventDefault();
-      $("").removeClass("row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2 list-style").addClass("row-cols-2");
-  });
-}, []);
+      $(".grid-options li.active").removeClass("active");
+      $(this).addClass("active");
+    });
+  }, []);
+
     return (
         <>
          <section  className="section-b-space">
@@ -235,22 +189,22 @@ export default function Shopfilter() {
         </div>
         <div className="grid-options d-sm-inline-block d-none">
                 <ul className="d-flex">
-                    <li className="two-grid" onClick={handleTwoGridClick}>
+                    <li className="two-grid" >
                         <a href="#">
                             <img src={svg2} className="img-fluid lazyload" alt="" />
                         </a>
                     </li>
-                    <li className="three-grid d-md-inline-block d-none" onClick={handleThreeGridClick}>
+                    <li className="three-grid d-md-inline-block d-none" >
                         <a href="#">
                             <img src={svg3} className="img-fluid lazyload" alt="" />
                         </a>
                     </li>
-                    <li className="grid-btn active d-lg-inline-block d-none" onClick={handleFourGridClick}>
+                    <li className="grid-btn active d-lg-inline-block d-none" >
                         <a href="#">
                             <img src={svg1} className="img-fluid lazyload" alt="" />
                         </a>
                     </li>
-                    <li className="list-btn" onClick={handleListGridClick}>
+                    <li className="list-btn">
                         <a href="#">
                             <img src={svg4} className="img-fluid lazyload" alt="" />
                         </a>
@@ -260,19 +214,7 @@ export default function Shopfilter() {
       </div>
     </div>
   </div>
-
-  <div className = {gridClass}>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-        <Product/>
-  </div>
-
-
+          <Slider />
 </div>
 
   </div>
