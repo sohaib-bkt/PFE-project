@@ -1,10 +1,10 @@
 import '@Css/ProdCard.scss';
 
 export default function ProdCard() {
-    return (
-      <>
-      <main role="main">
-      <div className="product">
+
+
+  return (<main role="main">
+  <div className="product">
     <figure>
       <img
         src="https://raw.githubusercontent.com/itbruno/productpreview/master/assets/img/t-shirt.jpg"
@@ -15,7 +15,7 @@ export default function ProdCard() {
     <div className="product-description">
       <div className="info">
         <h1>LOREM IPSUM</h1>
-        <p>short disc</p>
+        <p>Lorem Ipsum is simply dummy printing and typesetting industry</p>
       </div>
       <div className="price">89</div>
     </div>
@@ -39,7 +39,5 @@ export default function ProdCard() {
     </div>
   </div>
 </main>
-
-      </>
-      )
+  );
 }

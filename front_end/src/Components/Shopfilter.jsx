@@ -13,12 +13,16 @@ import '@Public/assets/css/custom.css';
 import $ from 'jquery';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import MultipleRows from './MultipleRowsSlider.jsx';
 
 export default function Shopfilter() {
 
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isCollapsed2, setIsCollapsed2] = useState(true);
-
+  const [grid, setgrid ] = useState(4);
+  const handleGridButtonClick = (gridvar) => {
+    setgrid(gridvar);
+  }
   const toggleAccordion = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -188,33 +192,33 @@ export default function Shopfilter() {
           </div>
         </div>
         <div className="grid-options d-sm-inline-block d-none">
-                <ul className="d-flex">
-                    <li className="two-grid" >
-                        <a href="#">
-                            <img src={svg2} className="img-fluid lazyload" alt="" />
-                        </a>
-                    </li>
-                    <li className="three-grid d-md-inline-block d-none" >
-                        <a href="#">
-                            <img src={svg3} className="img-fluid lazyload" alt="" />
-                        </a>
-                    </li>
-                    <li className="grid-btn active d-lg-inline-block d-none" >
-                        <a href="#">
-                            <img src={svg1} className="img-fluid lazyload" alt="" />
-                        </a>
-                    </li>
-                    <li className="list-btn">
-                        <a href="#">
-                            <img src={svg4} className="img-fluid lazyload" alt="" />
-                        </a>
-                    </li>
-                </ul>
+        <ul className="d-flex">
+        <li className="two-grid">
+          <a href="#" onClick={() => handleGridButtonClick(2)}>
+            <img src={svg2} className="img-fluid lazyload" alt="" />
+          </a>
+        </li>
+        <li className="three-grid d-md-inline-block d-none">
+          <a href="#" onClick={() => handleGridButtonClick(3)}>
+            <img src={svg3} className="img-fluid lazyload" alt="" />
+          </a>
+        </li>
+        <li className="grid-btn active d-lg-inline-block d-none">
+          <a href="#" onClick={() => handleGridButtonClick(4)}>
+            <img src={svg1} className="img-fluid lazyload" alt="" />
+          </a>
+        </li>
+        <li className="list-btn">
+          <a href="#" onClick={() => handleGridButtonClick(1)}>
+            <img src={svg4} className="img-fluid lazyload" alt="" />
+          </a>
+        </li>
+      </ul>
             </div>
       </div>
     </div>
   </div>
-          <Slider />
+          <MultipleRows grid={grid}/>
 </div>
 
   </div>
