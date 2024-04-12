@@ -11,8 +11,24 @@ import '@Public/assets/css/vendors/bootstrap.css';
 import '@Public/assets/css/vendors/feather-icon.css';
 import '@Public/assets/css/vendors/font-awesome.css';
 import '@Public/assets/css/vendors/ion.rangeSlider.min.css';
+import { useEffect, useState } from "react";
+import axiosClient from "../api/axios";
 
 export default function ShopClothing() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const data = axiosClient.get('/api/products')
+        
+            .then(response => {
+                console.log(response.data);
+                setProducts(response.data.products);
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    }, []);
+
     return (
         <>
         <SectionStart title="Shop" activeBreadcrumb="Shop"/>

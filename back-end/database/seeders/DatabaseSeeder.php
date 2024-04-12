@@ -19,14 +19,18 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\User::factory()->create([
-            'name' => 'sohaib',
-            'email' => 'sohaib@gmail.com',
-            'password' => bcrypt('123456'),
-            'phone' => '123456789',
-            'address' => 'address',      
-            'utype' => 'admin',
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'sohaib',
+        //     'email' => 'sohaib@gmail.com',
+        //     'password' => bcrypt('123456'),
+        //     'phone' => '123456789',
+        //     'address' => 'address',      
+        //     'utype' => 'admin',
+        // ]);
+
+    // \App\Models\Brand::factory(6)->create();
+    // \App\Models\Category::factory(6)->create();
+    \App\Models\Product::factory(20)->create();
         
         
     }
