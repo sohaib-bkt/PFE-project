@@ -1,231 +1,323 @@
-import 'feather-icons';
-import Product from './product';
-import Slider from './Slider.jsx';
-import svg4 from '@Public/assets/svg/list.svg'
-import svg1 from '@Public/assets/svg/grid.svg'
-import svg3 from '@Public/assets/svg/grid-3.svg'
-import svg2 from '@Public/assets/svg/grid-2.svg'
-import '@Public/assets/css/style.css';
-import '@Public/assets/css/demo2.css';
-import '@Public/assets/css/demo4.css';
-import ProdCard from './ProdCard.jsx';
-import '@Public/assets/css/custom.css';
-import $ from 'jquery';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import MultipleRows from './MultipleRowsSlider.jsx';
-
+import ProdCard from "./ProdCard";
 export default function Shopfilter() {
-
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const [isCollapsed2, setIsCollapsed2] = useState(true);
-  const [grid, setgrid ] = useState(4);
-  const handleGridButtonClick = (gridvar) => {
-    setgrid(gridvar);
-  }
-  const toggleAccordion = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  const toggleAccordion2 = () => {
-    setIsCollapsed2(!isCollapsed2);
-  };
-
-  useEffect(() => {
-    $(".grid-options ul li").click(function (e) {
-      e.preventDefault();
-      $(".grid-options li.active").removeClass("active");
-      $(this).addClass("active");
-    });
-  }, []);
 
     return (
         <>
-         <section  className="section-b-space">
-     <div className="container">
-  <div className="row">
-    <div className="col-lg-3 category-side col-md-4">
-      <div className="category-option">
-      <div className="button-close mb-3">
-                        <button className="btn p-0"><i data-feather="arrow-left"></i> Close</button>
-                    </div>
-        <div className="accordion category-name" id="accordionExample">
-        <div className="accordion-item category-rating">
-        <h2 className="accordion-header" id="headingTwo">
-          <button
-            className={`accordion-button ${isCollapsed ? 'collapsed' : ''}`}
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo"
-            aria-expanded={!isCollapsed ? 'true' : 'false'}
-            onClick={toggleAccordion}
-          >
-            Brand
-          </button>
-        </h2>
-        <div
-          id="collapseTwo"
-          className={`accordion-collapse  ${isCollapsed ? 'collapse' : ''}`}
-          data-bs-parent="#accordionExample"
-        >
-          <div className="accordion-body category-scroll">
-            <ul className="category-list">
-              <li>
-                <div className="form-check ps-0 custome-form-check">
-                  <input
-                    className="checkbox_animated check-it"
-                    id="br1"
-                    name="brands"
-                    defaultChecked="checked"
-                    type="checkbox"
-                  />
-                  <label className="form-check-label">brandname</label>
-                  <p className="font-light">count</p>
-                </div>
-              </li>
-            </ul>
-          </div>
+         
+  {/* Shop Start */}
+  <div className="container-fluid pt-5">
+    <div className="row px-xl-5">
+      {/* Shop Sidebar Start */}
+      <div className="col-lg-3 col-md-12">
+        {/* Price Start */}
+        <div className="border-bottom mb-4 pb-4">
+          <h5 className="font-weight-semi-bold mb-4">Filter by price</h5>
+          <form>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                defaultChecked=""
+                id="price-all"
+              />
+              <label className="custom-control-label" htmlFor="price-all">
+                All Price
+              </label>
+              <span className="badge border font-weight-normal">1000</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="price-1"
+              />
+              <label className="custom-control-label" htmlFor="price-1">
+                $0 - $100
+              </label>
+              <span className="badge border font-weight-normal">150</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="price-2"
+              />
+              <label className="custom-control-label" htmlFor="price-2">
+                $100 - $200
+              </label>
+              <span className="badge border font-weight-normal">295</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="price-3"
+              />
+              <label className="custom-control-label" htmlFor="price-3">
+                $200 - $300
+              </label>
+              <span className="badge border font-weight-normal">246</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="price-4"
+              />
+              <label className="custom-control-label" htmlFor="price-4">
+                $300 - $400
+              </label>
+              <span className="badge border font-weight-normal">145</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="price-5"
+              />
+              <label className="custom-control-label" htmlFor="price-5">
+                $400 - $500
+              </label>
+              <span className="badge border font-weight-normal">168</span>
+            </div>
+          </form>
         </div>
+        {/* Price End */}
+        {/* Color Start */}
+        <div className="border-bottom mb-4 pb-4">
+          <h5 className="font-weight-semi-bold mb-4">Filter by color</h5>
+          <form>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                defaultChecked=""
+                id="color-all"
+              />
+              <label className="custom-control-label" htmlFor="price-all">
+                All Color
+              </label>
+              <span className="badge border font-weight-normal">1000</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="color-1"
+              />
+              <label className="custom-control-label" htmlFor="color-1">
+                Black
+              </label>
+              <span className="badge border font-weight-normal">150</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="color-2"
+              />
+              <label className="custom-control-label" htmlFor="color-2">
+                White
+              </label>
+              <span className="badge border font-weight-normal">295</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="color-3"
+              />
+              <label className="custom-control-label" htmlFor="color-3">
+                Red
+              </label>
+              <span className="badge border font-weight-normal">246</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="color-4"
+              />
+              <label className="custom-control-label" htmlFor="color-4">
+                Blue
+              </label>
+              <span className="badge border font-weight-normal">145</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="color-5"
+              />
+              <label className="custom-control-label" htmlFor="color-5">
+                Green
+              </label>
+              <span className="badge border font-weight-normal">168</span>
+            </div>
+          </form>
+        </div>
+        {/* Color End */}
+        {/* Size Start */}
+        <div className="mb-5">
+          <h5 className="font-weight-semi-bold mb-4">Filter by size</h5>
+          <form>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                defaultChecked=""
+                id="size-all"
+              />
+              <label className="custom-control-label" htmlFor="size-all">
+                All Size
+              </label>
+              <span className="badge border font-weight-normal">1000</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="size-1"
+              />
+              <label className="custom-control-label" htmlFor="size-1">
+                XS
+              </label>
+              <span className="badge border font-weight-normal">150</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="size-2"
+              />
+              <label className="custom-control-label" htmlFor="size-2">
+                S
+              </label>
+              <span className="badge border font-weight-normal">295</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="size-3"
+              />
+              <label className="custom-control-label" htmlFor="size-3">
+                M
+              </label>
+              <span className="badge border font-weight-normal">246</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="size-4"
+              />
+              <label className="custom-control-label" htmlFor="size-4">
+                L
+              </label>
+              <span className="badge border font-weight-normal">145</span>
+            </div>
+            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="size-5"
+              />
+              <label className="custom-control-label" htmlFor="size-5">
+                XL
+              </label>
+              <span className="badge border font-weight-normal">168</span>
+            </div>
+          </form>
+        </div>
+        {/* Size End */}
       </div>
-          <div className="accordion-item category-price">
-            <h2 className="accordion-header" id="headingFour">
-              <button
-                className="accordion-button"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseFour"
-                aria-expanded="true"
-              >
-                Price
-              </button>
-            </h2>
-            <div
-              id="collapseFour"
-              className="accordion-collapse collapse show"
-              aria-labelledby="headingFour"
-              data-bs-parent="#accordionExample"
-            >
-              <div className="accordion-body">
-                <div className="range-slider category-list">
+      {/* Shop Sidebar End */}
+      {/* Shop Product Start */}
+      <div className="col-lg-9 col-md-12">
+        <div className="row pb-3">
+          <div className="col-12 pb-1">
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <form action="">
+                <div className="input-group">
                   <input
                     type="text"
-                    className="js-range-slider"
-                    id="js-range-price"
-                    defaultValue=""
+                    className="form-control"
+                    placeholder="Search by name"
                   />
+                  <div className="input-group-append">
+                    <span className="input-group-text bg-transparent text-primary">
+                      <i className="fa fa-search" />
+                    </span>
+                  </div>
+                </div>
+              </form>
+              <div className="dropdown ml-4">
+                <button
+                  className="btn border dropdown-toggle"
+                  type="button"
+                  id="triggerId"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Sort by
+                </button>
+                <div
+                  className="dropdown-menu dropdown-menu-right"
+                  aria-labelledby="triggerId"
+                >
+                  <a className="dropdown-item" href="#">
+                    Latest
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Popularity
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    Best Rating
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-
-           <div className="accordion-item category-rating">
-      <h2 className="accordion-header" id="headingOne">
-        <button
-          className={`accordion-button ${isCollapsed2 ? 'collapsed' : ''}`}
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseSix"
-          aria-expanded={isCollapsed2 ? 'true' : 'false'}
-          onClick={toggleAccordion2}
-        >
-          Category
-        </button>
-      </h2>
-      <div
-        id="collapseSix"
-        className={`accordion-collapse ${isCollapsed2 ? 'collapse' : ''}`}
-        aria-labelledby="headingOne"
-      >
-        <div className="accordion-body category-scroll">
-          <ul className="category-list">
-            <li>
-              <div className="form-check ps-0 custome-form-check">
-                <input
-                  className="checkbox_animated check-it"
-                  id="ct1"
-                  name="categories"
-                  type="checkbox"
-                  defaultChecked="checked"
-                  defaultValue={1}
-                />
-                <label className="form-check-label">catname</label>
-                <p className="font-light">count</p>
-              </div>
-            </li>
-          </ul>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <ProdCard/>
+         <div class="col-12 pb-1">
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination justify-content-center mb-3">
+                            <li class="page-item disabled">
+                              <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                              <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                    </div>
         </div>
       </div>
-    </div>
-          
-        </div>
-        
-      </div>
-      
-    </div>
-    <div className="category-product col-lg-9 col-12 ratio_30">
-  <div className="row g-4">
-    {/* label and featured section */}
-    <div className="col-md-12">
-      <ul className="short-name"></ul>
-    </div>
-    <div className="col-12">
-      <div className="filter-options">
-        <div className="select-options">
-          <div className="page-view-filter">
-            <div className="dropdown select-featured">
-              <select className="form-select" name="orderby" id="orderby">
-                <option value={-1}>Default</option>
-                <option value={1}>Date, New To Old</option>
-                <option value={2}>Date, Old To New</option>
-                <option value={3}>Price, Low To High</option>
-                <option value={4}>Price, High To Low</option>
-              </select>
-            </div>
-          </div>
-          <div className="dropdown select-featured">
-            <select className="form-select" name="size" id="pagesize">
-              <option value={12}>12 Products Per Page</option>
-              <option value={24}>24 Products Per Page</option>
-              <option value={52}>52 Products Per Page</option>
-              <option value={100}>100 Products Per Page</option>
-            </select>
-          </div>
-        </div>
-        <div className="grid-options d-sm-inline-block d-none">
-        <ul className="d-flex">
-        <li className="two-grid">
-          <a href="#" onClick={() => handleGridButtonClick(2)}>
-            <img src={svg2} className="img-fluid lazyload" alt="" />
-          </a>
-        </li>
-        <li className="three-grid d-md-inline-block d-none">
-          <a href="#" onClick={() => handleGridButtonClick(3)}>
-            <img src={svg3} className="img-fluid lazyload" alt="" />
-          </a>
-        </li>
-        <li className="grid-btn active d-lg-inline-block d-none">
-          <a href="#" onClick={() => handleGridButtonClick(4)}>
-            <img src={svg1} className="img-fluid lazyload" alt="" />
-          </a>
-        </li>
-        <li className="list-btn">
-          <a href="#" onClick={() => handleGridButtonClick(1)}>
-            <img src={svg4} className="img-fluid lazyload" alt="" />
-          </a>
-        </li>
-      </ul>
-            </div>
-      </div>
+      {/* Shop Product End */}
     </div>
   </div>
-          <MultipleRows grid={grid}/>
-</div>
 
-  </div>
-  
-</div>
-
-</section>
+ 
 <section className="subscribe-section section-b-space">
   <div className="container">
     <div className="row">
@@ -257,6 +349,6 @@ export default function Shopfilter() {
 </section>
 
 
-        </>
+</>
         )
 }

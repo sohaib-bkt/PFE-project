@@ -1,43 +1,39 @@
-import '@Css/ProdCard.scss';
+import '@Css/ProdCard.css';
+import img from "@Assets/images/newletter-icon.png";
+
 
 export default function ProdCard() {
 
 
-  return (<main role="main">
-  <div className="product">
-    <figure>
+  return (<div className="col-lg-4 col-md-6 col-sm-12 pb-1">
+  <div className="card product-item border-0 mb-4">
+    <div className="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
       <img
-        src="https://raw.githubusercontent.com/itbruno/productpreview/master/assets/img/t-shirt.jpg"
-        alt="Product Image"
-        className="product-image"
+        className="img-fluid w-100"
+        src={img}
+        alt=""
       />
-    </figure>
-    <div className="product-description">
-      <div className="info">
-        <h1>LOREM IPSUM</h1>
-        <p>Lorem Ipsum is simply dummy printing and typesetting industry</p>
-      </div>
-      <div className="price">89</div>
     </div>
-    <div className="product-sidebar">
-      <button className="buy">
-        <span>BUY ITEM</span>
-      </button>
-      <button className="info">
-        <span>MORE INFO</span>
-      </button>
-      <button className="size">
-        <span>SIZES</span>
-      </button>
-      <button className="colors">
-        <span>
-          <a href="" className="color black" />
-          <a href="" className="color white" />
-          <a href="" className="color red" />
-        </span>
-      </button>
+    <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
+      <h6 className="text-truncate mb-3">Colorful Stylish Shirt</h6>
+      <div className="d-flex justify-content-center">
+        <h6>$123.00</h6>
+        <h6 className="text-muted ml-2">
+          <del>$123.00</del>
+        </h6>
+      </div>
+    </div>
+    <div className="card-footer d-flex justify-content-between bg-light border">
+      <a href="" className="btn btn-sm text-dark p-0">
+        <i className="fas fa-eye text-primary mr-1" />
+        View Detail
+      </a>
+      <a href="" className="btn btn-sm text-dark p-0">
+        <i className="fas fa-shopping-cart text-primary mr-1" />
+        Add To Cart
+      </a>
     </div>
   </div>
-</main>
+</div>
   );
 }

@@ -4,9 +4,6 @@ import '@Public/assets/css/style.css';
 import '@Public/assets/css/demo4.css';
 import '@Public/assets/css/demo2.css';
 import '@Public/assets/css/custom.css';
-import '@Public/assets/css/vendors/slick/slick.css';
-import '@Public/assets/css/vendors/slick/slick-theme.css';
-import '@Public/assets/js/slick/slick.js';
 
 import img from '@Public/assets/images/blog/sample.jpg';
 import SectionStart from "@Components/SectionStart.jsx";
