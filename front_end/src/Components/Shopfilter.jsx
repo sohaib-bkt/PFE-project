@@ -1,4 +1,5 @@
 import ProdCard from "./ProdCard";
+import '@Css/dropdown.css';
 export default function Shopfilter() {
 
     return (
@@ -253,33 +254,15 @@ export default function Shopfilter() {
                 </button>
               </div>
             </div>
-              <div className="dropdown ml-4">
-                <button
-                  className="btn border dropdown-toggle"
-                  type="button"
-                  id="triggerId"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Sort by
-                </button>
-                <div
-                  className="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="triggerId"
-                >
-                  <a className="dropdown-item" href="#">
-                    Latest
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Popularity
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Best Rating
-                  </a>
-                </div>
-              </div>
+            
+            <div class="unique-dropdown">  <button class="unique-dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;Sort By&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <div class="unique-dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
             </div>
+          </div>
+          </div>
           </div>
          <ProdCard/>
          <ProdCard/>

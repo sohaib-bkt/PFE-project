@@ -15,10 +15,6 @@ import AdminLayouth from "@Layouths/AdminLayouth.jsx"
 import ShopClothes from "@Pages/ShopClothes.jsx"
 import ShopInfo from "@Pages/ShopInfo.jsx"
 import Detail from "@Pages/Detail.jsx"
-import ProdCard from "@Components/ProdCard.jsx"
-import Slider from "@Components/Slider.jsx"
-import PriceSlider from "@Components/PriceSlider.jsx"
-import NUTO from "@Components/Detail/DetailReview.jsx"
 export const router = createBrowserRouter([
 
             {
@@ -108,7 +104,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "*",
-                element: <NUTO/>
+                element: <Notfound/>
             }
 
 ])

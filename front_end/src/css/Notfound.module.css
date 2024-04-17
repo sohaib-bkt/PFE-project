@@ -2,11 +2,11 @@
     animation: scales 3s alternate  infinite;
     transform-origin: center;
   }
-  .pao-baixo{
+  .paoBaixo{
      animation: rotatepao 14s cubic-bezier(.1,.49,.41,.97)  infinite;
     transform-origin: center;
   }
-  .pao-cima{
+  .paoCima{
      animation: rotatepao 7s 1s cubic-bezier(.1,.49,.41,.97)  infinite;
     transform-origin: center;
   }
@@ -14,11 +14,11 @@
      transform-origin: center;
   }
 
-  .left-sparks{animation: left-sparks   4s  alternate  infinite;
+  .leftSparks{animation: left-sparks   4s  alternate  infinite;
         transform-origin: 150px 156px;
   }
 
-  .right-sparks{animation: left-sparks   4s  alternate  infinite;
+  .rightSparks{animation: left-sparks   4s  alternate  infinite;
         transform-origin: 310px 150px;
   }
 
