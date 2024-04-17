@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import ProdCard from "./ProdCard";
+import ProdCard from "./ProdDetail.jsx";
 function Responsive() {
   var settings = {
     dots: true,

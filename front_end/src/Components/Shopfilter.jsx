@@ -238,20 +238,21 @@ export default function Shopfilter() {
         <div className="row pb-3">
           <div className="col-12 pb-1">
             <div className="d-flex align-items-center justify-content-between mb-4">
-              <form action="">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search by name"
-                  />
-                  <div className="input-group-append">
-                    <span className="input-group-text bg-transparent text-primary">
-                      <i className="fa fa-search" />
-                    </span>
-                  </div>
-                </div>
-              </form>
+            <div className="search-section">
+              <div className="input-group search-bar">
+                <input
+                  type="search"
+                  className="form-control search-input"
+                  placeholder="Search"
+                />
+                <button
+                  className="input-group-text search-button"
+                  id="basic-addon3"
+                >
+                  <i className="fas fa-search text-color" />
+                </button>
+              </div>
+            </div>
               <div className="dropdown ml-4">
                 <button
                   className="btn border dropdown-toggle"

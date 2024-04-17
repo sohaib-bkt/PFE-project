@@ -1,7 +1,4 @@
-import '@Public/assets/css/vendors/font-awesome.css';
-import '@Public/assets/css/vendors/bootstrap.css';
-import '@Public/assets/css/demo4.css';
-import '@Public/assets/css/custom.css';
+
 import { useEffect } from 'react';
 import $ from 'jquery';
 import TapToTop from './TaptoTop';

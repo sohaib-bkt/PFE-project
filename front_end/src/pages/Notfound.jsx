@@ -1,4 +1,3 @@
-import '../css/Notfound.css'
 
 export default function Notfound() {
     return (
