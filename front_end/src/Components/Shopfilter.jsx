@@ -1,7 +1,37 @@
 import ProdCard from "./ProdCard";
 import '@Css/dropdown.css';
-export default function Shopfilter() {
+import axiosClient from "../api/axios";
+import { ProductContext } from "../context/ProductContext";
+import { useContext, useEffect, useState } from "react";
 
+export default function Shopfilter() {
+  const [prange , setPrange] = useState(0);
+  const [category , setCategory] = useState(0);
+  const [brands , setBrands] = useState([]);
+  const { products, setProducts , getProducts } = useContext(ProductContext);
+  useEffect(() => {
+    const data = getProducts(prange,brands).then(response => {
+            console.log(response.data);
+            setProducts(response.data.products.data);
+            console.log('hello');
+        })
+        .catch(error => {
+            console.error('Error fetching products:');
+        });
+    
+  },[prange])
+
+  // useEffect(() => {
+  //   const data = getProducts(prange,brands).then(response => {
+  //           console.log(response.data);
+  //           setBrands(response.data.brands);
+  //           console.log('hello');
+  //       })
+  //       .catch(error => {
+  //           console.error('Error fetching products:');
+  //       });
+    
+  // },[brands])
     return (
         <>
          
@@ -15,6 +45,7 @@ export default function Shopfilter() {
           <h5 className="font-weight-semi-bold mb-4">Filter by price</h5>
           <form>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setPrange(0)}>
               <input
                 type="checkbox"
                 className="custom-control-input"
@@ -24,61 +55,72 @@ export default function Shopfilter() {
               <label className="custom-control-label" htmlFor="price-all">
                 All Price
               </label>
+              </a>
               <span className="badge border font-weight-normal">1000</span>
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <a onClick={() => setPrange('0,5')}>
               <input
                 type="checkbox"
                 className="custom-control-input"
                 id="price-1"
               />
               <label className="custom-control-label" htmlFor="price-1">
-                $0 - $100
+                $0 - $5
               </label>
+              </a>
               <span className="badge border font-weight-normal">150</span>
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <a onClick={() => setPrange('5,10')}>
               <input
                 type="checkbox"
                 className="custom-control-input"
                 id="price-2"
               />
               <label className="custom-control-label" htmlFor="price-2">
-                $100 - $200
+                $15 - $10
               </label>
+              </a>
               <span className="badge border font-weight-normal">295</span>
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setPrange('10,20')}>
               <input
                 type="checkbox"
                 className="custom-control-input"
                 id="price-3"
               />
               <label className="custom-control-label" htmlFor="price-3">
-                $200 - $300
+                $10 - $20
               </label>
+              </a>
               <span className="badge border font-weight-normal">246</span>
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setPrange('20,50')}>
               <input
                 type="checkbox"
                 className="custom-control-input"
                 id="price-4"
               />
               <label className="custom-control-label" htmlFor="price-4">
-                $300 - $400
+                $20 - $50
               </label>
+              </a>
               <span className="badge border font-weight-normal">145</span>
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+              <a onClick={() => setPrange('50,100')}>
               <input
                 type="checkbox"
                 className="custom-control-input"
                 id="price-5"
               />
               <label className="custom-control-label" htmlFor="price-5">
-                $400 - $500
+                $50 - $100
               </label>
+              </a>
               <span className="badge border font-weight-normal">168</span>
             </div>
           </form>
@@ -264,16 +306,11 @@ export default function Shopfilter() {
           </div>
           </div>
           </div>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
-         <ProdCard/>
+          {
+            Object.values(products).map((product) => <ProdCard key={product.id} product={product} />)
+
+          }
+
          <div class="col-12 pb-1">
                         <nav aria-label="Page navigation">
                           <ul class="pagination justify-content-center mb-3">
