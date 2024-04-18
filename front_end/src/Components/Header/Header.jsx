@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import feather from 'feather-icons';
 import logo from '@Public/assets/images/logo.png';
 import $ from 'jquery';
-import '@Public/assets/css/style.css';
 import '@Css/Header.css';
 
 const Header = ({ children }) => {

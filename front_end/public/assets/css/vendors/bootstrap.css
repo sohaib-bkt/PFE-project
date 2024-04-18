@@ -3763,10 +3763,10 @@ sup {
   top: -.5em; }
 
 a {
-  color: #0d6efd;
+  color: #e87316;
   text-decoration: underline; }
   a:hover {
-    color: #0a58ca; }
+    color: #e87316; }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -7268,7 +7268,7 @@ progress {
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --bs-blue: #0d6efd;
+  --bs-blue: #e87316;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -7281,7 +7281,7 @@ progress {
   --bs-white: #fff;
   --bs-gray: #6c757d;
   --bs-gray-dark: #343a40;
-  --bs-primary: #0d6efd;
+  --bs-primary: #e87316;
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -8102,6 +8102,7 @@ progress {
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
     width: 100%; }
+    
   .offset-sm-0 {
     margin-left: 0; }
   .offset-sm-1 {
@@ -8394,6 +8395,17 @@ progress {
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
     width: 33.33333%; }
+    .col-lg-44 {
+      -webkit-box-flex: 0;
+          -ms-flex: 0 0 auto;
+              flex: 0 0 auto;
+      width: 25%; }
+      .col-lg-45 {
+        -webkit-box-flex: 0;
+            -ms-flex: 0 0 auto;
+                flex: 0 0 auto;
+        width: 100%; }
+
   .col-lg-5 {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
@@ -11247,7 +11259,7 @@ textarea.form-control-lg {
 .page-link {
   position: relative;
   display: block;
-  color: #0d6efd;
+  color: #e87316;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -11261,7 +11273,7 @@ textarea.form-control-lg {
       transition: none; } }
   .page-link:hover {
     z-index: 2;
-    color: #0a58ca;
+    color: #e87316;
     background-color: #e9ecef;
     border-color: #dee2e6; }
   .page-link:focus {
@@ -11278,8 +11290,8 @@ textarea.form-control-lg {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #0d6efd;
-  border-color: #0d6efd; }
+  background-color: #e87316;
+  border-color: #e87316; }
 
 .page-item.disabled .page-link {
   color: #6c757d;
@@ -11328,7 +11340,7 @@ textarea.form-control-lg {
   font-size: 0.75em;
   font-weight: 700;
   line-height: 1;
-  color: #fff;
+  color: #6f6f6f;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
@@ -13673,7 +13685,7 @@ textarea.form-control-lg {
 
 /* rtl:end:remove */
 .text-primary {
-  color: #0d6efd !important; }
+  color: #e87316 !important; }
 
 .text-secondary {
   color: #6c757d !important; }

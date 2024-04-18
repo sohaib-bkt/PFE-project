@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '@Css/floatingLabel.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 
