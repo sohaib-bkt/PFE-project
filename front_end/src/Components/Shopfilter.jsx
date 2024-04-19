@@ -1,37 +1,27 @@
 import ProdCard from "./ProdCard";
 import '@Css/dropdown.css';
-import axiosClient from "../api/axios";
 import { ProductContext } from "../context/ProductContext";
 import { useContext, useEffect, useState } from "react";
+
 
 export default function Shopfilter() {
   const [prange , setPrange] = useState(0);
   const [category , setCategory] = useState(0);
-  const [brands , setBrands] = useState([]);
+  const [brands , setBrands] = useState(0);
   const { products, setProducts , getProducts } = useContext(ProductContext);
   useEffect(() => {
-    const data = getProducts(prange,brands).then(response => {
-            console.log(response.data);
-            setProducts(response.data.products.data);
-            console.log('hello');
-        })
-        .catch(error => {
-            console.error('Error fetching products:');
-        });
-    
-  },[prange])
+    const fetchData = async () => {
+      const data = getProducts(prange,brands,category).then(response => {
+        
+        setProducts(response.data.products.data);
+        
+    })
+    .catch(error => {
+        console.error('Error fetching products:');
+    });}
 
-  // useEffect(() => {
-  //   const data = getProducts(prange,brands).then(response => {
-  //           console.log(response.data);
-  //           setBrands(response.data.brands);
-  //           console.log('hello');
-  //       })
-  //       .catch(error => {
-  //           console.error('Error fetching products:');
-  //       });
-    
-  // },[brands])
+    fetchData();
+  }, [prange, brands, category]);
     return (
         <>
          
@@ -47,7 +37,8 @@ export default function Shopfilter() {
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <a onClick={() => setPrange(0)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="price"
                 className="custom-control-input"
                 defaultChecked=""
                 id="price-all"
@@ -56,12 +47,13 @@ export default function Shopfilter() {
                 All Price
               </label>
               </a>
-              <span className="badge border font-weight-normal">1000</span>
+              <span className="badge border font-weight-normal">{products.length}</span>
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
             <a onClick={() => setPrange('0,5')}>
               <input
-                type="checkbox"
+                type="radio"
+                name="price"
                 className="custom-control-input"
                 id="price-1"
               />
@@ -69,12 +61,13 @@ export default function Shopfilter() {
                 $0 - $5
               </label>
               </a>
-              <span className="badge border font-weight-normal">150</span>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
             <a onClick={() => setPrange('5,10')}>
               <input
-                type="checkbox"
+                type="radio"
+                name="price"
                 className="custom-control-input"
                 id="price-2"
               />
@@ -82,12 +75,13 @@ export default function Shopfilter() {
                 $15 - $10
               </label>
               </a>
-              <span className="badge border font-weight-normal">295</span>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <a onClick={() => setPrange('10,20')}>
               <input
-                type="checkbox"
+                type="radio"
+                name="price"
                 className="custom-control-input"
                 id="price-3"
               />
@@ -95,12 +89,13 @@ export default function Shopfilter() {
                 $10 - $20
               </label>
               </a>
-              <span className="badge border font-weight-normal">246</span>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
               <a onClick={() => setPrange('20,50')}>
               <input
-                type="checkbox"
+                type="radio"
+                name="price"
                 className="custom-control-input"
                 id="price-4"
               />
@@ -108,12 +103,13 @@ export default function Shopfilter() {
                 $20 - $50
               </label>
               </a>
-              <span className="badge border font-weight-normal">145</span>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
               <a onClick={() => setPrange('50,100')}>
               <input
-                type="checkbox"
+                type="radio"
+                name="price"
                 className="custom-control-input"
                 id="price-5"
               />
@@ -121,92 +117,112 @@ export default function Shopfilter() {
                 $50 - $100
               </label>
               </a>
-              <span className="badge border font-weight-normal">168</span>
+              
             </div>
           </form>
         </div>
         {/* Price End */}
         {/* Color Start */}
         <div className="border-bottom mb-4 pb-4">
-          <h5 className="font-weight-semi-bold mb-4">Filter by color</h5>
+          <h5 className="font-weight-semi-bold mb-4">Filter by brands</h5>
           <form>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setBrands(0)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="brand"
                 className="custom-control-input"
                 defaultChecked=""
                 id="color-all"
               />
               <label className="custom-control-label" htmlFor="price-all">
-                All Color
+                All Brands
               </label>
-              <span className="badge border font-weight-normal">1000</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setBrands(27)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="brand"
                 className="custom-control-input"
                 id="color-1"
               />
               <label className="custom-control-label" htmlFor="color-1">
                 Black
               </label>
-              <span className="badge border font-weight-normal">150</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setBrands(28)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="brand"
                 className="custom-control-input"
                 id="color-2"
               />
               <label className="custom-control-label" htmlFor="color-2">
                 White
               </label>
-              <span className="badge border font-weight-normal">295</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setBrands(29)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="brand"
                 className="custom-control-input"
                 id="color-3"
               />
               <label className="custom-control-label" htmlFor="color-3">
                 Red
               </label>
-              <span className="badge border font-weight-normal">246</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setBrands(30)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="brand"
                 className="custom-control-input"
                 id="color-4"
               />
               <label className="custom-control-label" htmlFor="color-4">
                 Blue
               </label>
-              <span className="badge border font-weight-normal">145</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+              <a onClick={() => setBrands(27)}>
               <input
-                type="checkbox"
+               type="radio"
+                name="brand"
                 className="custom-control-input"
                 id="color-5"
               />
               <label className="custom-control-label" htmlFor="color-5">
                 Green
               </label>
-              <span className="badge border font-weight-normal">168</span>
+              </a>
+              
             </div>
           </form>
         </div>
         {/* Color End */}
         {/* Size Start */}
         <div className="mb-5">
-          <h5 className="font-weight-semi-bold mb-4">Filter by size</h5>
+          <h5 className="font-weight-semi-bold mb-4">Filter by categories</h5>
           <form>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setCategory(0)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="category"
                 className="custom-control-input"
                 defaultChecked=""
                 id="size-all"
@@ -214,62 +230,78 @@ export default function Shopfilter() {
               <label className="custom-control-label" htmlFor="size-all">
                 All Size
               </label>
-              <span className="badge border font-weight-normal">1000</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setCategory(25)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="category"
                 className="custom-control-input"
                 id="size-1"
               />
               <label className="custom-control-label" htmlFor="size-1">
                 XS
               </label>
-              <span className="badge border font-weight-normal">150</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setCategory(26)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="category"
                 className="custom-control-input"
                 id="size-2"
               />
               <label className="custom-control-label" htmlFor="size-2">
                 S
               </label>
-              <span className="badge border font-weight-normal">295</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setCategory(27)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="category"
                 className="custom-control-input"
                 id="size-3"
               />
               <label className="custom-control-label" htmlFor="size-3">
                 M
               </label>
-              <span className="badge border font-weight-normal">246</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+              <a onClick={() => setCategory(28)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="category"
                 className="custom-control-input"
                 id="size-4"
               />
               <label className="custom-control-label" htmlFor="size-4">
                 L
               </label>
-              <span className="badge border font-weight-normal">145</span>
+              </a>
+              
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+              <a onClick={() => setCategory(29)}>
               <input
-                type="checkbox"
+                type="radio"
+                name="category"
                 className="custom-control-input"
                 id="size-5"
               />
               <label className="custom-control-label" htmlFor="size-5">
                 XL
               </label>
-              <span className="badge border font-weight-normal">168</span>
+              </a>
+              
             </div>
           </form>
         </div>
@@ -297,8 +329,8 @@ export default function Shopfilter() {
               </div>
             </div>
             
-            <div class="unique-dropdown">  <button class="unique-dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;Sort By&nbsp;&nbsp;&nbsp;&nbsp;</button>
-            <div class="unique-dropdown-content">
+            <div className="unique-dropdown">  <button className="unique-dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;Sort By&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <div className="unique-dropdown-content">
               <a href="#">Link 1</a>
               <a href="#">Link 2</a>
               <a href="#">Link 3</a>
@@ -311,22 +343,22 @@ export default function Shopfilter() {
 
           }
 
-         <div class="col-12 pb-1">
+         <div className="col-12 pb-1">
                         <nav aria-label="Page navigation">
-                          <ul class="pagination justify-content-center mb-3">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" aria-label="Previous">
+                          <ul className="pagination justify-content-center mb-3">
+                            <li className="page-item disabled">
+                              <a className="page-link" href="#" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
+                                <span className="sr-only">Previous</span>
                               </a>
                             </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#" aria-label="Next">
+                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
+                            <li className="page-item"><a className="page-link" href="#">2</a></li>
+                            <li className="page-item"><a className="page-link" href="#">3</a></li>
+                            <li className="page-item">
+                              <a className="page-link" href="#" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
+                                <span className="sr-only">Next</span>
                               </a>
                             </li>
                           </ul>

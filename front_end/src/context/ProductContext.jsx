@@ -11,8 +11,8 @@ export const ProductContext = createContext({
 export default function ProductContextProvider({ children }) {
   const [products, setProducts] = useState({});
 
-  const getProducts = async (prange = 0 , brands = 0) => {
-    const response = await ProductApi.getAllProducts(prange , brands);
+  const getProducts = async (prange = 0 , brands = 0 , category) => {
+    const response = await ProductApi.getAllProducts(prange , brands ,category);
     setProducts(response.data.products.data);
     
     return response;
