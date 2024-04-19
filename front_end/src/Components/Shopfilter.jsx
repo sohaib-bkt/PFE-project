@@ -8,10 +8,12 @@ export default function Shopfilter() {
   const [prange , setPrange] = useState(0);
   const [category , setCategory] = useState(0);
   const [brands , setBrands] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
   const { products, setProducts , getProducts } = useContext(ProductContext);
   useEffect(() => {
     const fetchData = async () => {
-      const data = getProducts(prange,brands,category).then(response => {
+      const data = getProducts(prange,brands,category,currentPage,searchTerm).then(response => {
         
         setProducts(response.data.products.data);
         
@@ -21,7 +23,12 @@ export default function Shopfilter() {
     });}
 
     fetchData();
-  }, [prange, brands, category]);
+  }, [prange, brands, category,currentPage, searchTerm]);
+    const handleSearch = (event) => {
+      setSearchTerm(event.target.value);
+    };
+
+
     return (
         <>
          
@@ -319,6 +326,8 @@ export default function Shopfilter() {
                   type="search"
                   className="form-control search-input"
                   placeholder="Search"
+                  value={searchTerm}
+                  onChange={handleSearch}
                 />
                 <button
                   className="input-group-text search-button"
@@ -329,7 +338,7 @@ export default function Shopfilter() {
               </div>
             </div>
             
-            <div className="unique-dropdown">  <button className="unique-dropbtn">&nbsp;&nbsp;&nbsp;&nbsp;Sort By&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <div className="unique-dropdown">  <button className="unique-dropbtn" style={{paddingLeft:"22 px", paddingRight:"22px"}}>Sort By</button>
             <div className="unique-dropdown-content">
               <a href="#">Link 1</a>
               <a href="#">Link 2</a>
@@ -343,29 +352,51 @@ export default function Shopfilter() {
 
           }
 
-         <div className="col-12 pb-1">
-                        <nav aria-label="Page navigation">
-                          <ul className="pagination justify-content-center mb-3">
-                            <li className="page-item disabled">
-                              <a className="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span className="sr-only">Previous</span>
-                              </a>
-                            </li>
-                            <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link" href="#">3</a></li>
-                            <li className="page-item">
-                              <a className="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span className="sr-only">Next</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
-                    </div>
-        </div>
-      </div>
+          <div className="col-12 pb-1">
+                <nav aria-label="Page navigation">
+                  <ul className="pagination justify-content-center mb-3">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                      <a
+                        className="page-link"
+                        href="#"
+                        aria-label="Previous"
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                      >
+                        <span aria-hidden="true">&laquo;</span>
+                        <span className="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li className="page-item active">
+                      <a className="page-link" href="#">
+                        {currentPage}
+                      </a>
+                    </li>
+                    <li className="page-item">
+                      <a
+                        className="page-link"
+                        href="#"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                      >
+                        {currentPage + 1}
+                      </a>
+                    </li>
+                    {/* Add more page links as needed */}
+                    <li className="page-item">
+                      <a
+                        className="page-link"
+                        href="#"
+                        aria-label="Next"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                      >
+                        <span aria-hidden="true">&raquo;</span>
+                        <span className="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
       {/* Shop Product End */}
     </div>
   </div>

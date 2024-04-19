@@ -14,7 +14,7 @@ class ShopController extends Controller
         public function index(Request $request)
         {
             $page = $request->query("page") ?? 1;
-            $size = $request->query("size") ?? 12;
+            $size = $request->query("size") ?? 8;
             $order = $request->query("order") ?? -1;
             $o_column = "";
             $o_order = "";
@@ -72,6 +72,11 @@ class ShopController extends Controller
                 $products = $products->where('category_id', $q_categories);
             }
         
+            $searchTerm = $request->query("search");
+            if ($searchTerm) {
+                $products = $products->where('name', 'LIKE', "%{$searchTerm}%");
+            }
+        
             $products = $products->paginate($size);
         
             $brandIds = Product::where('categorie_product', 'VET')->distinct()->pluck('brand_id');
@@ -90,7 +95,8 @@ class ShopController extends Controller
                 'categories' => $categories,
                 'q_categories' => $q_categories,
                 'from' => $from,
-                'to' => $to
+                'to' => $to,
+                'searchTerm' => $searchTerm
             ]);
         }
         
