@@ -35,8 +35,8 @@ class ProductFactory extends Factory
             'quantity' => $this->faker->numberBetween(100,200),
             'image' => $image_path,
             'images' => $image_path,
-            'category_id' => $this->faker->numberBetween(25,30),
-            'brand_id' => $this->faker->numberBetween(25,30),
+            'category_id' => $this->faker->numberBetween(1,6),
+            'brand_id' => $this->faker->numberBetween(1,6),
             'categorie_product' => $categorie_product 
         ];
     }
