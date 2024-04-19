@@ -150,7 +150,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(27)}>
+              <a onClick={() => setBrands(1)}>
               <input
                 type="radio"
                 name="brand"
@@ -164,7 +164,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(28)}>
+              <a onClick={() => setBrands(2)}>
               <input
                 type="radio"
                 name="brand"
@@ -178,7 +178,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(29)}>
+              <a onClick={() => setBrands(3)}>
               <input
                 type="radio"
                 name="brand"
@@ -192,7 +192,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(30)}>
+              <a onClick={() => setBrands(4)}>
               <input
                 type="radio"
                 name="brand"
@@ -206,7 +206,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-              <a onClick={() => setBrands(27)}>
+              <a onClick={() => setBrands(5)}>
               <input
                type="radio"
                 name="brand"
@@ -242,7 +242,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(25)}>
+              <a onClick={() => setCategory(1)}>
               <input
                 type="radio"
                 name="category"
@@ -256,7 +256,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(26)}>
+              <a onClick={() => setCategory(2)}>
               <input
                 type="radio"
                 name="category"
@@ -270,7 +270,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(27)}>
+              <a onClick={() => setCategory(3)}>
               <input
                 type="radio"
                 name="category"
@@ -284,7 +284,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(28)}>
+              <a onClick={() => setCategory(4)}>
               <input
                 type="radio"
                 name="category"
@@ -298,7 +298,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-              <a onClick={() => setCategory(29)}>
+              <a onClick={() => setCategory(5)}>
               <input
                 type="radio"
                 name="category"
