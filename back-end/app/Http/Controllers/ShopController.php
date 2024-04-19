@@ -40,10 +40,6 @@ class ShopController extends Controller
                     $o_order = "DESC";
             }
         
-            $products = Product::where('categorie_product', 'VET')
-                ->orderBy('created_at', 'DESC')
-                ->orderBy($o_column, $o_order);
-        
             $prange = $request->query("prange");
             if (!$prange || !strpos($prange, ',')) {
                 $from = 0;
@@ -52,38 +48,34 @@ class ShopController extends Controller
                 list($from, $to) = explode(",", $prange);
             }
         
-            $products = $products->whereBetween('regular_price', array($from, $to));
+            $products = Product::where('categorie_product', 'VET')
+                ->whereBetween('regular_price', array($from, $to));
         
             $q_brands = $request->query("brands");
-            if (!$q_brands || $q_brands === "-1") {
-                $q_brands = "-1";
-            }
-        
-            if ($q_brands !== "-1") {
-                $products = $products->where('brand_id', $q_brands);
+            if ($q_brands && $q_brands !== "-1") {
+                $products->where('brand_id', $q_brands);
             }
         
             $q_categories = $request->query("categories");
-            if (!$q_categories || $q_categories === "-1") {
-                $q_categories = "-1";
-            }
-        
-            if ($q_categories !== "-1") {
-                $products = $products->where('category_id', $q_categories);
+            if ($q_categories && $q_categories !== "-1") {
+                $products->where('category_id', $q_categories);
             }
         
             $searchTerm = $request->query("search");
             if ($searchTerm) {
-                $products = $products->where('name', 'LIKE', "%{$searchTerm}%");
+                $products->where('name', 'LIKE', "%{$searchTerm}%");
             }
+        
+            // Apply sorting
+            $products->orderBy($o_column, $o_order);
         
             $products = $products->paginate($size);
         
             $brandIds = Product::where('categorie_product', 'VET')->distinct()->pluck('brand_id');
             $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
         
-            $gategorieIds = Product::where('categorie_product', 'VET')->distinct()->pluck('category_id');
-            $categories = Category::whereIn('id', $gategorieIds)->orderBy('name', 'ASC')->get();
+            $categoryIds = Product::where('categorie_product', 'VET')->distinct()->pluck('category_id');
+            $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
         
             return response()->json([
                 'products' => $products,

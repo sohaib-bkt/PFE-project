@@ -10,20 +10,21 @@ export default function Shopfilter() {
   const [brands , setBrands] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [order , setOrder] = useState(0);
   const { products, setProducts , getProducts } = useContext(ProductContext);
   useEffect(() => {
     const fetchData = async () => {
-      const data = getProducts(prange,brands,category,currentPage,searchTerm).then(response => {
+      getProducts(prange,brands,category,currentPage,searchTerm,order).then(response => {
         
         setProducts(response.data.products.data);
         
     })
     .catch(error => {
-        console.error('Error fetching products:');
+        console.error('Error fetching products:', error);
     });}
 
     fetchData();
-  }, [prange, brands, category,currentPage, searchTerm]);
+  }, [prange, brands, category,currentPage, searchTerm ,order]);
     const handleSearch = (event) => {
       setSearchTerm(event.target.value);
     };
@@ -142,7 +143,7 @@ export default function Shopfilter() {
                 defaultChecked=""
                 id="color-all"
               />
-              <label className="custom-control-label" htmlFor="price-all">
+              <label className="custom-control-label" htmlFor="color-all">
                 All Brands
               </label>
               </a>
@@ -340,15 +341,16 @@ export default function Shopfilter() {
             
             <div className="unique-dropdown">  <button className="unique-dropbtn" style={{paddingLeft:"22 px", paddingRight:"22px"}}>Sort By</button>
             <div className="unique-dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
+              <a onClick={() => setOrder(3)} style={{cursor:"pointer"}} >Price Low to High</a>
+              <a onClick={() => setOrder(4)} style={{cursor:"pointer"}} >Price High to Low</a>
+              <a onClick={() => setOrder(1)} style={{cursor:"pointer"}} >Date New to Old</a>
+              <a onClick={() => setOrder(2)} style={{cursor:"pointer"}} >Date Old to New</a>
             </div>
           </div>
           </div>
           </div>
           {
-            Object.values(products).map((product) => <ProdCard key={product.id} product={product} />)
+            products.map((product) => <ProdCard key={product.id} product={product} />)
 
           }
 
