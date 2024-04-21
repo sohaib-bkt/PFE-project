@@ -18,7 +18,7 @@ export default function SectionStart({ title, activeBreadcrumb }) {
                                 <ol className="breadcrumb">
                                     <li className="breadcrumb-item">
                                         <a href="index.htm">
-                                            <i className="fas fa-home" style={{ color: '#e87316' }} />
+                                            <i className="fas fa-home" />
                                         </a>
                                     </li>
                                     <li className={`breadcrumb-item ${activeBreadcrumb ? 'active' : ''}`} aria-current="page">

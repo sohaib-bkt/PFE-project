@@ -84,8 +84,8 @@ const Header = ({ children }) => {
                           <Link to="#" className="onhover-dropdown">Shop</Link>
                           <div  className="onhover-div profile-dropdown">
                             <ul>
-                                  <li><Link to="/shop/clothes" className="d-block" style={{ color: "#e87316" }}>Shop Vetement</Link></li>
-                                  <li><Link to="/shop/info" className="d-block" style={{ color: "#e87316" }}>Shop Info</Link></li>
+                                  <li><Link to="/shop/clothes" className="d-block">Shop Vetement</Link></li>
+                                  <li><Link to="/shop/info" className="d-block">Shop Info</Link></li>
                             </ul>
                             </div>
                         </li>
@@ -105,7 +105,7 @@ const Header = ({ children }) => {
                   <div className="menu-right">
                     <ul>
                       <li>
-                        <div className="search-box theme-bg-color" style={{ backgroundColor: "#e87316" }}>
+                        <div className="search-box theme-bg-color">
                           <i data-feather="search" />
                         </div>
                       </li>
@@ -113,7 +113,7 @@ const Header = ({ children }) => {
                         <div className="cart-media">
                           <a href="{{route('wishlist.list')}}">
                             <i data-feather="heart" />
-                            <span id="wishlist-count" className="label label-theme rounded-pill" style={{ backgroundColor: "#e87316" }}>1</span>
+                            <span id="wishlist-count" className="label label-theme rounded-pill">1</span>
                           </a>
                         </div>
                       </li>

@@ -3,7 +3,7 @@
   }
   
   .unique-dropbtn { 
-    background-color: rgb(232, 115, 22);
+    background-color: #a01818;
     color: white;
     padding: 13px;
     font-size: 16px;
@@ -26,11 +26,11 @@
     display: block;
   }
   
-  .unique-dropdown-content a:hover {background-color: #fdf4e9}
+  .unique-dropdown-content a:hover {background-color: #fde9e9}
   
   .unique-dropdown:hover .unique-dropdown-content {  display: block;
   }
   
-  .unique-dropdown:hover .unique-dropbtn {  background-color: rgb(260, 115, 22);
+  .unique-dropdown:hover .unique-dropbtn {  background-color: #8b1515;
   }
   

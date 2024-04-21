@@ -1,4 +1,3 @@
-import Slider from '@Components/Slider.jsx';
 import img from '@Public/assets/images/blog/sample.jpg';
 import SectionStart from "@Components/SectionStart.jsx";
 import DetailDesc from '@Components/Detail/DetailDesc.jsx';
@@ -242,7 +241,6 @@ export default function Detail() {
         <div className="col-12">
           <h2 className="mb-lg-4 mb-3">Customers Also Bought These</h2>
           <div className="product-wrapper product-style-2 slide-4 p-0 light-arrow bottom-space ">
-          <Slider/>
           </div>
           </div>
           </div>

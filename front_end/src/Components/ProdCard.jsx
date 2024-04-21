@@ -14,7 +14,7 @@ export default function ProdCard(product) {
     <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">
       <h6 className="text-truncate mb-3">{product.product.name}</h6>
       <div className="d-flex justify-content-center">
-        <h6>${product.product.regular_price}</h6>
+        <h6>${product.product.regular_price} &nbsp;</h6>
         <h6 className="text-muted ml-2">
           <del>${product.product.regular_price}</del>
         </h6>

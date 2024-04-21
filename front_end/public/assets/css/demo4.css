@@ -1,5 +1,5 @@
 :root {
-  --theme-color: #e87316; }
+  --theme-color:  #a01818; }
 
 .theme-color2 {
   --theme-color: #e22454; }
@@ -978,7 +978,7 @@ span {
   display: block; }
 
 .ratio_asos .bg-size:before {
-  padding-top: 127.7777778%;
+  padding-top: 107%;
   content: "";
   display: block; }
 
@@ -4131,16 +4131,16 @@ header .main-navbar {
   overflow: hidden; }
   @media (max-width: 1660px) {
     .poster-section {
-      height: 750px; } }
+      height: 500px; } }
   @media (max-width: 1199px) {
     .poster-section {
-      height: 600px; } }
+      height: 400px; } }
   @media (max-width: 991px) {
     .poster-section {
-      height: 450px; } }
+      height: 350px; } }
   @media (max-width: 360px) {
     .poster-section {
-      height: 350px; } }
+      height: 250px; } }
   .poster-section .prev {
     right: 11% !important; }
     @media (max-width: 1366px) {
@@ -4210,10 +4210,12 @@ header .main-navbar {
     .poster-section .poster-image img {
       margin: 0 auto;
       margin-top: 4%;
-      height: 1000px; }
+      height: 800px;
+      margin-left: 687px;
+     }
       @media (max-width: 1660px) {
         .poster-section .poster-image img {
-          height: 850px; } }
+          height: 450px; } }
       @media (max-width: 1199px) {
         .poster-section .poster-image img {
           height: 600px; } }
