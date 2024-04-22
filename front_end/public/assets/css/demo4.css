@@ -2564,7 +2564,7 @@ header .main-menu {
       padding: 10px 0; } }
 
 header .onhover-div {
-  right: 0; }
+  left: 0; }
   [dir="rtl"] header .onhover-div {
     right: unset;
     left: 0; }

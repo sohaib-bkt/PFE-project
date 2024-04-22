@@ -9868,25 +9868,25 @@ textarea.form-control-lg {
     border-color: #0dcaf0; }
 
 .btn-warning {
-  color: #000;
-  background-color: #ffc107;
-  border-color: #ffc107; }
+  color: #ffffff;
+  background-color: #a01818;
+  border-color: #a01818; }
   .btn-warning:hover {
-    color: #000;
-    background-color: #ffca2c;
-    border-color: #ffc720; }
+    color: #ffffff;
+    background-color: #a01818;
+    border-color: #a01818; }
   .btn-check:focus + .btn-warning, .btn-warning:focus {
     color: #000;
-    background-color: #ffca2c;
-    border-color: #ffc720;
+    background-color: #a01818;
+    border-color: #a01818;
     -webkit-box-shadow: 0 0 0 0.25rem rgba(217, 164, 6, 0.5);
             box-shadow: 0 0 0 0.25rem rgba(217, 164, 6, 0.5); }
   .btn-check:checked + .btn-warning,
   .btn-check:active + .btn-warning, .btn-warning:active, .btn-warning.active,
   .show > .btn-warning.dropdown-toggle {
     color: #000;
-    background-color: #ffcd39;
-    border-color: #ffc720; }
+    background-color: #a01818;
+    border-color: #a01818; }
     .btn-check:checked + .btn-warning:focus,
     .btn-check:active + .btn-warning:focus, .btn-warning:active:focus, .btn-warning.active:focus,
     .show > .btn-warning.dropdown-toggle:focus {

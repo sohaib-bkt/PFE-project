@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom'
 import Footer from '../Components/Footer.jsx'
-import Header from '../Components/Header/Header.jsx'
+import GuestHeader from '../Components/Header/GuestHeader.jsx'
 export default function SharedLayouth() {
     return (
         <>
-        <Header/>
+        <GuestHeader/>
         <main>
             <Outlet/>
         </main>

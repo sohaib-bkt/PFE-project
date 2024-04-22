@@ -11,22 +11,22 @@ export default function App() {
     // Load synchronous scripts first
     const syncScripts = [
       'https://code.jquery.com/jquery-3.6.0.min.js',
-      './public/assets/js/bootstrap/bootstrap.bundle.min.js',
-      './public/assets/js/feather/feather.min.js',
-      './public/assets/js/lazysizes.min.js',
-      './public/assets/js/ion.rangeSlider.min.js',
+      './assets/js/bootstrap/bootstrap.bundle.min.js',
+      './assets/js/feather/feather.min.js',
+      './assets/js/lazysizes.min.js',
+      './assets/js/ion.rangeSlider.min.js',
     ];
   
     // Load async scripts
     const asyncScripts = [
-      './public/assets/js/filter.js',
-      './public/assets/js/newsletter.js',
-      './public/assets/js/bootstrap/bootstrap-notify.min.js',
-      './public/assets/js/theme-setting.js',
-      './public/assets/js/script.js',
-      './public/assets/js/slick/slick.js',
-      './public/assets/js/slick/slick-animation.min.js',
-      './public/assets/js/slick/custom_slick.js',
+      './assets/js/filter.js',
+      './assets/js/newsletter.js',
+      './assets/js/bootstrap/bootstrap-notify.min.js',
+      './assets/js/theme-setting.js',
+      './assets/js/script.js',
+      './assets/js/slick/slick.js',
+      './assets/js/slick/slick-animation.min.js',
+      './assets/js/slick/custom_slick.js',
     ];
   
     const loadScript = (src) => {
@@ -44,9 +44,9 @@ export default function App() {
       for (const src of scripts) {
         try {
           await loadScript(src);
-          console.log(`Loaded script: ${src}`);
+          // console.log(`Loaded script: ${src}`);
         } catch (error) {
-          console.error(`Failed to load script: ${src}`, error);
+          // console.error(`Failed to load script: ${src}`, error);
         }
       }
     };
@@ -63,7 +63,7 @@ export default function App() {
         const script = document.querySelector(`script[src="${src}"]`);
         if (script && script.parentNode === document.body) {
           document.body.removeChild(script);
-          console.log(`Removed script: ${src}`);
+          // console.log(`Removed script: ${src}`);
         }
       });
     };
