@@ -211,43 +211,7 @@ export default function DetailReview(props) {
                         <p className="date-custo font-light">- Sep 08, 2021</p>
                       </div>
                     </div>
-                    <div className="customer-section">
-                      <div className="customer-profile">
-                        <img
-                          src="../assets/images/inner-page/review-image/2.jpg"
-                          className="img-fluid  lazyload"
-                          alt=""
-                        />
-                      </div>
-                      <div className="customer-details">
-                        <h5>Norwalker</h5>
-                        <ul className="rating my-2 d-inline-block">
-                          <li>
-                            <i className="fas fa-star theme-color" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star theme-color" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star theme-color" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star" />
-                          </li>
-                        </ul>
-                        <p className="font-light">
-                          Pros: Nice large(9.7") screen. Bright colors. Easy to
-                          setup and get started. Arrived on time. Cons: a bit
-                          slow on response, but expected as tablet is 2
-                          generations old. But works fine and good value for the
-                          money.
-                        </p>
-                        <p className="date-custo font-light">- Sep 08, 2021</p>
-                      </div>
-                    </div>
+                   
                     <div className="customer-section">
                       <div className="customer-profile">
                         <img
@@ -282,42 +246,7 @@ export default function DetailReview(props) {
                         <p className="date-custo font-light">- Sep 08, 2021</p>
                       </div>
                     </div>
-                    <div className="customer-section">
-                      <div className="customer-profile">
-                        <img
-                          src="../assets/images/inner-page/review-image/4.jpg"
-                          className="img-fluid  lazyload"
-                          alt=""
-                        />
-                      </div>
-                      <div className="customer-details">
-                        <h5>MSL</h5>
-                        <ul className="rating my-2 d-inline-block">
-                          <li>
-                            <i className="fas fa-star theme-color" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star theme-color" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star theme-color" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star" />
-                          </li>
-                          <li>
-                            <i className="fas fa-star" />
-                          </li>
-                        </ul>
-                        <p className="font-light">
-                          I purchased the Tablet May 2017 and now April 2019 I
-                          have to charge it everyday. I don't watch movies on
-                          it..just play a game or two while on lunch. I guess
-                          now I need to power it down for future use.
-                        </p>
-                        <p className="date-custo font-light">- Sep 08, 2021</p>
-                      </div>
-                    </div>
+                  
                   </div>
                 </div>
               </div>

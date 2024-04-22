@@ -12,18 +12,9 @@ export default function Prods(){
                 alt=""
               />
             </a>
-            <div className="circle-shape" />
-            <span className="background-text">Furniture</span>
-            <div className="label-block">
-              <span className="label label-theme">30% Off</span>
-            </div>
+            <div className="circle-shape" />            
             <div className="cart-wrap">
               <ul>
-                <li>
-                  <a href="#" className="addtocart-btn">
-                    <i data-feather="shopping-cart" />
-                  </a>
-                </li>
                 <li>
                   <a href="#">
                     <i data-feather="eye" />
@@ -40,30 +31,13 @@ export default function Prods(){
           <div className="product-style-3 product-style-chair">
             <div className="product-title d-block mb-0">
               <div className="r-price">
-                <div className="theme-color">$21</div>
+                <div className="theme-color">$21.99</div>
                 <div className="main-price">
-                  <ul className="rating mb-1 mt-0">
-                    <li>
-                      <i className="fas fa-star theme-color" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star theme-color" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star" />
-                    </li>
-                    <li>
-                      <i className="fas fa-star" />
-                    </li>
-                  </ul>
-                </div>
+                <p className="font-light mb-sm-2 mb-0">desc</p>
+            </div>
               </div>
-              <p className="font-light mb-sm-2 mb-0">Qui Ut</p>
               <a href="product/details.html" className="font-default">
-                <h5>Excepturi Et In Cum</h5>
+                <h6>ProdName</h6>
               </a>
             </div>
           </div>

@@ -3,6 +3,8 @@ import SectionStart from "@Components/SectionStart.jsx";
 import DetailDesc from '@Components/Detail/DetailDesc.jsx';
 import DetailReview from '@Components/Detail/DetailReview.jsx';
 import DetailSpec from '@Components/Detail/DetailSpecifiction.jsx';
+import DetailSizing from '@Components/Detail/DetailSizing.jsx';
+import ProdHome from '@Components/ProdHome.jsx';
 import React, { useState } from 'react';
 
 export default function Detail() {
@@ -20,48 +22,82 @@ export default function Detail() {
       <div className="col-lg-12 col-12">
         <div className="details-items">
           <div className="row g-4">
-            <div className="col-md-6">
-              <div className="row">
-                <div className="col-lg-2">
-                  <div className="details-image-vertical black-slide rounded">
-                    <div>
-                      <img
-                        src={img}
-                        className="img-fluid lazyload"
-                        alt=""
-                      />
-                    </div>
-                
-                    <div>
-                      <img
-                        src= {img}
-                        className="img-fluid lazyload"
-                        alt=""
-                      />
+          <div className="col-md-6">
+                    <div className="row">
+                      <div className="col-lg-2">
+                        <div className="details-image-vertical black-slide rounded">
+                          <div>
+                            <img
+                              src={img}
+                              className="img-fluid blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src={img}
+                              className="img-fluid blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src={img}
+                              className="img-fluid blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src={img}
+                              className="img-fluid blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-10">
+                        <div className="details-image-1 ratio_asos">
+                          <div>
+                            <img
+                              src="../assets/images/fashion/product/front/1.jpg"
+                              id="zoom_01"
+                              data-zoom-image="assets/images/fashion/1.jpg"
+                              className="img-fluid w-100 image_zoom_cls-0 blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src={img}
+                              id="zoom_02"
+                              data-zoom-image="assets/images/fashion/2.jpg"
+                              className="img-fluid w-100 image_zoom_cls-1 blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src={img}
+                              id="zoom_03"
+                              data-zoom-image="assets/images/fashion/3.jpg"
+                              className="img-fluid w-100 image_zoom_cls-2 blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src="../assets/images/fashion/4.jpg"
+                              id="zoom_04"
+                              data-zoom-image="assets/images/fashion/4.jpg"
+                              className="img-fluid w-100 image_zoom_cls-3 blur-up lazyload"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-lg-10">
-                  <div className="details-image-1 ratio_asos">
-                    <div>
-                      <img
-                        src={img}
-                        className="img-fluid w-100 image_zoom_cls-0  lazyload"
-                        alt=""
-                      />
-                    </div>
-                   
-                    <div>
-                      <img
-                        src=""
-                        className="img-fluid w-100 image_zoom_cls-1  lazyload"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div className="col-md-6">
               <div className="cloth-details-size">
                 <div className="product-count">
@@ -214,6 +250,16 @@ export default function Detail() {
               Specifications
             </button>
             <button
+              className={`nav-link ${activeTab === 'Sguide' ? 'active' : ''}`}
+              id="nav-home-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#desc"
+              type="button"
+              onClick={() => handleClick('Sguide')}
+            >
+              Sizing Guide
+            </button>
+            <button
               className={`nav-link ${activeTab === 'review' ? 'active' : ''}`}
               id="nav-contact-tab"
               data-bs-toggle="tab"
@@ -229,6 +275,7 @@ export default function Detail() {
         <DetailDesc clicked={activeTab === 'desc' ? 'show active' : ''} />
         <DetailSpec clicked={activeTab === 'speci' ? 'show active' : ''} />
         <DetailReview clicked={activeTab === 'review' ? 'show active' : ''} />
+        <DetailSizing clicked={activeTab === 'Sguide' ? 'show active' : ''} />
       </div>
       </div>
     </div>
@@ -239,14 +286,28 @@ export default function Detail() {
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <h2 className="mb-lg-4 mb-3">Customers Also Bought These</h2>
-          <div className="product-wrapper product-style-2 slide-4 p-0 light-arrow bottom-space ">
+          <h2 className="title-3 text-center">Customers Also Bought These</h2>
+          <section className="ratio_asos overflow-hidden pb-5">
+          <div className="px-0 container-fluid p-sm-0">
+            <div className="row m-0">
+              <div className="col-12 p-0">
+                
+              </div>
+              <div className="our-product products-c">
+              <ProdHome/>
+              <ProdHome/>
+              <ProdHome/>
+              <ProdHome/>
+              <ProdHome/>
+              <ProdHome/>
+              </div>
+            </div>
           </div>
+        </section>
           </div>
           </div>
           </div>
   </section>
-  <div id="qvmodal"></div>
 
   
 

@@ -25,6 +25,11 @@ export default function ProdCard() {
         <div className="cart-wrap">
           <ul>
             <li>
+            <a href="#">
+            <i data-feather="eye" />
+            </a>
+            </li>
+            <li>
               <a href="#" className="wishlist">
                 <i data-feather="heart" />
               </a>
@@ -33,44 +38,18 @@ export default function ProdCard() {
         </div>
       </div>
       <div className="product-style-3 product-style-chair">
-        <div className="product-title d-block mb-0">
-          <div className="r-price">
-            <div className="theme-color">
-              $100,23
+            <div className="product-title d-block mb-0">
+              <div className="r-price">
+                <h3 className="theme-color">$21.99</h3>
+                <div className="main-price">
+                <p className="font-light mb-sm-2 mb-0">desc</p>
             </div>
-            <div className="main-price">
-              <ul className="rating mb-1 mt-0">
-                <li>
-                  <i className="fas fa-star theme-color" />
-                </li>
-                <li>
-                  <i className="fas fa-star theme-color" />
-                </li>
-                <li>
-                  <i className="fas fa-star" />
-                </li>
-                <li>
-                  <i className="fas fa-star" />
-                </li>
-                <li>
-                  <i className="fas fa-star" />
-                </li>
-              </ul>
+              </div>
+              <a href="product/details.html" className="font-default">
+                <h3>ProdName</h3>
+              </a>
             </div>
           </div>
-          <p className="font-light mb-sm-2 mb-0">
-            short_description
-          </p>
-          <a
-            href="{{route('shop.product.details',['slug'=>$product->slug])}}"
-            className="font-default"
-          >
-            <h5>
-               $product-name
-            </h5>
-          </a>
-        </div>
-      </div>
     </div>
   </div>
      

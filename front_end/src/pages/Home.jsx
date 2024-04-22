@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Prods from '@Components/Prods.jsx';
 import ProdHome from '@Components/ProdHome.jsx';
+import {Link} from 'react-router-dom';
 export default function Home() {
 
     return (
@@ -61,20 +62,50 @@ export default function Home() {
   </div>
   <div className="right-side-contain">
     <div className="social-image">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 30 30">
-    <path d="M24,4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18c1.105,0,2-0.895,2-2V6C26,4.895,25.104,4,24,4z M22.689,13.474 c-0.13,0.012-0.261,0.02-0.393,0.02c-1.495,0-2.809-0.768-3.574-1.931c0,3.049,0,6.519,0,6.577c0,2.685-2.177,4.861-4.861,4.861 C11.177,23,9,20.823,9,18.139c0-2.685,2.177-4.861,4.861-4.861c0.102,0,0.201,0.009,0.3,0.015v2.396c-0.1-0.012-0.197-0.03-0.3-0.03 c-1.37,0-2.481,1.111-2.481,2.481s1.11,2.481,2.481,2.481c1.371,0,2.581-1.08,2.581-2.45c0-0.055,0.024-11.17,0.024-11.17h2.289 c0.215,2.047,1.868,3.663,3.934,3.811V13.474z"></path>
-</svg>
+    <a href="https://www.tiktok.com" target="_blank">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width={50}
+      height={50}
+      viewBox="0 0 30 30"
+    >
+      <path d="M24 4H6a2 2 0 00-2 2v18a2 2 0 002 2h18a2 2 0 002-2V6a2 2 0 00-2-2zm-1.311 9.474a4.27 4.27 0 01-3.967-1.911v6.577a4.861 4.861 0 11-4.861-4.862c.102 0 .201.009.3.015v2.396c-.1-.012-.197-.03-.3-.03a2.481 2.481 0 000 4.962c1.371 0 2.581-1.08 2.581-2.45l.024-11.17h2.289a4.268 4.268 0 003.934 3.811v2.662z" />
+    </svg>
+    </a>
 
     </div>
     <div className="social-image">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 30 30">
-    <path d="M24,4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h10v-9h-3v-3h3v-1.611C16,9.339,17.486,8,20.021,8 c1.214,0,1.856,0.09,2.16,0.131V11h-1.729C19.376,11,19,11.568,19,12.718V14h3.154l-0.428,3H19v9h5c1.105,0,2-0.895,2-2V6 C26,4.895,25.104,4,24,4z"></path>
-</svg>
+      <a href="https://www.facebook.com" target="_blank">
+      <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width={50}
+      height={50}
+      viewBox="0 0 30 30"
+
+    >
+      <path d="M24 4H6a2 2 0 00-2 2v18a2 2 0 002 2h10v-9h-3v-3h3v-1.611C16 9.339 17.486 8 20.021 8c1.214 0 1.856.09 2.16.131V11h-1.729C19.376 11 19 11.568 19 12.718V14h3.154l-.428 3H19v9h5a2 2 0 002-2V6a2 2 0 00-2-2z" />
+    </svg>
+    </a>
     </div>
     <div className="social-image">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 30 30">
-<path d="M 6 4 C 4.895 4 4 4.895 4 6 L 4 24 C 4 25.105 4.895 26 6 26 L 24 26 C 25.105 26 26 25.105 26 24 L 26 6 C 26 4.895 25.105 4 24 4 L 6 4 z M 8.6484375 9 L 13.259766 9 L 15.951172 12.847656 L 19.28125 9 L 20.732422 9 L 16.603516 13.78125 L 21.654297 21 L 17.042969 21 L 14.056641 16.730469 L 10.369141 21 L 8.8945312 21 L 13.400391 15.794922 L 8.6484375 9 z M 10.878906 10.183594 L 17.632812 19.810547 L 19.421875 19.810547 L 12.666016 10.183594 L 10.878906 10.183594 z"></path>
-</svg>    </div>
+    <a href="https://www.twitter.com" target="_blank">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width={50}
+      height={50}
+      viewBox="0 0 30 30"
+
+    >
+      <path d="M6 4a2 2 0 00-2 2v18a2 2 0 002 2h18a2 2 0 002-2V6a2 2 0 00-2-2H6zm2.648 5h4.612l2.691 3.848L19.281 9h1.451l-4.128 4.781L21.654 21h-4.611l-2.986-4.27L10.369 21H8.895l4.505-5.205L8.648 9zm2.23 1.184l6.755 9.627h1.789l-6.756-9.627h-1.787z" />
+    </svg>
+    </a>
+   </div>
   </div>
 </section>
 <section className="ratio2_1 banner-style-2">
@@ -91,16 +122,24 @@ export default function Home() {
           </a>
           <div className="banner-detail">
             <a href="#" className="heart-wishlist">
-              <i className="far fa-heart" />
-            </a>
+            <svg
+      width={20}
+      height={20}
+      viewBox="0 0 48 48"
+      xmlns="http://www.w3.org/2000/svg"
+      
+    >
+      <path d="M40.7 20.4l-4-3.9V43H11.3V16.5l-4 3.9L1 14.1 9.2 5H19a5.2 5.2 0 0010 0h9.8l8.2 9.1z" />
+    </svg>          
+          </a>
             <span className="font-dark-30">
-              26% <span>OFF</span>
+              <span>NEW</span>
             </span>
           </div>
           <a href="shop-left-sidebar.html" className="contain-banner">
             <div className="banner-content with-big">
-              <h2 className="mb-2">New Hoodie</h2>
-              <span>BUY ONE GET ONE FREE</span>
+              <h2 className="mb-2">Clothes</h2>
+              <span>Explore the latest additions</span>
             </div>
           </a>
         </div>
@@ -116,9 +155,17 @@ export default function Home() {
         </a>
         <div className="banner-detail">
             <a href="#" className="heart-wishlist">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 30 30">
-                    <path d="M 15 2 A 1 1 0 0 0 14.300781 2.2851562 L 3.3925781 11.207031 A 1 1 0 0 0 3.3554688 11.236328 L 3.3183594 11.267578 L 3.3183594 11.269531 A 1 1 0 0 0 3 12 A 1 1 0 0 0 4 13 L 5 13 L 5 24 C 5 25.105 5.895 26 7 26 L 23 26 C 24.105 26 25 25.105 25 24 L 25 13 L 26 13 A 1 1 0 0 0 27 12 A 1 1 0 0 0 26.681641 11.267578 L 26.666016 11.255859 A 1 1 0 0 0 26.597656 11.199219 L 25 9.8925781 L 25 6 C 25 5.448 24.552 5 24 5 L 23 5 C 22.448 5 22 5.448 22 6 L 22 7.4394531 L 15.677734 2.2675781 A 1 1 0 0 0 15 2 z M 18 15 L 22 15 L 22 23 L 18 23 L 18 15 z"></path>
-                </svg>
+            <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width={20}
+      height={20}
+      viewBox="0 0 30 30"
+  
+    >
+      <path d="M15 2a1 1 0 00-.7.285L3.394 11.207a1 1 0 00-.038.03l-.037.03v.003A1 1 0 003 12a1 1 0 001 1h1v11a2 2 0 002 2h16a2 2 0 002-2V13h1a1 1 0 001-1 1 1 0 00-.318-.732l-.016-.012a1 1 0 00-.068-.057L25 9.893V6a1 1 0 00-1-1h-1a1 1 0 00-1 1v1.44l-6.322-5.172A1 1 0 0015 2zm3 13h4v8h-4v-8z" />
+    </svg>
             </a>
             <span className="font-dark-30">
                 <span>NEW</span>
@@ -144,8 +191,20 @@ export default function Home() {
           </a>
           <div className="banner-detail">
             <a href="#" className="heart-wishlist">
-              <i className="far fa-heart" />
-            </a>
+            <svg
+      viewBox="0 0 48 48"
+      width={20}
+      height={20}
+      xmlns="http://www.w3.org/2000/svg"
+   
+    >
+      <path d="M44 18v-4H34V4h-4v10h-4V4h-4v10h-4V4h-4v10H4v4h10v4H4v4h10v4H4v4h10v10h4V34h4v10h4V34h4v10h4V34h10v-4H34v-4h10v-4H34v-4h10z" />
+      <path d="M8 12v24c0 2.2 1.8 4 4 4h24c2.2 0 4-1.8 4-4V12c0-2.2-1.8-4-4-4H12c-2.2 0-4 1.8-4 4z" />
+      <path
+        fill="#fff"
+        d="M31 31H17c-1.1 0-2-.9-2-2V19c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2z"
+      />
+    </svg>              </a>
             <span className="font-dark-30">
               <span>NEW</span>
             </span>
@@ -168,21 +227,16 @@ export default function Home() {
     <div className="row m-0">
       <div className="col-12 p-0">
         <div className="title-3 text-center">
-          <h2>New Arrival</h2>
-          <h5 className="theme-color">Our Collection</h5>
+          <h2>Our Products</h2>
+          <h5 className="theme-color">Our Collection (Clothes)</h5>
           <div className="d-flex justify-content-end mt-3">
-          <a href="#">See More</a>
+          <Link to="/shop/clothes">See More</Link>          
           </div>
         </div>
         
       </div>
     </div>
-    <style
-      dangerouslySetInnerHTML={{
-        __html:
-          "\n                .r-price {\n                    display: flex;\n                    flex-direction: row;\n                    gap: 20px;\n                }\n\n                .r-price .main-price {\n                    width: 100%;\n                }\n\n                .r-price .rating {\n                    padding-left: auto;\n                }\n\n                .product-style-3.product-style-chair .product-title {\n                    text-align: left;\n                    width: 100%;\n                }\n\n                @media (max-width:600px) {\n\n                    .product-box p,\n                    .product-box a {\n                        text-align: left;\n                    }\n\n                    .product-style-3.product-style-chair .main-price {\n                        text-align: right !important;\n                    }\n                }\n            "
-      }}
-    />
+   
     <div className="row g-sm-4 g-3">
       <Prods/>
       <Prods/>
@@ -190,12 +244,7 @@ export default function Home() {
       <Prods/>
       <Prods/>
       <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
+   
     </div>
    
   </div>
@@ -205,17 +254,15 @@ export default function Home() {
     <div className="row m-0">
       <div className="col-12 p-0">
         <div className="title-3 text-center">
-          <h2>New Arrival</h2>
-          <h5 className="theme-color">Our Collection</h5>
+          <h2>Our Products</h2>
+          <h5 className="theme-color">Our Collection (Apartments)</h5>
+          <div className="d-flex justify-content-end mt-3">
+          <Link to="/shop/Apartments">See More</Link>          
+          </div>
         </div>
       </div>
     </div>
-    <style
-      dangerouslySetInnerHTML={{
-        __html:
-          "\n                .r-price {\n                    display: flex;\n                    flex-direction: row;\n                    gap: 20px;\n                }\n\n                .r-price .main-price {\n                    width: 100%;\n                }\n\n                .r-price .rating {\n                    padding-left: auto;\n                }\n\n                .product-style-3.product-style-chair .product-title {\n                    text-align: left;\n                    width: 100%;\n                }\n\n                @media (max-width:600px) {\n\n                    .product-box p,\n                    .product-box a {\n                        text-align: left;\n                    }\n\n                    .product-style-3.product-style-chair .main-price {\n                        text-align: right !important;\n                    }\n                }\n            "
-      }}
-    />
+   
     <div className="row g-sm-4 g-3">
       <Prods/>
       <Prods/>
@@ -223,12 +270,33 @@ export default function Home() {
       <Prods/>
       <Prods/>
       <Prods/>
+    
+    </div>
+  </div>
+</section>
+
+<section className="ratio_asos overflow-hidden">
+  <div className="container p-sm-0">
+    <div className="row m-0">
+      <div className="col-12 p-0">
+        <div className="title-3 text-center">
+          <h2>Our Products</h2>
+          <h5 className="theme-color">Our Collection (Electronics)</h5>
+          <div className="d-flex justify-content-end mt-3">
+          <Link to="/shop/info">See More</Link>          
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    <div className="row g-sm-4 g-3">
       <Prods/>
       <Prods/>
       <Prods/>
       <Prods/>
       <Prods/>
       <Prods/>
+    
     </div>
   </div>
 </section>
@@ -359,9 +427,7 @@ export default function Home() {
        <ProdHome/>
        <ProdHome/>
        <ProdHome/>
-       <ProdHome/>
-       <ProdHome/>
-       <ProdHome/>
+      
       </div>
     </div>
   </div>

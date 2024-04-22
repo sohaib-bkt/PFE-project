@@ -8,7 +8,7 @@ export default function Wishlist() {
       <section className="wish-list-section section-b-space">
         <div className="container">
           <div className="row">
-            <div className="col-sm-12 table-responsive">
+            <div className="col-sm-12">
               <table className="table cart-table wishlist-table">
                 <thead>
                   <tr className="table-head">
