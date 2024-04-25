@@ -127,35 +127,6 @@ const Header = ({ children }) => {
         </div>
         <div className="bg-overlay"></div>
       </header>
-
-      <div className="mobile-menu d-sm-none">
-        <ul>
-          <li>
-            <Link to="/" className='active'>
-              <i data-feather="home"></i>
-              <span>Home</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/shop">
-              <i data-feather="align-justify"></i>
-              <span>Category</span>
-            </Link>
-          </li>
-          <li>
-            <a href="/wishlist">
-              <i data-feather="heart"></i>
-              <span>Wishlist</span>
-            </a>
-          </li>
-          <li>
-            <a href="/profile">
-              <i data-feather="user"></i>
-              <span>Account</span>
-            </a>
-          </li>
-        </ul>
-      </div>
     </>
   );
 };

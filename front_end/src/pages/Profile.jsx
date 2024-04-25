@@ -1,11 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import UserProfile from '@Components/UserProfile';
 import Anonce from '@Components/Anonce';
 import Wishlist from '@Pages/Wishlist';
 
+
 export default function Profile() {
     const [activeTab, setActiveTab] = useState('anonce'); // Default active tab is 'desc'
-
+    useEffect(() => {
+        const scripts = [
+            './assets/js/lazysizes.min.js',     
+        ];
+    
+        const loadScript = (src) => {
+            return new Promise((resolve, reject) => {
+                if (document.querySelector(`script[src="${src}"]`)) {
+                    resolve();
+                    return;
+                }
+    
+                const script = document.createElement('script');
+                script.src = src;
+                script.async = true;
+    
+                script.onload = () => resolve();
+                script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+    
+                document.body.appendChild(script);
+            });
+        };
+    
+        const loadScriptsSequentially = async () => {
+            for (let src of scripts) {
+                try {
+                    await loadScript(src);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        };
+    
+        loadScriptsSequentially();
+    
+        return () => {
+            // Cleanup
+            scripts.forEach(src => {
+                const script = document.querySelector(`script[src="${src}"]`);
+                if (script) {
+                    document.body.removeChild(script);
+                }
+            });
+        };
+    }, []);
     return (
         <>
             <div className='container-fluid-lg'>
@@ -34,7 +79,7 @@ export default function Profile() {
                                     onClick={() => setActiveTab('profile')}
                                     type="button"
                                 >
-                                    Profile
+                                    Settings
                                 </button>
                             </div>
                         </nav>

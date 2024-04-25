@@ -1,9 +1,60 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Prods from '@Components/Prods.jsx';
 import ProdHome from '@Components/ProdHome.jsx';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default function Home() {
+  
+ 
+  useEffect(() => {
+    const scripts = [
+        'https://code.jquery.com/jquery-3.6.0.min.js',
+        './assets/js/lazysizes.min.js',
+        './assets/js/script.js',
+        './assets/js/slick/slick.js',
+        './assets/js/slick/slick-animation.min.js',
+        './assets/js/slick/custom_slick.js'
+    ];
 
+    const loadScript = (src) => {
+        return new Promise((resolve, reject) => {
+            if (document.querySelector(`script[src="${src}"]`)) {
+                resolve();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+
+            document.body.appendChild(script);
+        });
+    };
+
+    const loadScriptsSequentially = async () => {
+        for (let src of scripts) {
+            try {
+                await loadScript(src);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    loadScriptsSequentially();
+
+    return () => {
+        // Cleanup
+        scripts.forEach(src => {
+            const script = document.querySelector(`script[src="${src}"]`);
+            if (script) {
+                document.body.removeChild(script);
+            }
+        });
+    };
+}, []);
     return (
         <>
            <section className="pt-0 poster-section">

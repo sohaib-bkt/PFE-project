@@ -1,0 +1,17 @@
+.customContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adjust the spacing between the text and the icon */
+}
+
+.customText {
+    font-size: 16px; /* Adjust the font size */
+    color: #333; /* Adjust the text color */
+}
+
+.customIcon {
+    fill: rgb(46, 107, 255); /* SVG fill color */
+    stroke: rgb(46, 107, 255); /* SVG stroke color */
+    width: 24px; /* Adjust the SVG width */
+    height: 24px; /* Adjust the SVG height */
+}

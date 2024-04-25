@@ -1,174 +1,50 @@
 import React, { useState } from 'react';
+import Info from '@Components/EditInfo.jsx';
+import Pass from '@Components/EditPass.jsx';
 
 export default function UserProfile() {
-    const [editMode, setEditMode] = useState(false);
-    const [formData, setFormData] = useState({
-        fullName: 'Johnatan Smith',
-        email: 'example@example.com',
-        phone: '(097) 234-5678',
-        mobile: '(098) 765-4321',
-        address: 'Bay Area, San Francisco, CA',
-    });
+    const [activeTab, setActiveTab] = useState('info'); // Default active tab is 'info'
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
     };
 
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    };
-
-    const handleSave = () => {
-        // Handle save logic here, like sending data to server
-        console.log('Saving data:', formData);
-        toggleEditMode();
-    };
     return (
         <>
-              <div className="tab-pane fade active show">
-
-         <div className='container-fluid-lg'>
-            <div class="col-12">
-            <div className="row">
-                <div className="col-lg-4">
-                    <div className="card mb-4">
-                        <div className="card-body text-center" style={{ backgroundColor: '#f8f9fa' }}>
-                            <img
-                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                                alt="avatar"
-                                className="rounded-circle img-fluid"
-                                style={{ width: 150 }}
-                            />
-                            <h5 className="my-3">John Smith</h5>
-                            <p className="text-muted mb-1">Full Stack Developer</p>
-                            <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            <div className="tab-pane fade active show">
+                <div className="col-12">
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div className="btn-group-vertical">
+                                <button 
+                                    type="button" 
+                                    className='btn btn-dark mb-2'
+                                    onClick={() => handleTabClick('info')}
+                                >
+                                    Edit Your Information &nbsp;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                                    </svg>
+                                </button> 
+                                <button 
+                                    type="button" 
+                                    className='btn btn-dark mb-2 '
+                                    onClick={() => handleTabClick('password')}
+                                >
+                                    Edit Your Password &nbsp;
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                                    </svg>
+                                </button> 
+                            </div>
+                        </div>
+                        <div className="col-lg-8">
+                            {activeTab === 'info' && <Info />}
+                            {activeTab === 'password' && <Pass />}
                         </div>
                     </div>
                 </div>
-                <div className="col-lg-8">
-                    <div className="card mb-4">
-                        <div className="card-body">
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <p className="mb-0">Full Name</p>
-                                </div>
-                                <div className="col-sm-9">
-                                    {editMode ? (
-                                        <input
-                                            type="text"
-                                            name="fullName"
-                                            className="form-control"
-                                            value={formData.fullName}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        <p className="text-muted mb-0">{formData.fullName}</p>
-                                    )}
-                                </div>
-                            </div>
-                            <hr />
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <p className="mb-0">Email</p>
-                                </div>
-                                <div className="col-sm-9">
-                                    {editMode ? (
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            className="form-control"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        <p className="text-muted mb-0">{formData.email}</p>
-                                    )}
-                                </div>
-                            </div>
-                            <hr />
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <p className="mb-0">Phone</p>
-                                </div>
-                                <div className="col-sm-9">
-                                    {editMode ? (
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            className="form-control"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        <p className="text-muted mb-0">{formData.phone}</p>
-                                    )}
-                                </div>
-                            </div>
-                            <hr />
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <p className="mb-0">Mobile</p>
-                                </div>
-                                <div className="col-sm-9">
-                                    {editMode ? (
-                                        <input
-                                            type="tel"
-                                            name="mobile"
-                                            className="form-control"
-                                            value={formData.mobile}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        <p className="text-muted mb-0">{formData.mobile}</p>
-                                    )}
-                                </div>
-                            </div>
-                            <hr />
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <p className="mb-0">Address</p>
-                                </div>
-                                <div className="col-sm-9">
-                                    {editMode ? (
-                                        <input
-                                            type="text"
-                                            name="address"
-                                            className="form-control"
-                                            value={formData.address}
-                                            onChange={handleChange}
-                                        />
-                                    ) : (
-                                        <p className="text-muted mb-0">{formData.address}</p>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
-                            {editMode ? (
-                                <>
-                                    <button className="btn btn-primary" onClick={handleSave}>
-                                        Save
-                                    </button>
-                                    <button className="btn btn-light" onClick={toggleEditMode}>
-                                        Cancel
-                                    </button>
-                                </>
-                            ) : (
-                                <button className="btn btn-primary" onClick={toggleEditMode}>
-                                    Edit
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
             </div>
         </>
-       )
-    }       
+    );
+}

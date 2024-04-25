@@ -2564,10 +2564,11 @@ header .main-menu {
       padding: 10px 0; } }
 
 header .onhover-div {
-  left: 0; }
+  left: 15px; }
   [dir="rtl"] header .onhover-div {
     right: unset;
     left: 0; }
+    
 
 @media (max-width: 575px) {
   header .wislist-dropdown {
