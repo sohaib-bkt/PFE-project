@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '@Css/andrp.module.css';
+import img from '@Assets/images/newletter-icon.png';
 
 export default function Anonce() {
 
@@ -29,7 +30,7 @@ export default function Anonce() {
                     <div className="card" style={{ width: "100%" }}>
                         <div className="row no-gutters">
                             <div className="col-md-4">
-                                <img src="..." className="card-img-top" alt="..." />
+                                <img src={img} className="card-img-top" alt="..." />
                             </div>
                             <div className="col-md-8">
                                 <div className="card-body">
@@ -60,7 +61,7 @@ export default function Anonce() {
                                         </div>
 
                                     </div>
-                                    <h4 className="card-title">$ Price</h4>
+                                    <h4 className="card-title">$ 99.99</h4>
                                     <p className="card-text">
                                         short description
                                     </p>

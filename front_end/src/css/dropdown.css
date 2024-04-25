@@ -1,44 +1,35 @@
-/* styles.module.css */
+.unique-dropdown {  position: relative;
+    display: inline-block;
+  }
 
-.uniqueDropdown {
-  position: relative;
-  display: inline-block;
-}
+  .unique-dropbtn { 
+    background-color: #a01818;
+    color: white;
+    padding: 13px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4%;
+  }
 
-.uniqueDropbtn {
-  background-color: #a01818;
-  color: white;
-  padding: 13px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4%;
-}
+  .unique-dropdown-content {  display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 115px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
 
-.uniqueDropdownContent {
-  display: none;
-  position: absolute;
-  background-color: #ffffff;
-  min-width: 115px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
+  .unique-dropdown-content a {  color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+  }
 
-.uniqueDropdownContent a {
-  color: black;
-  padding: 5px 16px;
-  text-decoration: none;
-  display: block;
-}
+  .unique-dropdown-content a:hover {background-color: #fde9e9}
 
-.uniqueDropdownContent a:hover {
-  background-color: #fde9e9;
-}
+  .unique-dropdown:hover .unique-dropdown-content {  display: block;
+  }
 
-.uniqueDropdown:hover .uniqueDropdownContent {
-  display: block;
-}
-
-.uniqueDropdown:hover .uniqueDropbtn {
-  background-color: #8b1515;
-}
+  .unique-dropdown:hover .unique-dropbtn {  background-color: #8b1515;
+  }
