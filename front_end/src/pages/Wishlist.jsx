@@ -8,7 +8,7 @@ export default function Wishlist() {
     axiosClient.get('http://localhost:8000/api/wishlist')
       .then(response => {
         setWishlistItems(response.data.items);
-        console.log(response.data.items); // Log the updated items here
+        console.log(response.data.items); 
       })
       .catch(error => console.error('Error fetching wishlist:', error));
 }, []);
@@ -16,11 +16,11 @@ export default function Wishlist() {
 
 const removeFromWishlist = (rowId) => {
   axiosClient.delete('http://localhost:8000/api/wishlist/remove', {
-    data: { rowId: String(rowId) } // Convert rowId to string
+    data: { rowId: String(rowId) } 
   })
     .then(() => {
       setWishlistItems(prevItems => {
-        const itemsArray = Object.values(prevItems); // Convert object to array
+        const itemsArray = Object.values(prevItems); 
         const updatedItems = itemsArray.filter(item => item.rowId !== rowId);
         const updatedItemsObject = updatedItems.reduce((acc, cur) => {
           acc[cur.rowId] = cur;

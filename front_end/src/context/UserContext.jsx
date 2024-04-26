@@ -42,7 +42,6 @@ export default function UserContextProvider({ children }) {
     UserApi.getUser().then((data) => {
       console.log(data.data);
       setUser(data.data); // Mettre à jour l'état de l'utilisateur dans le bloc then
-      console.log(user); // Cela va maintenant afficher les données de l'utilisateur récupérées
     });
   };
   const setToken = (token) => {
