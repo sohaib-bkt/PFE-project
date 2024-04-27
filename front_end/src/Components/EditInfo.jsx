@@ -30,7 +30,6 @@ export default function EditInfo() {
     const handleSave = () => {
         axiosClient.put(`http://localhost:8000/api/update/${formData.id}`, formData)
             .then(response => {
-                console.log(response.data);
                 toggleEditMode();
             })
             .catch(error => {
