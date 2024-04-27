@@ -63,7 +63,7 @@ export default function Profile() {
                                     onClick={() => setActiveTab('anonce')}
                                     type="button"
                                 >
-                                    My Announcement
+                                    My Advertisement
                                 </button>
 
                                 <button 
