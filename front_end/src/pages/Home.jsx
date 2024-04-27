@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Prods from '@Components/Prods.jsx';
 import ProdHome from '@Components/ProdHome.jsx';
 import { Link } from 'react-router-dom';
+import axiosClient from '../api/axios';
 export default function Home() {
-  
+  const [clothes, setClothes] = useState([]);
+  const [info , setInfo] = useState([]);
  
   useEffect(() => {
     const scripts = [
@@ -15,6 +17,15 @@ export default function Home() {
         './assets/js/slick/custom_slick.js'
     ];
 
+    axiosClient.get('http://localhost:8000/api/clothes').then((response) => {
+        setClothes(response.data);
+        console.log(response.data);
+    })
+
+    axiosClient.get('http://localhost:8000/api/inf').then((response) => {
+        setInfo(response.data);
+        console.log(response.data);
+    })
     const loadScript = (src) => {
         return new Promise((resolve, reject) => {
             if (document.querySelector(`script[src="${src}"]`)) {
@@ -289,40 +300,12 @@ export default function Home() {
     </div>
    
     <div className="row g-sm-4 g-3">
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
+      {clothes.map((prod) => (
+        <Prods key={prod.id} prod={prod} />
+      ))}
    
     </div>
    
-  </div>
-</section>
-<section className="ratio_asos overflow-hidden">
-  <div className="container p-sm-0">
-    <div className="row m-0">
-      <div className="col-12 p-0">
-        <div className="title-3 text-center">
-          <h2>Our Products</h2>
-          <h5 className="theme-color">Our Collection (Apartments)</h5>
-          <div className="d-flex justify-content-end mt-3">
-          <Link to="/shop/Apartments">See More</Link>          
-          </div>
-        </div>
-      </div>
-    </div>
-   
-    <div className="row g-sm-4 g-3">
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-    
-    </div>
   </div>
 </section>
 
@@ -341,12 +324,9 @@ export default function Home() {
     </div>
    
     <div className="row g-sm-4 g-3">
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
-      <Prods/>
+      {info.map((prod) => (
+        <Prods key={prod.id} prod={prod} />
+      ))}
     
     </div>
   </div>

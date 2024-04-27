@@ -50,7 +50,7 @@ export default function ProdCard( product ) {
             onClick={addToCart}
             disabled={loading}
           >
-            {loading ? 'Adding to Cart...' : (
+            {loading ? 'Adding to Wishlist...' : (
               <>
                 <i className="fas fa-shopping-cart text-primary mr-1" />
                 &nbsp;Add to Cart

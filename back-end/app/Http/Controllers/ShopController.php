@@ -226,6 +226,15 @@ public function changePassword(Request $request, $id)
         return response()->json(['message' => 'Password changed successfully']);
     }
 
+    public function getClothes(){
+        $clothes = Product::where('categorie_product', 'VET')->take(6)->get();
+        return response()->json($clothes);
+    }
+    public function getInfo(){
+        $clothes = Product::where('categorie_product', 'INF')->take(6)->get();
+        return response()->json($clothes);
+    }
+    
     // public function getCartAndWishlistCount()
     // {
     //     $cartCount = Cart::instance("cart")->Content()->count();
