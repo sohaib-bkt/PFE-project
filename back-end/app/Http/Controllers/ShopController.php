@@ -234,7 +234,10 @@ public function changePassword(Request $request, $id)
         $clothes = Product::where('categorie_product', 'INF')->take(6)->get();
         return response()->json($clothes);
     }
-    
+    public function getLatestProducts(){
+        $products = Product::latest()->take(6)->get();
+        return response()->json($products);
+    }
     // public function getCartAndWishlistCount()
     // {
     //     $cartCount = Cart::instance("cart")->Content()->count();

@@ -6,6 +6,7 @@ import axiosClient from '../api/axios';
 export default function Home() {
   const [clothes, setClothes] = useState([]);
   const [info , setInfo] = useState([]);
+  const [latest, setLatest] = useState([]);
  
   useEffect(() => {
     const scripts = [
@@ -16,15 +17,18 @@ export default function Home() {
         './assets/js/slick/slick-animation.min.js',
         './assets/js/slick/custom_slick.js'
     ];
+    axiosClient.get('http://localhost:8000/api/latest').then((response) => {
+        setLatest(response.data);
+    })
 
     axiosClient.get('http://localhost:8000/api/clothes').then((response) => {
         setClothes(response.data);
-        console.log(response.data);
+    
     })
 
     axiosClient.get('http://localhost:8000/api/inf').then((response) => {
         setInfo(response.data);
-        console.log(response.data);
+
     })
     const loadScript = (src) => {
         return new Promise((resolve, reject) => {
@@ -451,13 +455,10 @@ export default function Home() {
           <h2> Top Price</h2>
         </div>
       </div>
-      <div className="our-product products-c">
-       <ProdHome/>
-       <ProdHome/>
-       <ProdHome/>
-       <ProdHome/>
-       <ProdHome/>
-       <ProdHome/>
+      <div className="row g-sm-4 g-3">
+      {latest.map((prod) => (
+        <Prods key={prod.id} prod={prod} />
+      ))}
       
       </div>
     </div>
