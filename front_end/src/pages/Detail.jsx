@@ -5,7 +5,10 @@ import DetailReview from '@Components/Detail/DetailReview.jsx';
 import DetailSpec from '@Components/Detail/DetailSpecifiction.jsx';
 import DetailSizing from '@Components/Detail/DetailSizing.jsx';
 import ProdHome from '@Components/ProdHome.jsx';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axiosClient from '../api/axios';
+
+
 
 export default function Detail() {
   const [activeTab, setActiveTab] = useState('desc');
@@ -13,7 +16,69 @@ export default function Detail() {
   const handleClick = (tab) => {
     setActiveTab(tab);
   };
+  useEffect(() => {
+    const scripts = [
+        'https://code.jquery.com/jquery-3.6.0.min.js',
+        './assets/js/lazysizes.min.js',
+        './assets/js/slick/slick.js',
+        './assets/js/slick/slick-animation.min.js',
+        './assets/js/slick/custom_slick.js'
+    ];
+
+    const loadScript = (src) => {
+        return new Promise((resolve, reject) => {
+            if (document.querySelector(script[src="${src}"])) {
+                resolve();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(Failed to load script ${src}));
+
+            document.body.appendChild(script);
+        });
+    };
+
+    const loadScriptsSequentially = async () => {
+        for (let src of scripts) {
+            try {
+                await loadScript(src);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    loadScriptsSequentially();
+
+    return () => {
+        // Cleanup
+        scripts.forEach(src => {
+            const script = document.querySelector(script[src="${src}"]);
+            if (script) {
+                document.body.removeChild(script);
+            }
+        });
+    };
+}, []);
+
+
+`  useEffect(() => {
+    axiosClient.get(`http://localhost:8000/api/detail/${id}`)
+      .then(response => {
+        setProduct(response.data);
+        console.log(response.data); 
+      })
+      .catch(error => console.error('Error fetching wishlist:', error));
+}, [id]);
+
+
     return (
+      
         <>
         <SectionStart  title="Detail" activeBreadcrumb="Detail" />
         <section>
@@ -28,28 +93,28 @@ export default function Detail() {
                         <div className="details-image-vertical black-slide rounded">
                           <div>
                             <img
-                              src={img}
+                              src={'../'+product.image}
                               className="img-fluid blur-up lazyload"
                               alt=""
                             />
                           </div>
                           <div>
                             <img
-                              src={img}
+                              src={'../'+product.image}
                               className="img-fluid blur-up lazyload"
                               alt=""
                             />
                           </div>
                           <div>
                             <img
-                              src={img}
+                              src={'../'+product.image}
                               className="img-fluid blur-up lazyload"
                               alt=""
                             />
                           </div>
                           <div>
                             <img
-                              src={img}
+                              src={'../'+product.image}
                               className="img-fluid blur-up lazyload"
                               alt=""
                             />
@@ -69,7 +134,7 @@ export default function Detail() {
                           </div>
                           <div>
                             <img
-                              src={img}
+                              src={'../'+product.image}
                               id="zoom_02"
                               data-zoom-image="assets/images/fashion/2.jpg"
                               className="img-fluid w-100 image_zoom_cls-1 blur-up lazyload"
@@ -124,7 +189,7 @@ export default function Detail() {
                 </div>
                 <div className="details-image-concept">
                   <h2>
-                   <b>prod Name</b>
+                   <b>{product.name}</b>
                   </h2>
                 </div>
                 <div className="label-section">
@@ -132,9 +197,8 @@ export default function Detail() {
                   <span className="label-text">in fashion</span>
                 </div>
                 <h3 className="price-detail">
-                $70.00
-                <del> $90.00</del>
-                <span>71 % off</span>
+                ${product.regular_price}
+                         
                 </h3>
                 {/* Votre bouton Commande */}
                 <div className="product-buttons">
@@ -146,47 +210,6 @@ export default function Detail() {
                     <i className="fa fa-bookmark fz-16 me-2" />
                     <span>Commande</span>
                   </a>
-                </div>
-                <ul className="product-count shipping-order">
-                  <li>
-                    <img
-                      src="../assets/images/gif/truck.png"
-                      className="img-fluid  lazyload"
-                      alt="image"
-                    />
-                    <span className="lang">
-                      Free shipping for orders above $500 USD
-                    </span>
-                  </li>
-                </ul>
-                <div className="mt-2 mt-md-3 border-product">
-                  <h6 className="product-title hurry-title d-block">
-                    in stock OR out of stock
-                  </h6>
-                  <div className="progress">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "78%" }}
-                    />
-                  </div>
-                  <div className="font-light timer-5">
-                    <h5>Order in the next to get</h5>
-                    <ul className="timer1">
-                      <li className="counter">
-                        <h5 id="days">␣</h5> Days :
-                      </li>
-                      <li className="counter">
-                        <h5 id="hours">␣</h5> Hour :
-                      </li>
-                      <li className="counter">
-                        <h5 id="minutes">␣</h5> Min :
-                      </li>
-                      <li className="counter">
-                        <h5 id="seconds">␣</h5> Sec
-                      </li>
-                    </ul>
-                  </div>
                 </div>
                 <div className="border-product">
                   <h6 className="product-title d-block">share it</h6>

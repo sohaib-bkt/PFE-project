@@ -25,9 +25,14 @@ export default function EditInfo() {
     };
 
     const handleSave = () => {
-        // Handle save logic here, like sending data to server
-        console.log('Saving data:', formData);
-        toggleEditMode();
+        axios.put(`/api/users/${userId}`, formData)
+            .then(response => {
+                console.log(response.data.message);
+                toggleEditMode();
+            })
+            .catch(error => {
+                console.error('Error updating user:', error);
+            });
     };
     return (
         <div className="col-lg-12">

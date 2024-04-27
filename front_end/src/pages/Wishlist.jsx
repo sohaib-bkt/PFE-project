@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axiosClient from '../api/axios';
+import { Link } from 'react-router-dom';
 
 export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -96,9 +97,9 @@ const clearWishlist = () => {
               <div className="col-md-12 text-center">
                 <h2>Your wishlist is empty!</h2>
                 <h5 className="mt-3">Add items to it now.</h5>
-                <a href="{{route('shop.index')}}" className="btn btn-warning mt-5">
+                <Link to="/shop/clothes" className="btn btn-warning mt-5">
                   Shop Now
-                </a>
+                </Link>
               </div>
             </div>
           )}

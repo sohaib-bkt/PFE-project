@@ -111,10 +111,10 @@ const Header = ({ children }) => {
                       </li>
                       <li className="onhover-dropdown wislist-dropdown">
                         <div className="cart-media">
-                          <a href="{{route('wishlist.list')}}">
+                        <Link to="/wishlist">
                             <i data-feather="heart" />
                             <span id="wishlist-count" className="label label-theme rounded-pill">1</span>
-                          </a>
+                          </Link>
                         </div>
                       </li>
                       {children}

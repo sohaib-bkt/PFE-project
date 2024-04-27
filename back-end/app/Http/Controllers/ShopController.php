@@ -183,6 +183,10 @@ class ShopController extends Controller
         'phoneNumber' => $phoneNumber
     ]);
 }
+public function detail($id){
+    $product = Product::find($id);
+    return response()->json($product);
+}
 
     // public function getCartAndWishlistCount()
     // {
