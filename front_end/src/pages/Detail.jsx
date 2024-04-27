@@ -1,11 +1,12 @@
-import img from '@Public/assets/images/blog/sample.jpg';
+import img from '@Public/assets/images/fashion/product/back/17.jpg';
+import img2 from '@Public/assets/images/fashion/product/back/18.jpg';
 import SectionStart from "@Components/SectionStart.jsx";
 import DetailDesc from '@Components/Detail/DetailDesc.jsx';
 import DetailReview from '@Components/Detail/DetailReview.jsx';
 import DetailSpec from '@Components/Detail/DetailSpecifiction.jsx';
 import DetailSizing from '@Components/Detail/DetailSizing.jsx';
 import ProdHome from '@Components/ProdHome.jsx';
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 
 export default function Detail() {
   const [activeTab, setActiveTab] = useState('desc');
@@ -13,6 +14,55 @@ export default function Detail() {
   const handleClick = (tab) => {
     setActiveTab(tab);
   };
+  useEffect(() => {
+    const scripts = [
+        'https://code.jquery.com/jquery-3.6.0.min.js',
+        './assets/js/lazysizes.min.js',
+        './assets/js/slick/slick.js',
+        './assets/js/slick/slick-animation.min.js',
+        './assets/js/slick/custom_slick.js'
+    ];
+
+    const loadScript = (src) => {
+        return new Promise((resolve, reject) => {
+            if (document.querySelector(`script[src="${src}"]`)) {
+                resolve();
+                return;
+            }
+
+            const script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+
+            document.body.appendChild(script);
+        });
+    };
+
+    const loadScriptsSequentially = async () => {
+        for (let src of scripts) {
+            try {
+                await loadScript(src);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
+    loadScriptsSequentially();
+
+    return () => {
+        // Cleanup
+        scripts.forEach(src => {
+            const script = document.querySelector(`script[src="${src}"]`);
+            if (script) {
+                document.body.removeChild(script);
+            }
+        });
+    };
+}, []);
     return (
         <>
         <SectionStart  title="Detail" activeBreadcrumb="Detail" />
@@ -35,65 +85,34 @@ export default function Detail() {
                           </div>
                           <div>
                             <img
-                              src={img}
+                              src={img2}
                               className="img-fluid blur-up lazyload"
                               alt=""
                             />
                           </div>
-                          <div>
-                            <img
-                              src={img}
-                              className="img-fluid blur-up lazyload"
-                              alt=""
-                            />
-                          </div>
-                          <div>
-                            <img
-                              src={img}
-                              className="img-fluid blur-up lazyload"
-                              alt=""
-                            />
-                          </div>
+                       
                         </div>
                       </div>
                       <div className="col-lg-10">
                         <div className="details-image-1 ratio_asos">
-                          <div>
-                            <img
-                              src="../assets/images/fashion/product/front/1.jpg"
-                              id="zoom_01"
-                              data-zoom-image="assets/images/fashion/1.jpg"
-                              className="img-fluid w-100 image_zoom_cls-0 blur-up lazyload"
-                              alt=""
-                            />
-                          </div>
+                        
                           <div>
                             <img
                               src={img}
-                              id="zoom_02"
-                              data-zoom-image="assets/images/fashion/2.jpg"
+                              id="zoom_01"
                               className="img-fluid w-100 image_zoom_cls-1 blur-up lazyload"
                               alt=""
                             />
                           </div>
                           <div>
                             <img
-                              src={img}
-                              id="zoom_03"
-                              data-zoom-image="assets/images/fashion/3.jpg"
+                              src={img2}
+                              id="zoom_02"
                               className="img-fluid w-100 image_zoom_cls-2 blur-up lazyload"
                               alt=""
                             />
                           </div>
-                          <div>
-                            <img
-                              src="../assets/images/fashion/4.jpg"
-                              id="zoom_04"
-                              data-zoom-image="assets/images/fashion/4.jpg"
-                              className="img-fluid w-100 image_zoom_cls-3 blur-up lazyload"
-                              alt=""
-                            />
-                          </div>
+                       
                         </div>
                       </div>
                     </div>
