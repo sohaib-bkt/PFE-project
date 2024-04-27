@@ -17,11 +17,11 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $category_name = $this->faker->unique()->words($nb=2,$asText = true);
-        $slug = Str::slug($category_name);
+        $category_name = $this->faker->unique()->randomElement(['jeans', 'jacket', 't-shirt', 'hoodie', 'sneakers' ,'cap']);
         return [
             'name' => Str::title($category_name),
-            'slug'=>$slug,
+            'slug' => $category_name,
         ];
     }
+    
 }

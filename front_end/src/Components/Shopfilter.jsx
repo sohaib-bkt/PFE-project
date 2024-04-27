@@ -157,7 +157,7 @@ export default function Shopfilter() {
                 id="color-1"
               />
               <label className="custom-control-label" htmlFor="color-1">
-                Black
+                Jawda
               </label>
               </a>
               
@@ -171,7 +171,7 @@ export default function Shopfilter() {
                 id="color-2"
               />
               <label className="custom-control-label" htmlFor="color-2">
-                White
+                Abidas
               </label>
               </a>
               
@@ -185,7 +185,7 @@ export default function Shopfilter() {
                 id="color-3"
               />
               <label className="custom-control-label" htmlFor="color-3">
-                Red
+                Costa
               </label>
               </a>
               
@@ -199,7 +199,7 @@ export default function Shopfilter() {
                 id="color-4"
               />
               <label className="custom-control-label" htmlFor="color-4">
-                Blue
+                Nyke
               </label>
               </a>
               
@@ -213,7 +213,7 @@ export default function Shopfilter() {
                 id="color-5"
               />
               <label className="custom-control-label" htmlFor="color-5">
-                Green
+                Dacia
               </label>
               </a>
               
@@ -235,7 +235,7 @@ export default function Shopfilter() {
                 id="size-all"
               />
               <label className="custom-control-label" htmlFor="size-all">
-                All Size
+                All Categories
               </label>
               </a>
               
@@ -249,7 +249,7 @@ export default function Shopfilter() {
                 id="size-1"
               />
               <label className="custom-control-label" htmlFor="size-1">
-                XS
+                Snekers
               </label>
               </a>
               
@@ -263,7 +263,7 @@ export default function Shopfilter() {
                 id="size-2"
               />
               <label className="custom-control-label" htmlFor="size-2">
-                S
+                Jean
               </label>
               </a>
               
@@ -277,7 +277,7 @@ export default function Shopfilter() {
                 id="size-3"
               />
               <label className="custom-control-label" htmlFor="size-3">
-                M
+                Hoodie
               </label>
               </a>
               
@@ -291,7 +291,7 @@ export default function Shopfilter() {
                 id="size-4"
               />
               <label className="custom-control-label" htmlFor="size-4">
-                L
+                Jacket
               </label>
               </a>
               
@@ -305,7 +305,7 @@ export default function Shopfilter() {
                 id="size-5"
               />
               <label className="custom-control-label" htmlFor="size-5">
-                XL
+                T-Shirt
               </label>
               </a>
               
