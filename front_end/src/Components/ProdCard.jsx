@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import axiosClient from '../api/axios';
+import { Link } from 'react-router-dom';
 
 export default function ProdCard( product ) {
   const [loading, setLoading] = useState(false);
@@ -40,10 +41,10 @@ export default function ProdCard( product ) {
           </div>
         </div>
         <div className="card-footer d-flex justify-content-between bg-light border">
-          <a href="#" className="btn btn-sm text-dark p-0">
+          <Link to={`/detail/${product.product.id}`} className="btn btn-sm text-dark p-0">
             <i className="fas fa-eye text-primary mr-1" />
             &nbsp;Detail
-          </a>
+          </Link>
           <button
             className="btn btn-sm text-dark p-0"
             onClick={addToCart}

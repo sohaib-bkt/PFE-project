@@ -24,6 +24,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::get('/products', [ShopController::class, 'index']);
 Route::get('/products/{slug}', [ShopController::class, 'productDetails']);
 Route::get('/info', [ShopController::class, 'shopInformatique']);
+Route::get('detail/{id}', [ShopController::class, 'detail']);
+Route::put('/update/{id}', [ShopController::class, 'update']);
+Route::put('/update/{id}/changePassword', [ShopController::class, 'changePassword']);
+
 
 
 

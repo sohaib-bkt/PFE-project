@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axiosClient from '../api/axios';
+import UserApi from '../services/api/user/UserApi';
 
 export default function ChangePassword() {
     const [oldPassword, setOldPassword] = useState('');
@@ -6,6 +8,7 @@ export default function ChangePassword() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [userId, setUserId] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,16 +35,28 @@ export default function ChangePassword() {
             return;
         }
 
-        // Here you can add your logic to send the data to the server for password change
-        console.log('Submitting password change:', { oldPassword, newPassword });
-
-        setSuccessMessage('Password changed successfully');
-        setOldPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
-        setErrorMessage('');
+        // Send the request to change the password
+        axiosClient.put(`http://localhost:8000/api/update/${userId}/changePassword`, {
+            oldPassword,
+            newPassword,
+        })
+        .then(response => {
+            setSuccessMessage(response.data.message);
+            setErrorMessage('');
+            setOldPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+        })
+        .catch(error => {
+            setErrorMessage(error.response.data.message);
+        });
     };
+    useEffect(() => {
+        UserApi.getUser().then((data) => {
+            setUserId(data.data.id);
 
+        });
+    }, []);
     return (
         <div className="col-lg-12">
             <div className="card mb-4">

@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
                         element: <Wishlist/>
                     },
                     {
-                        path: "/detail",
+                        path: "/detail/:id",
                         element: <Detail/>
                     },
                 ]

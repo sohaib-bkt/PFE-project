@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ShopController extends Controller
 {
@@ -183,6 +184,37 @@ class ShopController extends Controller
         'phoneNumber' => $phoneNumber
     ]);
 }
+public function detail($id){
+    $product = Product::find($id);
+    return response()->json($product);
+}
+public function update(Request $request, $id){
+    $user = User::find($id);
+    $user->update($request->all());
+    return response()->json($user);
+}
+public function changePassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Validate the request
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:6|different:oldPassword',
+        ]);
+
+        // Verify the old password
+        if (!Hash::check($request->oldPassword, $user->password)) {
+            return response()->json(['message' => 'Incorrect old password'], 400);
+        }
+
+        // Update the user's password
+        $user->update([
+            'password' => Hash::make($request->newPassword),
+        ]);
+
+        return response()->json(['message' => 'Password changed successfully']);
+    }
 
     // public function getCartAndWishlistCount()
     // {
