@@ -187,6 +187,11 @@ public function detail($id){
     $product = Product::find($id);
     return response()->json($product);
 }
+public function update(Request $request, $id){
+    $user = User::find($id);
+    $user->update($request->all());
+    return response()->json($user);
+}
 
     // public function getCartAndWishlistCount()
     // {

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axiosClient from '../api/axios';
+import UserApi from '../services/api/user/UserApi';
 
 export default function EditInfo() {
     const [activeTab, setActiveTab] = useState('anonce'); // Default active tab is 'desc'
 
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
-        fullName: 'Johnatan Smith',
-        email: 'example@example.com',
-        phone: '(097) 234-5678',
-        mobile: '(098) 765-4321',
-        address: 'Bay Area, San Francisco, CA',
     });
 
     const handleChange = (e) => {
@@ -23,24 +20,31 @@ export default function EditInfo() {
     const toggleEditMode = () => {
         setEditMode(!editMode);
     };
+    useEffect(() => {
+        UserApi.getUser().then((data) => {
+            setFormData(data.data);
+
+        });
+    }, []);
 
     const handleSave = () => {
-        axios.put(`/api/users/${userId}`, formData)
+        axiosClient.put(`http://localhost:8000/api/update/${formData.id}`, formData)
             .then(response => {
-                console.log(response.data.message);
+                console.log(response.data);
                 toggleEditMode();
             })
             .catch(error => {
                 console.error('Error updating user:', error);
             });
     };
+
     return (
         <div className="col-lg-12">
         <div className="card mb-4">
             <div className="card-body">
                 <div className="row">
                     <div className="col-sm-3">
-                        <p className="mb-0">Full Name</p>
+                        <p className="mb-0">Name</p>
                     </div>
                     <div className="col-sm-9">
                         {editMode ? (
@@ -48,11 +52,11 @@ export default function EditInfo() {
                                 type="text"
                                 name="fullName"
                                 className="form-control"
-                                value={formData.fullName}
+                                value={formData.name}
                                 onChange={handleChange}
                             />
                         ) : (
-                            <p className="text-muted mb-0">{formData.fullName}</p>
+                            <p className="text-muted mb-0">{formData.name}</p>
                         )}
                     </div>
                 </div>
@@ -95,25 +99,7 @@ export default function EditInfo() {
                     </div>
                 </div>
                 <hr />
-                <div className="row">
-                    <div className="col-sm-3">
-                        <p className="mb-0">Mobile</p>
-                    </div>
-                    <div className="col-sm-9">
-                        {editMode ? (
-                            <input
-                                type="tel"
-                                name="mobile"
-                                className="form-control"
-                                value={formData.mobile}
-                                onChange={handleChange}
-                            />
-                        ) : (
-                            <p className="text-muted mb-0">{formData.mobile}</p>
-                        )}
-                    </div>
-                </div>
-                <hr />
+
                 <div className="row">
                     <div className="col-sm-3">
                         <p className="mb-0">Address</p>
