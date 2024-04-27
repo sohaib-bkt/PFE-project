@@ -15,6 +15,8 @@ import AdminLayouth from "@Layouths/AdminLayouth.jsx"
 import ShopClothes from "@Pages/ShopClothes.jsx"
 import ShopInfo from "@Pages/ShopInfo.jsx"
 import Detail from "@Pages/Detail.jsx"
+import AddAdv from "@Pages/Advertisement/AddAdv.jsx"
+import EditAdv from "@Pages/Advertisement/EditAdv.jsx"
 export const router = createBrowserRouter([
 
             {
@@ -24,7 +26,15 @@ export const router = createBrowserRouter([
                         path: "/profile",
                         element: <Profile/>
                     },
-                 
+                    {
+                        path: "/ajouter-annonce",
+                        element: <AddAdv/>
+                    },
+                    {
+                        path: "/edit-annonce",
+                        element: <EditAdv/>
+                    },
+                    
 
                 ]
             },

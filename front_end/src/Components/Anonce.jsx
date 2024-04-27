@@ -49,7 +49,7 @@ const EmptyAnnoucements = () => (
               </div>
     </div>
 )
-// Filter group component
+
 const FilterGroup = ({ selectedFilter, onChange }) => (
     <div className={`card ${styles.filter}`}>
         <article className="filter-group">
@@ -89,7 +89,6 @@ const Pendingdiv = ({ onClose }) => (
     </div>
 );
 
-// Radio input component
 const RadioInput = ({ label, value, selectedFilter, onChange }) => (
     <div className="form-check">
         <input
@@ -104,7 +103,6 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
 );
 
 
-// Announcement card component
 const AnnouncementCard = () => (
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
@@ -131,7 +129,6 @@ const AnnouncementCard = () => (
     </div>
 );
 
-// Dropdown menu component
 const DropdownMenu = () => (
     <div className="dropdown" style={{ position: "absolute", top: "10px", right: "10px" }}>
         <div className={styles.uniqueDropdown}>
