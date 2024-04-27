@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '@Css/andrp.module.css';
 import img from '@Assets/images/newletter-icon.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 // Main component
 export default function Anonce() {
