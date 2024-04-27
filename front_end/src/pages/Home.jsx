@@ -1,75 +1,80 @@
 import React, { useEffect, useState } from 'react';
 import Prods from '@Components/Prods.jsx';
-import ProdHome from '@Components/ProdHome.jsx';
 import { Link } from 'react-router-dom';
 import axiosClient from '../api/axios';
+
 export default function Home() {
   const [clothes, setClothes] = useState([]);
-  const [info , setInfo] = useState([]);
+  const [info, setInfo] = useState([]);
   const [latest, setLatest] = useState([]);
- 
+
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [latestResponse, clothesResponse, infoResponse] = await Promise.all([
+          axiosClient.get('http://localhost:8000/api/latest'),
+          axiosClient.get('http://localhost:8000/api/clothes'),
+          axiosClient.get('http://localhost:8000/api/inf')
+        ]);
+        setLatest(latestResponse.data);
+        setClothes(clothesResponse.data);
+        setInfo(infoResponse.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+
     const scripts = [
-        'https://code.jquery.com/jquery-3.6.0.min.js',
-        './assets/js/lazysizes.min.js',
-        './assets/js/script.js',
-        './assets/js/slick/slick.js',
-        './assets/js/slick/slick-animation.min.js',
-        './assets/js/slick/custom_slick.js'
+      'https://code.jquery.com/jquery-3.6.0.min.js',
+      './assets/js/lazysizes.min.js',
+      './assets/js/script.js',
+      './assets/js/slick/slick.js',
+      './assets/js/slick/slick-animation.min.js',
+      './assets/js/slick/custom_slick.js'
     ];
-    axiosClient.get('http://localhost:8000/api/latest').then((response) => {
-        setLatest(response.data);
-    })
 
-    axiosClient.get('http://localhost:8000/api/clothes').then((response) => {
-        setClothes(response.data);
-    
-    })
-
-    axiosClient.get('http://localhost:8000/api/inf').then((response) => {
-        setInfo(response.data);
-
-    })
     const loadScript = (src) => {
-        return new Promise((resolve, reject) => {
-            if (document.querySelector(`script[src="${src}"]`)) {
-                resolve();
-                return;
-            }
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+          return;
+        }
 
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = true;
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
 
-            script.onload = () => resolve();
-            script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error(`Failed to load script ${src}`));
 
-            document.body.appendChild(script);
-        });
+        document.body.appendChild(script);
+      });
     };
 
     const loadScriptsSequentially = async () => {
-        for (let src of scripts) {
-            try {
-                await loadScript(src);
-            } catch (error) {
-                console.error(error);
-            }
+      for (let src of scripts) {
+        try {
+          await loadScript(src);
+        } catch (error) {
+          console.error(error);
         }
+      }
     };
 
     loadScriptsSequentially();
 
     return () => {
-        // Cleanup
-        scripts.forEach(src => {
-            const script = document.querySelector(`script[src="${src}"]`);
-            if (script) {
-                document.body.removeChild(script);
-            }
-        });
+      // Cleanup
+      scripts.forEach(src => {
+        const script = document.querySelector(`script[src="${src}"]`);
+        if (script) {
+          document.body.removeChild(script);
+        }
+      });
     };
-}, []);
+  }, []);
     return (
         <>
            <section className="pt-0 poster-section">
