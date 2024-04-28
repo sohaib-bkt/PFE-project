@@ -2,6 +2,7 @@ import  { useEffect, useState } from 'react';
 import Prods from '@Components/Prods.jsx';
 import { Link } from 'react-router-dom';
 import axiosClient from '../api/axios';
+import ProdHome from '@Components/ProdHome';
 
 export default function Home() {
   const [clothes, setClothes] = useState([]);
@@ -462,7 +463,7 @@ export default function Home() {
       </div>
       <div className="our-product products-c">
       {latest.map((prod) => (
-        <Prods key={prod.id} prod={prod} />
+        <ProdHome key={prod.id} prod={prod} />
       ))}
       </div>
     </div>

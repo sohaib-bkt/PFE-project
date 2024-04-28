@@ -10,12 +10,19 @@ import ProdHome from '@Components/ProdHome';
 
 export default function Detail() {
     const [activeTab, setActiveTab] = useState('desc');
+    const [latest , setLatest] = useState([]);
     const { id } = useParams();
     const [product, setProduct] = useState({});
 
     const handleClick = (tab) => {
         setActiveTab(tab);
     };
+    useEffect(() => {
+        axiosClient.get(`http://localhost:8000/api/detail/${id}`)
+        .then(response => {
+            setProduct(response.data);
+        })
+    }, [id]);
 
     useEffect(() => {
         const loadScripts = async () => {
@@ -53,12 +60,12 @@ export default function Detail() {
                 document.body.appendChild(script);
             });
         };
+        axiosClient.get('http://localhost:8000/api/latest').then(response => {
+            setLatest(response.data);
+        });
 
-        axiosClient.get(`http://localhost:8000/api/detail/${id}`)
-            .then(response => {
-                setProduct(response.data);
+
                 loadScripts();
-            });
 
         return () => {
             const scripts = [
@@ -218,9 +225,9 @@ export default function Detail() {
                                     <div className="row m-0">
                                         <div className="col-12 p-0"></div>
                                         <div className="our-product products-c">
-                                            {[...Array(6)].map((_, index) => (
-                                                <ProdHome key={index} />
-                                            ))}
+                                        {latest.map((prod) => (
+                                            <ProdHome key={prod.id} prod={prod} />
+                                        ))}
                                         </div>
                                     </div>
                                 </div>
