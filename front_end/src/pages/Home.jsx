@@ -2,22 +2,21 @@ import  { useEffect, useState } from 'react';
 import Prods from '@Components/Prods.jsx';
 import { Link } from 'react-router-dom';
 import axiosClient from '../api/axios';
-import ProdHome from '@Components/ProdHome';
+import Slider from '@Components/Slider.jsx';
 
 export default function Home() {
   const [clothes, setClothes] = useState([]);
   const [info, setInfo] = useState([]);
-  const [latest, setLatest] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [latestResponse, clothesResponse, infoResponse] = await Promise.all([
-          axiosClient.get('http://localhost:8000/api/latest'),
+        const [ clothesResponse, infoResponse] = await Promise.all([
+
           axiosClient.get('http://localhost:8000/api/clothes'),
           axiosClient.get('http://localhost:8000/api/inf')
         ]);
-        setLatest(latestResponse.data);
+
         setClothes(clothesResponse.data);
         setInfo(infoResponse.data);
       } catch (error) {
@@ -461,11 +460,10 @@ export default function Home() {
           <h2> Top Price</h2>
         </div>
       </div>
-      <div className="our-product products-c">
-      {latest.map((prod) => (
-        <ProdHome key={prod.id} prod={prod} />
-      ))}
-      </div>
+      
+
+        <Slider />
+      
     </div>
   </div>
 </section>

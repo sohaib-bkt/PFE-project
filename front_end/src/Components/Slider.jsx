@@ -1,7 +1,18 @@
-import React from "react";
 import Slider from "react-slick";
-import ProdCard from "./ProdDetail.jsx";
+import ProdHome from "../Components/ProdHome.jsx";
+import { useEffect, useState } from "react";
+import axiosClient from "../api/axios.js";
+
+
 function Responsive() {
+  const [latest, setLatest] = useState([]);
+  
+  useEffect(() => {
+    axiosClient.get('http://localhost:8000/api/latest').then((response) => {
+      setLatest(response.data);
+    })
+  }, [])
+  
   var settings = {
     dots: true,
     infinite: false,
@@ -36,34 +47,15 @@ function Responsive() {
       }
     ]
   };
+
   return (
     <div className="slider-container">
       <Slider {...settings}>
-        <div>
-          <ProdCard />
-        </div>
-        <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div> <div>
-          <ProdCard />
-        </div>
-         
+        {latest.map((prod) => (
+          <div key={prod.id}>
+            <ProdHome prod={prod} />
+          </div>
+        ))}
       </Slider>
     </div>
   );
