@@ -7,6 +7,7 @@ import DetailReview from '@Components/Detail/DetailReview';
 import DetailSpec from '@Components/Detail/DetailSpecifiction';
 import DetailSizing from '@Components/Detail/DetailSizing';
 import ProdHome from '@Components/ProdHome';
+import img from '@Assets/images/scam.png'
 
 export default function Detail() {
     const [activeTab, setActiveTab] = useState('desc');
@@ -84,6 +85,33 @@ export default function Detail() {
         };
     }, []);
 
+    const showSwal = () => {
+        Swal.fire({
+          title: "Attention !",
+          html: `
+          <div>
+          <p>Never send money in advance to the seller via bank transfer or through a money transfer agency when purchasing goods available on the site.</p>
+          <h3>Call TOP Phone</h3><br/>
+          </div>
+      
+      `,  imageUrl: img,
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: "Custom image",
+          input: "text",
+          inputValue: "09999999999", // Set default value here
+          inputAttributes: {
+            autocapitalize: "off",
+            style: "margin: auto;" // Apply inline CSS here
+
+          },
+          showConfirmButton: false 
+       
+        })
+      }
+      
+      
+
     return (
         <>
             <SectionStart title="Detail" activeBreadcrumb="Detail" />
@@ -155,9 +183,9 @@ export default function Detail() {
                                             </h3>
                                             <div className="product-buttons">
                                                 <a
-                                                    href=""
                                                     className="btn btn-solid"
                                                     id="triggerModal"
+                                                    onClick={showSwal}
                                                 >
                                                     <i className="fa fa-bookmark fz-16 me-2" />
                                                     <span>Commande</span>
