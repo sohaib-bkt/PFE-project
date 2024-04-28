@@ -1,6 +1,5 @@
 import styles from '@Css/andrp.module.css';
 
-import React from 'react';
 
 export default function EditAdv() {
   return (

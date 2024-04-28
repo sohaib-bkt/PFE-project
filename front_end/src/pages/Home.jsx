@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import Prods from '@Components/Prods.jsx';
 import { Link } from 'react-router-dom';
 import axiosClient from '../api/axios';
@@ -460,11 +460,10 @@ export default function Home() {
           <h2> Top Price</h2>
         </div>
       </div>
-      <div className="row g-sm-4 g-3">
+      <div className="our-product products-c">
       {latest.map((prod) => (
         <Prods key={prod.id} prod={prod} />
       ))}
-      
       </div>
     </div>
   </div>

@@ -43,9 +43,9 @@ const EmptyAnnoucements = () => (
               <div className="col-md-12 text-center">
                 <h2>You have something to sell ?</h2>
                 <h5 className="mt-3">Post your ad for free</h5>
-                <a href="{{route('shop.index')}}" className="btn btn-warning mt-4">
+                <Link to={"/ajouter-annonce"} className="btn btn-warning mt-4">
                 Post an ad      
-               </a>
+               </Link>
               </div>
     </div>
 )
