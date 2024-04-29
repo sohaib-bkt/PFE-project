@@ -1,5 +1,5 @@
 import styles from '@Css/andrp.module.css';
-
+import SelectCat from '@Components/Drawer.jsx';
 
 export default function AddAdv() {
   return (
@@ -11,6 +11,10 @@ export default function AddAdv() {
                   <input type="hidden" name="user_id" defaultValue="{Auth::user()->id}" />
                   <div id="billingAddress" className="row g-4">
                     <h3 className="mb-3 theme-color">Billing address</h3>
+                    <div className="col-md-6">
+                    <label htmlFor="category_id" className="form-label">Categories</label>
+                      <SelectCat/>
+                    </div>
                     <div className="col-md-6">
                       <label htmlFor="name" className="form-label">Name</label>
                       <input type="text" className="form-control" id="name" name="name" placeholder="Enter Full Name" />

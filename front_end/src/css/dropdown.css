@@ -34,3 +34,7 @@
 
   .unique-dropdown:hover .unique-dropbtn {  background-color: #8b1515;
   }
+
+  .css-1nrlq1o-MuiFormControl-root{
+    min-width: 260px !important;
+  }
