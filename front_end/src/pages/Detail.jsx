@@ -6,12 +6,11 @@ import DetailDesc from '@Components/Detail/DetailDesc';
 import DetailReview from '@Components/Detail/DetailReview';
 import DetailSpec from '@Components/Detail/DetailSpecifiction';
 import DetailSizing from '@Components/Detail/DetailSizing';
-import ProdHome from '@Components/ProdHome';
+import Slider from '@Components/Slider';
 import img from '@Assets/images/scam.png'
 
 export default function Detail() {
     const [activeTab, setActiveTab] = useState('desc');
-    const [latest , setLatest] = useState([]);
     const { id } = useParams();
     const [product, setProduct] = useState({});
 
@@ -61,10 +60,6 @@ export default function Detail() {
                 document.body.appendChild(script);
             });
         };
-        axiosClient.get('http://localhost:8000/api/latest').then(response => {
-            setLatest(response.data);
-        });
-
 
                 loadScripts();
 
@@ -252,11 +247,9 @@ export default function Detail() {
                                 <div className="px-0 container-fluid p-sm-0">
                                     <div className="row m-0">
                                         <div className="col-12 p-0"></div>
-                                        <div className="our-product products-c">
-                                        {latest.map((prod) => (
-                                            <ProdHome key={prod.id} prod={prod} />
-                                        ))}
-                                        </div>
+                                        
+
+                                        <Slider />
                                     </div>
                                 </div>
                             </section>

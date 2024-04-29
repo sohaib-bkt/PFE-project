@@ -457,7 +457,7 @@ export default function Home() {
     <div className="row m-0">
       <div className="col-12 p-0">
         <div className="title-3 text-center">
-          <h2> Top Price</h2>
+          <h2> Latest Products</h2>
         </div>
       </div>
       
