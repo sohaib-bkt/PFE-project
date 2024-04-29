@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '@Css/andrp.module.css';
 import img from '@Assets/images/newletter-icon.png';
+import axiosClient from '../api/axios';
+
+import UserApi from '../services/api/user/UserApi';
 
 
 // Main component
@@ -9,6 +12,11 @@ export default function Anonce() {
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [showReject, setShowReject] = useState(true);
     const [showPending, setShowPending] = useState(true);
+    const [pendingCount, setPendingCount] = useState(0);
+    const [rejectedCount, setRejectedCount] = useState(0);
+    const [acceptedCount, setAcceptedCount] = useState(0);
+    const [user, setUser] = useState({});
+    
 
     const handleRejectClose = () => {
         setShowReject(false);
@@ -21,12 +29,28 @@ export default function Anonce() {
     const handleFilterChange = (filter) => {
         setSelectedFilter(filter);
     };
+    useEffect(() => {
+        UserApi.getUser().then((response) => {
+            setUser(response.data);
+            axiosClient.get('http://127.0.0.1:8000/api/product/count', {
+                params: {
+                    userId: response.data.id 
+                }
+            }).then((response) => {
+                setAcceptedCount(response.data?.approved ?? 0);
+                setPendingCount(response.data.pending ?? 0);
+                setRejectedCount(response.data.rejected ?? 0);         
+            })
+        });
+    
+    }, []);
+    
 
     return (
         <div className="container">
             <div className="row">
                 <aside className="col-md-3">
-                    <FilterGroup selectedFilter={selectedFilter} onChange={handleFilterChange} />
+                    <FilterGroup selectedFilter={selectedFilter} onChange={handleFilterChange} pendingCount={pendingCount} acceptedCount={acceptedCount} rejectedCount={rejectedCount} />
                 </aside>
                 <main className="col-md-9">
                     {selectedFilter === 'pending' && showPending && <Pendingdiv onClose={handlePendingClose} />}
@@ -50,21 +74,37 @@ const EmptyAnnoucements = () => (
     </div>
 )
 
-const FilterGroup = ({ selectedFilter, onChange }) => (
-    <div className={`card ${styles.filter}`}>
-        <article className="filter-group">
-            <header className="card-header">
-                <h6 style={{ fontWeight: 'bold', fontSize: '15px', margin: '10px' }}>Tri</h6>
-            </header>
-            <div className="card-body">
-                <RadioInput label="All Announcement (19)" value="all" selectedFilter={selectedFilter} onChange={onChange} />
-                <RadioInput label="Accepted (5)" value="accepted" selectedFilter={selectedFilter} onChange={onChange} />
-                <RadioInput label="Rejected (5)" value="rejected" selectedFilter={selectedFilter} onChange={onChange} />
-                <RadioInput label="Pending (3)" value="pending" selectedFilter={selectedFilter} onChange={onChange} />
-            </div>
-        </article>
-    </div>
-);
+const FilterGroup = ({ selectedFilter, onChange, pendingCount, acceptedCount, rejectedCount }) => {
+    const announcements = {
+        all: { label: `All Announcement (${pendingCount + acceptedCount + rejectedCount})`, count: pendingCount + acceptedCount + rejectedCount },
+        accepted: { label: `Accepted (${acceptedCount})`, count: acceptedCount },
+        rejected: { label: `Rejected (${rejectedCount})`, count: rejectedCount },
+        pending: { label: `Pending (${pendingCount})`, count: pendingCount },
+    };
+
+    return (
+        <div className={`card ${styles.filter}`}>
+            <article className="filter-group">
+                <header className="card-header">
+                    <h6 style={{ fontWeight: 'bold', fontSize: '15px', margin: '10px' }}>Tri</h6>
+                </header>
+                <div className="card-body">
+                    {Object.keys(announcements).map(key => (
+                        <RadioInput
+                            key={key}
+                            label={`${announcements[key].label}`}
+                            value={key}
+                            selectedFilter={selectedFilter}
+                            onChange={onChange}
+                        />
+                    ))}
+                </div>
+            </article>
+        </div>
+    );
+};
+
+
 
 const Rejectdiv = ({ onClose }) => (
     <div className="alert alert-danger" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' }}>

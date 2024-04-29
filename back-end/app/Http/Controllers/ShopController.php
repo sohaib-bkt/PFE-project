@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ShopController extends Controller
@@ -277,6 +278,14 @@ public function changePassword(Request $request, $id)
         $product->save();
 
         return response()->json(['message' => 'Product stored successfully'], 200);
+    }
+    public function productCount(Request $request){
+        $userId = $request->query('userId');
+        $pending = Product::where('featured', 0)->where('user_id', $userId)->count();
+        $approved = Product::where('featured', 1)->where('user_id', $userId)->count();
+        $rejected = Product::where('featured', 'rejected')->where('user_id', $userId)->count();
+
+        return response()->json(['pending' => $pending, 'approved' => $approved, 'rejected' => $rejected]);
     }
     // public function getCartAndWishlistCount()
     // {

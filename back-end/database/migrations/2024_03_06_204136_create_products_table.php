@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->decimal('regular_price');
             $table->decimal('sale_price')->nullable();
-            $table->boolean('featured')->default(false);
+            $table->string('featured')->default(0);
             $table->string('image');
             $table->text('images');
             $table->unsignedBigInteger('category_id');
