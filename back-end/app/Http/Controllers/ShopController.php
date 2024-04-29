@@ -238,6 +238,46 @@ public function changePassword(Request $request, $id)
         $products = Product::latest()->take(6)->get();
         return response()->json($products);
     }
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'user_id' => 'required|numeric',
+            'category_name' => 'required|string',
+            'category' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'required|numeric',
+            'image' => 'required|image',
+            'slug' => 'required|string',
+        ]);
+        $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
+
+        // Create a new product
+        $product = new Product();
+
+        $product->user_id = $validatedData['user_id'];
+        $product->categorie_product = $validatedData['category_name'];
+        $product->category_id = $categorie_id;
+        $product->name = $validatedData['name'];
+        $product->description = $validatedData['description'];
+        $product->regular_price = $validatedData['regular_price'];
+        $product->sale_price = $validatedData['sale_price'];
+        $product->brand_id = 1;
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images/products');
+            $product->image = $imagePath;
+            $product->images = $imagePath;
+        }
+        $product->slug = $validatedData['slug'];
+
+        // Save the product
+        $product->save();
+
+        return response()->json(['message' => 'Product stored successfully'], 200);
+    }
     // public function getCartAndWishlistCount()
     // {
     //     $cartCount = Cart::instance("cart")->Content()->count();

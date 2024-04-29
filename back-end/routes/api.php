@@ -29,6 +29,8 @@ Route::get('/latest', [ShopController::class, 'getLatestProducts']);
 Route::get('/info', [ShopController::class, 'shopInformatique']);
 Route::get('detail/{id}', [ShopController::class, 'detail']);
 Route::put('/update/{id}', [ShopController::class, 'update']);
+Route::post('/user/StoreProduct', [ShopController::class, 'store']);
+
 Route::put('/update/{id}/changePassword', [ShopController::class, 'changePassword']);
 
 

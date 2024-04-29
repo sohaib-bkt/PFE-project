@@ -15,14 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('short_description');
             $table->text('description');
             $table->decimal('regular_price');
             $table->decimal('sale_price')->nullable();
-            $table->string('SKU');
-            $table->enum('stock_status',["instock","outofstock"]);
             $table->boolean('featured')->default(false);
-            $table->unsignedInteger('quantity')->default(1);
             $table->string('image');
             $table->text('images');
             $table->unsignedBigInteger('category_id');
