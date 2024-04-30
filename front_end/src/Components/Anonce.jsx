@@ -4,6 +4,7 @@ import styles from '@Css/andrp.module.css';
 import img from '@Assets/images/newletter-icon.png';
 import axiosClient from '../api/axios';
 import UserApi from '../services/api/user/UserApi';
+import HashLoader from "react-spinners/HashLoader";
 
 export default function Anonce() {
     const [selectedFilter, setSelectedFilter] = useState('all');
@@ -13,6 +14,7 @@ export default function Anonce() {
     const [pendingCount, setPendingCount] = useState(0);
     const [rejectedCount, setRejectedCount] = useState(0);
     const [acceptedCount, setAcceptedCount] = useState(0);
+    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({});
     
     const handleRejectClose = () => {
@@ -43,6 +45,8 @@ export default function Anonce() {
                 setPendingCount(response.data.pending ?? 0);
                 setRejectedCount(response.data.rejected ?? 0);   
 
+                setLoading(false);
+
                 // Set default filter based on counts
                 if (response.data.pending > 0) {
                     setSelectedFilter('pending');
@@ -54,7 +58,11 @@ export default function Anonce() {
             });
         });
     }, []);
-
+    if (loading) {
+        return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    }
     return (
         <div className="container">
             <div className="row">

@@ -1,44 +1,49 @@
+import React, { useEffect, useState } from "react";
 import ProdCard from "./ProdCard";
 import '@Css/dropdown.css';
 import HashLoader from "react-spinners/HashLoader";
-import { useEffect, useState } from "react";
 import ProductInfoApi from "../services/api/user/ProductInfoApi";
 
 export default function ShopInfofilter() {
-  const [prange , setPrange] = useState(0);
-  const [category , setCategory] = useState(0);
-  const [brands , setBrands] = useState(0);
+  const [prange, setPrange] = useState(0);
+  const [category, setCategory] = useState(0);
+  const [brands, setBrands] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading , setLoading] = useState(true);
-  const [order , setOrder] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [order, setOrder] = useState(0);
   const [products, setProducts] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
-      ProductInfoApi.getAllProducts(prange,brands,category,currentPage,searchTerm,order).then(response => {
+      try {
+        const response = await ProductInfoApi.getAllProducts(prange, brands, category, currentPage, searchTerm, order);
         setProducts(response.data.products.data);
         setLoading(false);
-        
-    })
-    .catch(error => {
+      } catch (error) {
         console.error('Error fetching products:', error);
-    });}
+      }
+    }
 
     fetchData();
-  }, [prange, brands, category,currentPage, searchTerm ,order]);
-    const handleSearch = (event) => {
-      setSearchTerm(event.target.value);
-    };
-    if (loading) {
-      return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
-      <HashLoader color="red" loading={loading} size={80} />
-    </div>
+  }, [prange, brands, category, currentPage, searchTerm, order]);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
   }
 
-
     return (
+  
         <>
+
          
   {/* Shop Start */}
   <div className="container-fluid pt-5">

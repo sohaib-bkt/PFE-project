@@ -2,7 +2,6 @@ import ProdCard from "./ProdCard";
 import '@Css/dropdown.css';
 import { ProductContext } from "../context/ProductContext";
 import { useContext, useEffect, useState } from "react";
-
 import HashLoader from "react-spinners/HashLoader";
 
 
