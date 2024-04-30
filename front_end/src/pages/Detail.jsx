@@ -7,6 +7,8 @@ import DetailReview from '@Components/Detail/DetailReview';
 import DetailSpec from '@Components/Detail/DetailSpecifiction';
 import DetailSizing from '@Components/Detail/DetailSizing';
 import Slider from '@Components/Slider';
+import Dslider from '@Components/Dslider.jsx';
+
 import img from '@Assets/images/scam.png';
 
 export default function Detail() {
@@ -114,36 +116,10 @@ export default function Detail() {
                         <div className="col-lg-12 col-12">
                             <div className="details-items">
                                 <div className="row g-4">
-                                    <div className="col-md-6">
-                                        <div className="row">
-                                            <div className="col-lg-2">
-                                                <div className="details-image-vertical black-slide rounded">
-                                                    {[...Array(2)].map((_, index) => (
-                                                        <div key={index}>
-                                                            <img
-                                                                src={`../${product.image}`}
-                                                                className="img-fluid blur-up lazyload"
-                                                                alt=""
-                                                            />
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-10">
-                                                <div className="details-image-1 ratio_asos">
-                                                    {[...Array(2)].map((_, index) => (
-                                                        <div key={index}>
-                                                            <img
-                                                                src={`../${product.image}`}
-                                                                id={`zoom_0${index + 1}`}
-                                                                className="img-fluid w-100 image_zoom_cls-1 blur-up lazyload"
-                                                                alt=""
-                                                            />
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="col-md-6" >
+                                     
+                                           <Dslider></Dslider>
+                                           
                                     </div>
                                     <div className="col-md-6">
                                         <div className="cloth-details-size">

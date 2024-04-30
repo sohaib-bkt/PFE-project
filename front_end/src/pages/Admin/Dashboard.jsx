@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
+import logo from '@Assets/images/icons8.png'
+import '@Css/customAdmincss.css';
 export default function Dashbord() {
     useEffect(() => {
         $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
@@ -22,19 +24,18 @@ export default function Dashbord() {
         <div id="wrapper">
           {/* Sidebar */}
           <ul
-            className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-            id="accordionSidebar"
-          >
+            className="navbar-nav bg-gradient-primary11 sidebar sidebar-dark accordion"
+            id="accordionSidebar" >
             {/* Sidebar - Brand */}
             <a
               className="sidebar-brand d-flex align-items-center justify-content-center"
               href="index.html"
             >
               <div className="sidebar-brand-icon rotate-n-15">
-                <i className="fas fa-laugh-wink" />
+                <img src={logo} alt="logo" width={'35px'}/>
               </div>
-              <div className="sidebar-brand-text mx-3">
-                SB Admin <sup>2</sup>
+              <div className="sidebar-brand-text mx-3" style={{ fontFamily: "sans-serif" , fontWeight: '500', fontSize: '16.4px'}}>
+                Moon Store
               </div>
             </a>
             {/* Divider */}
@@ -181,24 +182,7 @@ export default function Dashbord() {
             <div className="text-center d-none d-md-inline">
               <button className="rounded-circle border-0" id="sidebarToggle" />
             </div>
-            {/* Sidebar Message */}
-            <div className="sidebar-card d-none d-lg-flex">
-              <img
-                className="sidebar-card-illustration mb-2"
-                src="img/undraw_rocket.svg"
-                alt="..."
-              />
-              <p className="text-center mb-2">
-                <strong>SB Admin Pro</strong> is packed with premium features,
-                components, and more!
-              </p>
-              <a
-                className="btn btn-success btn-sm"
-                href="https://startbootstrap.com/theme/sb-admin-pro"
-              >
-                Upgrade to Pro!
-              </a>
-            </div>
+
           </ul>
           {/* End of Sidebar */}
           {/* Content Wrapper */}
@@ -212,7 +196,7 @@ export default function Dashbord() {
                   id="sidebarToggleTop"
                   className="btn btn-link d-md-none rounded-circle mr-3"
                 >
-                  <i className="fa fa-bars" />
+                  <i className="fa fa-bars" style={{color:"black"}}/>
                 </button>
                 {/* Topbar Search */}
                 <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -225,8 +209,8 @@ export default function Dashbord() {
                       aria-describedby="basic-addon2"
                     />
                     <div className="input-group-append">
-                      <button className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm" />
+                      <button className="btn btn-primary11" type="button" >
+                        <i className="fas fa-search fa-sm11" />
                       </button>
                     </div>
                   </div>
@@ -261,8 +245,8 @@ export default function Dashbord() {
                             aria-describedby="basic-addon2"
                           />
                           <div className="input-group-append">
-                            <button className="btn btn-primary" type="button">
-                              <i className="fas fa-search fa-sm" />
+                            <button className="btn btn-primary11" type="button">
+                              <i className="fas fa-search fa-sm11 "/>
                             </button>
                           </div>
                         </div>
@@ -972,11 +956,6 @@ export default function Dashbord() {
             </div>
           </div>
         </div>
-        {/* Bootstrap core JavaScript*/}
-        {/* Core plugin JavaScript*/}
-        {/* Custom scripts for all pages*/}
-        {/* Page level plugins */}
-        {/* Page level custom scripts */}
       </>
       
     );

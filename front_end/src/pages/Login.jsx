@@ -137,7 +137,7 @@ export default function Login() {
                 <span className="text-danger mt-3">{error}</span>
               </div>
 
-              <Link to="/forgot-password" className="pass-forgot">
+              <Link to="/forgot-pass" className="pass-forgot">
                 Forgot your password?
               </Link>
 
