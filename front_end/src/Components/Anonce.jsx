@@ -5,8 +5,6 @@ import img from '@Assets/images/newletter-icon.png';
 import axiosClient from '../api/axios';
 import UserApi from '../services/api/user/UserApi';
 
-
-// Main component
 export default function Anonce() {
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [showReject, setShowReject] = useState(true);
@@ -17,7 +15,6 @@ export default function Anonce() {
     const [acceptedCount, setAcceptedCount] = useState(0);
     const [user, setUser] = useState({});
     
-
     const handleRejectClose = () => {
         setShowReject(false);
     };
@@ -33,6 +30,7 @@ export default function Anonce() {
     const handleFilterChange = (filter) => {
         setSelectedFilter(filter);
     };
+
     useEffect(() => {
         UserApi.getUser().then((response) => {
             setUser(response.data);
@@ -43,12 +41,19 @@ export default function Anonce() {
             }).then((response) => {
                 setAcceptedCount(response.data?.approved ?? 0);
                 setPendingCount(response.data.pending ?? 0);
-                setRejectedCount(response.data.rejected ?? 0);         
-            })
+                setRejectedCount(response.data.rejected ?? 0);   
+
+                // Set default filter based on counts
+                if (response.data.pending > 0) {
+                    setSelectedFilter('pending');
+                } else if (response.data.approved > 0) {
+                    setSelectedFilter('accepted');
+                } else if (response.data.rejected > 0) {
+                    setSelectedFilter('rejected');
+                }
+            });
         });
-    
     }, []);
-    
 
     return (
         <div className="container">
@@ -60,13 +65,12 @@ export default function Anonce() {
                     {selectedFilter === 'pending' && showPending && <Pendingdiv onClose={handlePendingClose} />}
                     {selectedFilter === 'rejected' && showReject && <Rejectdiv onClose={handleRejectClose} />}
                     {selectedFilter === 'accepted' && showAccept && <Acceptdiv onClose={handleAcceptClose} />}
-                    
-                    
                 </main>
             </div>
         </div>
     );
 }
+
 const EmptyAnnoucements = () => (
     <div className="row" style={{ marginTop: '40px' }}>
               <div className="col-md-12 text-center">
@@ -81,7 +85,7 @@ const EmptyAnnoucements = () => (
 
 const FilterGroup = ({ selectedFilter, onChange, pendingCount, acceptedCount, rejectedCount }) => {
     const announcements = {
-        all: { label: `All Announcement (${pendingCount + acceptedCount + rejectedCount})`, count: pendingCount + acceptedCount + rejectedCount },
+        
         accepted: { label: `Accepted (${acceptedCount})`, count: acceptedCount },
         rejected: { label: `Rejected (${rejectedCount})`, count: rejectedCount },
         pending: { label: `Pending (${pendingCount})`, count: pendingCount },
@@ -246,6 +250,7 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
             type="radio"
             value={value}
             checked={selectedFilter === value}
+            defaultChecked={selectedFilter === value} // Add this line
             onChange={() => onChange(value)}
         />
         <label className="form-check-label">{label}</label>
