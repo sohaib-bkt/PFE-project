@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import axiosClient from '../api/axios';
 import { Link } from 'react-router-dom';
+import HashLoader from "react-spinners/HashLoader";
+
 
 export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosClient.get('http://localhost:8000/api/wishlist')
       .then(response => {
         setWishlistItems(response.data.items);
+        setLoading(false);
         
       })
       .catch(error => console.error('Error fetching wishlist:', error));
@@ -41,6 +45,11 @@ const clearWishlist = () => {
     })
     .catch(error => console.error('Error clearing wishlist:', error));
 };
+if (loading) {
+  return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
+  <HashLoader color="red" loading={loading} size={80} />
+</div>
+}
 
 
   return (

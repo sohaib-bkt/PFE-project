@@ -3,6 +3,9 @@ import '@Css/dropdown.css';
 import { ProductContext } from "../context/ProductContext";
 import { useContext, useEffect, useState } from "react";
 
+import HashLoader from "react-spinners/HashLoader";
+
+
 
 export default function Shopfilter() {
   const [prange , setPrange] = useState(0);
@@ -11,11 +14,13 @@ export default function Shopfilter() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [order , setOrder] = useState(0);
+  const [loading , setLoading] = useState(true);
   const { products, setProducts , getProducts } = useContext(ProductContext);
   useEffect(() => {
     const fetchData = async () => {
       getProducts(prange,brands,category,currentPage,searchTerm,order).then(response => {
         setProducts(response.data.products.data);
+        setLoading(false);
         
     })
     .catch(error => {
@@ -27,6 +32,11 @@ export default function Shopfilter() {
     const handleSearch = (event) => {
       setSearchTerm(event.target.value);
     };
+    if (loading) {
+      return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
+      <HashLoader color="red" loading={loading} size={80} />
+    </div>
+  }
 
 
     return (

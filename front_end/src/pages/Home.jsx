@@ -3,10 +3,12 @@ import Prods from '@Components/Prods.jsx';
 import { Link } from 'react-router-dom';
 import axiosClient from '../api/axios';
 import Slider from '@Components/Slider.jsx';
+import HashLoader from "react-spinners/HashLoader";
 
 export default function Home() {
   const [clothes, setClothes] = useState([]);
   const [info, setInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,7 @@ export default function Home() {
 
         setClothes(clothesResponse.data);
         setInfo(infoResponse.data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -65,6 +68,7 @@ export default function Home() {
 
     loadScriptsSequentially();
 
+
     return () => {
       // Cleanup
       scripts.forEach(src => {
@@ -75,6 +79,12 @@ export default function Home() {
       });
     };
   }, []);
+  if (loading) {
+    return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
+    <HashLoader color="red" loading={loading} size={80} />
+  </div>
+    
+  }
     return (
         <>
            <section className="pt-0 poster-section">
