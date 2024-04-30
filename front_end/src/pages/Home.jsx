@@ -110,25 +110,14 @@ export default function Home() {
   </div>
   <div className="left-side-contain">
     <div className="banner-left">
-      <h4>
-        Sale <span className="theme-color">35% Off</span>
-      </h4>
+      <h3>
+      Welcome to <span className="theme-color">MoonStore</span>
+      </h3>
       <h1>
-        New Latest <span>Dresses</span>
+      <span>Discover </span>New Listings
       </h1>
-      <p>
-        BUY ONE GET ONE <span className="theme-color">FREE</span>
-      </p>
-      <h2>
-        $79.00{" "}
-        <span className="theme-color">
-          <del>$65.00</del>
-        </span>
-      </h2>
-      <p className="poster-details mb-0">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
-      </p>
+      <h3>      Find everything you need and sell your own items <span className="theme-color">hassle-free.</span>
+</h3>
     </div>
   </div>
   <div className="right-side-contain">
