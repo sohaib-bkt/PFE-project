@@ -71,7 +71,7 @@ class ShopController extends Controller
             // Apply sorting
             $products->orderBy($o_column, $o_order);
         
-            $products = $products->paginate($size);
+            $products = $products->where('featured', 1)->paginate($size);
         
             $brandIds = Product::where('categorie_product', 'VET')->distinct()->pluck('brand_id');
             $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
@@ -157,7 +157,7 @@ class ShopController extends Controller
         // Apply sorting
         $products->orderBy($o_column, $o_order);
     
-        $products = $products->paginate($size);
+        $products = $products->where('featured', 1)->paginate($size);
     
         $brandIds = Product::where('categorie_product', 'INF')->distinct()->pluck('brand_id');
         $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
@@ -228,15 +228,15 @@ public function changePassword(Request $request, $id)
     }
 
     public function getClothes(){
-        $clothes = Product::where('categorie_product', 'VET')->take(6)->get();
+        $clothes = Product::where('categorie_product', 'VET')->where('featured', 1)->take(6)->get();
         return response()->json($clothes);
     }
     public function getInfo(){
-        $clothes = Product::where('categorie_product', 'INF')->take(6)->get();
+        $clothes = Product::where('categorie_product', 'INF')->where('featured', 1)->take(6)->get();
         return response()->json($clothes);
     }
     public function getLatestProducts(){
-        $products = Product::latest()->take(6)->get();
+        $products = Product::latest()->where('featured', 1)->take(6)->get();
         return response()->json($products);
     }
     public function store(Request $request)

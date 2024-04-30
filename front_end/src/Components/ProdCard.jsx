@@ -35,9 +35,6 @@ export default function ProdCard( product ) {
           <h6 className="text-truncate mb-3">{product.product.name}</h6>
           <div className="d-flex justify-content-center">
             <h6>${product.product.regular_price} &nbsp;</h6>
-            <h6 className="text-muted ml-2">
-              <del>${product.product.regular_price}</del>
-            </h6>
           </div>
         </div>
         <div className="card-footer d-flex justify-content-between bg-light border">

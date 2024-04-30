@@ -18,7 +18,7 @@ export default function UserHeader() {
         <>
             <Header>
             
-                
+
                 {user && user.name && (
                     <li className="onhover-dropdown">
                         <div className="cart-media name-usr">
@@ -27,7 +27,7 @@ export default function UserHeader() {
                         <div className="onhover-div profile-dropdown">
                             <ul>
                                 <li><Link to="/profile" className="d-block">Profile</Link></li>
-                                <li><Link to="/account" className="d-block">My Account</Link></li>
+                                
                                 <li>
                                     <a onClick={logout} className="d-block">Logout</a>
                                 </li>

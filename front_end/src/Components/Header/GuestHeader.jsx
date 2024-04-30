@@ -45,7 +45,7 @@ export default function GuestHeader() {
                 <div className="onhover-div profile-dropdown">
                     <ul>
                         <li><Link to="/profile" className="d-block">Profile</Link></li>
-                        <li><Link to="/account" className="d-block">My Account</Link></li>
+                        
                         <li>
                             <a onClick={logout} className="d-block">Logout</a>
                         </li>

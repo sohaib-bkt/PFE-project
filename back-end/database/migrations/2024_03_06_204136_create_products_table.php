@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description');
             $table->decimal('regular_price');
-            $table->decimal('sale_price')->nullable();
             $table->string('featured')->default(0);
             $table->string('image');
             $table->text('images');

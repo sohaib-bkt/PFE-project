@@ -151,7 +151,7 @@ export default function Detail() {
                                         <div className="cloth-details-size">
                                             <div className="product-count">
                                                 <ul>
-                                                    {[...Array(2)].map((_, index) => (
+                                                    {[...Array(1)].map((_, index) => (
                                                         <li key={index}>
                                                             <img
                                                                 src="../assets/images/gif/fire.gif"
