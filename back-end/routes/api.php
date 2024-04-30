@@ -31,6 +31,10 @@ Route::get('detail/{id}', [ShopController::class, 'detail']);
 Route::put('/update/{id}', [ShopController::class, 'update']);
 Route::post('/user/StoreProduct', [ShopController::class, 'store']);
 Route::get('/product/count' ,[ShopController::class, 'productCount']);
+Route::get('/product/getaccepted', [ShopController::class, 'getAccepted']);
+Route::get('/product/getrejected', [ShopController::class, 'getRejected']);
+Route::get('/product/getpending', [ShopController::class, 'getPending']);
+
 
 Route::put('/update/{id}/changePassword', [ShopController::class, 'changePassword']);
 

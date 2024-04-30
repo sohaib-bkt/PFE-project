@@ -287,6 +287,25 @@ public function changePassword(Request $request, $id)
 
         return response()->json(['pending' => $pending, 'approved' => $approved, 'rejected' => $rejected]);
     }
+
+    public function getAccepted(Request $request){
+        $userId = $request->query('userId');
+        $products = Product::where('featured', 1)->where('user_id', $userId)->get();
+        return response()->json($products);
+    }
+
+    public function getRejected(Request $request){
+        $userId = $request->query('userId');
+        $products = Product::where('featured', 'rejected')->where('user_id', $userId)->get();
+        return response()->json($products);
+    }
+
+    public function getPending(Request $request){
+        $userId = $request->query('userId');
+        $products = Product::where('featured', 0)->where('user_id', $userId)->get();
+        return response()->json($products);
+    }
+
     // public function getCartAndWishlistCount()
     // {
     //     $cartCount = Cart::instance("cart")->Content()->count();

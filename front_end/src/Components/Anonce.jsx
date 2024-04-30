@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styles from '@Css/andrp.module.css';
 import img from '@Assets/images/newletter-icon.png';
 import axiosClient from '../api/axios';
-
 import UserApi from '../services/api/user/UserApi';
 
 
@@ -11,6 +10,7 @@ import UserApi from '../services/api/user/UserApi';
 export default function Anonce() {
     const [selectedFilter, setSelectedFilter] = useState('all');
     const [showReject, setShowReject] = useState(true);
+    const [showAccept, setShowAccept] = useState(true);
     const [showPending, setShowPending] = useState(true);
     const [pendingCount, setPendingCount] = useState(0);
     const [rejectedCount, setRejectedCount] = useState(0);
@@ -20,6 +20,10 @@ export default function Anonce() {
 
     const handleRejectClose = () => {
         setShowReject(false);
+    };
+
+    const handleAcceptClose = () => {
+        setShowAccept(false);
     };
 
     const handlePendingClose = () => {
@@ -55,8 +59,9 @@ export default function Anonce() {
                 <main className="col-md-9">
                     {selectedFilter === 'pending' && showPending && <Pendingdiv onClose={handlePendingClose} />}
                     {selectedFilter === 'rejected' && showReject && <Rejectdiv onClose={handleRejectClose} />}
-                    <EmptyAnnoucements/>
-                    <AnnouncementCard/>
+                    {selectedFilter === 'accepted' && showAccept && <Acceptdiv onClose={handleAcceptClose} />}
+                    
+                    
                 </main>
             </div>
         </div>
@@ -102,32 +107,137 @@ const FilterGroup = ({ selectedFilter, onChange, pendingCount, acceptedCount, re
             </article>
         </div>
     );
+}
+const Acceptdiv = ({ onClose }) => {
+    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        UserApi.getUser().then((response) => {
+            axiosClient.get('http://127.0.0.1:8000/api/product/getaccepted', {
+                params: {
+                    userId: response.data.id
+                }
+            }).then((response) => {
+                setProducts(response.data);
+                setLoading(false);
+            });
+        });
+    }, []);
+
+    return (
+        <>
+            {loading && <p className='text-center alert alert-success'>Loading...</p>}
+            {!loading && products.length === 0 && <EmptyAnnoucements />}
+            {!loading && products.length > 0 && (
+                <div className="alert alert-success" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' }}>
+                    <button type="button" className={`${styles.closeButton} close`} aria-label="Close" onClick={onClose}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '24px', paddingBottom: '20px' }}>advertisement Accepted</h2>
+                    <h3 style={{ padding: '5px' }}>Your product has been accepted</h3>
+                </div>
+            )}
+            {!loading && (
+                <div>
+                    {products.map((product) => (
+                        <AnnouncementCardA key={product.id} product={product} />
+                    ))}
+                </div>
+            )}
+        </>
+    );
+};
+
+const Rejectdiv = ({ onClose }) => {
+    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        UserApi.getUser().then((response) => {
+            axiosClient.get('http://127.0.0.1:8000/api/product/getrejected', {
+                params: {
+                    userId: response.data.id
+                }
+            }).then((response) => {
+                setProducts(response.data);
+                setLoading(false);
+            });
+        });
+    }, []);
+
+    return (
+        <>
+            {loading && <p className='text-center alert alert-danger'>Loading...</p>}
+            {!loading && products.length === 0 && <EmptyAnnoucements />}
+            {!loading && products.length > 0 && (
+                <div className="alert alert-danger" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' }}>
+                    <button type="button" className={`${styles.closeButton} close`} aria-label="Close" onClick={onClose}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '24px', paddingBottom: '20px' }}>advertisement Rejected</h2>
+                    <h3 style={{ padding: '5px' }}>Your product has been rejected for some reasons</h3>
+                    <h3 style={{ padding: '5px' }}>Please refer to the details below for more information:</h3>
+                </div>
+            )}
+            {!loading && (
+                <div>
+                    {products.map((product) => (
+                        <AnnouncementCardR key={product.id} product={product} />
+                    ))}
+                </div>
+            )}
+        </>
+    );
+};
+
+
+const Pendingdiv = ({ onClose }) => {
+    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        UserApi.getUser().then((response) => {
+            axiosClient.get('http://127.0.0.1:8000/api/product/getpending', {
+                params: {
+                    userId: response.data.id
+                }
+            }).then((response) => {
+                setProducts(response.data);
+                setLoading(false); 
+            });
+        });
+    }, []);
+
+    return (
+        <>
+            {loading && <p className='text-center alert alert-primary'>Loading...</p>}
+            {!loading && products.length === 0 && <EmptyAnnoucements />}
+            {!loading && products.length > 0 && (
+                <div className="alert alert-primary" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' }}>
+                    <button type="button" className={`${styles.closeButton} close`} aria-label="Close" onClick={onClose}>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '24px', paddingBottom: '20px' }}>Advertisement Pending</h2>
+                    <h3 style={{ padding: '5px' }}>The average moderation time for an advertisement is 1 hour. </h3>
+                    <h3 style={{ padding: '5px' }}>If after this period the advertisement still appears in this tab, contact our customer service</h3>
+                </div>
+            )}
+            {!loading && (
+                <div>
+                    {products.map((product) => (
+                        <AnnouncementCardP key={product.id} product={product} />
+                    ))}
+                </div>
+            )}
+        </>
+    );
 };
 
 
 
-const Rejectdiv = ({ onClose }) => (
-    <div className="alert alert-danger" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' }}>
-        <button type="button" className={`${styles.closeButton} close`} aria-label="Close" onClick={onClose}>
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-        <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '24px', paddingBottom: '20px' }}>advertisement Rejected</h2>
-        <h3 style={{ padding: '5px' }}>Your product has been rejected for some reasons</h3>
-        <h3 style={{ padding: '5px' }}>Please refer to the details below for more information:</h3>
-    </div>
-);
-
-const Pendingdiv = ({ onClose }) => (
-    <div className="alert alert-primary" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' }}>
-        <button type="button" className={`${styles.closeButton} close`} aria-label="Close" onClick={onClose}>
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '24px', paddingBottom: '20px' }}>Advertisement Pending</h2>
-        <h3 style={{ padding: '5px' }}>The average moderation time for an advertisement is 1 hour. </h3>
-        <h3 style={{ padding: '5px' }}>If after this period the advertisement still appears in this tab ,contact our customer service</h3>
-    </div>
-);
 
 const RadioInput = ({ label, value, selectedFilter, onChange }) => (
     <div className="form-check">
@@ -143,7 +253,7 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
 );
 
 
-const AnnouncementCard = () => (
+const AnnouncementCardP = ({ product }) => (
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
             <div className="col-md-4">
@@ -152,22 +262,65 @@ const AnnouncementCard = () => (
             <div className="col-md-8">
                 <div className="card-body">
                     <DropdownMenu />
-                    <h4 className="card-title">$ 99.99</h4>
-                    <p className="card-text">short description</p>
+                    <h4 className="card-title">{product.regular_price}</h4>
+                    <p className="card-text">{product.description}</p>
                 </div>
                 <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                    <span className={`${styles.text}`}> il y a 18 minutes &nbsp; </span>
-                    <span className={`${styles.text}`}> Tanger</span>
+                    <span className={`${styles.text}`}>{product.created_at} &nbsp; </span>
+                   
                 </div>
-                <div className={`announcement-footer  ${styles.announcementDiv}`} style={{ position: "absolute", bottom: "0px"}}>
-            <div className={`alert alert-danger ${styles.announcementFooter}`} role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , borderRadius: '17px'}}>
-            <h3>Detail of rejection</h3>
-        </div>
-            </div>
+
             </div>
         </div>
     </div>
 );
+const AnnouncementCardA = ({ product }) => (
+    <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
+        <div className="row no-gutters">
+            <div className="col-md-4">
+                <img src={img} className={`${styles.image} `} alt="..." />
+            </div>
+            <div className="col-md-8">
+                <div className="card-body">
+                    
+                    <h4 className="card-title">{product.regular_price}</h4>
+                    <p className="card-text">{product.description}</p>
+                </div>
+                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
+                    <span className={`${styles.text}`}>{product.created_at} &nbsp; </span>
+                   
+                </div>
+
+            </div>
+        </div>
+    </div>
+);
+const AnnouncementCardR = ({ product }) => (
+    <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
+        <div className="row no-gutters">
+            <div className="col-md-4">
+                <img src={img} className={`${styles.image} `} alt="..." />
+            </div>
+            <div className="col-md-8">
+                <div className="card-body">
+                    
+                    <h4 className="card-title">{product.regular_price}</h4>
+                    <p className="card-text">{product.description}</p>
+                </div>
+                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
+                    <span className={`${styles.text}`}>{product.created_at} &nbsp; </span>
+                   
+                </div>
+                <div className={`announcement-footer  ${styles.announcementDiv}`} style={{ position: "absolute", bottom: "0px"}}>
+                    <div className={`alert alert-danger ${styles.announcementFooter}`} role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , borderRadius: '17px'}}>
+                        <h3>sir tl3ab</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
 
 const DropdownMenu = () => (
     <div className="dropdown" style={{ position: "absolute", top: "10px", right: "10px" }}>
@@ -181,7 +334,6 @@ const DropdownMenu = () => (
             <div className={styles.uniqueDropdownContent}>
                 <ul>
                     <li><Link to="/shop/clothes" className="d-block"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="15" viewBox="0 0 16 16"><path d="M 6.496094 1 C 5.675781 1 5 1.675781 5 2.496094 L 5 3 L 2 3 L 2 4 L 3 4 L 3 12.5 C 3 13.328125 3.671875 14 4.5 14 L 10.5 14 C 11.328125 14 12 13.328125 12 12.5 L 12 4 L 13 4 L 13 3 L 10 3 L 10 2.496094 C 10 1.675781 9.324219 1 8.503906 1 Z M 6.496094 2 L 8.503906 2 C 8.785156 2 9 2.214844 9 2.496094 L 9 3 L 6 3 L 6 2.496094 C 6 2.214844 6.214844 2 6.496094 2 Z M 5 5 L 6 5 L 6 12 L 5 12 Z M 7 5 L 8 5 L 8 12 L 7 12 Z M 9 5 L 10 5 L 10 12 L 9 12 Z"></path> </svg> Delete</Link></li>
-                    <li><Link to="/shop/info" className="d-block"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="15" viewBox="0 0 26 26"><path d="M 20.09375 0.25 C 19.5 0.246094 18.917969 0.457031 18.46875 0.90625 L 17.46875 1.9375 L 24.0625 8.5625 L 25.0625 7.53125 C 25.964844 6.628906 25.972656 5.164063 25.0625 4.25 L 21.75 0.9375 C 21.292969 0.480469 20.6875 0.253906 20.09375 0.25 Z M 16.34375 2.84375 L 14.78125 4.34375 L 21.65625 11.21875 L 23.25 9.75 Z M 13.78125 5.4375 L 2.96875 16.15625 C 2.71875 16.285156 2.539063 16.511719 2.46875 16.78125 L 0.15625 24.625 C 0.0507813 24.96875 0.144531 25.347656 0.398438 25.601563 C 0.652344 25.855469 1.03125 25.949219 1.375 25.84375 L 9.21875 23.53125 C 9.582031 23.476563 9.882813 23.222656 10 22.875 L 20.65625 12.3125 L 19.1875 10.84375 L 8.25 21.8125 L 3.84375 23.09375 L 2.90625 22.15625 L 4.25 17.5625 L 15.09375 6.75 Z M 16.15625 7.84375 L 5.1875 18.84375 L 6.78125 19.1875 L 7 20.65625 L 18 9.6875 Z"></path></svg> Update</Link></li>
                 </ul>
             </div>
         </div>
