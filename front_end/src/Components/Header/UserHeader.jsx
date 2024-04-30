@@ -18,7 +18,7 @@ export default function UserHeader() {
         <>
             <Header>
             
-            
+                
                 {user && user.name && (
                     <li className="onhover-dropdown">
                         <div className="cart-media name-usr">

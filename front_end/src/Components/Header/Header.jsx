@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import feather from 'feather-icons';
 import logo from '@Public/assets/images/logo.png';
 import $ from 'jquery';
 import '@Css/Header.css';
+import axiosClient from '../../api/axios';
 
 const Header = ({ children }) => {
+  const [countWishList, setCountWishList] = useState(0);
   useEffect(() => {
+    axiosClient.get('http://localhost:8000/api/wishlist/count').then((response) => {
+      setCountWishList(response.data.count);
+
+    })
     feather.replace();
 
     const handleNavToggle = (e) => {
@@ -113,7 +119,7 @@ const Header = ({ children }) => {
                         <div className="cart-media">
                         <Link to="/wishlist">
                             <i data-feather="heart" />
-                            <span id="wishlist-count" className="label label-theme rounded-pill">1</span>
+                            <span id="wishlist-count" className="label label-theme rounded-pill">{countWishList}</span>
                           </Link>
                         </div>
                       </li>

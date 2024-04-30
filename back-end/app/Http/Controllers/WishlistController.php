@@ -20,6 +20,12 @@ class WishlistController extends Controller
         $items = Cart::instance("wishlist")->content();
         return response()->json(['items' => $items]);
     }
+    public function countWishlist()
+    {
+        $count = Cart::instance("wishlist")->count();
+        return response()->json(['count' => $count]);
+    }
+    
 
     public function removeProductFromWishlist(Request $request)
     {

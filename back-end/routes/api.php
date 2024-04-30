@@ -45,4 +45,5 @@ Route::post('/wishlist/add', [WishlistController::class, 'addProductToWishlist']
 Route::get('/wishlist', [WishlistController::class, 'getWishlistedProducts']);
 Route::delete('/wishlist/remove', [WishlistController::class, 'removeProductFromWishlist']);
 Route::delete('/wishlist/clear', [WishlistController::class, 'clearWishlist']);
+Route::get('/wishlist/count', [WishlistController::class, 'countWishlist']);
 

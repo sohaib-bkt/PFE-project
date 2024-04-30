@@ -9,7 +9,7 @@ export default function Wishlist() {
     axiosClient.get('http://localhost:8000/api/wishlist')
       .then(response => {
         setWishlistItems(response.data.items);
-        console.log(response.data.items); 
+        
       })
       .catch(error => console.error('Error fetching wishlist:', error));
 }, []);
