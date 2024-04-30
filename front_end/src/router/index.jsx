@@ -18,6 +18,9 @@ import Detail from "@Pages/Detail.jsx"
 import AddAdv from "@Pages/Advertisement/AddAdv.jsx"
 import EditAdv from "@Pages/Advertisement/EditAdv.jsx"
 import  Dashboard  from "@Pages/Admin/Dashboard.jsx";
+import ForgotPass from "@Pages/ForgotPass.jsx"
+import ResetPass from "@Pages/ResetPass.jsx"
+
 export const router = createBrowserRouter([
 
             {
@@ -74,6 +77,14 @@ export const router = createBrowserRouter([
                         path: "/detail/:slug",
                         element: <Detail/>
                     },
+                    {
+                        path: "/forgot-pass",
+                        element: <ForgotPass/>
+                    },
+                    {
+                        path: "/reset-pass",
+                        element: <ResetPass/>
+                    }
                 ]
             },
             {
