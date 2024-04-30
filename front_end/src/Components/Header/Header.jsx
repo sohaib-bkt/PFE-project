@@ -120,12 +120,39 @@ const Header = ({ children }) => {
                       {children}
                     </ul>
                   </div>
+
+                  <div className="search-full">
+                  <form method="GET" action="{{ route('search.products') }}">
+                    <div className="input-group">
+                      <span className="input-group-text">
+                        <button type="submit" className="btn btn-light search-icon-open">
+                          <i data-feather="search" className="font-light" />
+                        </button>
+                      </span>
+                      <input
+                        type="text"
+                        name="q"
+                        className="form-control search-type"
+                        placeholder="Search here.."
+                      />
+                      <span className="input-group-text">
+                        {/* Bouton pour fermer la recherche */}
+                        <button type="button" className="btn btn-light close-search">
+                          <i data-feather="x" className="font-light" />
+                        </button>
+                      </span>
+                    </div>
+                  </form>
+</div>
+
+
+
+
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="bg-overlay"></div>
       </header>
     </>
   );

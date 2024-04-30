@@ -17,6 +17,7 @@ import ShopInfo from "@Pages/ShopInfo.jsx"
 import Detail from "@Pages/Detail.jsx"
 import AddAdv from "@Pages/Advertisement/AddAdv.jsx"
 import EditAdv from "@Pages/Advertisement/EditAdv.jsx"
+import  Dashboard  from "@Pages/Admin/Dashboard.jsx";
 export const router = createBrowserRouter([
 
             {
@@ -94,7 +95,7 @@ export const router = createBrowserRouter([
                 children:[
                     {
                         path: "/dashboard",
-                        element: <h1>hello admin</h1>
+                        element: <Dashboard/>
                     },
                     {
                         path: "products",

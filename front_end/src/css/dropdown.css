@@ -9,7 +9,8 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
-    border-radius: 4%;
+    border-radius: 5px;
+    font-family: monospace;
   }
 
   .unique-dropdown-content {  display: none;
@@ -36,5 +37,25 @@
   }
 
   .css-1nrlq1o-MuiFormControl-root{
-    min-width: 260px !important;
+    min-width: 100% !important;
   }
+/* For screens with a width of 1000px or more */
+@media screen and (min-width: 1000px) {
+  .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+    width: 20% !important;
+  }
+}
+
+/* For screens with a width less than 1000px but greater than 600px */
+@media screen and (max-width: 1000px) and (min-width: 600px) {
+  .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+    width: 30% !important;
+  }
+}
+
+/* For screens with a width of 600px or less */
+@media screen and (max-width: 600px) {
+  .css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+    width: 50% !important; /* Adjust the width as needed */
+  }
+}
