@@ -84,22 +84,15 @@ export default function AddAdv() {
                       <textarea className="form-control form-control3" id="description" name="description" defaultValue={""} />
                     </div>
                     <div className="col-md-6">
-                      <label htmlFor="regular_price" className="form-label">Regular Price</label>
+                      <label htmlFor="regular_price" className="form-label">Price</label>
                       <input type="number" className="form-control form-control3" id="regular_price" name="regular_price" placeholder="Regular Price" />
                     </div>
-                    <div className="col-md-6">
-                      <label htmlFor="sale_price" className="form-label">Sale Price</label>
-                      <input type="number" className="form-control form-control3" id="sale_price" name="sale_price" placeholder="Sale Price" />
-                    </div>
+
                     <div className="col-md-6">
                     <label htmlFor="image" className="form-label">Photos</label>
                     <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" multiple />
                   </div>
 
-                    <div className="col-md-6">
-                      <label htmlFor="slug" className="form-label">Slug</label>
-                      <input type="text" className="form-control form-control3" id="slug" name="slug" placeholder="Enter Phone Number" />
-                    </div>
                 <button className="btn mt-4" type="submit" style={{ fontSize: '14px', borderRadius: '5px', backgroundColor: '#a01818',fontFamily: 'monospace', letterSpacing: '1px', color: '#ffffff' ,width: '40%' ,margin: 'auto' , marginBottom: '20px'}}>Add Product</button>
               </div>
             </form>

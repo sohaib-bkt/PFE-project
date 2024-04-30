@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Cart;
+
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ShopController extends Controller
@@ -179,24 +179,9 @@ class ShopController extends Controller
             'searchTerm' => $searchTerm
         ]);
     }
-    public function productDetails($slug)
-{
+    
+public function detail($slug){
     $product = Product::where('slug', $slug)->first();
-    $rproducts = Product::where('slug', "!=", $slug)->inRandomOrder()->take(8)->get();
-
-
-    $userId = $product->user_id;
-    $user = User::find($userId);
-    $phoneNumber = $user->phone;
-
-    return response()->json([
-        'product' => $product,
-        'rproducts' => $rproducts,
-        'phoneNumber' => $phoneNumber
-    ]);
-}
-public function detail($id){
-    $product = Product::find($id);
     return response()->json($product);
 }
 public function update(Request $request, $id){
@@ -249,9 +234,8 @@ public function changePassword(Request $request, $id)
             'name' => 'required|string',
             'description' => 'required|string',
             'regular_price' => 'required|numeric',
-            'sale_price' => 'required|numeric',
             'image' => 'required|image',
-            'slug' => 'required|string',
+            
         ]);
         $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
 
@@ -264,7 +248,6 @@ public function changePassword(Request $request, $id)
         $product->name = $validatedData['name'];
         $product->description = $validatedData['description'];
         $product->regular_price = $validatedData['regular_price'];
-        $product->sale_price = $validatedData['sale_price'];
         $product->brand_id = 1;
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -272,7 +255,13 @@ public function changePassword(Request $request, $id)
             $product->image = $imagePath;
             $product->images = $imagePath;
         }
-        $product->slug = $validatedData['slug'];
+        $slug = Str::slug($validatedData['name']);
+        $existingSlug = Product::where('slug', $slug)->exists();
+        if ($existingSlug) {
+            $slug .= '-' . uniqid();
+        }
+
+        $product->slug = $slug;
 
         // Save the product
         $product->save();

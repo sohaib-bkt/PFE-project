@@ -24,7 +24,7 @@ export default function ProdHome({ prod }) {
   return (
     <div className="product-box">
       <div className="img-wrapper">
-        <Link to={`/detail/${prod.id}`}>
+        <Link to={`/detail/${prod.slug}`}>
           <img
             src={'../'+prod.image}
             className="w-100 bg-img blur-up lazyload"
@@ -35,7 +35,7 @@ export default function ProdHome({ prod }) {
         <div className="cart-wrap">
           <ul>
             <li>
-              <Link to={`/detail/${prod.id}`}>
+              <Link to={`/detail/${prod.slug}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width={24}
@@ -86,7 +86,7 @@ export default function ProdHome({ prod }) {
             <h3 className="theme-color">${prod.regular_price}</h3>
             <div className="main-price"></div>
           </div>
-          <Link to={`/detail/${prod.id}`} className="font-default">
+          <Link to={`/detail/${prod.slug}`} className="font-default">
             <h3>{prod.name}</h3>
           </Link>
         </div>

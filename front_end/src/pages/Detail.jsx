@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import axiosClient from '../api/axios';
 import SectionStart from '@Components/SectionStart';
 import DetailDesc from '@Components/Detail/DetailDesc';
@@ -7,22 +7,24 @@ import DetailReview from '@Components/Detail/DetailReview';
 import DetailSpec from '@Components/Detail/DetailSpecifiction';
 import DetailSizing from '@Components/Detail/DetailSizing';
 import Slider from '@Components/Slider';
-import img from '@Assets/images/scam.png'
+import img from '@Assets/images/scam.png';
 
 export default function Detail() {
     const [activeTab, setActiveTab] = useState('desc');
-    const { id } = useParams();
+    const { slug } = useParams();
     const [product, setProduct] = useState({});
 
     const handleClick = (tab) => {
         setActiveTab(tab);
     };
+
+
     useEffect(() => {
-        axiosClient.get(`http://localhost:8000/api/detail/${id}`)
+        axiosClient.get(`http://localhost:8000/api/detail/${slug}`)
         .then(response => {
             setProduct(response.data);
-        })
-    }, [id]);
+        });
+    }, [slug]);
 
     useEffect(() => {
         const loadScripts = async () => {
@@ -61,7 +63,7 @@ export default function Detail() {
             });
         };
 
-                loadScripts();
+        loadScripts();
 
         return () => {
             const scripts = [
@@ -82,30 +84,26 @@ export default function Detail() {
 
     const showSwal = () => {
         Swal.fire({
-          title: "Attention !",
-          html: `
-          <div>
-          <p>Never send money in advance to the seller via bank transfer or through a money transfer agency when purchasing goods available on the site.</p>
-          <h3>Call TOP Phone</h3><br/>
-          </div>
-      
-      `,  imageUrl: img,
-          imageWidth: 400,
-          imageHeight: 200,
-          imageAlt: "Custom image",
-          input: "text",
-          inputValue: "09999999999", // Set default value here
-          inputAttributes: {
-            autocapitalize: "off",
-            style: "margin: auto;" // Apply inline CSS here
-
-          },
-          showConfirmButton: false 
-       
-        })
-      }
-      
-      
+            title: "Attention !",
+            html: `
+            <div>
+                <p>Never send money in advance to the seller via bank transfer or through a money transfer agency when purchasing goods available on the site.</p>
+                <h3>Call TOP Phone</h3><br/>
+            </div>
+            `,
+            imageUrl: img,
+            imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: "Custom image",
+            input: "text",
+            inputValue: "09999999999", // Set default value here
+            inputAttributes: {
+                autocapitalize: "off",
+                style: "margin: auto;" // Apply inline CSS here
+            },
+            showConfirmButton: false
+        });
+    };
 
     return (
         <>
@@ -247,8 +245,6 @@ export default function Detail() {
                                 <div className="px-0 container-fluid p-sm-0">
                                     <div className="row m-0">
                                         <div className="col-12 p-0"></div>
-                                        
-
                                         <Slider />
                                     </div>
                                 </div>

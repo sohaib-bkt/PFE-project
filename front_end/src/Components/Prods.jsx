@@ -7,25 +7,26 @@ export default function Prods({prod}) {
 
   const addToCart = () => {
     setLoading(true);
-    axiosClient.post('http://localhost:8000/api/wishlist/add', {
-      id: prod.id,
+    axiosClient.post('http://localhost:8000/api/cart/add', {
+        id: prod.id,
     })
-      .then(response => {
+    .then(response => {
         console.log('Item added to cart:', response.data);
         setLoading(false);
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.error('Error adding item to cart:', error);
         setLoading(false);
-      });
-  };
+    });
+};
+
     
     return (
         <>
         <div className="col-xl-2 col-lg-2 col-6">
         <div className="product-box">
           <div className="img-wrapper">
-          <Link to={`/detail/${prod.id}`} >
+          <Link to={`/detail/${prod.slug}`} >
               <img
                 src={prod.image}
                 className="w-100 bg-img blur-up lazyload"
@@ -36,7 +37,7 @@ export default function Prods({prod}) {
             <div className="cart-wrap">
               <ul>
                 <li>
-                  <Link to={`/detail/${prod.id}`} >
+                  <Link to={`/detail/${prod.slug}`} >
                   <svg   xmlns="http://www.w3.org/2000/svg"   width={24}   height={24}   viewBox="0 0 24 24"   fill="none"   stroke="currentColor"   strokeWidth={2}   strokeLinecap="round"   strokeLinejoin="round"   className="feather feather-eye" >   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />   <circle cx={12} cy={12} r={3} /> </svg>                  </Link>                 
                 </li>
                 <li>
@@ -60,7 +61,7 @@ export default function Prods({prod}) {
                 
             </div>
               </div>
-              <Link to={`/detail/${prod.id}`} className="font-default">
+              <Link to={`/detail/${prod.slug}`} className="font-default">
                 <h6>{prod.name}</h6>
               </Link>
             </div>
