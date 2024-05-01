@@ -295,6 +295,12 @@ public function changePassword(Request $request, $id)
         return response()->json($products);
     }
 
+    public function deleteAnnonce($id){
+        $product = Product::find($id);
+        $product->delete();
+        return response()->json($product);
+    }
+
     // public function getCartAndWishlistCount()
     // {
     //     $cartCount = Cart::instance("cart")->Content()->count();
