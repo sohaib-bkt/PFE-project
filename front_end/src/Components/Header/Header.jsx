@@ -5,9 +5,16 @@ import logo from '@Public/assets/images/logo.png';
 import $ from 'jquery';
 import '@Css/Header.css';
 import axiosClient from '../../api/axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
 const Header = ({ children }) => {
+
+  
   const [countWishList, setCountWishList] = useState(0);
+  const location = useLocation();
+
   useEffect(() => {
     axiosClient.get('http://localhost:8000/api/wishlist/count').then((response) => {
       setCountWishList(response.data.count);
@@ -111,9 +118,19 @@ const Header = ({ children }) => {
                   <div className="menu-right">
                     <ul>
                       <li>
-                        <div className="search-box theme-bg-color">
+                        {/* <div className="search-box theme-bg-color">
                           <i data-feather="search" />
-                        </div>
+                        </div> */}
+                          {location.pathname !== '/ajouter-annonce' && location.pathname !== '/edit-annonce' && (
+                            <>
+                        <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '15px', paddingLeft: '10px' }}>
+                         
+                              <FontAwesomeIcon icon={faPlus} />
+                              <Link to="/ajouter-annonce"> Post an ad</Link>
+                              </div>
+                            </>
+                          )}
+                        
                       </li>
                       <li className="onhover-dropdown wislist-dropdown">
                         <div className="cart-media">
@@ -127,7 +144,7 @@ const Header = ({ children }) => {
                     </ul>
                   </div>
 
-                  <div className="search-full">
+                  {/* <div className="search-full">
                   <form method="GET" action="{{ route('search.products') }}">
                     <div className="input-group">
                       <span className="input-group-text">
@@ -142,17 +159,13 @@ const Header = ({ children }) => {
                         placeholder="Search here.."
                       />
                       <span className="input-group-text">
-                        {/* Bouton pour fermer la recherche */}
                         <button type="button" className="btn btn-light close-search">
                           <i data-feather="x" className="font-light" />
                         </button>
                       </span>
                     </div>
                   </form>
-</div>
-
-
-
+                  </div> */}
 
                 </div>
               </div>

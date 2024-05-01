@@ -1836,13 +1836,13 @@ span {
   ==========================**/
 .form-control3 {
   font-size: 14px;
-  padding: calc(14.45px + (14 - 8) * ((100vw - 320px) / (1920 - 320))) calc(15px + (30 - 15) * ((100vw - 320px) / (1920 - 320))) !important; 
-  border-color: #bdbdbd;
+  padding: calc(12.5px + (14 - 8) * ((100vw - 320px) / (1920 - 320))) calc(15px + (30 - 15) * ((100vw - 320px) / (1920 - 320))) !important; 
+  border-color: #dee2e6;
 }
 .form-control {
   font-size: 14px;
   padding: calc(8px + (14 - 8) * ((100vw - 320px) / (1920 - 320))) calc(15px + (30 - 15) * ((100vw - 320px) / (1920 - 320))); 
-  border-color: #bdbdbd;
+  border-color: #dee2e6;
 }
   .form-control.subscribe-input {
     border: none;

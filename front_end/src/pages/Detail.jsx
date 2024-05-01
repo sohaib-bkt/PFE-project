@@ -3,13 +3,15 @@ import { useParams } from "react-router-dom";
 import axiosClient from '../api/axios';
 import SectionStart from '@Components/SectionStart';
 import DetailDesc from '@Components/Detail/DetailDesc';
-import DetailReview from '@Components/Detail/DetailReview';
 import DetailSpec from '@Components/Detail/DetailSpecifiction';
 import DetailSizing from '@Components/Detail/DetailSizing';
 import Slider from '@Components/Slider';
 import Dslider from '@Components/Dslider.jsx';
 import HashLoader from "react-spinners/HashLoader";
 import img from '@Assets/images/scam.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUser} from '@fortawesome/free-solid-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export default function Detail() {
     const [activeTab, setActiveTab] = useState('desc');
@@ -106,7 +108,7 @@ export default function Detail() {
             html: `
             <div>
                 <p>Never send money in advance to the seller via bank transfer or through a money transfer agency when purchasing goods available on the site.</p>
-                <h3>Call TOP Phone</h3><br/>
+                <h3>Call ${seler.name} Phone</h3><br/>
             </div>
             `,
             imageUrl: img,
@@ -114,11 +116,11 @@ export default function Detail() {
             imageHeight: 200,
             imageAlt: "Custom image",
             input: "text",
-            inputValue: seler.phone, // Set default value here
+            inputValue: seler.phone, 
             inputAttributes: {
                 autocapitalize: "off",
-                style: "margin: auto;", // Apply inline CSS here
-                readOnly: true // Make the input read-only
+                style: "margin: auto;", 
+                readOnly: true 
             },
             showConfirmButton: false
         });
@@ -141,56 +143,63 @@ export default function Detail() {
                                     </div>
                                     <div className="col-md-6">
                                         <div className="cloth-details-size">
+                                       
                                             <div className="product-count">
+                                                
                                                 <ul>
                                                     {[...Array(1)].map((_, index) => (
                                                         <li key={index}>
-                                                            <img
-                                                                src="../assets/images/gif/fire.gif"
-                                                                className="img-fluid lazyload"
-                                                                alt="image"
-                                                            />
-                                                            <span className="p-counter">37</span>
-                                                            <span className="lang">orders in last 24 hours</span>
+                                                           <FontAwesomeIcon icon={faUser} />
+                                                            <span className="lang"> <a href="" style={{color:"blue", fontFamily:"monospace"}}>&nbsp;{seler.name}</a></span>
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </div>
                                             <div className="details-image-concept">
                                                 <h2>
-                                                    <b>{product.name}</b>
+                                                    {product.name}
                                                 </h2>
                                             </div>
                                             <div className="label-section">
-                                                <span className="badge badge-grey-color">#1 Best seller</span>
-                                                <span className="label-text">in fashion</span>
+                                                <span className="badge badge-grey-color" style={{color:"white"}}>Categorie</span>
+                                                <span className="label-text">subcategorie</span>
                                             </div>
+                                           
                                             <h3 className="price-detail">
                                                 ${product.regular_price}
                                             </h3>
+                                            
                                             <div className="product-buttons">
                                                 <a
                                                     className="btn btn-solid"
                                                     id="triggerModal"
                                                     onClick={showSwal}
+                                                    style={{borderRadius:"8px"}}
                                                 >
-                                                    <i className="fa fa-bookmark fz-16 me-2" />
-                                                    <span>Commande</span>
+                                                <FontAwesomeIcon icon={faPhone} /> &nbsp;
+                                                    <span>Call Seller</span>
                                                 </a>
                                             </div>
                                             <div className="border-product">
                                                 <h6 className="product-title d-block">share it</h6>
                                                 <div className="product-icon">
                                                     <ul className="product-social">
-                                                        {['facebook', 'google-plus', 'twitter', 'instagram', 'rss'].map((icon, index) => (
-                                                            <li key={index}>
-                                                                <a href={`https://www.${icon}.com/`}>
-                                                                    <i className={`fab fa-${icon}-f`} />
-                                                                </a>
-                                                            </li>
-                                                        ))}
+                                                    <li>
+                                                    <a href=""><i className="fab fa-google fa-lg" style={{ color: "#dd4b39" }} /></a>
+                                                    </li>
+                                                    <li>
+                                                   <a href=""> <i className="fab fa-facebook-f fa-lg" style={{ color: "#3b5998" }} /></a>
+                                                    </li>
+                                                    <li>
+                                                   <a href=""> <i className="fab fa-twitter fa-lg" style={{ color: "#55acee" }} /></a>
+                                                    </li>             
+                                                    <li>
+                                                   <a href=""> <i className="fab fa-whatsapp fa-lg" style={{ color: "#25d366" }} /></a>
+                                                    </li>
                                                     </ul>
                                                 </div>
+                                            </div>
+                                            <div className="border-product" style ={{marginTop:"10px"}}>
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +210,7 @@ export default function Detail() {
                             <div className="cloth-review">
                                 <nav>
                                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                        {['desc', 'speci', 'Sguide', 'review'].map((tab, index) => (
+                                        {['desc', 'speci', 'Sguide'].map((tab, index) => (
                                             <button
                                                 key={index}
                                                 className={`nav-link ${activeTab === tab ? 'active' : ''}`}
@@ -214,7 +223,6 @@ export default function Detail() {
                                                 {tab === 'desc' && 'Description'}
                                                 {tab === 'speci' && 'Specifications'}
                                                 {tab === 'Sguide' && 'Sizing Guide'}
-                                                {tab === 'review' && 'Review'}
                                             </button>
                                         ))}
                                     </div>
@@ -222,7 +230,6 @@ export default function Detail() {
                                 <div className="tab-content" id="nav-tabContent">
                                     <DetailDesc clicked={activeTab === 'desc' ? 'show active' : ''} />
                                     <DetailSpec clicked={activeTab === 'speci' ? 'show active' : ''} />
-                                    <DetailReview clicked={activeTab === 'review' ? 'show active' : ''} />
                                     <DetailSizing clicked={activeTab === 'Sguide' ? 'show active' : ''} />
                                 </div>
                             </div>

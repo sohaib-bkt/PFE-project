@@ -58,8 +58,8 @@ export default function Blog() {
             <Card/>
      
             <Card/>
-            <nav aria-label="Page navigation">
-            <ul className="pagination justify-content-center">
+            <nav aria-label="Page navigation" >
+            <ul className="pagination justify-content-center" style={{ position: "absolute", bottom: "0" ,width: "70%"}}>
               <li className="page-item disabled">
                 <a className="page-link" href="#" tabIndex={-1}>
                   &lt;&lt;

@@ -7,12 +7,14 @@ import { useCategory } from '../../context/CategoryContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function AddAdv() {
   const [user, setUser] = useState({});
   const { selectedCategoryy , name} = useCategory();
-  
+  const [inputGroups, setInputGroups] = useState([{ attribute: '', value: '' }]);
+
   
   useEffect(() => {
     const fetchUser = async () => {
@@ -39,6 +41,16 @@ export default function AddAdv() {
       .catch((error) => {
         console.error('Error submitting form:', error);
       });
+  };
+  const handleAddInputGroup = () => {
+    setInputGroups([...inputGroups, { attribute: '', value: '' }]);
+  };
+
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
+    const updatedInputGroups = [...inputGroups];
+    updatedInputGroups[index][name] = value;
+    setInputGroups(updatedInputGroups);
   };
 
   return (
@@ -79,6 +91,44 @@ export default function AddAdv() {
                       <label htmlFor="name" className="form-label">Name</label>
                       <input type="text" className="form-control form-control3" id="name" name="name" placeholder="Enter Full Name" />
                     </div>
+                    <div className="col-md-12">
+                      <span className='col-md-6'>               
+                         <label htmlFor="split_input" className="form-label">Specification</label>
+                        </span>
+
+                
+               
+                {inputGroups.map((inputGroup, index) => (
+                    <div className="col-md-12" key={index}>
+                      <div className="input-group" style={{ border: '1px solid #dee2e6' }}>
+                        <input
+                          type="text"
+                          className="form-control form-control3"
+                          name={`split_input_${index}_1`}
+                          placeholder="Attribute"
+                          onChange={(event) => handleInputChange(index, event)}
+                          style={{ border: 'none' }}
+                        />
+                         <input
+                          type="text"
+                          className="form-control form-control3"
+                          name={`split_input_${index}_2`}
+                          placeholder="Value"
+                          onChange={(event) => handleInputChange(index, event)}
+                          style={{ border: 'none'}}
+                        />
+                        {index === inputGroups.length - 1 && (
+                          <button
+                            style={{ border: 'none', backgroundColor: 'transparent' }}
+                            onClick={handleAddInputGroup}
+                          >
+                            <FontAwesomeIcon icon={faCheck} style={{ color: '#a01818', width: '20px', height: '20px' }} />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                   </div>
                     <div className="col-md-12">
                       <label htmlFor="description" className="form-label">Description</label>
                       <textarea className="form-control form-control3" id="description" name="description" defaultValue={""} />
