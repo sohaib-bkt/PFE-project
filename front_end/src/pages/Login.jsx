@@ -2,55 +2,23 @@ import { useState , useEffect  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import UserApi from '../services/api/user/UserApi';
+const loadScripts = () => {
+  const scripts = [
+    'https://code.jquery.com/jquery-3.6.0.min.js',
+    './assets/js/bootstrap/bootstrap.bundle.min.js',
+    './assets/js/script.js',
+  ];
 
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    document.body.appendChild(script);
+  });
+};
 export default function Login() {
-  useEffect(() => {
-    const scripts = [
-      'https://code.jquery.com/jquery-3.6.0.min.js',
-      './assets/js/bootstrap/bootstrap.bundle.min.js',
-      './assets/js/script.js',
-    ];
+  loadScripts();
 
-    const loadScript = (src) => {
-        return new Promise((resolve, reject) => {
-            if (document.querySelector(`script[src="${src}"]`)) {
-                resolve();
-                return;
-            }
-
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = true;
-
-            script.onload = () => resolve();
-            script.onerror = () => reject(new Error(`Failed to load script ${src}`));
-
-            document.body.appendChild(script);
-        });
-    };
-
-    const loadScriptsSequentially = async () => {
-        for (let src of scripts) {
-            try {
-                await loadScript(src);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    };
-
-    loadScriptsSequentially();
-
-    return () => {
-        // Cleanup
-        scripts.forEach(src => {
-            const script = document.querySelector(`script[src="${src}"]`);
-            if (script) {
-                document.body.removeChild(script);
-            }
-        });
-    };
-}, []);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [error, setError] = useState('');

@@ -1,20 +1,37 @@
-import  { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Prods from '@Components/Prods.jsx';
 import { Link } from 'react-router-dom';
 import axiosClient from '../api/axios';
 import Slider from '@Components/Slider.jsx';
 import HashLoader from "react-spinners/HashLoader";
 
+  const loadScripts = () => {
+    const scripts = [
+      'https://code.jquery.com/jquery-3.6.0.min.js',
+      './assets/js/lazysizes.min.js',
+      './assets/js/script.js',
+      './assets/js/slick/slick.js',
+      './assets/js/slick/slick-animation.min.js',
+      './assets/js/slick/custom_slick.js'
+    ];
+
+    scripts.forEach(src => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      document.body.appendChild(script);
+    });
+  };
 export default function Home() {
+  loadScripts();
   const [clothes, setClothes] = useState([]);
   const [info, setInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-
+ // Load scripts when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [ clothesResponse, infoResponse] = await Promise.all([
-
+        const [clothesResponse, infoResponse] = await Promise.all([
           axiosClient.get('http://localhost:8000/api/clothes'),
           axiosClient.get('http://localhost:8000/api/inf')
         ]);
@@ -29,61 +46,17 @@ export default function Home() {
 
     fetchData();
 
-    const scripts = [
-      'https://code.jquery.com/jquery-3.6.0.min.js',
-      './assets/js/lazysizes.min.js',
-      './assets/js/script.js',
-      './assets/js/slick/slick.js',
-      './assets/js/slick/slick-animation.min.js',
-      './assets/js/slick/custom_slick.js'
-    ];
+   
 
-    const loadScript = (src) => {
-      return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-          resolve();
-          return;
-        }
-
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = true;
-
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error(`Failed to load script ${src}`));
-
-        document.body.appendChild(script);
-      });
-    };
-
-    const loadScriptsSequentially = async () => {
-      for (let src of scripts) {
-        try {
-          await loadScript(src);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-
-    loadScriptsSequentially();
-
-
-    return () => {
-      // Cleanup
-      scripts.forEach(src => {
-        const script = document.querySelector(`script[src="${src}"]`);
-        if (script) {
-          document.body.removeChild(script);
-        }
-      });
-    };
   }, []);
+
+
   if (loading) {
-    return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
-    <HashLoader color="red" loading={loading} size={80} />
-  </div>
-    
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
   }
     return (
         <>

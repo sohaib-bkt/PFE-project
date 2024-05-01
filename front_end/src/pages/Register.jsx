@@ -1,8 +1,23 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
-
+  const loadScripts = () => {
+    const scripts = [
+      'https://code.jquery.com/jquery-3.6.0.min.js',
+      './assets/js/bootstrap/bootstrap.bundle.min.js',
+      './assets/js/script.js',
+    ];
+  
+    scripts.forEach(src => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      document.body.appendChild(script);
+    });
+  };
 export default function Register() {
+  loadScripts();
+
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [phoneFocused, setPhoneFocused] = useState(false);

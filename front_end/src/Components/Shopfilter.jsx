@@ -365,7 +365,7 @@ export default function Shopfilter() {
 
           <div className="col-12 pb-1">
                 <nav aria-label="Page navigation">
-                  <ul className="pagination justify-content-center mb-3">
+                  <ul className="pagination justify-content-center mb-3" >
                     <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                       <a
                         className="page-link"
