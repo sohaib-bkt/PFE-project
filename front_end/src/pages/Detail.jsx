@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import axiosClient from '../api/axios';
 import SectionStart from '@Components/SectionStart';
@@ -8,13 +8,15 @@ import DetailSpec from '@Components/Detail/DetailSpecifiction';
 import DetailSizing from '@Components/Detail/DetailSizing';
 import Slider from '@Components/Slider';
 import Dslider from '@Components/Dslider.jsx';
-
+import HashLoader from "react-spinners/HashLoader";
 import img from '@Assets/images/scam.png';
 
 export default function Detail() {
     const [activeTab, setActiveTab] = useState('desc');
     const { slug } = useParams();
     const [product, setProduct] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [seler, setSeler] = useState({});
 
     const handleClick = (tab) => {
         setActiveTab(tab);
@@ -22,9 +24,16 @@ export default function Detail() {
 
 
     useEffect(() => {
+        
         axiosClient.get(`http://localhost:8000/api/detail/${slug}`)
         .then(response => {
             setProduct(response.data);
+            axiosClient.get(`http://localhost:8000/api/user/${response.data.user_id}`).then(response => {
+                setSeler(response.data);   
+                setLoading(false);
+            })
+           
+            
         });
     }, [slug]);
 
@@ -83,8 +92,15 @@ export default function Detail() {
             });
         };
     }, []);
+    if (loading) {
+        return (
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+            <HashLoader color="red" loading={loading} size={80} />
+          </div>
+        );
+      }
 
-    const showSwal = () => {
+      const showSwal = () => {
         Swal.fire({
             title: "Attention !",
             html: `
@@ -98,14 +114,16 @@ export default function Detail() {
             imageHeight: 200,
             imageAlt: "Custom image",
             input: "text",
-            inputValue: "09999999999", // Set default value here
+            inputValue: seler.phone, // Set default value here
             inputAttributes: {
                 autocapitalize: "off",
-                style: "margin: auto;" // Apply inline CSS here
+                style: "margin: auto;", // Apply inline CSS here
+                readOnly: true // Make the input read-only
             },
             showConfirmButton: false
         });
     };
+    
 
     return (
         <>

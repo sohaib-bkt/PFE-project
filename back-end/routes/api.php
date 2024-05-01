@@ -35,7 +35,7 @@ Route::get('/product/getaccepted', [ShopController::class, 'getAccepted']);
 Route::get('/product/getrejected', [ShopController::class, 'getRejected']);
 Route::get('/product/getpending', [ShopController::class, 'getPending']);
 Route::get('/product/deleteAnnonce/{id}', [ShopController::class, 'deleteAnnonce']);
-
+Route::get('user/{id}', [ShopController::class, 'getUser']);
 
 Route::put('/update/{id}/changePassword', [ShopController::class, 'changePassword']);
 

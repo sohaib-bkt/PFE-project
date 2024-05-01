@@ -301,11 +301,9 @@ public function changePassword(Request $request, $id)
         return response()->json($product);
     }
 
-    // public function getCartAndWishlistCount()
-    // {
-    //     $cartCount = Cart::instance("cart")->Content()->count();
-    //     $wishlistcount = Cart::instance("wishlist")->Content()->count();
-    //     return response()->json(['status'=>200,'cartCount'=>$cartCount,'wishlistCount'=>$wishlistcount]);
-    // }
+    public function getUser($id){
+        $user = User::find($id);
+        return response()->json($user);
+    }
 
 }
