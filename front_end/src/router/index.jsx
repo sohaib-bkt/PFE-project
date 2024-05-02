@@ -20,6 +20,8 @@ import EditAdv from "@Pages/Advertisement/EditAdv.jsx"
 import  Dashboard  from "@Pages/Admin/Dashboard.jsx";
 import ForgotPass from "@Pages/ForgotPass.jsx"
 import ResetPass from "@Pages/ResetPass.jsx"
+import Users from "@Pages/Admin/Users.jsx"
+import EditUser from "@Pages/Admin/EditUser.jsx"
 
 export const router = createBrowserRouter([
 
@@ -109,12 +111,12 @@ export const router = createBrowserRouter([
                         element: <Dashboard/>
                     },
                     {
-                        path: "products",
-                        element: <h1>hello admin</h1>
+                        path: "/users",
+                        element: <Users/>
                     },
                     {
-                        path: "users",
-                        element: <h1>hello admin</h1>
+                        path: "/edit-user",
+                        element: <EditUser/>
                     },
                     {
                         path: "brands",

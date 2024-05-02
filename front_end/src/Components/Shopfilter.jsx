@@ -55,11 +55,11 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="price"
-                className="custom-control-input"
+                className="form-check-input"
                 defaultChecked=""
                 id="price-all"
               />
-              <label className="custom-control-label" htmlFor="price-all">
+              <label className="custom-control-label" htmlFor="price-all"> &nbsp;
                 All Price
               </label>
               </a>
@@ -70,10 +70,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="price"
-                className="custom-control-input"
+                className="form-check-input"
                 id="price-1"
               />
-              <label className="custom-control-label" htmlFor="price-1">
+              <label className="custom-control-label" htmlFor="price-1"> &nbsp;
                 $0 - $5
               </label>
               </a>
@@ -84,10 +84,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="price"
-                className="custom-control-input"
+                className="form-check-input"
                 id="price-2"
               />
-              <label className="custom-control-label" htmlFor="price-2">
+              <label className="custom-control-label" htmlFor="price-2">  &nbsp;
                 $15 - $10
               </label>
               </a>
@@ -98,10 +98,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="price"
-                className="custom-control-input"
+                className="form-check-input"
                 id="price-3"
               />
-              <label className="custom-control-label" htmlFor="price-3">
+              <label className="custom-control-label" htmlFor="price-3">  &nbsp;
                 $10 - $20
               </label>
               </a>
@@ -112,10 +112,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="price"
-                className="custom-control-input"
+                className="form-check-input"
                 id="price-4"
               />
-              <label className="custom-control-label" htmlFor="price-4">
+              <label className="custom-control-label" htmlFor="price-4">  &nbsp;
                 $20 - $50
               </label>
               </a>
@@ -126,10 +126,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="price"
-                className="custom-control-input"
+                className="form-check-input"
                 id="price-5"
               />
-              <label className="custom-control-label" htmlFor="price-5">
+              <label className="custom-control-label" htmlFor="price-5">  &nbsp;
                 $50 - $100
               </label>
               </a>
@@ -147,11 +147,11 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="brand"
-                className="custom-control-input"
+                className="form-check-input"
                 defaultChecked=""
                 id="color-all"
               />
-              <label className="custom-control-label" htmlFor="color-all">
+              <label className="custom-control-label" htmlFor="color-all">  &nbsp;
                 All Brands
               </label>
               </a>
@@ -162,10 +162,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="brand"
-                className="custom-control-input"
+                className="form-check-input"
                 id="color-1"
               />
-              <label className="custom-control-label" htmlFor="color-1">
+              <label className="custom-control-label" htmlFor="color-1">  &nbsp;
                 Jawda
               </label>
               </a>
@@ -176,10 +176,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="brand"
-                className="custom-control-input"
+                className="form-check-input"
                 id="color-2"
               />
-              <label className="custom-control-label" htmlFor="color-2">
+              <label className="custom-control-label" htmlFor="color-2">  &nbsp;
                 Abidas
               </label>
               </a>
@@ -190,10 +190,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="brand"
-                className="custom-control-input"
+                className="form-check-input"
                 id="color-3"
               />
-              <label className="custom-control-label" htmlFor="color-3">
+              <label className="custom-control-label" htmlFor="color-3">  &nbsp;
                 Costa
               </label>
               </a>
@@ -204,10 +204,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="brand"
-                className="custom-control-input"
+                className="form-check-input"
                 id="color-4"
               />
-              <label className="custom-control-label" htmlFor="color-4">
+              <label className="custom-control-label" htmlFor="color-4">  &nbsp;
                 Nyke
               </label>
               </a>
@@ -218,10 +218,10 @@ export default function Shopfilter() {
               <input
                type="radio"
                 name="brand"
-                className="custom-control-input"
+                className="form-check-input"
                 id="color-5"
               />
-              <label className="custom-control-label" htmlFor="color-5">
+              <label className="custom-control-label" htmlFor="color-5">  &nbsp;
                 Dacia
               </label>
               </a>
@@ -239,11 +239,11 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="category"
-                className="custom-control-input"
+                className="form-check-input"
                 defaultChecked=""
                 id="size-all"
               />
-              <label className="custom-control-label" htmlFor="size-all">
+              <label className="custom-control-label" htmlFor="size-all">  &nbsp;
                 All Categories
               </label>
               </a>
@@ -254,10 +254,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="category"
-                className="custom-control-input"
+                className="form-check-input"
                 id="size-1"
               />
-              <label className="custom-control-label" htmlFor="size-1">
+              <label className="custom-control-label" htmlFor="size-1">  &nbsp;
                 Snekers
               </label>
               </a>
@@ -268,10 +268,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="category"
-                className="custom-control-input"
+                className="form-check-input"
                 id="size-2"
               />
-              <label className="custom-control-label" htmlFor="size-2">
+              <label className="custom-control-label" htmlFor="size-2">  &nbsp;
                 Jean
               </label>
               </a>
@@ -282,10 +282,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="category"
-                className="custom-control-input"
+                className="form-check-input"
                 id="size-3"
               />
-              <label className="custom-control-label" htmlFor="size-3">
+              <label className="custom-control-label" htmlFor="size-3">  &nbsp;
                 Hoodie
               </label>
               </a>
@@ -296,10 +296,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="category"
-                className="custom-control-input"
+                className="form-check-input"
                 id="size-4"
               />
-              <label className="custom-control-label" htmlFor="size-4">
+              <label className="custom-control-label" htmlFor="size-4">  &nbsp;
                 Jacket
               </label>
               </a>
@@ -310,10 +310,10 @@ export default function Shopfilter() {
               <input
                 type="radio"
                 name="category"
-                className="custom-control-input"
+                className="form-check-input"
                 id="size-5"
               />
-              <label className="custom-control-label" htmlFor="size-5">
+              <label className="custom-control-label" htmlFor="size-5">  &nbsp;
                 T-Shirt
               </label>
               </a>
