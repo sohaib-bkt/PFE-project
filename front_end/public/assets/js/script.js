@@ -706,10 +706,6 @@ $(document).mouseup(function (e) {
     }
 });
 
-/*=====================
-    23. Feather js
- ==========================*/
-feather.replace();
 
 /*=====================
     24. header Dropdown js

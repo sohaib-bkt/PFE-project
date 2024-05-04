@@ -26,15 +26,15 @@ class ProductFactory extends Factory
         return [
             'name' => Str::title($prduct_name),
             'user_id' => 1,
-            'slug' => $slug,         
-            'description' => $this->faker->text(500),
-            'regular_price' => $this->faker->numberBetween(1,22),  
+            'slug' => $slug,
+            'description' => $this->faker->text(20),
+            'regular_price' => $this->faker->numberBetween(1,22),
             'featured' => $this->faker->randomElement([0,1,'rejected']),
             'image' => $image_path,
             'images' => $image_path,
             'category_id' => $this->faker->numberBetween(1,6),
             'brand_id' => $this->faker->numberBetween(1,6),
-            'categorie_product' => $categorie_product 
+            'categorie_product' => $categorie_product
         ];
     }
 }

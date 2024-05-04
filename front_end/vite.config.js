@@ -14,6 +14,8 @@ export default defineConfig({
       '@Public': '/public',
       '@Assets': '/public/assets',
       '@Js': '/public/assets/js',
+      '@Services': '/src/services/api/user',
+      '@Context': '/src/context',
     },
   },
 });

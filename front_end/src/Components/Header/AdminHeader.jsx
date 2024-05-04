@@ -5,6 +5,8 @@ import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 import {faTable} from '@fortawesome/free-solid-svg-icons';
+import {faList} from '@fortawesome/free-solid-svg-icons'; 
+import {faP} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 export default function AdminHeader(){
     useEffect(() => {
@@ -27,7 +29,6 @@ export default function AdminHeader(){
           <ul
             className="navbar-nav bg-gradient-primary11 sidebar sidebar-dark accordion"
             id="accordionSidebar" >
-            {/* Sidebar - Brand */}
             <a
               className="sidebar-brand d-flex align-items-center justify-content-center"
               href="index.html"
@@ -39,68 +40,33 @@ export default function AdminHeader(){
                 Moon Store
               </div>
             </a>
-            {/* Divider */}
             <hr className="sidebar-divider my-0" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-            {/* Nav Item - Dashboard */}
+           
             <li className="nav-item active">
               <Link className="nav-link" to="/dashboard">
                 <i className="fas fa-fw fa-tachometer-alt" />
                 <span>Dashboard</span>
               </Link>
             </li>
-            {/* Divider */}
             <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-            {/* Heading */}
             <div className="sidebar-heading" style={{color: 'white', fontFamily: "monospace", fontSize: '14px'}}>
             <FontAwesomeIcon icon={faTable}/>&nbsp;Tables</div>
-            {/* Nav Item - Pages Collapse Menu */}
-            <li className="nav-item">
+            
+            <li className="nav-item" >
             <Link className="nav-link" to="/users">
             &nbsp;&nbsp;<FontAwesomeIcon icon={faUser}/>&nbsp;&nbsp;
                 <span>Users</span>
               </Link>
+              
             </li>
-            {/* Nav Item - Utilities Collapse Menu */}
             <li className="nav-item">
-              <a
-                className="nav-link collapsed"
-                href="#"
-                data-toggle="collapse"
-                data-target="#collapseUtilities"
-                aria-expanded="true"
-                aria-controls="collapseUtilities"
-              >
-                <i className="fas fa-fw fa-wrench" />
-                <span>Utilities</span>
-              </a>
-              <div
-                id="collapseUtilities"
-                className="collapse"
-                aria-labelledby="headingUtilities"
-                data-parent="#accordionSidebar"
-              >
-                <div className="bg-white py-2 collapse-inner rounded">
-                  <h6 className="collapse-header">Custom Utilities:</h6>
-                  <a className="collapse-item" href="utilities-color.html">
-                    Colors
-                  </a>
-                  <a className="collapse-item" href="utilities-border.html">
-                    Borders
-                  </a>
-                  <a className="collapse-item" href="utilities-animation.html">
-                    Animations
-                  </a>
-                  <a className="collapse-item" href="utilities-other.html">
-                    Other
-                  </a>
-                </div>
-              </div>
+            <Link className="nav-link" to="/categories" style={{paddingTop: '0px'}}>
+            &nbsp;&nbsp;<FontAwesomeIcon icon={faList}/>&nbsp;&nbsp;
+                <span>Categories</span>
+              </Link>
             </li>
-            {/* Divider */}
-            <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-            {/* Heading */}
-            <div className="sidebar-heading">Addons</div>
-            {/* Nav Item - Pages Collapse Menu */}
+         
+          
             <li className="nav-item">
               <a
                 className="nav-link collapsed"
@@ -109,9 +75,10 @@ export default function AdminHeader(){
                 data-target="#collapsePages"
                 aria-expanded="true"
                 aria-controls="collapsePages"
+                style={{paddingTop: '0px'}}
               >
-                <i className="fas fa-fw fa-folder" />
-                <span>Pages</span>
+                &nbsp;&nbsp;<FontAwesomeIcon icon={faP}/>&nbsp;&nbsp;
+                <span>Products</span>
               </a>
               <div
                 id="collapsePages"
@@ -120,24 +87,16 @@ export default function AdminHeader(){
                 data-parent="#accordionSidebar"
               >
                 <div className="bg-white py-2 collapse-inner rounded">
-                  <h6 className="collapse-header">Login Screens:</h6>
-                  <a className="collapse-item" href="login.html">
-                    Login
-                  </a>
-                  <a className="collapse-item" href="register.html">
-                    Register
-                  </a>
-                  <a className="collapse-item" href="forgot-password.html">
-                    Forgot Password
-                  </a>
-                  <div className="collapse-divider" />
-                  <h6 className="collapse-header">Other Pages:</h6>
-                  <a className="collapse-item" href="404.html">
-                    404 Page
-                  </a>
-                  <a className="collapse-item" href="blank.html">
-                    Blank Page
-                  </a>
+                  <h6 className="collapse-header"> Products Pages </h6>
+                  <Link className="collapse-item" to="/products">
+                    Products
+                  </Link>
+                  <Link className="collapse-item" to="/add-product">
+                    Add Products
+                  </Link>
+                  <Link className="collapse-item" to="/pending-product">
+                    Pending Products
+                  </Link>
                 </div>
               </div>
             </li>

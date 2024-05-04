@@ -26,14 +26,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'sohaib@gmail.com',
             'password' => bcrypt('123456'),
             'phone' => '123456789',
-            'address' => 'address',      
+            'address' => 'address',
             'utype' => 'admin',
         ]);
 
     \App\Models\Brand::factory(6)->create();
     \App\Models\Category::factory(12)->create();
-    \App\Models\Product::factory(40)->create();
-        
-        
+    \App\Models\Product::factory(10)->create();
+
+
     }
 }

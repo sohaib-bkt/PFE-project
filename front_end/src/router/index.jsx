@@ -20,8 +20,17 @@ import EditAdv from "@Pages/Advertisement/EditAdv.jsx"
 import  Dashboard  from "@Pages/Admin/Dashboard.jsx";
 import ForgotPass from "@Pages/ForgotPass.jsx"
 import ResetPass from "@Pages/ResetPass.jsx"
-import Users from "@Pages/Admin/Users.jsx"
-import EditUser from "@Pages/Admin/EditUser.jsx"
+import Users from "@Pages/Admin/User/Users.jsx"
+import EditUser from "@Pages/Admin/User/EditUser.jsx"
+import AddUser from "@Pages/Admin/User/AddUser.jsx"
+import AddCategorie from "@Pages/Admin/Categorie/AddCategorie.jsx"
+import Categorie from "@Pages/Admin/Categorie/Categories.jsx"
+import EditCategorie from "@Pages/Admin/Categorie/EditCategorie.jsx"
+import Product from "@Pages/Admin/Product/Products.jsx"
+import AddProduct from "@Pages/Admin/Product/AddProduct.jsx"
+import PendingProduct from "@Pages/Admin/Product/PendingProduct.jsx"
+import AdminProfile from "@Pages/Admin/AdminProfile.jsx"
+import AdminSettings from "@Pages/Admin/AdminSettings.jsx"
 
 export const router = createBrowserRouter([
 
@@ -119,10 +128,42 @@ export const router = createBrowserRouter([
                         element: <EditUser/>
                     },
                     {
-                        path: "brands",
-                        element: <h1>hello admin</h1>
+                        path: "/add-user",
+                        element: <AddUser/>
                     },
-                    
+                    {
+                        path: "/add-categorie",
+                        element: <AddCategorie/>
+                    },
+                    {
+                        path: "/edit-categorie",
+                        element: <EditCategorie/>
+                    },
+                    {
+                        path: "/categories",
+                        element: <Categorie/>
+                    },
+                    {
+                        path: "/products",
+                        element: <Product/>
+                    },
+                    {
+                        path: "/add-product",
+                        element: <AddProduct/>
+                    },
+                    {
+                        path: "/pending-product",
+                        element: <PendingProduct/>
+                    },
+                    {
+                        path: "/admin-profile",
+                        element: <AdminProfile/>
+                    },
+                    {
+                        path: "/admin-settings",
+                        element: <AdminSettings/>
+                    },
+                        
 
                 ]
             },

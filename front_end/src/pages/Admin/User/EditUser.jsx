@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 // import axiosClient from '../api/axios';
 // import UserApi from '../services/api/user/UserApi';
-import AdminNav from './AdminNav';
-export default function EditInfo() {
+import AdminNav from '../AdminNav';
+export default function EditUser() {
     const [activeTab, setActiveTab] = useState('anonce'); // Default active tab is 'desc'
 
     const [editMode, setEditMode] = useState(false);
@@ -43,7 +43,7 @@ export default function EditInfo() {
           <AdminNav/>
           <div className='container-fluid'>
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 className="h3 mb-0 text-gray-800"> &nbsp; Edit User's Profile</h1>
+                  <h1 className="h3 mb-0 text-gray-800"> &nbsp; User Profile</h1>
         </div>
         <div className="col-lg-12">
         <div className="card mb-4">
