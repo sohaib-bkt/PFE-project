@@ -361,6 +361,8 @@ export default function Shopfilter() {
             products.map((product) => <ProdCard key={product.id} product={product} />)
 
           }
+          
+        
 
           <div className="col-12 pb-1">
                 <nav aria-label="Page navigation">

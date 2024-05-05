@@ -29,7 +29,7 @@ class ProductFactory extends Factory
             'slug' => $slug,
             'description' => $this->faker->text(20),
             'regular_price' => $this->faker->numberBetween(1,22),
-            'featured' => $this->faker->randomElement([0,1,'rejected']),
+            'featured' => $this->faker->randomElement(['accepted','pending','rejected']),
             'image' => $image_path,
             'images' => $image_path,
             'category_id' => $this->faker->numberBetween(1,6),

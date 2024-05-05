@@ -19,20 +19,6 @@ const PendingProducts = () => {
       ],
       image: "image_url_1"
     },
-    {
-      id: 2,
-      name: "Product 2",
-      price: "$150",
-      shortDescription: "Short description for Product 2",
-      description: "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.",
-      specifications: [
-        { attribute: "Color", value: "Blue" },
-        { attribute: "Size", value: "Large" },
-        { attribute: "Weight", value: "15 lbs" }
-      ],
-      image: "image_url_2"
-    }
-    // Add more pending products as needed
   ]);
 
   // Function to handle approval action
@@ -75,27 +61,27 @@ const PendingProducts = () => {
   };
 
   return (
+    <>
     <div id="content-wrapper" className="d-flex flex-column">
       <div id="content">
         <AdminNav />
         <div className="container-fluid">
-          <h1 className="h3 mb-2 text-gray-800">Pending Products</h1>
-          {pendingProducts.map(product => (
-            <div className="card shadow mb-4" key={product.id}>
-              <div className="card-header py-3">
-                <h6 className="m-0 font-weight-bold text-primary">{product.name}</h6>
-              </div>
-              <div className="card-body">
-                
+  <div className="card shadow mb-4">
+    <div className="card-header py-3">
+      <h6 className="m-0 font-weight-bold text-primary">User name </h6>
+    </div>
+    <div className="card-body">
+      <div className="text-center" >
+      <Slider/>
+      </div>
+    
+  {pendingProducts.map(product => (
+              
+                <>
                 <div className="table-responsive">
                   <table className="table table-borderless">
                     <tbody>
-                      <tr>
-                        <th>Images:</th>
-                        <td>
-                          <div style={{}}><Slider /></div>
-                        </td>
-                      </tr>
+                    
                       <tr>
                         <th>Name:</th>
                         <td>{product.name}</td>
@@ -133,15 +119,18 @@ const PendingProducts = () => {
                   </table>
                 </div>
                 <div className="position-absolute top-0 end-0 mt-2 mr-3">
-                  <button className="btn btn-success mr-2" onClick={() => approveProduct(product.id)}>Approve</button>
-                  <button className="btn btn-danger" onClick={() => rejectProduct(product)}>Reject</button>
+                  <button className="btn btn-danger" onClick={() => rejectProduct(product)}>Delete</button>
                 </div>
-              </div>
-            </div>
+                </>
           ))}
-        </div>
+</div>
+</div>
+  </div>
+
       </div>
     </div>
+ 
+    </>
   );
 }
 

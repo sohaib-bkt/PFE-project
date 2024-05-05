@@ -26,11 +26,13 @@ import AddUser from "@Pages/Admin/User/AddUser.jsx"
 import AddCategorie from "@Pages/Admin/Categorie/AddCategorie.jsx"
 import Categorie from "@Pages/Admin/Categorie/Categories.jsx"
 import EditCategorie from "@Pages/Admin/Categorie/EditCategorie.jsx"
+import SingleProduct from "@Pages/Admin/Product/SingleProduct.jsx"
 import Product from "@Pages/Admin/Product/Products.jsx"
 import AddProduct from "@Pages/Admin/Product/AddProduct.jsx"
 import PendingProduct from "@Pages/Admin/Product/PendingProduct.jsx"
 import AdminProfile from "@Pages/Admin/AdminProfile.jsx"
 import AdminSettings from "@Pages/Admin/AdminSettings.jsx"
+import Reports from "@Pages/Admin/Reports.jsx"
 
 export const router = createBrowserRouter([
 
@@ -163,6 +165,15 @@ export const router = createBrowserRouter([
                         path: "/admin-settings",
                         element: <AdminSettings/>
                     },
+                    {
+                        path: "/prod-reports",
+                        element: <Reports/>
+                    },
+                    {
+                        path: "/SingleProduct",
+                        element: <SingleProduct/>
+                    
+                    }
                         
 
                 ]

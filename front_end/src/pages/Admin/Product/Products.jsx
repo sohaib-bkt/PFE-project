@@ -80,14 +80,14 @@ const Products = () => {
     switch (state) {
       case 'Pending':
         return (
-          <Link to="/edit-product" className="btn btn-primary btn-circle btn-sm">
+          <Link to="/pending-product" className="btn btn-primary btn-circle btn-sm">
             <FontAwesomeIcon icon={faEye} />
           </Link>
         );
       case 'Approved':
         return (
           <>
-            <Link to="/edit-product" className="btn btn-primary btn-circle btn-sm">
+            <Link to="/SingleProduct" className="btn btn-primary btn-circle btn-sm">
               <FontAwesomeIcon icon={faEye} />
             </Link>&nbsp;&nbsp;
             <a href="#" className="btn btn-danger btn-circle btn-sm">

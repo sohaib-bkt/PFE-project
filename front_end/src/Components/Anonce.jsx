@@ -9,18 +9,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { formatDistanceToNow } from 'date-fns';
+
 export default function Anonce() {
-    const [selectedFilter, setSelectedFilter] = useState('all');
+    const [selectedFilter, setSelectedFilter] = useState('Accepted');
     const [showReject, setShowReject] = useState(true);
     const [showAccept, setShowAccept] = useState(true);
     const [showPending, setShowPending] = useState(true);
-    const [pendingCount, setPendingCount] = useState(0);
-    const [rejectedCount, setRejectedCount] = useState(0);
     const [acceptedCount, setAcceptedCount] = useState(0);
+    const [rejectedCount, setRejectedCount] = useState(0);
+    const [pendingCount, setPendingCount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({});
-    
+
     const handleRejectClose = () => {
         setShowReject(false);
     };
@@ -36,32 +39,29 @@ export default function Anonce() {
     const handleFilterChange = (filter) => {
         setSelectedFilter(filter);
     };
-
     useEffect(() => {
         UserApi.getUser().then((response) => {
+            setLoading(false);
             setUser(response.data);
             axiosClient.get('http://127.0.0.1:8000/api/product/count', {
                 params: {
                     userId: response.data.id 
                 }
             }).then((response) => {
-                setAcceptedCount(response.data?.approved ?? 0);
+                setAcceptedCount(response.data.approved ?? 0);
                 setPendingCount(response.data.pending ?? 0);
                 setRejectedCount(response.data.rejected ?? 0);   
-
-                setLoading(false);
-
-                // Set default filter based on counts
-                if (response.data.pending > 0) {
-                    setSelectedFilter('pending');
-                } else if (response.data.approved > 0) {
+                // Set default filter to "Accepted" if count is greater than 0
+                if (response.data.approved > 0) {
                     setSelectedFilter('accepted');
-                } else if (response.data.rejected > 0) {
-                    setSelectedFilter('rejected');
                 }
             });
+            
+    
         });
     }, []);
+
+
     if (loading) {
         return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
         <HashLoader color="red" loading={loading} size={80} />
@@ -71,12 +71,13 @@ export default function Anonce() {
         <div className="container">
             <div className="row">
                 <aside className="col-md-2">
-                    <FilterGroup selectedFilter={selectedFilter} onChange={handleFilterChange} pendingCount={pendingCount} acceptedCount={acceptedCount} rejectedCount={rejectedCount} />
+                    <FilterGroup selectedFilter={selectedFilter} onChange={handleFilterChange}  acceptedCount={acceptedCount} pendingCount={pendingCount} rejectedCount={rejectedCount} />
                 </aside>
                 <main className="col-md-9">
-                    {selectedFilter === 'pending' && showPending && <Pendingdiv onClose={handlePendingClose} />}
+                    {selectedFilter === 'accepted' && showAccept && <Acceptdiv onClose={handleAcceptClose} />} 
                     {selectedFilter === 'rejected' && showReject && <Rejectdiv onClose={handleRejectClose} />}
-                    {selectedFilter === 'accepted' && showAccept && <Acceptdiv onClose={handleAcceptClose} />}
+                    {selectedFilter === 'pending' && showPending && <Pendingdiv onClose={handlePendingClose} />}
+
                 </main>
             </div>
         </div>
@@ -99,8 +100,9 @@ const FilterGroup = ({ selectedFilter, onChange, pendingCount, acceptedCount, re
     const announcements = {
         
         accepted: { label: `Accepted (${acceptedCount})`, count: acceptedCount },
-        rejected: { label: `Rejected (${rejectedCount})`, count: rejectedCount },
         pending: { label: `Pending (${pendingCount})`, count: pendingCount },
+
+        rejected: { label: `Rejected (${rejectedCount})`, count: rejectedCount },
     };
 
     return (
@@ -156,8 +158,7 @@ const Acceptdiv = () => {
                         <span aria-hidden="true">&times;</span>
                     </button>
 
-                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '14px', paddingBottom: '10px' }}>advertisement Accepted</h2>
-                    <h3  style={{ fontFamily: 'Monospace, sans-serif', fontSize: '11px' ,paddingBottom: '4px' }}>Your product has been accepted</h3>
+                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '14px', paddingBottom: '10px' }}> {products.length} advertisements Accepted</h2>
                 </div>
             )}
             {!loading && (
@@ -200,7 +201,7 @@ const Rejectdiv = () => {
                         <span aria-hidden="true">&times;</span>
                     </button>
 
-                    <h2  style={{ fontFamily: 'Monospace, sans-serif', fontSize: '14px', paddingBottom: '10px' }}>advertisement Rejected</h2>
+                    <h2  style={{ fontFamily: 'Monospace, sans-serif', fontSize: '14px', paddingBottom: '10px' }}>advertisements Rejected</h2>
                     <h3  style={{ fontFamily: 'Monospace, sans-serif', fontSize: '11px' ,paddingBottom: '4px' }}>Your product has been rejected for some reasons , Please refer to the details below for more information:</h3>
                 </div>
             )}
@@ -245,7 +246,7 @@ const Pendingdiv = () => {
                     <button type="button" className={`${styles.closeButton} close`} aria-label="Close" onClick={handleAlertClose}>
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '14px', paddingBottom: '10px' }}>Advertisement Pending</h2>
+                    <h2 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '14px', paddingBottom: '10px' }}>Advertisements Pending</h2>
                     <h4 style={{ fontFamily: 'Monospace, sans-serif', fontSize: '11px' ,paddingBottom: '4px' }}>The average moderation time for an advertisement is 1 hour  If after this period the advertisement still appears in this tab, contact our customer service </h4>
                 </div>
             )}
@@ -277,7 +278,51 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
 );
 
 
-const AnnouncementCardP = ({ product }) => (
+
+const AnnouncementCardP = ({ product }) => {
+    const [timeAgo, setTimeAgo] = useState('');
+    useEffect(() => {
+        const createdAt = new Date(product.created_at);
+        setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
+    
+        return () => {}; // No need to return anything since we're not using setInterval
+    }, [product.created_at]);
+    
+
+    return (
+        <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
+            <div className="row no-gutters">
+                <div className="col-md-3">
+                    <img src={img} className={`${styles.image} `} alt="..." />
+                </div>
+                <div className="col-md-9">
+                    <div className="card-body">
+                        <DropdownMenu key={product.id} product={product} />
+                        <h4 className="card-title">{product.regular_price}</h4>
+                        <p className="card-text">{product.description}</p>
+                    </div>
+                    <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
+                        <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+
+
+const AnnouncementCardA = ({ product }) => {
+    const [timeAgo, setTimeAgo] = useState('');
+    useEffect(() => {
+        const createdAt = new Date(product.created_at);
+        setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
+    
+        return () => {}; // No need to return anything since we're not using setInterval
+    }, [product.created_at]);
+    
+    return (
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
             <div className="col-md-3">
@@ -286,41 +331,28 @@ const AnnouncementCardP = ({ product }) => (
             <div className="col-md-9">
                 <div className="card-body">
                     <DropdownMenu key={product.id} product={product}  />
-                    <h4 className="card-title">{product.regular_price}</h4>
-                    <p className="card-text">{product.description}</p>
-                </div>
-                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                    <span className={`${styles.text}`}>{product.created_at} &nbsp; </span>
-                   
-                </div>
-
-            </div>
-        </div>
-    </div>
-);
-const AnnouncementCardA = ({ product }) => (
-    <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
-        <div className="row no-gutters">
-            <div className="col-md-3">
-                <img src={img} className={`${styles.image} `} alt="..." />
-            </div>
-            <div className="col-md-9">
-                <div className="card-body">
-                    <DropdownMenu key={product.id} product={product}  />
 
                     <h4 className="card-title">{product.regular_price}</h4>
                     <p className="card-text">{product.description}</p>
                 </div>
                 <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                    <span className={`${styles.text}`}>{product.created_at} &nbsp; </span>
+                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
                    
                 </div>
 
             </div>
         </div>
-    </div>
-);
-const AnnouncementCardR = ({ product }) => (
+    </div>)
+}
+const AnnouncementCardR = ({ product }) => {
+    const [timeAgo, setTimeAgo] = useState('');
+    useEffect(() => {
+        const createdAt = new Date(product.created_at);
+        setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
+    
+        return () => {}; // No need to return anything since we're not using setInterval
+    }, [product.created_at]);
+    return(
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
             <div className="col-md-3">
@@ -333,7 +365,7 @@ const AnnouncementCardR = ({ product }) => (
                     <p className="card-text">{product.description}</p>
                 </div>
                 <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                    <span className={`${styles.text}`}>{product.created_at} &nbsp; </span>
+                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
                    
                 </div>
                 <div className={`announcement-footer  ${styles.announcementDiv}`} style={{ position: "absolute", bottom: "0px"}}>
@@ -343,8 +375,8 @@ const AnnouncementCardR = ({ product }) => (
                 </div>
             </div>
         </div>
-    </div>
-);
+    </div>)
+}
 
 
 const DropdownMenu = ({ product, isRejected }) => {

@@ -41,7 +41,7 @@ class ShopController extends Controller
                     $o_column = "id";
                     $o_order = "DESC";
             }
-        
+
             $prange = $request->query("prange");
             if (!$prange || !strpos($prange, ',')) {
                 $from = 0;
@@ -49,36 +49,36 @@ class ShopController extends Controller
             } else {
                 list($from, $to) = explode(",", $prange);
             }
-        
+
             $products = Product::where('categorie_product', 'VET')
                 ->whereBetween('regular_price', array($from, $to));
-        
+
             $q_brands = $request->query("brands");
             if ($q_brands && $q_brands !== "-1") {
                 $products->where('brand_id', $q_brands);
             }
-        
+
             $q_categories = $request->query("categories");
             if ($q_categories && $q_categories !== "-1") {
                 $products->where('category_id', $q_categories);
             }
-        
+
             $searchTerm = $request->query("search");
             if ($searchTerm) {
                 $products->where('name', 'LIKE', "%{$searchTerm}%");
             }
-        
+
             // Apply sorting
             $products->orderBy($o_column, $o_order);
-        
-            $products = $products->where('featured', 1)->paginate($size);
-        
+
+            $products = $products->where('featured', 'accepted')->paginate($size);
+
             $brandIds = Product::where('categorie_product', 'VET')->distinct()->pluck('brand_id');
             $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
-        
+
             $categoryIds = Product::where('categorie_product', 'VET')->distinct()->pluck('category_id');
             $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
-        
+
             return response()->json([
                 'products' => $products,
                 'page' => $page,
@@ -93,11 +93,11 @@ class ShopController extends Controller
                 'searchTerm' => $searchTerm
             ]);
         }
-        
-        
-        
-        
-        
+
+
+
+
+
 
     public function shopInformatique(Request $request)
     {
@@ -127,7 +127,7 @@ class ShopController extends Controller
                 $o_column = "id";
                 $o_order = "DESC";
         }
-    
+
         $prange = $request->query("prange");
         if (!$prange || !strpos($prange, ',')) {
             $from = 0;
@@ -135,36 +135,36 @@ class ShopController extends Controller
         } else {
             list($from, $to) = explode(",", $prange);
         }
-    
+
         $products = Product::where('categorie_product', 'INF')
             ->whereBetween('regular_price', array($from, $to));
-    
+
         $q_brands = $request->query("brands");
         if ($q_brands && $q_brands !== "-1") {
             $products->where('brand_id', $q_brands);
         }
-    
+
         $q_categories = $request->query("categories");
         if ($q_categories && $q_categories !== "-1") {
             $products->where('category_id', $q_categories);
         }
-    
+
         $searchTerm = $request->query("search");
         if ($searchTerm) {
             $products->where('name', 'LIKE', "%{$searchTerm}%");
         }
-    
+
         // Apply sorting
         $products->orderBy($o_column, $o_order);
-    
-        $products = $products->where('featured', 1)->paginate($size);
-    
+
+        $products = $products->where('featured', 'accepted')->paginate($size);
+
         $brandIds = Product::where('categorie_product', 'INF')->distinct()->pluck('brand_id');
         $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
-    
+
         $categoryIds = Product::where('categorie_product', 'INF')->distinct()->pluck('category_id');
         $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
-    
+
         return response()->json([
             'products' => $products,
             'page' => $page,
@@ -179,7 +179,7 @@ class ShopController extends Controller
             'searchTerm' => $searchTerm
         ]);
     }
-    
+
 public function detail($slug){
     $product = Product::where('slug', $slug)->first();
     return response()->json($product);
@@ -213,15 +213,15 @@ public function changePassword(Request $request, $id)
     }
 
     public function getClothes(){
-        $clothes = Product::where('categorie_product', 'VET')->where('featured', 1)->take(6)->get();
+        $clothes = Product::where('categorie_product', 'VET')->where('featured', 'accepted')->take(6)->get();
         return response()->json($clothes);
     }
     public function getInfo(){
-        $clothes = Product::where('categorie_product', 'INF')->where('featured', 1)->take(6)->get();
+        $clothes = Product::where('categorie_product', 'INF')->where('featured', 'accepted')->take(6)->get();
         return response()->json($clothes);
     }
     public function getLatestProducts(){
-        $products = Product::latest()->where('featured', 1)->take(6)->get();
+        $products = Product::latest()->where('featured', 'accepted')->take(6)->get();
         return response()->json($products);
     }
     public function store(Request $request)
@@ -235,7 +235,7 @@ public function changePassword(Request $request, $id)
             'description' => 'required|string',
             'regular_price' => 'required|numeric',
             'image' => 'required|image',
-            
+
         ]);
         $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
 
@@ -270,8 +270,8 @@ public function changePassword(Request $request, $id)
     }
     public function productCount(Request $request){
         $userId = $request->query('userId');
-        $pending = Product::where('featured', 0)->where('user_id', $userId)->count();
-        $approved = Product::where('featured', 1)->where('user_id', $userId)->count();
+        $pending = Product::where('featured', 'pending')->where('user_id', $userId)->count();
+        $approved = Product::where('featured', 'accepted')->where('user_id', $userId)->count();
         $rejected = Product::where('featured', 'rejected')->where('user_id', $userId)->count();
 
         return response()->json(['pending' => $pending, 'approved' => $approved, 'rejected' => $rejected]);
@@ -279,7 +279,7 @@ public function changePassword(Request $request, $id)
 
     public function getAccepted(Request $request){
         $userId = $request->query('userId');
-        $products = Product::where('featured', 1)->where('user_id', $userId)->get();
+        $products = Product::where('featured', 'accepted')->where('user_id', $userId)->get();
         return response()->json($products);
     }
 
@@ -291,7 +291,7 @@ public function changePassword(Request $request, $id)
 
     public function getPending(Request $request){
         $userId = $request->query('userId');
-        $products = Product::where('featured', 0)->where('user_id', $userId)->get();
+        $products = Product::where('featured', 'pending')->where('user_id', $userId)->get();
         return response()->json($products);
     }
 

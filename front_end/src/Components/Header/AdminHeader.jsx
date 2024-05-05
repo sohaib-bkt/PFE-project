@@ -3,8 +3,7 @@ import '@Css/customAdmincss.css';
 import $ from 'jquery';
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
-import {faTable} from '@fortawesome/free-solid-svg-icons';
+import {faExclamationTriangle, faUser} from '@fortawesome/free-solid-svg-icons';
 import {faList} from '@fortawesome/free-solid-svg-icons'; 
 import {faP} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
@@ -49,8 +48,8 @@ export default function AdminHeader(){
               </Link>
             </li>
             <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-            <div className="sidebar-heading" style={{color: 'white', fontFamily: "monospace", fontSize: '14px'}}>
-            <FontAwesomeIcon icon={faTable}/>&nbsp;Tables</div>
+            {/* <div className="sidebar-heading" style={{color: 'white', fontFamily: "monospace", fontSize: '14px'}}>
+            <FontAwesomeIcon icon={faTable}/>&nbsp;Tables</div> */}
             
             <li className="nav-item" >
             <Link className="nav-link" to="/users">
@@ -59,13 +58,16 @@ export default function AdminHeader(){
               </Link>
               
             </li>
+            <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
+
             <li className="nav-item">
             <Link className="nav-link" to="/categories" style={{paddingTop: '0px'}}>
             &nbsp;&nbsp;<FontAwesomeIcon icon={faList}/>&nbsp;&nbsp;
                 <span>Categories</span>
               </Link>
             </li>
-         
+            <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
+
           
             <li className="nav-item">
               <a
@@ -100,19 +102,12 @@ export default function AdminHeader(){
                 </div>
               </div>
             </li>
-            {/* Nav Item - Charts */}
+            <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
             <li className="nav-item">
-              <a className="nav-link" href="charts.html">
-                <i className="fas fa-fw fa-chart-area" />
-                <span>Charts</span>
-              </a>
-            </li>
-            {/* Nav Item - Tables */}
-            <li className="nav-item">
-              <a className="nav-link" href="tables.html">
-                <i className="fas fa-fw fa-table" />
-                <span>Tables</span>
-              </a>
+            <Link className="nav-link" to="/prod-reports" style={{paddingTop: '0px'}}>
+            &nbsp;&nbsp;<FontAwesomeIcon icon={faExclamationTriangle}/>&nbsp;&nbsp;
+                <span>Reports</span>
+              </Link>
             </li>
             {/* Divider */}
             <hr className="sidebar-divider d-none d-md-block" style={{opacity: '0.7', backgroundColor: 'white' }}/>
