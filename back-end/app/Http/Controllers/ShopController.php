@@ -181,9 +181,14 @@ class ShopController extends Controller
     }
 
 public function detail($slug){
-    $product = Product::where('slug', $slug)->first();
-    return response()->json($product);
-}
+        $product = Product::where('slug', $slug)->first();
+        $category = Category::where('id', $product->category_id)->first();
+        $brand = Brand::where('id', $product->brand_id)->first();
+        $product->category_name = $category->name;
+        $product->brand_name = $brand->name;
+        return response()->json($product);
+    }
+    
 public function update(Request $request, $id){
     $user = User::find($id);
     $user->update($request->all());
@@ -226,7 +231,6 @@ public function changePassword(Request $request, $id)
     }
     public function store(Request $request)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'user_id' => 'required|numeric',
             'category_name' => 'required|string',
@@ -235,26 +239,37 @@ public function changePassword(Request $request, $id)
             'description' => 'required|string',
             'regular_price' => 'required|numeric',
             'image' => 'required|image',
-
+            'images.*' => 'required|image',
         ]);
         $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
 
-        // Create a new product
         $product = new Product();
 
         $product->user_id = $validatedData['user_id'];
+        $product->featured = 'pending';
         $product->categorie_product = $validatedData['category_name'];
         $product->category_id = $categorie_id;
         $product->name = $validatedData['name'];
         $product->description = $validatedData['description'];
         $product->regular_price = $validatedData['regular_price'];
         $product->brand_id = 1;
-        // Handle image upload
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images/products');
             $product->image = $imagePath;
-            $product->images = $imagePath;
         }
+
+        if ($request->hasFile('images')) {
+            $additionalImages = [];
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('images/products');
+                $additionalImages[] = $imagePath;
+            }
+            $product->images = json_encode($additionalImages);
+        }
+        
+        $product->images = json_encode($additionalImages);
+
         $slug = Str::slug($validatedData['name']);
         $existingSlug = Product::where('slug', $slug)->exists();
         if ($existingSlug) {
@@ -263,11 +278,11 @@ public function changePassword(Request $request, $id)
 
         $product->slug = $slug;
 
-        // Save the product
         $product->save();
 
         return response()->json(['message' => 'Product stored successfully'], 200);
     }
+
     public function productCount(Request $request){
         $userId = $request->query('userId');
         $pending = Product::where('featured', 'pending')->where('user_id', $userId)->count();

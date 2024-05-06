@@ -137,8 +137,11 @@ export default function Detail() {
                             <div className="details-items">
                                 <div className="row g-4">
                                     <div className="col-md-6" >
+                                 
+                                    <Dslider></Dslider>
+
                                      
-                                           <Dslider></Dslider>
+                                           
                                            
                                     </div>
                                     <div className="col-md-6">
@@ -161,8 +164,8 @@ export default function Detail() {
                                                 </h2>
                                             </div>
                                             <div className="label-section">
-                                                <span className="badge badge-grey-color" style={{color:"white"}}>Categorie</span>
-                                                <span className="label-text">subcategorie</span>
+                                                <span className="badge badge-grey-color" style={{color:"white"}}>{product.category_name}</span>
+                                                <span className="label-text">{product.brand_name}</span>
                                             </div>
                                            
                                             <h3 className="price-detail">
