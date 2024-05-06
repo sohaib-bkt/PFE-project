@@ -41,7 +41,7 @@ Route::put('/update/{id}/changePassword', [ShopController::class, 'changePasswor
 
 
 
-
+Route::post('cart/add', [WishlistController::class, 'addProductToWishlist']);
 Route::post('/wishlist/add', [WishlistController::class, 'addProductToWishlist']);
 Route::get('/wishlist', [WishlistController::class, 'getWishlistedProducts']);
 Route::delete('/wishlist/remove', [WishlistController::class, 'removeProductFromWishlist']);

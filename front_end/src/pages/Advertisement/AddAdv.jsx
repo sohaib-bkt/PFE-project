@@ -29,19 +29,25 @@ export default function AddAdv() {
     fetchUser();
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     formData.append('category_name', selectedCategoryy);
     formData.append('category', name);
-    axiosClient.post('http://localhost:8000/api/user/StoreProduct', formData)
-      .then((response) => {      
+
+    const images = document.getElementById('images').files;
+    for (let i = 0; i < images.length; i++) {
+        formData.append('images[]', images[i]);
+    }
+    try {
+        const response = await axiosClient.post('http://localhost:8000/api/user/StoreProduct', formData);
         console.log(response.data);
-      })
-      .catch((error) => {
+    } catch (error) {
         console.error('Error submitting form:', error);
-      });
-  };
+    }
+};
+
+  
   const handleAddInputGroup = () => {
     setInputGroups([...inputGroups, { attribute: '', value: '' }]);
   };
@@ -139,8 +145,12 @@ export default function AddAdv() {
                     </div>
 
                     <div className="col-md-6">
-                    <label htmlFor="image" className="form-label">Photos</label>
-                    <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" multiple />
+                    <label htmlFor="image" className="form-label">Photo</label>
+                    <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" />
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="images" className="form-label">Photos</label>
+                    <input type="file" className="form-control form-control3" id="images" name="images" placeholder="images" required="" accept="image/png, image/jpeg" multiple />
                   </div>
 
                 <button className="btn mt-4" type="submit" style={{ fontSize: '14px', borderRadius: '5px', backgroundColor: '#a01818',fontFamily: 'monospace', letterSpacing: '1px', color: '#ffffff' ,width: '40%' ,margin: 'auto' , marginBottom: '20px'}}>Add Product</button>

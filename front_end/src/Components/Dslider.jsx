@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Slider from "react-slick";
 import img from '@Assets/images/furniture-images/product/1.jpg';
+import img2 from '@Assets/images/furniture-images/product/2.jpg';
 
 export default function SimpleSlider() {
   const [settings, setSettings] = useState({
@@ -60,8 +61,9 @@ export default function SimpleSlider() {
           <img src={img} alt=""/>
         </div>
         <div>
-          <img src={img} alt=""/>
+          <img src={img2} alt=""/>
         </div>
+
       </Slider>
     </div>
   );
