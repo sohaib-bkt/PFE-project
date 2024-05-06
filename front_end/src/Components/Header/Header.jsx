@@ -123,10 +123,10 @@ const Header = ({ children }) => {
                         </div> */}
                           {location.pathname !== '/ajouter-annonce' && location.pathname !== '/edit-annonce' && (
                             <>
-                        <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '15px', paddingLeft: '10px' }}>
+                        <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '10px', paddingLeft: '10px' }}>
                          
                               <FontAwesomeIcon icon={faPlus} />
-                              <Link to="/ajouter-annonce"> Post an ad</Link>
+                              <Link to="/ajouter-annonce" className="post-ad-link"> Post an ad</Link>
                               </div>
                             </>
                           )}

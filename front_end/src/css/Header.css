@@ -64,3 +64,8 @@ header .profile-dropdown ul {
         padding: 5px 12px;
     }
 }
+@media (max-width: 768px) {
+    .post-ad-link {
+        display: none;
+    }
+}
