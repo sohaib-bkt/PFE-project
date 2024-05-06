@@ -240,6 +240,9 @@ public function changePassword(Request $request, $id)
         'regular_price' => 'required|numeric',
         'image' => 'required|image',
         'images.*' => 'required|image',
+        'specification' => 'required|array',
+        'specification.*.attribute' => 'required|string',
+        'specification.*.value' => 'required|string',
     ]);
     $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
 
@@ -252,6 +255,7 @@ public function changePassword(Request $request, $id)
     $product->name = $validatedData['name'];
     $product->description = $validatedData['description'];
     $product->regular_price = $validatedData['regular_price'];
+    $product->specification = json_encode($validatedData['specification']);
     $product->brand_id = 1;
 
     if ($request->hasFile('image')) {

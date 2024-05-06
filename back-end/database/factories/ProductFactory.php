@@ -32,6 +32,7 @@ class ProductFactory extends Factory
             'featured' => $this->faker->randomElement(['accepted','pending','rejected']),
             'image' => $image_path,
             'images' => $image_path,
+            'specification' => $this->faker->text(20),
             'category_id' => $this->faker->numberBetween(1,6),
             'brand_id' => $this->faker->numberBetween(1,6),
             'categorie_product' => $categorie_product

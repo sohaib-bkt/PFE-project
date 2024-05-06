@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { formatDistanceToNow } from 'date-fns';
 import axiosClient from '../api/axios';
@@ -17,11 +17,13 @@ import Dslider from '@Components/Dslider.jsx';
 import Swal from 'sweetalert2';
 
 export default function Detail() {
+   
     const [activeTab, setActiveTab] = useState('desc');
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
     const [seler, setSeler] = useState({});
     const [timeAgo, setTimeAgo] = useState('');
+    const [specifications, setSpecifications] = useState([]);
     const { slug } = useParams();
 
     useEffect(() => {
@@ -34,6 +36,7 @@ export default function Detail() {
                     setSeler(response.data);
                     setLoading(false);
                 })
+                setSpecifications(JSON.parse(response.data.specification));
             });
     }, [slug]);
 
@@ -174,7 +177,7 @@ export default function Detail() {
                                     <div className="details-items">
                                         <div className="row g-4">
                                             <div className="col-md-6">
-                                                <Dslider />
+                                                <Dslider images={product.images} image={product.image}></Dslider>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="cloth-details-size">
@@ -263,7 +266,7 @@ export default function Detail() {
                                         </nav>
                                         <div className="tab-content" id="nav-tabContent">
                                             <DetailDesc clicked={activeTab === 'desc' ? 'show active' : ''} />
-                                            <DetailSpec clicked={activeTab === 'speci' ? 'show active' : ''} />
+                                            <DetailSpec clicked={activeTab === 'speci' ? 'show active' : ''} specification={specifications} />
                                             <DetailSizing clicked={activeTab === 'Sguide' ? 'show active' : ''} />
                                         </div>
                                     </div>

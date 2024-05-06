@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('featured')->default(0);
             $table->string('image');
             $table->text('images');
+            $table->text('specification');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id');
             $table->timestamps();

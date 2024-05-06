@@ -1,7 +1,5 @@
 import  { useState, useEffect } from "react";
 import Slider from "react-slick";
-import img from '@Assets/images/furniture-images/product/1.jpg';
-import img2 from '@Assets/images/furniture-images/product/2.jpg';
 
 export default function SimpleSlider(props) {
   const [settings, setSettings] = useState({
@@ -58,11 +56,14 @@ export default function SimpleSlider(props) {
     <div className="slider-container">
       <Slider {...settings}>
         <div>
-          <img src={`http://localhost:8000/api/images/products/${props.image}`} alt="" height={"300px"} width={"300px"}/>
+          <img src={`http://localhost:8000/api/images/products/${props.image}`} alt="" height={"400px"} width={"400px"}/>
         </div>
-
-
-
+        
+        { props.images && JSON.parse(props.images).map((imageName, index) => (
+          <div key={index}>
+            <img src={`http://localhost:8000/api/images/products/${imageName}`} height={"400px"} width={"400px"} alt="" />
+          </div>
+        ))}
       </Slider>
     </div>
   );
