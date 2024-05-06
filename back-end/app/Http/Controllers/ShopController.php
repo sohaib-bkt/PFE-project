@@ -230,58 +230,70 @@ public function changePassword(Request $request, $id)
         return response()->json($products);
     }
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'user_id' => 'required|numeric',
-            'category_name' => 'required|string',
-            'category' => 'required|string',
-            'name' => 'required|string',
-            'description' => 'required|string',
-            'regular_price' => 'required|numeric',
-            'image' => 'required|image',
-            'images.*' => 'required|image',
-        ]);
-        $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
+{
+    $validatedData = $request->validate([
+        'user_id' => 'required|numeric',
+        'category_name' => 'required|string',
+        'category' => 'required|string',
+        'name' => 'required|string',
+        'description' => 'required|string',
+        'regular_price' => 'required|numeric',
+        'image' => 'required|image',
+        'images.*' => 'required|image',
+    ]);
+    $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
 
-        $product = new Product();
+    $product = new Product();
 
-        $product->user_id = $validatedData['user_id'];
-        $product->featured = 'pending';
-        $product->categorie_product = $validatedData['category_name'];
-        $product->category_id = $categorie_id;
-        $product->name = $validatedData['name'];
-        $product->description = $validatedData['description'];
-        $product->regular_price = $validatedData['regular_price'];
-        $product->brand_id = 1;
+    $product->user_id = $validatedData['user_id'];
+    $product->featured = 'accepted';
+    $product->categorie_product = $validatedData['category_name'];
+    $product->category_id = $categorie_id;
+    $product->name = $validatedData['name'];
+    $product->description = $validatedData['description'];
+    $product->regular_price = $validatedData['regular_price'];
+    $product->brand_id = 1;
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/products');
-            $product->image = $imagePath;
-        }
-
-        if ($request->hasFile('images')) {
-            $additionalImages = [];
-            foreach ($request->file('images') as $image) {
-                $imagePath = $image->store('images/products');
-                $additionalImages[] = $imagePath;
-            }
-            $product->images = json_encode($additionalImages);
-        }
-        
-        $product->images = json_encode($additionalImages);
-
-        $slug = Str::slug($validatedData['name']);
-        $existingSlug = Product::where('slug', $slug)->exists();
-        if ($existingSlug) {
-            $slug .= '-' . uniqid();
-        }
-
-        $product->slug = $slug;
-
-        $product->save();
-
-        return response()->json(['message' => 'Product stored successfully'], 200);
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images/products');
+        $product->image = basename($imagePath);
     }
+
+    if ($request->hasFile('images')) {
+        $additionalImages = [];
+        foreach ($request->file('images') as $image) {
+            $imagePath = $image->store('images/products');
+            $additionalImages[] = basename($imagePath); 
+        }
+        $product->images = json_encode($additionalImages);
+    }
+
+    $slug = Str::slug($validatedData['name']);
+    $existingSlug = Product::where('slug', $slug)->exists();
+    if ($existingSlug) {
+        $slug .= '-' . uniqid();
+    }
+
+    $product->slug = $slug;
+
+    $product->save();
+
+    return response()->json(['message' => 'Product stored successfully'], 200);
+}
+
+    public function getImage($image)
+{
+    $path = storage_path('app/images/products/' . $image);
+
+    if (!file_exists($path)) {
+        abort(404);
+    }
+
+    $file = file_get_contents($path);
+    $type = mime_content_type($path);
+
+    return response($file, 200)->header('Content-Type', $type);
+}
 
     public function productCount(Request $request){
         $userId = $request->query('userId');

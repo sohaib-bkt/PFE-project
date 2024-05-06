@@ -30,6 +30,7 @@ Route::get('/info', [ShopController::class, 'shopInformatique']);
 Route::get('detail/{slug}', [ShopController::class, 'detail']);
 Route::put('/update/{id}', [ShopController::class, 'update']);
 Route::post('/user/StoreProduct', [ShopController::class, 'store']);
+Route::get('images/products/{image}', [ShopController::class, 'getImage']);
 Route::get('/product/count' ,[ShopController::class, 'productCount']);
 Route::get('/product/getaccepted', [ShopController::class, 'getAccepted']);
 Route::get('/product/getrejected', [ShopController::class, 'getRejected']);

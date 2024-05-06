@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import img from '@Assets/images/furniture-images/product/1.jpg';
 import img2 from '@Assets/images/furniture-images/product/2.jpg';
 
-export default function SimpleSlider() {
+export default function SimpleSlider(props) {
   const [settings, setSettings] = useState({
     className: "center",
     centerMode: true,
@@ -58,11 +58,10 @@ export default function SimpleSlider() {
     <div className="slider-container">
       <Slider {...settings}>
         <div>
-          <img src={img} alt=""/>
+          <img src={`http://localhost:8000/api/images/products/${props.image}`} alt="" height={"300px"} width={"300px"}/>
         </div>
-        <div>
-          <img src={img2} alt=""/>
-        </div>
+
+
 
       </Slider>
     </div>
