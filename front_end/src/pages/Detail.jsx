@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { formatDistanceToNow } from 'date-fns';
 import axiosClient from '../api/axios';
 import HashLoader from "react-spinners/HashLoader";
@@ -17,6 +17,7 @@ import Dslider from '@Components/Dslider.jsx';
 import Swal from 'sweetalert2';
 
 export default function Detail() {
+
    
     const [activeTab, setActiveTab] = useState('desc');
     const [product, setProduct] = useState({});
@@ -158,7 +159,10 @@ export default function Detail() {
       
           
     };
-    
+    const createdDate = new Date(product.created_at);
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
 
     return (
@@ -187,7 +191,7 @@ export default function Detail() {
                                                                 <li key={index}>
                                                                     <img src={userimg} alt="Profile" style={{ width: '24px', height: '24px', borderRadius: '50%', marginRight: '5px' }} />
                                                                     <span className="lang">
-                                                                        <a href="" style={{ color: "black", fontFamily: "monospace", fontSize: "16px" }}>{seler.name}</a>
+                                                                        <Link to={`/user/${seler.id}/products`} style={{ color: "black", fontFamily: "monospace", fontSize: "16px" }}>{seler.name}</Link>
                                                                     </span>
                                                                 </li>
                                                             ))}
@@ -198,7 +202,7 @@ export default function Detail() {
                                                             {product.name}
                                                             <div style={{ color: "grey", fontSize: "12px", marginTop: "8px" , marginBottom: "0px" }}>
                                                                 <FontAwesomeIcon icon={faLocationDot} />&nbsp;{seler.address}adress&nbsp;&nbsp;
-                                                                <FontAwesomeIcon icon={faClock} />  &nbsp;{timeAgo}
+                                                                <FontAwesomeIcon icon={faClock} />  &nbsp;{diffDays} Days ago
                                                             </div>
                                                         </p>
                                                         <p className="price-detail" style={{ marginTop: "5px" }}>
@@ -247,7 +251,7 @@ export default function Detail() {
                                     <div className="cloth-review">
                                         <nav>
                                             <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                                {['desc', 'speci', 'Sguide'].map((tab, index) => (
+                                                {['desc', 'speci', product.categorie_product === "VET" && 'Sguide'].filter(Boolean).map((tab, index) => (
                                                     <button
                                                         key={index}
                                                         className={`nav-link ${activeTab === tab ? 'active' : ''}`}
@@ -265,12 +269,13 @@ export default function Detail() {
                                             </div>
                                         </nav>
                                         <div className="tab-content" id="nav-tabContent">
-                                            <DetailDesc clicked={activeTab === 'desc' ? 'show active' : ''} />
+                                            <DetailDesc clicked={activeTab === 'desc' ? 'show active' : ''} description={product.description} />
                                             <DetailSpec clicked={activeTab === 'speci' ? 'show active' : ''} specification={specifications} />
-                                            <DetailSizing clicked={activeTab === 'Sguide' ? 'show active' : ''} />
+                                            {product.categorie_product === "VET" && <DetailSizing clicked={activeTab === 'Sguide' ? 'show active' : ''} />}
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </section>
