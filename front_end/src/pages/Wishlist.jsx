@@ -36,8 +36,6 @@ const removeFromWishlist = (rowId) => {
     })
     .catch(error => console.error('Error removing item from wishlist:', error));
 };
-
-
 const clearWishlist = () => {
   axiosClient.delete('http://localhost:8000/api/wishlist/clear')
     .then(() => {
@@ -74,14 +72,15 @@ if (loading) {
                     {Object.values(wishlistItems).map(item => (
                       <tr key={item.rowId}>
                         <td>
-                          <a href={item.productLink}>
-                            <img src={item.img} className="blur-up lazyload" alt="" />
-                          </a>
+               
+                          <Link to={`/detail/${item.model.slug}`} >
+                            <img src={`http://localhost:8000/api/images/products/${item.model.image}`} className=" lazyload" alt="" />
+                          </Link>
                         </td>
                         <td>
-                          <a href={item.productLink} className="font-light">
+                          <Link to={`/detail/${item.model.slug}`} className="font-light">
                             {item.name}
-                          </a>
+                          </Link>
                         </td>
                         <td>
                           <p className="fw-bold">${item.price}</p>
@@ -90,7 +89,7 @@ if (loading) {
                           <p>{item.availability ? 'In Stock' : 'Out of Stock'}</p>
                         </td>
                         <td>
-                          <a href="javascript:void(0)" className="icon" onClick={() => removeFromWishlist(item.rowId)}>
+                          <a className="icon" onClick={() => removeFromWishlist(item.rowId)}>
                             <i className="fas fa-times" />
                           </a>
                         </td>
@@ -114,7 +113,7 @@ if (loading) {
           )}
           <div className="row">
             <div className="col-md-12 text-end">
-              <a href="javascript:void(0)" onClick={clearWishlist}>
+              <a  onClick={clearWishlist}>
                 Clear All Items
               </a>
             </div>

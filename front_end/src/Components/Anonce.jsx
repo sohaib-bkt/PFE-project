@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from '@Css/andrp.module.css';
-import img from '@Assets/images/newletter-icon.png';
 import axiosClient from '../api/axios';
 import UserApi from '../services/api/user/UserApi';
 import HashLoader from "react-spinners/HashLoader";
@@ -22,8 +21,6 @@ export default function Anonce() {
     const [rejectedCount, setRejectedCount] = useState(0);
     const [pendingCount, setPendingCount] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState({});
-
     const handleRejectClose = () => {
         setShowReject(false);
     };
@@ -42,7 +39,6 @@ export default function Anonce() {
     useEffect(() => {
         UserApi.getUser().then((response) => {
             setLoading(false);
-            setUser(response.data);
             axiosClient.get('http://127.0.0.1:8000/api/product/count', {
                 params: {
                     userId: response.data.id 
@@ -293,7 +289,7 @@ const AnnouncementCardP = ({ product }) => {
         <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
             <div className="row no-gutters">
                 <div className="col-md-3">
-                    <img src={img} className={`${styles.image} `} alt="..." />
+                    <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
                 </div>
                 <div className="col-md-9">
                     <div className="card-body">
@@ -326,7 +322,7 @@ const AnnouncementCardA = ({ product }) => {
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
             <div className="col-md-3">
-                <img src={img} className={`${styles.image} `} alt="..." />
+                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
             </div>
             <div className="col-md-9">
                 <div className="card-body">
@@ -350,13 +346,13 @@ const AnnouncementCardR = ({ product }) => {
         const createdAt = new Date(product.created_at);
         setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
     
-        return () => {}; // No need to return anything since we're not using setInterval
+        return () => {}; 
     }, [product.created_at]);
     return(
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
             <div className="col-md-3">
-                <img src={img} className={`${styles.image}`} alt="..." />
+                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image}`} alt="..." />
             </div>
             <div className="col-md-9">
                 <div className="card-body">

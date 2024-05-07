@@ -1,5 +1,4 @@
 export default function DetailSpec(props) {
-  console.log(props);
   return (
     <div className={"tab-pane fade " + props.clicked} id="speci">
       <div className="pro mb-4">

@@ -29,7 +29,7 @@ export default function ProdHome({ prod }) {
       <div className="img-wrapper">
         <Link to={`/detail/${prod.slug}`}>
           <img
-            src={'../'+prod.image}
+            src={`http://localhost:8000/api/images/products/${prod.image}`}
             className="w-100 bg-img blur-up lazyload"
             alt={prod.name}
           />
