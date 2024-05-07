@@ -286,23 +286,23 @@ const AnnouncementCardP = ({ product }) => {
     
 
     return (
-        <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
-            <div className="row no-gutters">
-                <div className="col-md-3">
-                    <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
-                </div>
-                <div className="col-md-9">
-                    <div className="card-body">
-                        <DropdownMenu key={product.id} product={product} />
+        <div className={`${styles.myCard} card ${styles.hoverableCard}`}  style={{marginBottom: '20px'}}>
+        <div className="row no-gutters">
+            <div className="col-md-3">
+                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image}`}  alt="..." />
+            </div>
+            <div className="col-md-9">
+                <div className="card-body d-flex flex-column justify-content-between h-100">
+                    <div>
                         <h4 className="card-title">{product.regular_price}</h4>
                         <p className="card-text">{product.description}</p>
                     </div>
-                    <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                        <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
-                    </div>
+                    <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
                 </div>
             </div>
         </div>
+    </div>
+    
     );
 };
 
@@ -319,26 +319,24 @@ const AnnouncementCardA = ({ product }) => {
     }, [product.created_at]);
     
     return (
-    <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
-        <div className="row no-gutters">
-            <div className="col-md-3">
-                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
-            </div>
-            <div className="col-md-9">
-                <div className="card-body">
-                    <DropdownMenu key={product.id} product={product}  />
-
+    <div className={`${styles.myCard} card ${styles.hoverableCard}`}  style={{marginBottom: '20px'}}>
+    <div className="row no-gutters">
+        <div className="col-md-3">
+            <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image}`}  alt="..." />
+        </div>
+        <div className="col-md-9">
+            <div className="card-body d-flex flex-column justify-content-between h-100">
+                <div>
+                     <DropdownMenu key={product.id} product={product} />
                     <h4 className="card-title">{product.regular_price}</h4>
                     <p className="card-text">{product.description}</p>
                 </div>
-                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
-                   
-                </div>
-
+                <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
             </div>
         </div>
-    </div>)
+    </div>
+</div>
+    )
 }
 const AnnouncementCardR = ({ product }) => {
     const [timeAgo, setTimeAgo] = useState('');
@@ -348,30 +346,40 @@ const AnnouncementCardR = ({ product }) => {
     
         return () => {}; 
     }, [product.created_at]);
+    const rejectionReason = "Product rejected due to invalid data";
+
     return(
-    <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
+        <>
+        <div>
+
+        <div className={`${styles.myCard} card ${styles.hoverableCard}`}  style={{ borderBottomRightRadius: '0px' }}>
         <div className="row no-gutters">
             <div className="col-md-3">
-                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image}`} alt="..." />
+                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.rej}`}  alt="..." />
             </div>
             <div className="col-md-9">
-                <div className="card-body">
-                   <DropdownMenu key={product.id} product={product} isRejected={true}  />
-                    <h4 className="card-title">{product.regular_price}</h4>
-                    <p className="card-text">{product.description}</p>
-                </div>
-                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
-                   
-                </div>
-                <div className={`announcement-footer  ${styles.announcementDiv}`} style={{ position: "absolute", bottom: "0px"}}>
-                    <div className={`alert alert-danger ${styles.announcementFooter}`} role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , borderRadius: '17px'}}>
-                        <h3>sir tl3ab</h3>
+                <div className="card-body d-flex flex-column justify-content-between h-100">
+                    <div>
+                    <DropdownMenu key={product.id} product={product} isRejected={true}  />
+                        <h4 className="card-title">{product.regular_price}</h4>
+                        <p className="card-text">{product.description}</p>
                     </div>
+                    <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
                 </div>
             </div>
         </div>
-    </div>)
+    </div>
+    <div className={`${styles.myCard} alert alert-danger`} role="alert" style={{ borderTopLeftRadius: '0px', borderTopRightRadius: '0px', display: 'flex', alignItems: 'center' }}>
+    <span style={{ marginRight: '10px', fontWeight: 'bold', borderRight: '1px solid black', paddingRight: '10px', height: '100%' }}>Reason</span>
+    <span>{rejectionReason}</span>
+</div>
+
+
+
+    </div>
+
+</>
+    )
 }
 
 

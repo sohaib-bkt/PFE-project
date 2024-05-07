@@ -74,7 +74,7 @@ if (loading) {
                         <td>
                
                           <Link to={`/detail/${item.model.slug}`} >
-                            <img src={`http://localhost:8000/api/images/products/${item.model.image}`} className=" lazyload" alt="" />
+                            <img src={`http://localhost:8000/api/images/products/${item.model.image}`} className=" lazyload" alt="" height={'100px'} width={'100px'} style={{objectFit:'cover' }} />
                           </Link>
                         </td>
                         <td>

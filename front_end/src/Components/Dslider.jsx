@@ -1,70 +1,37 @@
-import  { useState, useEffect } from "react";
-import Slider from "react-slick";
+import React, { useRef, useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-export default function SimpleSlider(props) {
-  const [settings, setSettings] = useState({
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "20%", // Default center padding for mobile
-    slidesToShow: 1,
-    speed: 500,
-    arrows: false,
-  });
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-  useEffect(() => {
-    function updateSettings() {
-      if (window.innerWidth >= 1920) {
-        setSettings(prevSettings => ({
-          ...prevSettings,
-          centerPadding: "30%", // For large desktops
-        }));
-      } else if (window.innerWidth >= 1440) {
-        setSettings(prevSettings => ({
-          ...prevSettings,
-          centerPadding: "25%", // For desktops
-        }));
-      } else if (window.innerWidth >= 1200) {
-        setSettings(prevSettings => ({
-          ...prevSettings,
-          centerPadding: "15%", // For laptops
-        }));
-      } else if (window.innerWidth >= 1024) {
-        setSettings(prevSettings => ({
-          ...prevSettings,
-          centerPadding: "17%", // For tablets
-        }));
-      } else {
-        setSettings(prevSettings => ({
-          ...prevSettings,
-          centerPadding: "10%", // For mobile
-        }));
-      }
-    }
-    
-    // Call updateSettings initially and add event listener for window resize
-    updateSettings();
-    window.addEventListener("resize", updateSettings);
+import img from '@Assets/images/icon.png';
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", updateSettings);
-    };
-  }, []); // Empty dependency array to run effect only once on mount
+// import required modules
+import { Pagination } from 'swiper/modules';
 
+export default function Dslider(props) {
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
-        <div>
-          <img src={`http://localhost:8000/api/images/products/${props.image}`} alt="" height={"400px"} width={"400px"}/>
-        </div>
-        
-        { props.images && JSON.parse(props.images).map((imageName, index) => (
-          <div key={index}>
-            <img src={`http://localhost:8000/api/images/products/${imageName}`} height={"400px"} width={"400px"} alt="" />
-          </div>
+    <>
+      <Swiper
+        slidesPerView={'auto'}
+        centeredSlides={true}
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper"
+      >
+          <SwiperSlide style={{display:'flex', justifyContent:'center'}}><img src={`http://localhost:8000/api/images/products/${props.image}`}  height={'400px'}  width={'400px'} style={{objectFit:'cover' }}></img></SwiperSlide>
+         { props.images && JSON.parse(props.images).map((imageName, index) => (
+          <SwiperSlide key={index} style={{display:'flex', justifyContent:'center'}}>
+            <img src={`http://localhost:8000/api/images/products/${imageName}`} height={"400px"} width={'400px'} style={{objectFit:'cover' }}alt="" />
+          </SwiperSlide>
         ))}
-      </Slider>
-    </div>
+       
+      </Swiper>
+    </>
   );
 }

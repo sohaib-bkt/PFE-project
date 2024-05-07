@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import img from '@Assets/images/musashi.jpg'
+import img from '@Assets/images/user.svg.png'
 
 export default function AdminNav() {
     return (

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import Slider from "react-slick";
-import image from "@Assets/images/musashi.jpg";
+import image from "@Assets/images/icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 

@@ -1,6 +1,6 @@
 
 import AdminNav from './AdminNav';
-import img from '@Assets/images/musashi.jpg';
+import img from '@Assets/images/user.svg.png';
 
 export default function AddAdv() {
 

@@ -66,21 +66,21 @@ export default function Home() {
   <div className="poster-image slider-for custome-arrow classic-arrow">
     <div>
       <img
-        src="assets/images/furniture-images/poster/1.png"
+        src="assets/images/poster/1.png"
         className="img-fluid blur-up lazyload"
         alt=""
       />
     </div>
     <div>
       <img
-        src="assets/images/furniture-images/poster/2.png"
+        src="assets/images/poster/2.png"
         className="img-fluid blur-up lazyload"
         alt=""
       />
     </div>
     <div>
       <img
-        src="assets/images/furniture-images/poster/3.png"
+        src="assets/images/poster/3.png"
         className="img-fluid blur-up lazyload"
         alt=""
       />
@@ -132,7 +132,7 @@ export default function Home() {
         <div className="collection-banner p-bottom p-center text-center">
           <a href="shop-left-sidebar.html" className="banner-img">
             <img
-              src="assets/images/fashion/banner/6.jpg"
+              src="assets/images/banner/6.jpg"
               className="bg-img blur-up lazyload"
               alt=""
             />
@@ -158,7 +158,7 @@ export default function Home() {
     <div className="collection-banner p-bottom p-center text-center">
         <a href="shop-left-sidebar.html" className="banner-img">
             <img
-                src="assets/images/fashion/banner/off.jpg"
+                src="assets/images/banner/off.jpg"
                 className="bg-img blur-up lazyload"
                 alt=""
             />
@@ -184,7 +184,7 @@ export default function Home() {
         <div className="collection-banner p-bottom p-center text-center">
           <a href="shop-left-sidebar.html" className="banner-img">
             <img
-              src="assets/images/fashion/banner/4.jpg"
+              src="assets/images/banner/4.jpg"
               className="bg-img blur-up lazyload"
               alt=""
             />
@@ -289,7 +289,7 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/fashion/category/1.jpg"
+                src="assets/images/category/1.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
@@ -305,7 +305,7 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/fashion/category/2.jpg"
+                src="assets/images/category/2.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
@@ -321,7 +321,7 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/fashion/category/3.jpg"
+                src="assets/images/category/3.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
@@ -337,7 +337,7 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/fashion/category/4.jpg"
+                src="assets/images/category/4.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
@@ -353,7 +353,7 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/fashion/category/3.jpg"
+                src="assets/images/category/3.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
