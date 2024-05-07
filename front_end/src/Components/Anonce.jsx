@@ -126,7 +126,7 @@ const FilterGroup = ({ selectedFilter, onChange, pendingCount, acceptedCount, re
 const Acceptdiv = () => {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
-    const [showAlert, setShowAlert] = useState(true); // State to control the visibility of the alert
+    const [showAlert, setShowAlert] = useState(true);
 
     useEffect(() => {
         UserApi.getUser().then((response) => {
@@ -147,6 +147,7 @@ const Acceptdiv = () => {
 
     return (
         <>
+            {loading && <p className="alert alert-success">Loading...</p>}
             {!loading && products.length === 0 && <EmptyAnnoucements />}
             {products.length > 0 && showAlert && (
                 <div className="alert alert-success" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , width: '80%' , margin: 'auto' , marginBottom: '10px'}}>
@@ -167,6 +168,7 @@ const Acceptdiv = () => {
         </>
     );
 };
+
 const Rejectdiv = () => {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
@@ -190,6 +192,7 @@ const Rejectdiv = () => {
     };
     return (
         <>
+            {loading && <p className="alert alert-danger">Loading...</p>}
             {!loading && products.length === 0 && <EmptyAnnoucements />}
             {products.length > 0 && showAlert && (
                 <div className="alert alert-danger" role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , width: '80%' , margin: 'auto' , marginBottom: '10px' }}>
@@ -236,6 +239,7 @@ const Pendingdiv = () => {
 
     return (
         <>
+            {loading && <p className="alert alert-primary">Loading...</p>}
            {!loading && products.length === 0 && <EmptyAnnoucements />}
             {products.length > 0 && showAlert && (
                 <div className="alert alert-primary " role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , width: '80%' , margin: 'auto' , marginBottom: '10px' }}>
@@ -277,6 +281,10 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
 
 const AnnouncementCardP = ({ product }) => {
     const [timeAgo, setTimeAgo] = useState('');
+    const createdDate = new Date(product.created_at);
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     useEffect(() => {
         const createdAt = new Date(product.created_at);
         setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
@@ -288,17 +296,19 @@ const AnnouncementCardP = ({ product }) => {
     return (
         <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
             <div className="row no-gutters">
-                <div className="col-md-3">
+            
+                <a className="col-md-3" href={`/detail/${product.slug}`} >
                     <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
-                </div>
+                </a>
+            
                 <div className="col-md-9">
                     <div className="card-body">
                         <DropdownMenu key={product.id} product={product} />
                         <h4 className="card-title">{product.regular_price}</h4>
-                        <p className="card-text">{product.description}</p>
+                        <p className="card-text">{product.name}</p>
                     </div>
                     <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                        <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
+                        <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
                     </div>
                 </div>
             </div>
@@ -311,6 +321,10 @@ const AnnouncementCardP = ({ product }) => {
 
 const AnnouncementCardA = ({ product }) => {
     const [timeAgo, setTimeAgo] = useState('');
+    const createdDate = new Date(product.created_at);
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     useEffect(() => {
         const createdAt = new Date(product.created_at);
         setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
@@ -321,18 +335,18 @@ const AnnouncementCardA = ({ product }) => {
     return (
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
-            <div className="col-md-3">
+            <a className="col-md-3" href={`/detail/${product.slug}`} >
                 <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
-            </div>
+            </a>
             <div className="col-md-9">
                 <div className="card-body">
                     <DropdownMenu key={product.id} product={product}  />
 
                     <h4 className="card-title">{product.regular_price}</h4>
-                    <p className="card-text">{product.description}</p>
+                    <p className="card-text">{product.name}</p>
                 </div>
                 <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
+                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
                    
                 </div>
 
@@ -342,6 +356,10 @@ const AnnouncementCardA = ({ product }) => {
 }
 const AnnouncementCardR = ({ product }) => {
     const [timeAgo, setTimeAgo] = useState('');
+    const createdDate = new Date(product.created_at);
+    const currentDate = new Date();
+    const diffTime = Math.abs(currentDate - createdDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     useEffect(() => {
         const createdAt = new Date(product.created_at);
         setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
@@ -351,17 +369,17 @@ const AnnouncementCardR = ({ product }) => {
     return(
     <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
         <div className="row no-gutters">
-            <div className="col-md-3">
+            <a className="col-md-3" href={`/detail/${product.slug}`} >
                 <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image}`} alt="..." />
-            </div>
+            </a>
             <div className="col-md-9">
                 <div className="card-body">
                    <DropdownMenu key={product.id} product={product} isRejected={true}  />
                     <h4 className="card-title">{product.regular_price}</h4>
-                    <p className="card-text">{product.description}</p>
+                    <p className="card-text">{product.name}</p>
                 </div>
                 <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
+                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
                    
                 </div>
                 <div className={`announcement-footer  ${styles.announcementDiv}`} style={{ position: "absolute", bottom: "0px"}}>
