@@ -10,7 +10,6 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { formatDistanceToNow } from 'date-fns';
 
 export default function Anonce() {
     const [selectedFilter, setSelectedFilter] = useState('Accepted');
@@ -57,7 +56,7 @@ export default function Anonce() {
         });
     }, []);
 
-
+ 
     if (loading) {
         return     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center' ,zIndex: 999 }}>
         <HashLoader color="red" loading={loading} size={80} />
@@ -280,41 +279,28 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
 
 
 const AnnouncementCardP = ({ product }) => {
-    const [timeAgo, setTimeAgo] = useState('');
     const createdDate = new Date(product.created_at);
     const currentDate = new Date();
     const diffTime = Math.abs(currentDate - createdDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    useEffect(() => {
-        const createdAt = new Date(product.created_at);
-        setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
-    
-        return () => {}; // No need to return anything since we're not using setInterval
-    }, [product.created_at]);
-    
-
     return (
-        <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
+        <div className={`${styles.myCard} card ${styles.hoverableCard}`} style={{marginBottom: '20px'}}>
             <div className="row no-gutters">
-            
                 <a className="col-md-3" href={`/detail/${product.slug}`} >
                     <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
                 </a>
             
                 <div className="col-md-9">
-                    <div className="card-body">
-                        <DropdownMenu key={product.id} product={product} />
+                    <div className="card-body d-flex flex-column justify-content-between h-100">
+                        <div>
                         <h4 className="card-title">{product.regular_price}</h4>
                         <p className="card-text">{product.name}</p>
-                    </div>
-                    <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                        <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
+                        </div>
+                        <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
     );
 };
 
@@ -322,80 +308,51 @@ const AnnouncementCardP = ({ product }) => {
 
 
 const AnnouncementCardA = ({ product }) => {
-    const [timeAgo, setTimeAgo] = useState('');
     const createdDate = new Date(product.created_at);
     const currentDate = new Date();
     const diffTime = Math.abs(currentDate - createdDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    useEffect(() => {
-        const createdAt = new Date(product.created_at);
-        setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
-    
-        return () => {}; // No need to return anything since we're not using setInterval
-    }, [product.created_at]);
-    
     return (
-    <div className={`${styles.myCard} card ${styles.hoverableCard}`}>
+    <div className={`${styles.myCard} card ${styles.hoverableCard}`} style={{marginBottom: '20px'}}>
         <div className="row no-gutters">
             <a className="col-md-3" href={`/detail/${product.slug}`} >
                 <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image} `} alt="..." />
             </a>
             <div className="col-md-9">
-                <div className="card-body">
+                <div className="card-body d-flex flex-column justify-content-between h-100">
+                    <div>
                     <DropdownMenu key={product.id} product={product}  />
-
                     <h4 className="card-title">{product.regular_price}</h4>
                     <p className="card-text">{product.name}</p>
+                    </div>
+                    <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
                 </div>
-                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
-                   
-                </div>
-
             </div>
         </div>
     </div>
-</div>
     )
 }
 const AnnouncementCardR = ({ product }) => {
-    const [timeAgo, setTimeAgo] = useState('');
     const createdDate = new Date(product.created_at);
     const currentDate = new Date();
     const diffTime = Math.abs(currentDate - createdDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    useEffect(() => {
-        const createdAt = new Date(product.created_at);
-        setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
-    
-        return () => {}; 
-    }, [product.created_at]);
     const rejectionReason = "Product rejected due to invalid data";
-
     return(
         <>
-        <div>
-
-        <div className={`${styles.myCard} card ${styles.hoverableCard}`}  style={{ borderBottomRightRadius: '0px' }}>
+    <div className={`${styles.myCard} card ${styles.hoverableCard}`} style={{ borderBottomRightRadius: '0px' }}>
         <div className="row no-gutters">
             <a className="col-md-3" href={`/detail/${product.slug}`} >
-                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.image}`} alt="..." />
+                <img src={`http://localhost:8000/api/images/products/${product.image}`} className={`${styles.rej}`} alt="..." />
             </a>
             <div className="col-md-9">
-                <div className="card-body">
-                   <DropdownMenu key={product.id} product={product} isRejected={true}  />
+                <div className="card-body d-flex flex-column justify-content-between h-100">
+                    <div>
+                    <DropdownMenu key={product.id} product={product} isRejected={true}  />
                     <h4 className="card-title">{product.regular_price}</h4>
                     <p className="card-text">{product.name}</p>
-                </div>
-                <div className="announcement-footer" style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-                <span className={`${styles.text}`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
-                   
-                </div>
-                <div className={`announcement-footer  ${styles.announcementDiv}`} style={{ position: "absolute", bottom: "0px"}}>
-                    <div className={`alert alert-danger ${styles.announcementFooter}`} role="alert" style={{ fontFamily: 'Monospace, sans-serif', fontSize: '16px' , borderRadius: '17px'}}>
-                        <h3>sir tl3ab</h3>
                     </div>
-                    <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {timeAgo}</span>
+                    <span className={`${styles.text} align-self-end`}><FontAwesomeIcon icon={faClock}/>  &nbsp; {diffDays} days ago</span>
                 </div>
             </div>
         </div>
@@ -403,13 +360,9 @@ const AnnouncementCardR = ({ product }) => {
     <div className={`${styles.myCard} alert alert-danger`} role="alert" style={{ borderTopLeftRadius: '0px', borderTopRightRadius: '0px', display: 'flex', alignItems: 'center' }}>
     <span style={{ marginRight: '10px', fontWeight: 'bold', borderRight: '1px solid black', paddingRight: '10px', height: '100%' }}>Reason</span>
     <span>{rejectionReason}</span>
-</div>
-
-
-
     </div>
+    </>
 
-</>
     )
 }
 
@@ -452,4 +405,3 @@ const DropdownMenu = ({ product, isRejected }) => {
         </div>
     );
 };
-
