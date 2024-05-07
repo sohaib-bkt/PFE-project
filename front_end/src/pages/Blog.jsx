@@ -1,15 +1,25 @@
 
-import SectionStart from "@Components/SectionStart";
 import Card from "@Components/Card";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axiosClient from "../api/axios";
 
 export default function Blog() {
+  const [data, setData] = useState({});
+  let { id } = useParams();
+
+  useEffect(() => {
+    axiosClient.get(`http://localhost:8000/api/user/${id}/products`).then((response) => {
+      setData(response.data);
+    });
+  }, []);
     return (
         <>
        
   <section
-    id="portfolio"className="left-sidebar-section masonary-blog-section section-b-space">
+    id="portfolio" className="left-sidebar-section masonary-blog-section section-b-space">
     <div className="container">
       <div className="row g-4">
         <div className="col-lg-3 col-md-5 ">
@@ -22,7 +32,7 @@ export default function Blog() {
                     className="rounded-circle img-fluid"
                     style={{ width: 150 }}
                   />
-                  <h5 className="my-3">John Smith</h5>
+                  <h5 className="my-3">{data.user?.name}</h5>
                   <p className="text-muted mb-1">Full Stack Developer</p>
                   <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                   <div className="d-flex justify-content-center mb-2">
@@ -35,15 +45,15 @@ export default function Blog() {
                   
                     <li className="list-group-item d-flex justify-content-between align-items-center p-3">
                     <FontAwesomeIcon icon={faPhone} />
-                      <p className="mb-0">063233651</p>
+                      <p className="mb-0">{data.user?.phone}</p>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center p-3">
                       <i className="fab fa-google fa-lg" style={{ color: "#dd4b39" }} />
-                      <p className="mb-0">072423512</p>
+                      <p className="mb-0">{data.user?.email}</p>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center p-3">
                       <i className="fab fa-facebook-f fa-lg" style={{ color: "#3b5998" }} />
-                      <a href="https://www.facebook.com" target="_blank"><p className="mb-0">name.com</p></a>
+                      <a href="https://www.facebook.com" target="_blank"><p className="mb-0">{data.user?.name}.com</p></a>
                     </li>
                   </ul>
                 </div>
@@ -54,10 +64,9 @@ export default function Blog() {
         </div>
         <div className="col-lg-9 col-md-7 order-md-1 ratio3_2">
           <div className="row g-4">
-            <Card/>
-            <Card/>
-     
-            <Card/>
+            {data.products?.map((product) => (
+              <Card product={product} key={product.id} />
+            ))}
             <nav aria-label="Page navigation" >
             <ul className="pagination justify-content-center" style={{ position: "absolute", bottom: "0" ,width: "70%"}}>
               <li className="page-item disabled">

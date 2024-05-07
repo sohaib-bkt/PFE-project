@@ -79,10 +79,6 @@ export const router = createBrowserRouter([
                         element: <About/>
                     },
                     {
-                        path: "/blog",
-                        element: <Blog/>
-                    },
-                    {
                         path: "/wishlist",
                         element: <Wishlist/>
                     },
@@ -97,7 +93,12 @@ export const router = createBrowserRouter([
                     {
                         path: "/reset-pass",
                         element: <ResetPass/>
-                    }
+                    },
+                    {
+                        path:"/user/:id/products",
+                        element:<Blog/>
+
+                    },
                 ]
             },
             {

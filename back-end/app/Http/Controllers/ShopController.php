@@ -337,4 +337,10 @@ public function changePassword(Request $request, $id)
         return response()->json($user);
     }
 
+    public function getUserProducts($id){
+        $products = Product::where('user_id', $id)->get();
+        $user = User::find($id);
+        return response()->json(['products' => $products, 'user' => $user]);
+    }
+
 }
