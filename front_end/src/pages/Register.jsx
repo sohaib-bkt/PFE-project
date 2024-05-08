@@ -22,6 +22,10 @@ export default function Register() {
   const [emailFocused, setEmailFocused] = useState(false);
   const [phoneFocused, setPhoneFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const [addressFocused, setAddressFocused] = useState(false);
+  const [cityFocused, setCityFocused] = useState(false);
+  const [countryFocused, setCountryFocused] = useState(false);
+
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
   const [error, setError] = useState("");
   const { register, setAuthenticated } = useUserContext();
@@ -38,6 +42,19 @@ export default function Register() {
   const handleFocusPhone = () => {
     setPhoneFocused(true);
   };
+    
+  const handleFocusAddress = () => {
+    setAddressFocused(true);
+  };
+
+  const handleFocusCity = () => {
+    setCityFocused(true);
+  };
+
+  const handleFocusCountry = () => {
+    setCountryFocused(true);
+  };
+
 
   const handleFocusPassword = () => {
     setPasswordFocused(true);
@@ -56,7 +73,10 @@ export default function Register() {
       email: formData.get('email'),
       phone: formData.get('phone'),
       password: formData.get('password'),
-      password_confirmation: formData.get('password_confirmation')
+      password_confirmation: formData.get('password_confirmation'),
+      address: formData.get('address'),
+      city: formData.get('city'),
+      country: formData.get('country')
     };
 
     try {
@@ -115,6 +135,45 @@ export default function Register() {
                 />
                 <span className="text-danger mt-3">{error}</span>
               </div>
+              <div className="input">
+                <label htmlFor="address" className={`floating-label ${addressFocused ? 'active' : ''}`}>Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  className="block mt-1 w-full"
+                  name="address"
+                  required=""
+                  onFocus={handleFocusAddress}
+                />
+                <span className="text-danger mt-3">{error}</span>
+              </div>
+
+              <div className="input">
+                <label htmlFor="city" className={`floating-label ${cityFocused ? 'active' : ''}`}>City</label>
+                <input
+                  type="text"
+                  id="city"
+                  className="block mt-1 w-full"
+                  name="city"
+                  required=""
+                  onFocus={handleFocusCity}
+                />
+                <span className="text-danger mt-3">{error}</span>
+              </div>
+
+              <div className="input">
+                <label htmlFor="country" className={`floating-label ${countryFocused ? 'active' : ''}`}>Country</label>
+                <input
+                  type="text"
+                  id="country"
+                  className="block mt-1 w-full"
+                  name="country"
+                  required=""
+                  onFocus={handleFocusCountry}
+                />
+                <span className="text-danger mt-3">{error}</span>
+              </div>
+
 
               <div className="input">
                 <label htmlFor="password" className={`floating-label ${passwordFocused ? 'active' : ''}`}>Password</label>

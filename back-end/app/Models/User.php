@@ -25,6 +25,7 @@ class User extends Authenticatable
         'address',
         'city',
         'country',
+        'remember_token',
         'utype',
     ];
 
