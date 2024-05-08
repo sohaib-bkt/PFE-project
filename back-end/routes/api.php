@@ -53,3 +53,10 @@ Route::get('/wishlist/count', [WishlistController::class, 'countWishlist']);
 
 Route::get('/dashboard/getUsers', [AdminController::class, 'getAllUsers']);
 Route::post('/dashboard/addUser', [AdminController::class, 'addUser']);
+Route::delete('/dashboard/deleteUser/{id}', [AdminController::class, 'deleteUsers']);
+
+Route::get('/dashboard/getCategories', [AdminController::class, 'getAllCategories']);
+Route::get('/dashboard/getCategory/{id}', [AdminController::class, 'getCategory']);
+Route::put('/dashboard/updateCategory/{id}', [AdminController::class, 'updateCategories']);
+Route::post('/dashboard/addCategory', [AdminController::class, 'storeCategories']);
+Route::delete('/dashboard/deleteCategory/{id}', [AdminController::class, 'deleteCategories']);

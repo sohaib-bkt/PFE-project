@@ -1,13 +1,34 @@
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
+import axiosClient from "../../../api/axios";
 import AdminNav from "../AdminNav";
-import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  const [scriptsLoaded, setScriptsLoaded] = useState(false);
+  
   useEffect(() => {
-    loadScriptsAndInitializeDataTables();
+    fetchCategories();
   }, []);
+
+
+  useEffect(() => {
+    if (categories.length > 0 && !scriptsLoaded) {
+      loadScriptsAndInitializeDataTables();
+      setScriptsLoaded(true);
+    }
+  }, [categories, scriptsLoaded]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axiosClient.get('http://localhost:8000/api/dashboard/getCategories');
+      setCategories(response.data.categories);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadScriptsAndInitializeDataTables = () => {
     // Load jQuery
@@ -33,6 +54,15 @@ const Categories = () => {
       document.body.appendChild(dataTablesScript);
     };
     document.body.appendChild(jqueryScript);
+  };
+
+  const deleteCategory = async (id) => {
+    try {
+      await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteCategory/${id}`);
+      setCategories(categories.filter(category => category.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -64,38 +94,25 @@ const Categories = () => {
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Parent Category</th>
-                        <th>state</th>
+                        <th>Created At</th>                      
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Category 1</td>
-                        <td>Parent Category 1</td>
-                        <td>Active</td>
-                        <td style={{ textAlign: "center" }}>
-                          <Link to="/edit-categorie" className="btn btn-warning btn-circle btn-sm">
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Link>&nbsp;
-                          <a href="#" className="btn btn-danger btn-circle btn-sm">
-                            <i className="fas fa-trash"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Category 2</td>
-                        <td>Parent Category 2</td>
-                        <td>Not Active</td>
-                        <td style={{ textAlign: "center" }}>
-                          <Link to="/edit-categorie" className="btn btn-warning btn-circle btn-sm">
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Link>&nbsp;
-                          <a href="#" className="btn btn-danger btn-circle btn-sm">
-                            <i className="fas fa-trash"></i>
-                          </a>
-                        </td>
-                      </tr>
+                      {categories.map(category => (
+                        <tr key={category.id}>
+                          <td>{category.name}</td>
+                          <td>{new Date(category.created_at).toLocaleDateString()}</td>
+                          <td style={{ textAlign: "center" }}>
+                            <Link to={`/edit-category/${category.id}`} className="btn btn-warning btn-circle btn-sm">
+                              <FontAwesomeIcon icon={faEdit} />
+                            </Link>&nbsp;
+                            <button className="btn btn-danger btn-circle btn-sm" onClick={() => deleteCategory(category.id)}>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>

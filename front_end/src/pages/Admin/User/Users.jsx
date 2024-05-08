@@ -28,6 +28,15 @@ const Users = () => {
       console.error(error);
     }
   };
+  const deleteUser = async (id) => {
+    try {
+      await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteUser/${id}`);
+      setUsers(users.filter(user => user.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   const loadScriptsAndInitializeDataTables = () => {
     // Load jQuery

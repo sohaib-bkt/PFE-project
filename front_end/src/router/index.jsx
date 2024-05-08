@@ -139,7 +139,7 @@ export const router = createBrowserRouter([
                         element: <AddCategorie/>
                     },
                     {
-                        path: "/edit-categorie",
+                        path: "/edit-category/:id",
                         element: <EditCategorie/>
                     },
                     {
