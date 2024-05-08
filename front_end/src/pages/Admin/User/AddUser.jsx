@@ -35,10 +35,17 @@ export default function AddUser() {
         };
     
         try {
-            axiosClient.post('http://localhost:8000/api/dashboard/addUser', data);
-            navigate("/users");
+            const response = await axiosClient.post('http://localhost:8000/api/dashboard/addUser', data);
+            if (response.status === 200) {
+                navigate("/users");
+            } else {
+                console.error("Failed to add user:", response.data.message);
+                alert(response.data.message);
+            }
         } catch (error) {
-            console.error(error);
+            console.error("Error adding user:", error);
+            alert(error.response.data.message);
+            
         }
     };
     
