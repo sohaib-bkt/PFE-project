@@ -114,20 +114,30 @@ export default function AddAdv() {
                       <label htmlFor="description" className="form-label">Description</label>
                       <textarea className="form-control form-control3" id="description" name="description" defaultValue={""} />
                     </div>
+              
                     <div className="col-md-6">
-                      <label htmlFor="regular_price" className="form-label">Price</label>
-                      <input type="number" className="form-control form-control3" id="regular_price" name="regular_price" placeholder="Regular Price" />
-                    </div>
-
-                    <div className="col-md-6">
-                    <label htmlFor="image" className="form-label">Photos</label>
+                    <label htmlFor="image" className="form-label">Main Image</label>
                     <input type="file" className="form-control" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" multiple />
                   </div>
+                  
+                  <div className="col-md-6">
+                    <label htmlFor="image" className="form-label">Additional Images</label>
+                    <input type="file" className="form-control" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" multiple />
+                  </div>
+              
+                  <div className="col-md-12">
+                  <div className="col-md-6">
+                    <label htmlFor="regular_price" className="form-label">Price</label>
+                    <input type="number" className="form-control form-control3" id="regular_price" name="regular_price" placeholder="Regular Price" />
+                  </div>
+                  </div>
+
+
 
                   <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
-                                <button style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
-                                    Add Product
-                                </button>
+                      <button style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
+                           Add Product
+                      </button>
                   </div>           
                   </div>
             </form>

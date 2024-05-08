@@ -108,9 +108,7 @@ const Header = ({ children }) => {
                           <li>
                             <Link to="/contact" className="nav-link">Contact Us</Link>
                           </li>
-                          <li>
-                            <Link to="/blog" className="nav-link ">Blog</Link>
-                          </li>
+                        
                         </ul>
                       </div>
                     </div>

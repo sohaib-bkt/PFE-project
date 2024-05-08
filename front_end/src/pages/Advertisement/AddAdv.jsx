@@ -131,26 +131,28 @@ export default function AddAdv() {
             <label htmlFor="description" className="form-label">Description</label>
             <textarea className="form-control form-control3" id="description" name="description" defaultValue={""} />
         </div>
+      
+        <div className="col-md-6">
+            <label htmlFor="image" className="form-label">Main Image</label>
+            <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" />
+        </div>
+        <div className="col-md-6">
+            <label htmlFor="images" className="form-label">Additional Images</label>
+            <input type="file" className="form-control form-control3" id="images" name="images" placeholder="images" accept="image/png, image/jpeg" multiple />
+        </div>
+       
+        <div className="col-md-12">
         <div className="col-md-6">
             <label htmlFor="regular_price" className="form-label">Price</label>
             <input type="number" className="form-control form-control3" id="regular_price" name="regular_price" placeholder="Regular Price" />
         </div>
-        <div className="col-md-6">
-            <label htmlFor="image" className="form-label">Photo</label>
-            <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" />
         </div>
-        <div className="col-md-6">
-            <label htmlFor="images" className="form-label">Photos</label>
-            <input type="file" className="form-control form-control3" id="images" name="images" placeholder="images" required="" accept="image/png, image/jpeg" multiple />
-        </div>
-        
         <button className="btn mt-4" type="submit" style={{ fontSize: '14px', borderRadius: '5px', backgroundColor: '#a01818',fontFamily: 'monospace', letterSpacing: '1px', color: '#ffffff' ,width: '40%' ,margin: 'auto' , marginBottom: '20px'}}>Add Product</button>
-    </div>
-</form>
+        </div>
+       </form>
           </div>
         </section>
       </div>
-    
     </div>
     </div>
   );

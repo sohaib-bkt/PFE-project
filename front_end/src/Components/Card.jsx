@@ -14,6 +14,7 @@ export default function Card({product}) {
             src={`http://localhost:8000/api/images/products/${product.image}`}
             alt=""
             className="card-img-top blur-up lazyload bg-img"
+            style={{objectFit:'cover' , width:'100%', height:'200px'}}
           />
         </Link>
         <div className="card-body">
