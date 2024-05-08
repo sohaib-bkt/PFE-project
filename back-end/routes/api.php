@@ -52,3 +52,4 @@ Route::get('/wishlist/count', [WishlistController::class, 'countWishlist']);
 
 
 Route::get('/dashboard/getUsers', [AdminController::class, 'getAllUsers']);
+Route::post('/dashboard/addUser', [AdminController::class, 'addUser']);

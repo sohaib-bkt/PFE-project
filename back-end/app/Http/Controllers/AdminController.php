@@ -9,6 +9,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -76,19 +77,17 @@ class AdminController extends Controller
         return response()->json(['categories' => $categories]);
     }
 
-    public function createUsers(Request $request)
+    public function addUser(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|min:8',
             'phone' => 'required|string',
             'address' => 'nullable|string',
-            'utype' => 'nullable|string|in:USR,ADM',
+            'utype' => 'nullable|string|in:USR,admin',
             'city' => 'nullable|string',
             'country' => 'nullable|string',
-            'state' => 'nullable|string',
-            'zip' => 'nullable|string',
         ]);
 
         $user = User::create([
@@ -99,9 +98,9 @@ class AdminController extends Controller
             'address' => $validatedData['address'],
             'utype' => $validatedData['utype'] ?? 'USR',
             'city' => $validatedData['city'],
+            'remember_token' => Str::random(10),
             'country' => $validatedData['country'],
-            'state' => $validatedData['state'],
-            'zip' => $validatedData['zip'],
+
         ]);
 
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
