@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+
 import {Chart as ChartJS} from 'chart.js/auto';
-import {Bar ,Doughnut,Pie} from 'react-chartjs-2'
+import {Bar ,Pie} from 'react-chartjs-2'
 import '@Css/customAdmincss.css';
 import AdminNav from './AdminNav';
 export default function Dashbord() {

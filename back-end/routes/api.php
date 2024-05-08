@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Http\Request;
@@ -50,3 +50,5 @@ Route::delete('/wishlist/remove', [WishlistController::class, 'removeProductFrom
 Route::delete('/wishlist/clear', [WishlistController::class, 'clearWishlist']);
 Route::get('/wishlist/count', [WishlistController::class, 'countWishlist']);
 
+
+Route::get('/dashboard/getUsers', [AdminController::class, 'getAllUsers']);

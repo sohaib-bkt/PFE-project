@@ -1,15 +1,33 @@
-import AdminNav from "../AdminNav";
-import React, { useEffect } from "react";
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import { useState, useEffect } from "react";
+import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
+import axiosClient from "../../../api/axios";
+import AdminNav from "../AdminNav";
 
 const Users = () => {
+  const [users, setUsers] = useState([]);
+  const [scriptsLoaded, setScriptsLoaded] = useState(false);
+
   useEffect(() => {
-    loadScriptsAndInitializeDataTables();
+    fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (users.length > 0 && !scriptsLoaded) {
+      loadScriptsAndInitializeDataTables();
+      setScriptsLoaded(true);
+    }
+  }, [users, scriptsLoaded]);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axiosClient.get('http://localhost:8000/api/dashboard/getUsers');
+      setUsers(response.data.users);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadScriptsAndInitializeDataTables = () => {
     // Load jQuery
@@ -41,12 +59,12 @@ const Users = () => {
     <>
       <div id="content-wrapper" className="d-flex flex-column">
         <div id="content">
-          <AdminNav />
+        <AdminNav />
           <div className="container-fluid">
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 className="h3 mb-0 text-gray-800">Users Table</h1>
               <Link to="/add-user" className="btn btn-success btn-icon-split"> 
-                <span className= "icon text-white-50">
+                <span className="icon text-white-50">
                   <FontAwesomeIcon icon={faPlus} />
                 </span>
                 <span className="text">Add User</span>
@@ -55,52 +73,32 @@ const Users = () => {
             
             <div className="card shadow mb-4">
               <div className="card-body">
-                
                 <div className="table-responsive">
-                  <table
-                    className="table table-bordered"
-                    id="dataTable"
-                    width="100%"
-                    cellSpacing={0}
-                  >
+                  <table className="table table-bordered" id="dataTable" width="100%" cellSpacing={0}>
                     <thead>
                       <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>City</th>
                         <th>Utype</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>bourhan</td>
-                        <td>bourhan@gmail.com</td>
-                        <td>kenitra</td>
-                        <td>Admin</td>
-                        <td style={{ textAlign: "center" }}>
-                          <Link to="/edit-user" className="btn btn-warning btn-circle btn-sm">
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Link>&nbsp;
-                          <a href="#" className="btn btn-danger btn-circle btn-sm">
-                            <i className="fas fa-trash"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>youssef</td>
-                        <td>youssef@gmail.com</td>
-                        <td>mechraa bel ksiri</td>
-                        <td>User</td>
-                        <td style={{ textAlign: "center" }}>
-                          <Link to="/edit-user" className="btn btn-warning btn-circle btn-sm">
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Link>&nbsp;
-                          <a href="#" className="btn btn-danger btn-circle btn-sm">
-                            <i className="fas fa-trash"></i>
-                          </a>
-                        </td>
-                      </tr>
+                      {users.map(user => (
+                        <tr key={user.id}>
+                          <td>{user.name}</td>
+                          <td>{user.email}</td>
+                          <td>{user.utype}</td>
+                          <td style={{ textAlign: "center" }}>
+                            <Link to={`/edit-user/${user.id}`} className="btn btn-warning btn-circle btn-sm">
+                              <FontAwesomeIcon icon={faEdit} />
+                            </Link>&nbsp;
+                            <button className="btn btn-danger btn-circle btn-sm" onClick={() => deleteUser(user.id)}>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -110,7 +108,7 @@ const Users = () => {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default Users;

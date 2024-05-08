@@ -25,8 +25,6 @@ class User extends Authenticatable
         'address',
         'city',
         'country',
-        'state',
-        'zip',
         'utype',
     ];
 

@@ -21,8 +21,6 @@ return new class extends Migration
         $table->string('address')->nullable();
         $table->string('city')->nullable();
         $table->string('country')->nullable();
-        $table->string('state')->nullable();
-        $table->string('zip')->nullable();
         $table->string('utype')->default('USR');
         $table->rememberToken();
         $table->timestamps();

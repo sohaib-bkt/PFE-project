@@ -19,6 +19,9 @@ const UserApi = {
     return await axiosClient.get(`${BASE_URL}/api/user`);
 
   },
+  getUserById: async (id) => {
+    return await axiosClient.get(`${BASE_URL}/api/user/${id}`);
+  },
   register: async (data) => {
     return await axiosClient.post(`${BASE_URL}/register`, data);
   },
