@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -106,23 +107,34 @@ class AdminController extends Controller
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
     }
 
-    public function storeCategories(Request $request)
-    {
-        // Validate incoming data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'parentCategory' => 'nullable|string|max:255',
-            'state' => 'boolean',
-        ]);
-    
-        $category = Category::create([
-            'name' => $validatedData['name'],
-            'parentCategory' => $validatedData['parentCategory'],
-            'state' => $request->has('state'),
-        ]);
-    
-        return response()->json(['message' => 'Category created successfully', 'category' => $category], Response::HTTP_CREATED);
+
+
+public function storeCategories(Request $request)
+{
+
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
+
+    $slug = Str::slug($validatedData['name']);
+    $name = $validatedData['name'];
+
+    $existingCategory = Category::where('slug', $slug)->first();
+    if ($existingCategory) {
+ 
+        $name .= Str::random(5);
+   
+        $slug = Str::slug($name);
     }
+
+    $category = Category::create([
+        'name' => $name,
+        'slug' => $slug
+    ]);
+
+    return response()->json(['message' => 'Category created successfully', 'category' => $category]);
+}
+
     
     public function storeProducts(Request $request)
     {
@@ -162,7 +174,7 @@ class AdminController extends Controller
             $user->delete();
             return response()->json(['message' => 'User deleted successfully.']);
         } else {
-            return response()->json(['message' => 'User not found.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'User not found.']);
         }
     }
     
@@ -173,7 +185,7 @@ class AdminController extends Controller
             $category->delete();
             return response()->json(['message' => 'Category deleted successfully.']);
         } else {
-            return response()->json(['message' => 'Category not found.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'Category not found.']);
         }
     }
     
@@ -224,16 +236,13 @@ class AdminController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'parentCategory' => 'nullable|string|max:255', 
-            'state' => 'boolean', 
         ]);
 
 
         $categorie->update([
             'name' => $validatedData['name'],
-            'parentCategory' => $validatedData['parentCategory'],
-            'state' => $request->has('state'), 
         ]);
+
         return response()->json(['message' => 'Category updated successfully.', 'category' => $categorie]);
     }
     
@@ -258,6 +267,11 @@ class AdminController extends Controller
         $product->save();
     
         return response()->json(['message' => 'Product verification updated successfully.', 'product' => $product]);
+    }
+    public function getCategory($id){
+
+        $category = Category::find($id);
+        return response()->json(['category' => $category]);
     }
     
 

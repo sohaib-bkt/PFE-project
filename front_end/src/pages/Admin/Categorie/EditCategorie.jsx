@@ -1,13 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import AdminNav from '../AdminNav';
+import axiosClient from "../../../api/axios";
 
 export default function EditCategory() {
+    const { id } = useParams();
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
-        name: 'Category Name',
-        parentCategory: 'Parent Category Name',
-        active: true
+        name: '',
+        
     });
+
+    useEffect(() => {
+        fetchCategory();
+    }, []);
+
+    const fetchCategory = async () => {
+        try {
+            const response = await axiosClient.get(`http://localhost:8000/api/dashboard/getCategory/${id}`);
+            setFormData({
+                name: response.data.category.name,
+                
+        
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,9 +40,14 @@ export default function EditCategory() {
         setEditMode(!editMode);
     };
 
-    const handleSave = () => {
-        // Add logic to save changes to the category
-        console.log('Saving changes:', formData);
+    const handleSave = async () => {
+        try {
+            await axiosClient.put(`http://localhost:8000/api/dashboard/updateCategory/${id}`, formData);
+            
+            console.log('Category updated successfully:', formData);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -56,47 +80,7 @@ export default function EditCategory() {
                                     </div>
                                 </div>
                                 <hr />
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Parent Category</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        {editMode ? (
-                                           <select
-                                           className="form-control"
-                                           value={formData.parentCategory}
-                                           onChange={handleChange}
-                                       >
-                                           <option value="">Select Category</option>
-                                           <option value="electronics">Electronics</option>
-                                           <option value="clothes">Clothes</option>
-                                       </select>
-                                        ) : (
-                                            <p className="text-muted mb-0">{formData.parentCategory}</p>
-                                        )}
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Active</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        {editMode ? (
-                                            <select
-                                                name="active"
-                                                className="form-control"
-                                                value={formData.active}
-                                                onChange={handleChange}
-                                            >
-                                                <option value={true}>Active</option>
-                                                <option value={false}>Inactive</option>
-                                            </select>
-                                        ) : (
-                                            <p className="text-muted mb-0">{formData.active ? 'Active' : 'Inactive'}</p>
-                                        )}
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
                                 {editMode ? (

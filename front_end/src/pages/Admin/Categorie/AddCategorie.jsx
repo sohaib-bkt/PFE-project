@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdminNav from '../AdminNav';
+import axiosClient from "../../../api/axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function AddSubcategory() {
-    const [category, setCategory] = useState('');
-    const [subcategoryName, setSubcategoryName] = useState('');
-
-    const handleCategoryChange = (e) => {
-        setCategory(e.target.value);
-    };
+    
+    const [name, setName] = useState('');
+    const navigate = useNavigate();
 
     const handleSubcategoryChange = (e) => {
-        setSubcategoryName(e.target.value);
+        setName(e.target.value);
     };
 
-    const handleAddSubcategory = () => {
-        // Add logic to submit category and subcategoryName to the server
-        console.log('Adding subcategory:', category, subcategoryName);
+    const handleAddSubcategory = async () => {
+        try {
+            await axiosClient.post('http://localhost:8000/api/dashboard/addCategory', { name });
+            navigate("/categories");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -24,38 +27,21 @@ export default function AddSubcategory() {
                 <AdminNav />
                 <div className='container-fluid'>
                     <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 className="h3 mb-0 text-gray-800"> &nbsp; Add Subcategory</h1>
+                        <h1 className="h3 mb-0 text-gray-800"> &nbsp; Add A Category</h1>
                     </div>
                     <div className="col-lg-12">
                         <div className="card mb-4">
                             <div className="card-body">
+
                                 <div className="row">
                                     <div className="col-sm-3">
-                                        <p className="mb-0">Category</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        <select
-                                            className="form-control"
-                                            value={category}
-                                            onChange={handleCategoryChange}
-                                        >
-                                            <option value="">Select Category</option>
-                                            <option value="electronics">Electronics</option>
-                                            <option value="clothes">Clothes</option>
-                                        </select>
-                                    </div>
-                                </div>
-          
-                                <hr />
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Subcategory Name</p>
+                                        <p className="mb-0">Name</p>
                                     </div>
                                     <div className="col-sm-9">
                                         <input
                                             type="text"
                                             className="form-control"
-                                            value={subcategoryName}
+                                            value={name}
                                             onChange={handleSubcategoryChange}
                                         />
                                     </div>
