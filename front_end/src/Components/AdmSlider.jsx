@@ -1,10 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import Slider from "react-slick";
-import image from "@Assets/images/icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-// Define custom arrow components outside of the functional component
 const CustomPrevArrow = (props) => {
     const { onClick } = props;
     return (
@@ -22,80 +20,77 @@ const CustomNextArrow = (props) => {
         </div>
     );
 };
+function AdmSlider({ images = "[]" , image }) {
+    const sliderRef = useRef(null);
+    const [slidesToShow, setSlidesToShow] = useState(1);
+    const [imageWidth, setImageWidth] = useState(0);
 
-function AdmSlider() {
-    const sliderRef = useRef(null); // Ref to the Slider component
-    const [slidesToShow, setSlidesToShow] = useState(1); // State to store number of slides to show
-    const [imageWidth, setImageWidth] = useState(0); // State to store image width
+    const imagesArray = JSON.parse(images);
 
     const settings = {
         slidesToShow: slidesToShow,
         slidesToScroll: 1,
         speed: 500,
-        arrows: true, // Enable arrows
-        prevArrow: <CustomPrevArrow />, // Custom previous arrow component
-        nextArrow: <CustomNextArrow />, // Custom next arrow component
+        arrows: true,
+        prevArrow: <CustomPrevArrow />,
+        nextArrow: <CustomNextArrow />,
     };
 
     useEffect(() => {
-        // Update number of slides to show based on device width
         const updateSlidesToShow = () => {
             const screenWidth = window.innerWidth;
             if (screenWidth >= 1024) {
-                setSlidesToShow(4); // Show 3 slides on desktop
+                setSlidesToShow(4);
             } else if (screenWidth >= 768) {
-                setSlidesToShow(2); // Show 2 slides on tablet
+                setSlidesToShow(2);
             } else {
-                setSlidesToShow(1); // Show 1 slide on mobile
+                setSlidesToShow(1);
             }
         };
 
         updateSlidesToShow();
 
-        // Listen for window resize events
         window.addEventListener("resize", updateSlidesToShow);
 
-        // Cleanup event listener on component unmount
         return () => {
             window.removeEventListener("resize", updateSlidesToShow);
         };
     }, []);
 
     useEffect(() => {
-        // Get the width of the image
         const img = new Image();
         img.onload = () => {
             setImageWidth(img.width);
         };
-        img.src = image;
-    }, []);
+        // Assuming the image variable is correctly passed in from props
+        img.src = `http://localhost:8000/api/images/products/${image}`;
+       
+    }, [image]);
 
     const sliderContainerStyle = {
-        position: "relative", // Set position to relative for absolute positioning of arrows
-        margin: "0 auto", // Center the slider horizontally
-        width: `${imageWidth * slidesToShow}px`, // Set the width of the slider container dynamically
+        position: "relative",
+        margin: "0 auto",
+        width: `${imageWidth * slidesToShow}px`,
     };
 
     const handleClick = () => {
-        // Move to the next slide when image is clicked
         sliderRef.current.slickNext();
     };
-
+    
     return (
         <div className="slider-container" style={sliderContainerStyle}>
             <Slider {...settings} ref={sliderRef}>
-                <div onClick={handleClick}>
-                    <img src={image} alt="image" style={{ width: "100%" }} />
-                </div>
-                <div onClick={handleClick}>
-                    <img src={image} alt="image" style={{ width: "100%" }} />
-                </div>
-                <div onClick={handleClick}>
-                    <img src={image} alt="image" style={{ width: "100%" }} />
-                </div>
+                {imagesArray.map((imageItem, index) => (
+                    <div key={index} onClick={handleClick}>
+                        <img src={`http://localhost:8000/api/images/products/${imageItem}`} alt="image" style={{ width: "100%" }} />
+                    </div>
+                ))}
             </Slider>
         </div>
     );
 }
 
 export default AdmSlider;
+
+
+

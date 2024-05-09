@@ -20,56 +20,10 @@ class AdminController extends Controller
         return response()->json(['users' => $users]);
     }
 
-    public function getAllProducts(Request $request)
+    public function getAllProducts()
     {
-        $page = $request->query("page", 1);
-        $size = $request->query("size", 12);
-        $order = $request->query("order", -1);
-
-        switch ($order) {
-            case 1:
-                $o_column = "created_at";
-                $o_order = "DESC";
-                break;
-            case 2:
-                $o_column = "created_at";
-                $o_order = "ASC";
-                break;
-            case 3:
-                $o_column = "regular_price";
-                $o_order = "ASC";
-                break;
-            case 4:
-                $o_column = "regular_price";
-                $o_order = "DESC";
-                break;
-            default:
-                $o_column = "id";
-                $o_order = "DESC";
-        }
-
-        $categories = Category::orderBy("name", "ASC")->get();
-        $q_categories = $request->query("categories", "");
-        $prange = $request->query("prange", "0,500");
-        $from = explode(",", $prange)[0];
-        $to = explode(",", $prange)[1];
-
-        $products = Product::where(function ($query) use ($q_categories) {
-            $query->whereIn('category_id', explode(',', $q_categories))->orWhereRaw("'" . $q_categories . "'=''");
-        })
-            ->whereBetween('regular_price', array($from, $to))
-            ->orderBy('created_at', 'DESC')->orderBy($o_column, $o_order)->paginate($size);
-
-        return response()->json([
-            'products' => $products,
-            'page' => $page,
-            'size' => $size,
-            'order' => $order,
-            'categories' => $categories,
-            'q_categories' => $q_categories,
-            'from' => $from,
-            'to' => $to
-        ]);
+        $products = Product::all();        
+        return response()->json(['products' => $products]);
     }
 
     public function getAllCategories()
@@ -106,6 +60,11 @@ class AdminController extends Controller
 
         return response()->json(['message' => 'User created successfully', 'user' => $user]);
     }
+    public function getProduct($id){
+        $product = Product::find($id);
+        $user = User::find($product->user_id);
+        return response()->json(['product' => $product , 'user' => $user]);
+    }
 
 
 
@@ -138,33 +97,60 @@ public function storeCategories(Request $request)
     
     public function storeProducts(Request $request)
     {
-        // Validate incoming data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:products,slug',
-            'short_description' => 'nullable|string',
-            'description' => 'nullable|string',
-            'regular_price' => 'required|numeric',
-            'stock_status' => 'required|string',
-            'featured' => 'nullable|boolean',
-            'category_id' => 'required|exists:categories,id',
-            'categorie_product' => 'nullable|string',
-            'user_id' => 'required|exists:users,id',
-            'split_input' => 'required|array',
-            'split_input.*.attribute' => 'required|string|max:255',
-            'split_input.*.value' => 'required|string|max:255'
-        ]);
-    
-        $validatedData['user_id'] = Auth::id();
-        $product = Product::create($validatedData);
-    
-        // Process images (similar to the existing code)
-        // ...
-    
-        // Process specifications (similar to the existing code)
-        // ...
-    
-        return response()->json(['message' => 'Product created successfully.', 'product' => $product], Response::HTTP_CREATED);
+       
+    $validatedData = $request->validate([
+        
+        'category_name' => 'required|string',
+        'category' => 'required|string',
+        'name' => 'required|string',
+        'description' => 'required|string',
+        'regular_price' => 'required|numeric',
+        'image' => 'required|image',
+        'images.*' => 'required|image',
+        'specification' => 'required|array',
+        'specification.*.attribute' => 'required|string',
+        'specification.*.value' => 'required|string',
+    ]);
+    $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
+
+    $product = new Product();
+
+    $product->user_id = 2;
+    $product->featured = 'accepted';
+    $product->categorie_product = $validatedData['category_name'];
+    $product->category_id = $categorie_id;
+    $product->name = $validatedData['name'];
+    $product->description = $validatedData['description'];
+    $product->regular_price = $validatedData['regular_price'];
+    $product->specification = json_encode($validatedData['specification']);
+    $product->brand_id = 1;
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images/products');
+        $product->image = basename($imagePath);
+    }
+
+    if ($request->hasFile('images')) {
+        $additionalImages = [];
+        foreach ($request->file('images') as $image) {
+            $imagePath = $image->store('images/products');
+            $additionalImages[] = basename($imagePath); 
+        }
+        $product->images = json_encode($additionalImages);
+    }
+
+    $slug = Str::slug($validatedData['name']);
+    $existingSlug = Product::where('slug', $slug)->exists();
+    if ($existingSlug) {
+        $slug .= '-' . uniqid();
+    }
+
+    $product->slug = $slug;
+
+    $product->save();
+
+    return response()->json(['message' => 'Product stored successfully'], 200);
+
     }
     
     public function deleteUsers($id)
@@ -185,19 +171,29 @@ public function storeCategories(Request $request)
             $category->delete();
             return response()->json(['message' => 'Category deleted successfully.']);
         } else {
-            return response()->json(['message' => 'Category not found.']);
+            return response()->json(['message' => 'Category not found.'], Response::HTTP_NOT_FOUND);
         }
     }
     
-    public function deleteProducts($id)
+    public function deleteProduct($id)
     {
         $product = Product::find($id);
         if ($product) {
             $product->delete();
             return response()->json(['message' => 'Product deleted successfully.']);
         } else {
-            return response()->json(['message' => 'Product not found.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'Product not found.']);
         }
+    }
+
+    public function deleteRejectedProducts(){
+
+        $products = Product::where('featured', 'rejected')->get();
+        foreach ($products as $product) {
+            $product->delete();
+        }
+        return response()->json(['message' => 'Rejected products deleted successfully.']);
+
     }
     
     public function updateUsers(Request $request, $id)

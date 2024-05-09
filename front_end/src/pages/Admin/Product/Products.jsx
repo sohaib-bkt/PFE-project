@@ -1,17 +1,33 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
 import AdminNav from "../AdminNav";
 import { faEye, faTrash , faPlus } from '@fortawesome/free-solid-svg-icons';
+import axiosClient from "../../../api/axios";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
   useEffect(() => {
-    loadScriptsAndInitializeDataTables();
-    // Fetch products data
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    if (products.length > 0 && !scriptsLoaded) {
+      loadScriptsAndInitializeDataTables();
+      setScriptsLoaded(true);
+    }
+  }, [products, scriptsLoaded]);
+
+  const deleteProduct = async (id) => {
+    try {
+      await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteProduct/${id}`);
+      setProducts(products.filter(product => product.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const loadScriptsAndInitializeDataTables = () => {
     // Load jQuery
@@ -39,73 +55,57 @@ const Products = () => {
     document.body.appendChild(jqueryScript);
   };
 
-  const fetchProducts = () => {
-    // Replace this with your API call to fetch products data
-    const sampleProducts = [
-      {
-        id: 1,
-        name: "Product 1",
-        subcategory: "Subcategory 1",
-        description: "Lorem ipsum dolor sit amet",
-        price: "$100.00",
-        state: "Pending"
-      },
-      {
-        id: 2,
-        name: "Product 2",
-        subcategory: "Subcategory 2",
-        description: "Lorem ipsum dolor sit amet",
-        price: "$200.00",
-        state: "Approved"
-      },
-      {
-        id: 3,
-        name: "Product 3",
-        subcategory: "Subcategory 3",
-        description: "Lorem ipsum dolor sit amet",
-        price: "$300.00",
-        state: "Rejected"
-      }
-    ];
-    setProducts(sampleProducts);
+  const fetchProducts = async () => {
+    try {
+      const response = await axiosClient.get('http://localhost:8000/api/dashboard/getProducts');
+      setProducts(response.data.products);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleDeleteRejectedProducts = () => {
-    // Filter out rejected products and delete them
-    const filteredProducts = products.filter(product => product.state !== 'Rejected');
-    setProducts(filteredProducts);
-    // Here you can add your logic to actually delete the products from your backend
+  const handleDeleteRejectedProducts = async () => {
+    try {
+      await axiosClient.delete('http://localhost:8000/api/dashboard/deleteRejectedProducts').then(() => {
+        setProducts(products.filter(product => product.featured !== 'rejected'));
+      })
+      
+        
+      
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const renderActionButtons = (state) => {
+
+  const renderActionButtons = (state , id) => {
     switch (state) {
-      case 'Pending':
+      case 'pending':
         return (
-          <Link to="/pending-product" className="btn btn-primary btn-circle btn-sm">
+          <Link to={`/pending-product/${id} `} className="btn btn-primary btn-circle btn-sm">
             <FontAwesomeIcon icon={faEye} />
           </Link>
         );
-      case 'Approved':
+      case 'accepted':
         return (
           <>
-            <Link to="/SingleProduct" className="btn btn-primary btn-circle btn-sm">
+            <Link to={`/SingleProduct/${id}`} className="btn btn-primary btn-circle btn-sm">
               <FontAwesomeIcon icon={faEye} />
             </Link>&nbsp;&nbsp;
-            <a href="#" className="btn btn-danger btn-circle btn-sm">
+            <button onClick={() => deleteProduct(id)} className="btn btn-danger btn-circle btn-sm">
               <FontAwesomeIcon icon={faTrash} />
-            </a>
+            </button>
           </>
         );
-      case 'Rejected':
+      case 'rejected':
         return (
-          <a href="#" className="btn btn-danger btn-circle btn-sm">
+          <button onClick={() => deleteProduct(id)} className="btn btn-danger btn-circle btn-sm">
             <FontAwesomeIcon icon={faTrash} />
-          </a>
+          </button>
         );
       default:
         return null;
     }
   };
-  
 
   return (
     <>
@@ -117,35 +117,28 @@ const Products = () => {
               <h1 className="h3 mb-0 text-gray-800">Products Table</h1>
             </div>
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <Link to="/add-product" className="btn btn-success btn-icon-split"> 
+              <Link to="/add-product" className="btn btn-success btn-icon-split"> 
                 <span className= "icon text-white-50">
                   <FontAwesomeIcon icon={faPlus} />
                 </span>
                 <span className="text">Add Product</span>
               </Link>
-              <Link onClick={handleDeleteRejectedProducts} className="btn btn-danger btn-icon-split">
+              <button onClick={handleDeleteRejectedProducts} className="btn btn-danger btn-icon-split">
                 <span className= "icon text-white-50">
                   <FontAwesomeIcon icon={faTrash} />
                 </span>
                 <span className="text">Delete Rejected Products</span>
-              </Link>
+              </button>
             </div>
-            
-            
             <div className="card shadow mb-4">
               <div className="card-body">
                 <div className="table-responsive">
-                  <table
-                    className="table table-bordered"
-                    id="dataTable"
-                    width="100%"
-                    cellSpacing={0}
-                  >
+                  <table className="table table-bordered" id="dataTable" width="100%" cellSpacing={0}>
                     <thead>
                       <tr>
                         <th>Image</th>
                         <th>Name</th>
-                        <th>Subcategory</th>
+                        <th>Category</th>
                         <th>Short Description</th>
                         <th>Price</th>
                         <th>State</th>
@@ -156,16 +149,18 @@ const Products = () => {
                       {/* Render product rows */}
                       {products.map(product => (
                         <tr key={product.id}>
-                          <td><img src="product_image_url" alt="Product" /></td>
+                          {/* <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" /></td> */}
                           <td>{product.name}</td>
-                          <td>{product.subcategory}</td>
+                          <td>{product.categorie_product}</td>
                           <td>{product.description}</td>
-                          <td>{product.price}</td>
-                          <td><div className={`card bg-${product.state === 'Pending' ? 'primary' : product.state === 'Approved' ? 'success' : 'danger'} text-white shadow`} style={{ padding: '5px' , textAlign: "center"}}>
-                            {product.state}
-                          </div></td>
+                          <td>{product.regular_price}</td>
+                          <td>
+                            <div className={`card bg-${product.featured === 'pending' ? 'primary' : product.featured === 'accepted' ? 'success' : 'danger'} text-white shadow`} style={{ padding: '5px' , textAlign: "center"}}>
+                              {product.featured}
+                            </div>
+                          </td>
                           <td style={{ textAlign: "center" }}>
-                            {renderActionButtons(product.state)}
+                            {renderActionButtons(product.featured , product.id)}
                           </td>
                         </tr>
                       ))}

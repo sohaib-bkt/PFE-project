@@ -60,3 +60,10 @@ Route::get('/dashboard/getCategory/{id}', [AdminController::class, 'getCategory'
 Route::put('/dashboard/updateCategory/{id}', [AdminController::class, 'updateCategories']);
 Route::post('/dashboard/addCategory', [AdminController::class, 'storeCategories']);
 Route::delete('/dashboard/deleteCategory/{id}', [AdminController::class, 'deleteCategories']);
+
+Route::get('/dashboard/getProducts', [AdminController::class, 'getAllProducts']);
+Route::get('/dashboard/getProductById/{id}', [AdminController::class, 'getProduct']);
+Route::put('/dashboard/updateProduct/{id}', [AdminController::class, 'updateProduct']);
+Route::post('/dashboard/addProduct', [AdminController::class, 'storeProducts']);
+Route::delete('/dashboard/deleteProduct/{id}', [AdminController::class, 'deleteProduct']);
+Route::delete('/dashboard/deleteRejectedProducts', [AdminController::class, 'deleteRejectedProducts']);

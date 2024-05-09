@@ -155,7 +155,7 @@ export const router = createBrowserRouter([
                         element: <AddProduct/>
                     },
                     {
-                        path: "/pending-product",
+                        path: "/pending-product/:id",
                         element: <PendingProduct/>
                     },
                     {
@@ -171,7 +171,7 @@ export const router = createBrowserRouter([
                         element: <Reports/>
                     },
                     {
-                        path: "/SingleProduct",
+                        path: "/SingleProduct/:id",
                         element: <SingleProduct/>
                     
                     }
