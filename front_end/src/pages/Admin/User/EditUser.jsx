@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axiosClient from '../../../api/axios';
 import UserApi from '../../../services/api/user/UserApi';
 import AdminNav from '../AdminNav';
+import Swal from 'sweetalert2';
 
 export default function EditUser() {
     const { id } = useParams();
@@ -29,14 +30,31 @@ export default function EditUser() {
     }, [id]);
 
     const handleSave = () => {
-        axiosClient
-            .put(`http://localhost:8000/api/update/${id}`, formData)
-            .then((response) => {
-                toggleEditMode();
-            })
-            .catch((error) => {
-                console.error('Error updating user:', error);
-            });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, save it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient
+                    .put(`http://localhost:8000/api/update/${id}`, formData)
+                    .then((response) => {
+                        toggleEditMode();
+                        Swal.fire(
+                            'Saved!',
+                            'Your changes have been saved.',
+                            'success'
+                        );
+                    })
+                    .catch((error) => {
+                        console.error('Error updating user:', error);
+                    });
+            }
+        });
     };
 
     return (
