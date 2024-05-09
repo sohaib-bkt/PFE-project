@@ -7,7 +7,7 @@ import axiosClient from "../../../api/axios";
 
 const PendingProducts = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({ name: '', regular_price: '', description: '', specification: [] });
+  const [product, setProduct] = useState({ });
   const [user , setUser] = useState({});
   const navigate = useNavigate();
 
@@ -26,8 +26,8 @@ const PendingProducts = () => {
     fetchProduct();
   }, [id]);
 
-  const rejectProduct = (product) => {
-    Swal.fire({
+  const rejectProduct = async (product) => {
+    const { value: rejectionReason } = await Swal.fire({
       title: "Reason for Rejection",
       html: `
         <div>
@@ -43,14 +43,17 @@ const PendingProducts = () => {
       preConfirm: () => {
         return document.getElementById("rejectionReason").value;
       }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log('reject');
-        navigate("/products");
-
-
-      }
     });
+
+    if (rejectionReason) {
+      await axiosClient.get(`http://localhost:8000/api/dashboard/rejectProduct/${product.id}`, { params: { reason: rejectionReason } });
+      navigate("/products");
+    }
+  };
+
+  const approveProduct = async (productId) => {
+    await axiosClient.get(`http://localhost:8000/api/dashboard/approveProduct/${productId}`);
+    navigate("/products");
   };
 
   return (
@@ -65,7 +68,6 @@ const PendingProducts = () => {
               </div>
               <div className="card-body">
                 <div className="text-center">
-                
                   <Slider images={product.images} image={product.image}/>
                 </div>
                 <div className="table-responsive">
@@ -83,26 +85,30 @@ const PendingProducts = () => {
                         <th>Description:</th>
                         <td>{product.description}</td>
                       </tr>
-                     
                       <tr>
-                      <tbody>
-                      {typeof product.specification === 'string' && product.specification.trim() !== "" && JSON.parse(product.specification).map((item, index) => (
-                      <tr key={index}>
-                        <th>{item.attribute}</th>
-                        <td>{item.value}</td>
-                      </tr>
-                    ))}
-                      </tbody>
-                    </tr>
-                      
-                      
+                          <th>Specifications:</th>
+                          <td>
+                            <table className="table table-bordered">
+                              <tbody>
+                              {product.specification && JSON.parse(product.specification).map((item, index) => (
+                                <tr key={index}>
+                                  <td>{item.attribute}</td>
+                                  <td>{item.value}</td>
+                                </tr>
+                              ))}
+
+
+
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
                     </tbody>
                   </table>
                 </div>
                 <div className="position-absolute top-0 end-0 mt-2 mr-3">
                   <button className="btn btn-success mr-2" onClick={() => approveProduct(product.id)}>Approve</button>
                   <button className="btn btn-danger" onClick={() => rejectProduct(product)}>Reject</button>
-
                 </div>
               </div>
             </div>

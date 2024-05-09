@@ -67,3 +67,6 @@ Route::put('/dashboard/updateProduct/{id}', [AdminController::class, 'updateProd
 Route::post('/dashboard/addProduct', [AdminController::class, 'storeProducts']);
 Route::delete('/dashboard/deleteProduct/{id}', [AdminController::class, 'deleteProduct']);
 Route::delete('/dashboard/deleteRejectedProducts', [AdminController::class, 'deleteRejectedProducts']);
+Route::get('/dashboard/rejectProduct/{id}', [AdminController::class, 'rejectProduct']);
+Route::get('/dashboard/approveProduct/{id}', [AdminController::class, 'acceptProduct']);
+Route::get('/dashboard/getPendingProducts', [AdminController::class, 'getPendingProducts']);

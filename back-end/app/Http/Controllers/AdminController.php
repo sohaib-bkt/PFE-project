@@ -67,6 +67,21 @@ class AdminController extends Controller
     }
 
 
+    public function rejectProduct( $id){
+        $product = Product::find($id);
+        $product->update(['featured' => 'rejected']);
+        return response()->json(['message' => 'Product rejected successfully']);
+    }
+    public function acceptProduct( $id){
+        $product = Product::find($id);
+        $product->update(['featured' => 'accepted']);
+        return response()->json(['message' => 'Product accepted successfully']);
+    }
+    public function getPendingProducts(){
+        $products = Product::where('featured', 'pending')->get();
+        return response()->json(['products' => $products]);
+    }
+
 
 public function storeCategories(Request $request)
 {

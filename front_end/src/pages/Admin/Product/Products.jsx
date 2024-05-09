@@ -34,18 +34,12 @@ const Products = () => {
     const jqueryScript = document.createElement('script');
     jqueryScript.src = "https://code.jquery.com/jquery-3.6.0.min.js";
     jqueryScript.onload = () => {
-      console.log("jQuery loaded successfully");
-      // Load DataTables
       const dataTablesScript = document.createElement('script');
       dataTablesScript.src = "https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js";
       dataTablesScript.onload = () => {
-        console.log("DataTables loaded successfully");
-        // Load DataTables Bootstrap integration
         const dataTablesBootstrapScript = document.createElement('script');
         dataTablesBootstrapScript.src = "https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js";
         dataTablesBootstrapScript.onload = () => {
-          console.log("DataTables Bootstrap integration loaded successfully");
-          // Initialize DataTables
           $('#dataTable').DataTable();
         };
         document.body.appendChild(dataTablesBootstrapScript);
@@ -149,7 +143,7 @@ const Products = () => {
                       {/* Render product rows */}
                       {products.map(product => (
                         <tr key={product.id}>
-                          {/* <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" /></td> */}
+                          <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" /></td>
                           <td>{product.name}</td>
                           <td>{product.categorie_product}</td>
                           <td>{product.description}</td>

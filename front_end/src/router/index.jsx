@@ -33,6 +33,7 @@ import PendingProduct from "@Pages/Admin/Product/PendingProduct.jsx"
 import AdminProfile from "@Pages/Admin/AdminProfile.jsx"
 import AdminSettings from "@Pages/Admin/AdminSettings.jsx"
 import Reports from "@Pages/Admin/Reports.jsx"
+import Pending from "../pages/Admin/Product/Pending";
 
 export const router = createBrowserRouter([
 
@@ -157,6 +158,10 @@ export const router = createBrowserRouter([
                     {
                         path: "/pending-product/:id",
                         element: <PendingProduct/>
+                    },
+                    {
+                        path: "/pending-product",
+                        element: <Pending/>
                     },
                     {
                         path: "/admin-profile",

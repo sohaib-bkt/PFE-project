@@ -7,7 +7,7 @@ import axiosClient from "../../../api/axios";
 
 const PendingProducts = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({ name: '', regular_price: '', description: '', specification: [] });
+  const [product, setProduct] = useState({ });
   const [user , setUser] = useState({});
   const navigate = useNavigate();
 
@@ -79,15 +79,23 @@ const PendingProducts = () => {
                       </tr>
                      
                       <tr>
-                      <tbody>
-                      {typeof product.specification === 'string' && product.specification.trim() !== "" && JSON.parse(product.specification).map((item, index) => (
-                      <tr key={index}>
-                        <th>{item.attribute}</th>
-                        <td>{item.value}</td>
-                      </tr>
-                    ))}
-                      </tbody>
-                    </tr>
+                          <th>Specifications:</th>
+                          <td>
+                            <table className="table table-bordered">
+                              <tbody>
+                              {product.specification && JSON.parse(product.specification).map((item, index) => (
+                                <tr key={index}>
+                                  <td>{item.attribute}</td>
+                                  <td>{item.value}</td>
+                                </tr>
+                              ))}
+
+
+
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
                       
                       
                     </tbody>

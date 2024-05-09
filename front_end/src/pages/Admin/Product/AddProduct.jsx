@@ -58,6 +58,8 @@ export default function AddAdv() {
     <div className='container-fluid-lg'>
     <div className="row">
 
+      <AdminNav />
+
       <div className="col-md-8">
   
         <section className="section-b-space">
