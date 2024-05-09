@@ -30,12 +30,39 @@ const Users = () => {
   };
   const deleteUser = async (id) => {
     try {
-      await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteUser/${id}`);
-      setUsers(users.filter(user => user.id !== id));
+      // Show confirmation dialog using SweetAlert
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      });
+  
+      // If user confirms deletion
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+        // Remove user from the local state
+        setUsers(users.filter(user => user.id !== id));
+  
+        // Make API call to delete user
+        await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteUser/${id}`);
+  
+        // Show success message using SweetAlert
+      
+      }
     } catch (error) {
       console.error(error);
+      // Handle error if needed
     }
   };
+  
   
 
   const loadScriptsAndInitializeDataTables = () => {
