@@ -9,7 +9,7 @@ export default function AdminLayout() {
     const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        if (!localStorage.getItem('authenticated') || localStorage.getItem('authenticated') === 'false' || !user) {
+        if (!localStorage.getItem('authenticated') && localStorage.getItem('authenticated') === 'false' && !user || user.utype !== 'admin') {
             navigate('/login');
         } else {
             setLoading(false); 
