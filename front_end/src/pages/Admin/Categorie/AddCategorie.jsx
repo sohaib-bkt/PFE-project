@@ -6,15 +6,20 @@ import { useNavigate } from 'react-router-dom';
 export default function AddSubcategory() {
     
     const [name, setName] = useState('');
+    const [parent_category, setParent_category] = useState(''); 
     const navigate = useNavigate();
 
     const handleSubcategoryChange = (e) => {
         setName(e.target.value);
     };
 
+    const handleParentCategoryChange = (e) => {
+        setParent_category(e.target.value);
+    };
+
     const handleAddSubcategory = async () => {
         try {
-            await axiosClient.post('http://localhost:8000/api/dashboard/addCategory', { name });
+            await axiosClient.post('http://localhost:8000/api/dashboard/addCategory', { name, parent_category });
             navigate("/categories");
         } catch (error) {
             console.error(error);
@@ -44,6 +49,22 @@ export default function AddSubcategory() {
                                             value={name}
                                             onChange={handleSubcategoryChange}
                                         />
+                                    </div>
+                                </div>
+                                <div className="row mt-3"> 
+                                    <div className="col-sm-3">
+                                        <p className="mb-0">Parent Category</p>
+                                    </div>
+                                    <div className="col-sm-9">
+                                        <select
+                                            className="form-control"
+                                            value={parent_category}
+                                            onChange={handleParentCategoryChange}
+                                        >
+                                            <option value="">Select Parent Category</option>
+                                            <option value="INF">Informatique</option>
+                                            <option value="VET">Vetemant</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

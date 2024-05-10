@@ -89,10 +89,13 @@ public function storeCategories(Request $request)
 
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
+        'parent_category' => 'required',
     ]);
 
     $slug = Str::slug($validatedData['name']);
     $name = $validatedData['name'];
+    $parent_category = $validatedData['parent_category'];
+    
 
     $existingCategory = Category::where('slug', $slug)->first();
     if ($existingCategory) {
@@ -104,7 +107,8 @@ public function storeCategories(Request $request)
 
     $category = Category::create([
         'name' => $name,
-        'slug' => $slug
+        'slug' => $slug,
+        'parent_category' => $parent_category
     ]);
 
     return response()->json(['message' => 'Category created successfully', 'category' => $category]);
@@ -248,11 +252,13 @@ public function storeCategories(Request $request)
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'parent_category' => 'required',
         ]);
 
 
         $categorie->update([
             'name' => $validatedData['name'],
+            'parent_category' => $validatedData['parent_category'],
         ]);
 
         return response()->json(['message' => 'Category updated successfully.', 'category' => $categorie]);
@@ -262,7 +268,7 @@ public function storeCategories(Request $request)
     {
         $product = Product::find($id);
         if (!$product) {
-            return response()->json(['message' => 'Product not found.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'Product not found.']);
         }
     
         // Return product data for editing

@@ -94,6 +94,7 @@ const Categories = () => {
                     <thead>
                       <tr>
                         <th>Name</th>
+                        <th>Parent Category</th>
                         <th>Created At</th>                      
                         <th>Action</th>
                       </tr>
@@ -102,6 +103,7 @@ const Categories = () => {
                       {categories.map(category => (
                         <tr key={category.id}>
                           <td>{category.name}</td>
+                          <td>{category.parent_category}</td>
                           <td>{new Date(category.created_at).toLocaleDateString()}</td>
                           <td style={{ textAlign: "center" }}>
                             <Link to={`/edit-category/${category.id}`} className="btn btn-warning btn-circle btn-sm">
