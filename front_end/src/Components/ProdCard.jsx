@@ -29,6 +29,7 @@ export default function ProdCard( product ) {
             className="img-fluid w-100 "
             src={`http://localhost:8000/api/images/products/${product.product.image}`}
             alt=""
+            style={{objectFit:'cover' , height:'250px', width:'200px'}}
           />
       </Link>
         <div className="card-body border-left border-right text-center p-0 pt-4 pb-3">

@@ -55,12 +55,11 @@ export default function AddAdv() {
     setInputGroups(updatedInputGroups);
   };
   return (
-    <div className='container-fluid-lg'>
-    <div className="row">
+    <div id="content-wrapper" className="d-flex flex-column">
+    <div id="content">
 
       <AdminNav />
 
-      <div className="col-md-8">
   
         <section className="section-b-space">
         
@@ -76,14 +75,14 @@ export default function AddAdv() {
         </div>              
         <div className="col-md-6">
             <label htmlFor="name" className="form-label">Name</label>
-            <input type="text" className="form-control form-control3" id="name" name="name" placeholder="Enter Full Name" />
+            <input type="text" className="form-control " id="name" name="name" placeholder="Enter Full Name" />
         </div>
         {inputGroups.map((inputGroup, index) => (
             <div className="col-md-12" key={index}>
                 <div className="input-group" style={{ border: '1px solid #dee2e6' }}>
                     <input
                         type="text"
-                        className="form-control form-control3"
+                        className="form-control "
                         name={`specification[${index}][attribute]`}
                         placeholder="Attribute"
                         onChange={(event) => handleInputChange(index, event)}
@@ -91,7 +90,7 @@ export default function AddAdv() {
                     />
                     <input
                         type="text"
-                        className="form-control form-control3"
+                        className="form-control "
                         name={`specification[${index}][value]`}
                         placeholder="Value"
                         onChange={(event) => handleInputChange(index, event)}
@@ -110,30 +109,33 @@ export default function AddAdv() {
         ))}
         <div className="col-md-12">
             <label htmlFor="description" className="form-label">Description</label>
-            <textarea className="form-control form-control3" id="description" name="description" defaultValue={""} />
+            <textarea className="form-control " id="description" name="description" defaultValue={""} />
         </div>
       
         <div className="col-md-6">
             <label htmlFor="image" className="form-label">Main Image</label>
-            <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" />
+            <input type="file" className="form-control " id="image" name="image" placeholder="image" required="" accept="image/png, image/jpeg" />
         </div>
         <div className="col-md-6">
             <label htmlFor="images" className="form-label">Additional Images</label>
-            <input type="file" className="form-control form-control3" id="images" name="images" placeholder="images" accept="image/png, image/jpeg" multiple />
+            <input type="file" className="form-control " id="images" name="images" placeholder="images" accept="image/png, image/jpeg" multiple />
         </div>
        
         <div className="col-md-12">
         <div className="col-md-6">
             <label htmlFor="regular_price" className="form-label">Price</label>
-            <input type="number" className="form-control form-control3" id="regular_price" name="regular_price" placeholder="Regular Price" />
+            <input type="number" className="form-control " id="regular_price" name="regular_price" placeholder="Regular Price" />
         </div>
         </div>
-        <button className="btn mt-4" type="submit" style={{ fontSize: '14px', borderRadius: '5px', backgroundColor: '#a01818',fontFamily: 'monospace', letterSpacing: '1px', color: '#ffffff' ,width: '40%' ,margin: 'auto' , marginBottom: '20px'}}>Add Product</button>
+        <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
+           <button style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
+             Add Product
+          </button>
+        </div>          
         </div>
        </form>
           </div>
         </section>
-      </div>
     </div>
     </div>
   );
