@@ -86,9 +86,9 @@
 .image{
     width: 100%;
     margin: auto;
+    object-fit:cover;
     border-radius: 20px;
     height: 150px;
-    object-fit:'cover' 
 
 }
 .rej{ 
