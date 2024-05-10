@@ -338,7 +338,7 @@ public function changePassword(Request $request, $id)
     }
 
     public function getUserProducts($id){
-        $products = Product::where('user_id', $id)->get();
+        $products = Product::where('user_id', $id)->where('featured', 'accepted')->get();
         $user = User::find($id);
         return response()->json(['products' => $products, 'user' => $user]);
     }

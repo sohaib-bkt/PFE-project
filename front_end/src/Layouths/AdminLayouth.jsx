@@ -1,24 +1,29 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react'; 
 import { useUserContext } from '../context/UserContext.jsx';
 import AdminHeader from '../Components/Header/AdminHeader.jsx';
+
 export default function AdminLayout() {
     const { user } = useUserContext();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        if (!localStorage.getItem('authenticated')) {
+        if (!localStorage.getItem('authenticated') || localStorage.getItem('authenticated') === 'false' || !user) {
             navigate('/login');
+        } else {
+            setLoading(false); 
         }
         
-        // Cleanup function to remove event listener
-        return () => {
-            // Remove any event listeners or clean-up tasks here if necessary
-        };
-    }, []); // Empty dependency array to only run on mount
 
-    console.log(user);
-    
+        return () => {
+        
+        };
+    }, [user, navigate]); 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
             {/* Styles */}
@@ -28,8 +33,7 @@ export default function AdminLayout() {
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
             <link rel="stylesheet" href="../../public/assets/css/vendors/dataTables.bootstrap4.min.css" />
             <div id='wrapper'>
-
-            <AdminHeader/>
+                <AdminHeader/>
                 <Outlet />
             </div>
        </>
