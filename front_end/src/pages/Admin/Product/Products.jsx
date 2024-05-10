@@ -22,8 +22,8 @@ const Products = () => {
 
   const deleteProduct = async (id) => {
     try {
-      await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteProduct/${id}`);
       setProducts(products.filter(product => product.id !== id));
+      await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteProduct/${id}`);
     } catch (error) {
       console.error(error);
     }
@@ -60,12 +60,8 @@ const Products = () => {
 
   const handleDeleteRejectedProducts = async () => {
     try {
-      await axiosClient.delete('http://localhost:8000/api/dashboard/deleteRejectedProducts').then(() => {
-        setProducts(products.filter(product => product.featured !== 'rejected'));
-      })
-      
-        
-      
+      setProducts(products.filter(product => product.featured !== 'rejected'));
+      await axiosClient.delete('http://localhost:8000/api/dashboard/deleteRejectedProducts')
     } catch (error) {
       console.error(error);
     }
@@ -143,7 +139,7 @@ const Products = () => {
                       {/* Render product rows */}
                       {products.map(product => (
                         <tr key={product.id}>
-                          <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" style={{ width: "70px" , height: "70px" , objectFit: "cover"}}/></td>
+                          <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" style={{ width: "70px" , height: "70px" , objectFit: "cover" }}/></td>
                           <td>{product.name}</td>
                           <td>{product.categorie_product}</td>
                           <td>{product.description}</td>

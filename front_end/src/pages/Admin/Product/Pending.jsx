@@ -42,14 +42,14 @@ const Pending = () => {
     });
 
     if (rejectionReason) {
+      setProducts(products.filter((product) => product.id !== productId));
       await axiosClient.get(`http://localhost:8000/api/dashboard/rejectProduct/${productId}`, { params: { reason: rejectionReason } });
-      navigate("/products");
     }
   };
 
   const approveProduct = async (productId) => {
+    setProducts(products.filter((product) => product.id !== productId));
     await axiosClient.get(`http://localhost:8000/api/dashboard/approveProduct/${productId}`);
-    navigate("/products");
   };
 
   return (
