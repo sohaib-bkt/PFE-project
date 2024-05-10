@@ -58,18 +58,23 @@ const Pending = () => {
         <div id="content">
           <AdminNav />
           <div className="container-fluid">
+          <h1 className="h3 mb-2 text-gray-800">Pending Products</h1>
             {products.map((product) => (
               <div key={product.id} className="card shadow mb-4">
                 <div className="card-header py-3">
                   <h6 className="m-0 font-weight-bold text-primary">{product.name}</h6>
                 </div>
                 <div className="card-body">
-                  <div className="text-center">
-                    <Slider images={product.images} image={product.image}/>
-                  </div>
+              
                   <div className="table-responsive">
                     <table className="table table-borderless">
                       <tbody>
+                      <tr>
+                        <th>Images:</th>
+                        <td style={{textAlign: "center"}}>
+                          <div style={{display: "inline-block"}}><Slider images={product.images} image={product.image}/></div>
+                        </td>
+                      </tr>
                         <tr>
                           <th>Name:</th>
                           <td>{product.name}</td>
@@ -85,19 +90,18 @@ const Pending = () => {
                         <tr>
                           <th>Specifications:</th>
                           <td>
+                          <div className="table-responsive">
                             <table className="table table-bordered">
                               <tbody>
-                             
                               {JSON.parse(product.specification).map((item, index) => (
                                 <tr key={index}>
                                     <td>{item.attribute}</td>
                                     <td>{item.value}</td>
                                 </tr>
                                 ))}
-
-
                               </tbody>
                             </table>
+                            </div>
                           </td>
                         </tr>
                       </tbody>

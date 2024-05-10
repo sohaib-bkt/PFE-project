@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -20,15 +20,13 @@ const CustomNextArrow = (props) => {
         </div>
     );
 };
-function AdmSlider({ images = "[]" , image }) {
-    const sliderRef = useRef(null);
-    const [slidesToShow, setSlidesToShow] = useState(1);
-    const [imageWidth, setImageWidth] = useState(0);
 
+function AdmSlider({ images = "[]" }) {
+    const sliderRef = useRef(null);
     const imagesArray = JSON.parse(images);
 
     const settings = {
-        slidesToShow: slidesToShow,
+        slidesToShow: 1,
         slidesToScroll: 1,
         speed: 500,
         arrows: true,
@@ -36,53 +34,16 @@ function AdmSlider({ images = "[]" , image }) {
         nextArrow: <CustomNextArrow />,
     };
 
-    useEffect(() => {
-        const updateSlidesToShow = () => {
-            const screenWidth = window.innerWidth;
-            if (screenWidth >= 1024) {
-                setSlidesToShow(4);
-            } else if (screenWidth >= 768) {
-                setSlidesToShow(2);
-            } else {
-                setSlidesToShow(1);
-            }
-        };
-
-        updateSlidesToShow();
-
-        window.addEventListener("resize", updateSlidesToShow);
-
-        return () => {
-            window.removeEventListener("resize", updateSlidesToShow);
-        };
-    }, []);
-
-    useEffect(() => {
-        const img = new Image();
-        img.onload = () => {
-            setImageWidth(img.width);
-        };
-        // Assuming the image variable is correctly passed in from props
-        img.src = `http://localhost:8000/api/images/products/${image}`;
-       
-    }, [image]);
-
-    const sliderContainerStyle = {
-        position: "relative",
-        margin: "0 auto",
-        width: `${imageWidth * slidesToShow}px`,
-    };
-
     const handleClick = () => {
         sliderRef.current.slickNext();
     };
     
     return (
-        <div className="slider-container" style={sliderContainerStyle}>
+        <div className="slider-container" style={{ width: "400px", height: "370px" }}>
             <Slider {...settings} ref={sliderRef}>
                 {imagesArray.map((imageItem, index) => (
                     <div key={index} onClick={handleClick}>
-                        <img src={`http://localhost:8000/api/images/products/${imageItem}`} alt="image" style={{ width: "100%" }} />
+                        <img src={`http://localhost:8000/api/images/products/${imageItem}`} alt="image" style={{ width: "400px", height: "370px", objectFit: "cover" }} />
                     </div>
                 ))}
             </Slider>
@@ -91,6 +52,3 @@ function AdmSlider({ images = "[]" , image }) {
 }
 
 export default AdmSlider;
-
-
-

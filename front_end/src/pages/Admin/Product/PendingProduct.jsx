@@ -67,12 +67,15 @@ const PendingProducts = () => {
                 <h6 className="m-0 font-weight-bold text-primary">{user.name}</h6>
               </div>
               <div className="card-body">
-                <div className="text-center">
-                  <Slider images={product.images} image={product.image}/>
-                </div>
                 <div className="table-responsive">
                   <table className="table table-borderless">
                     <tbody>
+                    <tr>
+                        <th>Images:</th>
+                        <td style={{textAlign: "center"}}>
+                          <div style={{display: "inline-block"}}><Slider images={product.images} image={product.image}/></div>
+                        </td>
+                      </tr>
                       <tr>
                         <th>Name:</th>
                         <td>{product.name}</td>

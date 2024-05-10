@@ -143,13 +143,13 @@ const Products = () => {
                       {/* Render product rows */}
                       {products.map(product => (
                         <tr key={product.id}>
-                          <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" /></td>
+                          <td><img src={`http://localhost:8000/api/images/products/${product.image}`} alt="Product" style={{ width: "70px" , height: "70px" , objectFit: "cover"}}/></td>
                           <td>{product.name}</td>
                           <td>{product.categorie_product}</td>
                           <td>{product.description}</td>
                           <td>{product.regular_price}</td>
                           <td>
-                            <div className={`card bg-${product.featured === 'pending' ? 'primary' : product.featured === 'accepted' ? 'success' : 'danger'} text-white shadow`} style={{ padding: '5px' , textAlign: "center"}}>
+                            <div className={`card bg-${product.featured === 'pending' ? 'primary' : product.featured === 'accepted' ? 'success' : 'danger'} text-white shadow`} style={{ padding: '5px' , textAlign: "center" , marginTop: "16px"}}>
                               {product.featured}
                             </div>
                           </td>
