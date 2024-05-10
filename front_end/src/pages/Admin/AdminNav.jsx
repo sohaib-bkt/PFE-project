@@ -1,13 +1,25 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import img from '@Assets/images/user.svg.png'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserApi from '../../services/api/user/UserApi';
+import { UserContext } from '../../context/UserContext';
 
 export default function AdminNav() {
   const [user , setUser] = useState({});
+  const {logout} = useContext(UserContext);
+  const navigate = useNavigate();
   useEffect(() => {
     UserApi.getUser().then(({data}) => setUser(data))
   }, [])
+  const handleLogout = async () => {
+    try {
+        await UserApi.logout();
+        logout();
+        navigate("/login");
+    } catch (error) {
+        console.log(error);
+    }
+}
   
     return (
         <>
@@ -278,7 +290,8 @@ export default function AdminNav() {
                       </Link>
 
                       <div className="dropdown-divider" />
-                      <a
+                      <button
+                        onClick={handleLogout}
                         className="dropdown-item"
                         href="#"
                         data-toggle="modal"
@@ -286,7 +299,7 @@ export default function AdminNav() {
                       >
                         <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
                         Logout
-                      </a>
+                      </button>
                     </div>
                   </li>
                 </ul>
