@@ -29,7 +29,6 @@ class ProductFactory extends Factory
             'images' => json_encode(["r0FaQztGcDAg9qPCZqNp4KJYrQYoq4yDrx4mcNqp.png","r0FaQztGcDAg9qPCZqNp4KJYrQYoq4yDrx4mcNqp.png"]),
             'specification' => json_encode([["attribute" => "gb", "value" => "3"], ["attribute" => "color", "value" => "red"]]),
             'category_id' => $this->faker->numberBetween(1,6),
-            'brand_id' => $this->faker->numberBetween(1,6),
             'categorie_product' => $categorieProduct
         ];
     }

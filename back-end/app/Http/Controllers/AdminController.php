@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Report;
 use App\Models\Product;
 use App\Models\Category;
-use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Response;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -283,6 +284,11 @@ public function storeCategories(Request $request)
 
         $category = Category::find($id);
         return response()->json(['category' => $category]);
+    }
+
+    public function getReport(){
+        $Allreport = Report::all();
+        return response()->json(['report' => $Allreport]);
     }
     
 

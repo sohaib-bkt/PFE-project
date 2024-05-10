@@ -21,6 +21,7 @@ class CategoryFactory extends Factory
         return [
             'name' => Str::title($category_name),
             'slug' => $category_name,
+            'parent_category' => $this->faker->randomElement(['VET','INF']),
         ];
     }
     

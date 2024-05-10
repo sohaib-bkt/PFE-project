@@ -22,10 +22,8 @@ return new class extends Migration
             $table->text('images');
             $table->text('specification');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('brand_id');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 

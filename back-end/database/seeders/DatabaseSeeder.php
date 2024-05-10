@@ -30,9 +30,9 @@ class DatabaseSeeder extends Seeder
             'utype' => 'admin',
         ]);
 
-    \App\Models\Brand::factory(6)->create();
     \App\Models\Category::factory(12)->create();
     \App\Models\Product::factory(10)->create();
+    \App\Models\Report::factory(5)->create();
 
 
     }

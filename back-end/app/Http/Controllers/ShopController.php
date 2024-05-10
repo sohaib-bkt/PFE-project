@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Brand;
+use App\Models\Report;
 use App\Models\Product;
-use Illuminate\Support\Str;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -341,6 +342,28 @@ public function changePassword(Request $request, $id)
         $products = Product::where('user_id', $id)->where('featured', 'accepted')->get();
         $user = User::find($id);
         return response()->json(['products' => $products, 'user' => $user]);
+    }
+
+    public function storReport($id, Request $request){
+        $product = Product::findOrFail($id);
+        $id_reported = $product->user_id;
+
+        
+
+        $id_reporter = $request->input('id_reporter'); 
+        $message = $request->input('message');
+        
+        
+        $report = Report::create([
+            'id_reporter' => $id_reporter,
+            'id_reported' => $id_reported,
+            'message' => $message,
+            'status' => false
+        ]);
+        
+        $report->save();
+    
+        return response()->json(['message' => 'Report has been submitted successfully']);
     }
 
 }
