@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Report;
 use App\Models\Product;
@@ -295,6 +296,56 @@ public function storeCategories(Request $request)
     public function getReport(){
         $Allreport = Report::all();
         return response()->json(['report' => $Allreport]);
+    }
+
+    public function datacharts(){
+
+        $data = User::select('id', 'created_at')->get()->groupBy(function ($data) {
+            return Carbon::parse($data->created_at)->format('M');
+        });
+
+        $months = [];
+        $monthCount = [];
+
+        foreach ($data as $month => $values) {
+            $months[] = $month; 
+            $monthCount[] = count($values);
+        }
+
+        $user = count(User::all());
+        $product = count(Product::all());
+        $report = count(Report::all());
+        $pending = count(Product::where('featured', 'pending')->get());
+
+        if($report > 0){
+            $totalReports = Report::count(); // Total number of reports
+        
+            $reportTrue = Report::where('status', 'true')->count(); 
+            $reportFalse = Report::where('status', 'false')->count(); 
+        
+            $reportTruePercentage = ($reportTrue / $totalReports) * 100; 
+            $reportFalsePercentage = ($reportFalse / $totalReports) * 100; 
+        } else {
+            $reportTrue = 0;
+            $reportFalse = 0;
+            $reportTruePercentage = 0; 
+            $reportFalsePercentage = 0; 
+        }
+        
+        $data = [
+            'user' => $user,
+            'product' => $product,
+            'report' => $report,
+            'pending' => $pending,
+            'months' => $months,
+            'monthCount' => $monthCount,
+            'reportTrue' => $reportTrue,
+            'reportFalse' => $reportFalse,
+            'reportTruePercentage' => $reportTruePercentage,
+            'reportFalsePercentage' => $reportFalsePercentage
+        ];
+        return response()->json($data);
+
     }
     
 
