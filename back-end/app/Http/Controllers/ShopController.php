@@ -225,12 +225,12 @@ public function changePassword(Request $request, $id)
         'specification.*.attribute' => 'required|string',
         'specification.*.value' => 'required|string',
     ]);
-    $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
+    $categorie_id = Category::where('name', $validatedData['category'])->value('id');
 
     $product = new Product();
 
     $product->user_id = $validatedData['user_id'];
-    $product->featured = 'accepted';
+    $product->featured = 'pending';
     $product->categorie_product = $validatedData['category_name'];
     $product->category_id = $categorie_id;
     $product->name = $validatedData['name'];
@@ -266,6 +266,11 @@ public function changePassword(Request $request, $id)
     return response()->json(['message' => 'Product stored successfully'], 200);
 }
 
+    public function getCategories(){
+        $INF = Category::where('parent_category', 'INF')->orderBy('name', 'ASC')->get();
+        $VET = Category::where('parent_category', 'VET')->orderBy('name', 'ASC')->get();
+        return response()->json(['INF' => $INF, 'VET' => $VET]);
+    }
     public function getImage($image)
 {
     $path = storage_path('app/images/products/' . $image);

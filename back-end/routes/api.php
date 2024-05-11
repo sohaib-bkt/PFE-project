@@ -36,6 +36,7 @@ Route::get('/product/getaccepted', [ShopController::class, 'getAccepted']);
 Route::get('/product/getrejected', [ShopController::class, 'getRejected']);
 Route::get('/product/getpending', [ShopController::class, 'getPending']);
 Route::get('/product/deleteAnnonce/{id}', [ShopController::class, 'deleteAnnonce']);
+Route::get('/product/getcategories', [ShopController::class, 'getCategories']);
 Route::get('user/{id}', [ShopController::class, 'getUser']);
 Route::get('/user/{id}/products', [ShopController::class, 'getUserProducts']);
 
