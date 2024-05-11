@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,8 +29,6 @@ Route::get('/inf', [ShopController::class, 'getInfo']);
 Route::get('/latest', [ShopController::class, 'getLatestProducts']);
 Route::get('/info', [ShopController::class, 'shopInformatique']);
 Route::get('detail/{slug}', [ShopController::class, 'detail']);
-Route::put('/update/{id}', [ShopController::class, 'update']);
-Route::post('/user/StoreProduct', [ShopController::class, 'store']);
 Route::get('images/products/{image}', [ShopController::class, 'getImage']);
 Route::get('/product/count' ,[ShopController::class, 'productCount']);
 Route::get('/product/getaccepted', [ShopController::class, 'getAccepted']);
@@ -38,10 +37,12 @@ Route::get('/product/getpending', [ShopController::class, 'getPending']);
 Route::get('/product/deleteAnnonce/{id}', [ShopController::class, 'deleteAnnonce']);
 Route::get('/product/getcategories', [ShopController::class, 'getCategories']);
 Route::post('/product/report_abuse' , [ShopController::class, 'storReport']);
-Route::get('user/{id}', [ShopController::class, 'getUser']);
-Route::get('/user/{id}/products', [ShopController::class, 'getUserProducts']);
 
-Route::put('/update/{id}/changePassword', [ShopController::class, 'changePassword']);
+Route::put('/update/{id}', [UserController::class, 'update']);
+Route::get('user/{id}', [UserController::class, 'getUser']);
+Route::get('/user/{id}/products', [UserController::class, 'getUserProducts']);
+Route::put('/update/{id}/changePassword', [UserController::class, 'changePassword']);
+Route::post('/user/StoreProduct', [UserController::class, 'store']);
 
 
 
