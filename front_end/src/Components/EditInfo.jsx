@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axiosClient from '../api/axios';
 import UserApi from '../services/api/user/UserApi';
 
 export default function EditInfo() {
-    const [activeTab, setActiveTab] = useState('anonce'); // Default active tab is 'desc'
 
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({

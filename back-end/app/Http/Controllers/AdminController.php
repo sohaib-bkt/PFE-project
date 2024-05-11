@@ -143,7 +143,7 @@ public function storeCategories(Request $request)
     $product->description = $validatedData['description'];
     $product->regular_price = $validatedData['regular_price'];
     $product->specification = json_encode($validatedData['specification']);
-    $product->brand_id = 1;
+ 
 
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('images/products');

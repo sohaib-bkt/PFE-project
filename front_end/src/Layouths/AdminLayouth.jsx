@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import AdminHeader from '../Components/Header/AdminHeader.jsx';
 import UserApi from '../services/api/user/UserApi.js';
+import HashLoader from 'react-spinners/HashLoader.js';
 
 export default function AdminLayout() {
     const [user, setUser] = useState(null); // Changed initial state to null
@@ -33,8 +34,12 @@ export default function AdminLayout() {
     }, [user, navigate]); 
 
     if (loading) {
-        return <div>Loading...</div>;
-    }
+        return (
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+            <HashLoader color="red" loading={loading} size={80} />
+          </div>
+        );
+      }
 
     return (
         <>
