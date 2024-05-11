@@ -65,9 +65,9 @@ function AdminAbuseReportsPage() {
                 placeholder="Search reports"
                 value={searchQuery}
                 onChange={handleSearch}
-                style={{ width: "250px" }}
+                style={{ width: "230px" , marginTop: '10px' }}
               />
-              <button className="btn btn-success btn-icon-split" onClick={handleClearResolved}>
+              <button className="btn btn-success btn-icon-split" onClick={handleClearResolved} style={{marginTop: '10px'}}>
                 <span className="icon text-white-50">
                   <FontAwesomeIcon icon={faBroom} />
                 </span>

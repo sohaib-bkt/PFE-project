@@ -7,9 +7,12 @@ import { useCategory } from '@Context/CategoryContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import AdminNav from '../AdminNav';
+import Swal from 'sweetalert2';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function AddAdv() {
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const { selectedCategoryy, name } = useCategory();
   const [inputGroups, setInputGroups] = useState([{ attribute: '', value: '' }]);
 
@@ -26,23 +29,41 @@ export default function AddAdv() {
     fetchUser();
   }, []);
 
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    formData.append('category_name', selectedCategoryy);
-    formData.append('category', name);
-    const images = document.getElementById('images').files;
-    for (let i = 0; i < images.length; i++) {
-        formData.append('images[]', images[i]);
-    }
-    axiosClient.post('http://localhost:8000/api/dashboard/addProduct', formData)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error('Error submitting form:', error);
-      });
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      formData.append('category_name', selectedCategoryy);
+      formData.append('category', name);
+      const images = document.getElementById('images').files;
+      for (let i = 0; i < images.length; i++) {
+          formData.append('images[]', images[i]);
+      }
+      axiosClient.post('http://localhost:8000/api/dashboard/addProduct', formData)
+        .then((response) => {
+          // Display success message using SweetAlert
+          Swal.fire({
+              icon: 'success',
+              title: 'Product Added Successfully',
+              showConfirmButton: false,
+              timer: 1500 // Close alert after 1.5 seconds
+          });
+          navigate('/products');
+
+        })
+        .catch((error) => {
+          // Display error message if product addition fails
+          Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Failed to add product!',
+              showConfirmButton: false,
+              timer: 1500 // Close alert after 1.5 seconds
+          });
+          console.error('Error submitting form:', error);
+        });
   };
+  
 
   const handleAddInputGroup = () => {
     setInputGroups([...inputGroups, { attribute: '', value: '' }]);

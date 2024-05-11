@@ -27,25 +27,29 @@ const PendingProducts = () => {
   }, [id]);
 
   const deleteProduct = (product) => {
-    Swal.fire({
-      title: `Are you sure you want to delete ${product.name}`,
-      showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel",
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      preConfirm: () => {
-        return document.getElementById("rejectionReason").value;
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log('deleted');
-        axiosClient.delete(`http://localhost:8000/api/dashboard/deleteProduct/${product.id}`);
-        navigate("/products");
-
-      }
-    });
+      Swal.fire({
+          title: 'Are you sure?',
+          text: 'You are about to delete this product. This action cannot be undone!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // If user confirms, proceed with deletion
+              axiosClient.delete(`http://localhost:8000/api/dashboard/deleteProduct/${product.id}`);
+              navigate("/products");
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Product Deleted Successfully',
+                  showConfirmButton: false,
+                  timer: 1500 // Close alert after 1.5 seconds
+              });
+          }
+      });
   };
+  
 
   return (
     <>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminNav from '../AdminNav';
 import axiosClient from "../../../api/axios";
+import Swal from 'sweetalert2';
 
 export default function EditCategory() {
     const { id } = useParams();
@@ -44,11 +45,27 @@ export default function EditCategory() {
         try {
             await axiosClient.put(`http://localhost:8000/api/dashboard/updateCategory/${id}`, formData);
             
+            // Display success message using SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Category Updated Successfully',
+                showConfirmButton: false,
+                timer: 1500 // Close alert after 1.5 seconds
+            });
+    
             navigate('/categories');
         } catch (error) {
+            // Display error message using SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred while updating the category!',
+                confirmButtonColor: "#d33"
+            });
             console.error(error);
         }
     };
+    
 
     return (
         <div id="content-wrapper" className="d-flex flex-column">
@@ -79,6 +96,7 @@ export default function EditCategory() {
                                         )}
                                     </div>
                                 </div>
+                                <hr />
                                 <div className="row mt-3">
                                     <div className="col-sm-3">
                                         <p className="mb-0">Parent Category</p>
@@ -87,7 +105,7 @@ export default function EditCategory() {
                                         {editMode ? (
                                             <select
                                                 className="form-control"
-                                                name="parent_category" // Modifier le nom du champ ici
+                                                name="parent_category" 
                                                 value={formData.parent_category}
                                                 onChange={handleChange}
                                             >
@@ -100,6 +118,7 @@ export default function EditCategory() {
                                     </div>
                                 </div>
                                 <hr />
+
                             </div>
                             <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
                                 {editMode ? (

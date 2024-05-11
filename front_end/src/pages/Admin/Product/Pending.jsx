@@ -23,34 +23,71 @@ const Pending = () => {
   }, []);
 
   const rejectProduct = async (productId, productName) => {
-    const { value: rejectionReason } = await Swal.fire({
-      title: `Reason for Rejection - ${productName}`,
-      html: `
-        <div>
-          <p>Please provide a reason for rejecting ${productName}:</p>
-          <input type="text" id="rejectionReason" class="swal2-input" placeholder="Enter reason here..." autofocus>
-        </div>
-      `,
-      showCancelButton: true,
-      confirmButtonText: "Submit",
-      cancelButtonText: "Cancel",
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      preConfirm: () => {
-        return document.getElementById("rejectionReason").value;
-      }
-    });
+    try {
+        const { value: rejectionReason } = await Swal.fire({
+            title: `Reason for Rejection`,
+            html: `
+                <div>
+                    <p>Please provide a reason for rejecting:</p>
+                    <input type="text" id="rejectionReason" class="swal2-input" placeholder="Enter reason here..." autofocus>
+                </div>
+            `,
+            showCancelButton: true,
+            confirmButtonText: "Submit",
+            cancelButtonText: "Cancel",
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            preConfirm: () => {
+                return document.getElementById("rejectionReason").value;
+            }
+        });
 
-    if (rejectionReason) {
-      setProducts(products.filter((product) => product.id !== productId));
-      await axiosClient.get(`http://localhost:8000/api/dashboard/rejectProduct/${productId}`, { params: { reason: rejectionReason } });
+        if (rejectionReason) {
+            await axiosClient.get(`http://localhost:8000/api/dashboard/rejectProduct/${productId}`, { params: { reason: rejectionReason } });
+            setProducts(products.filter((product) => product.id !== productId));
+
+            // Display success message using SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Product Rejected Successfully',
+                showConfirmButton: false,
+                timer: 1500 // Close alert after 1.5 seconds
+            });
+        }
+    } catch (error) {
+        // Display error message using SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'An error occurred while rejecting the product!',
+            confirmButtonColor: "#d33"
+        });
     }
-  };
+};
 
-  const approveProduct = async (productId) => {
-    setProducts(products.filter((product) => product.id !== productId));
-    await axiosClient.get(`http://localhost:8000/api/dashboard/approveProduct/${productId}`);
-  };
+const approveProduct = async (productId) => {
+    try {
+        await axiosClient.get(`http://localhost:8000/api/dashboard/approveProduct/${productId}`);
+        setProducts(products.filter((product) => product.id !== productId));
+
+        // Display success message using SweetAlert
+        Swal.fire({
+            icon: 'success',
+            title: 'Product Approved Successfully',
+            showConfirmButton: false,
+            timer: 1500 // Close alert after 1.5 seconds
+        });
+    } catch (error) {
+        // Display error message using SweetAlert
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'An error occurred while approving the product!',
+            confirmButtonColor: "#d33"
+        });
+    }
+};
+
 
   return (
     <>
