@@ -44,15 +44,7 @@ export const router = createBrowserRouter([
                         path: "/profile",
                         element: <Profile/>
                     },
-                    {
-                        path: "/ajouter-annonce",
-                        element: <AddAdv/>
-                    },
-                    {
-                        path: "/edit-annonce",
-                        element: <EditAdv/>
-                    },
-                    
+               
 
                 ]
             },
@@ -100,6 +92,15 @@ export const router = createBrowserRouter([
                         element:<Blog/>
 
                     },
+                    {
+                        path: "/ajouter-annonce",
+                        element: <AddAdv/>
+                    },
+                    {
+                        path: "/edit-annonce",
+                        element: <EditAdv/>
+                    },
+                    
                 ]
             },
             {
