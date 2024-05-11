@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, Drawer, List, ListItem } from '@mui/material';
 import { faRobot } from '@fortawesome/free-solid-svg-icons';
 import { faShirt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCategory } from '../context/CategoryContext';
+import axiosClient from '../api/axios';
 
 const App = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
- 
+  const [INF, setINF] = useState([]);
+  const [VET, setVET] = useState([]);
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const { setSelectedCategoryy ,setName  } = useCategory();
 
+  useEffect(() => {
+    axiosClient.get('/api/product/getcategories').then((response) => {
+      setINF(response.data.INF);
+      setVET(response.data.VET);
+    })
+  }, []);
   const handleSelectClick = () => {
     setOpenDrawer(true);
   };
 
   const handleSelectCategory = (event, categoryName) => {
-    console.log("Selected Category:", categoryName);
+    console.log(event.target);
     setName(event.target.value);
     setSelectedCategoryName(event.target.value);
     setSelectedCategoryy(categoryName); 
@@ -47,12 +55,9 @@ const App = () => {
                 onChange={(event) => handleSelectCategory(event, "INF")}
                 style={{ marginBottom: '10px' }}
               >
-                <MenuItem value="phones">Phones</MenuItem>
-                <MenuItem value="laptops">Laptops</MenuItem>
-                <MenuItem value="tablets">Tablets</MenuItem>
-                <MenuItem value="watches">Watches</MenuItem>
-                <MenuItem value="accessories">Accessories</MenuItem>
-                <MenuItem value="printers">Printers</MenuItem>
+              {INF.map((category) => (
+                <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+              ))}
               </Select>
             </FormControl>
           </ListItem>
@@ -64,13 +69,9 @@ const App = () => {
                 onChange={(event) => handleSelectCategory(event, "VET")}
                 style={{ marginBottom: '10px' }}
               >
-                <MenuItem value="tshirts">T-Shirts</MenuItem>
-                <MenuItem value="jeans">Jeans</MenuItem>
-                <MenuItem value="dresses">Dresses</MenuItem>
-                <MenuItem value="shoes">Shoes</MenuItem>
-                <MenuItem value="jackets">Jackets</MenuItem>
-                <MenuItem value="shoes">Shoes</MenuItem>
-                <MenuItem value="socks">Socks</MenuItem>
+              {VET.map((category) => (
+                <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+              ))}
               </Select>
             </FormControl>
           </ListItem>

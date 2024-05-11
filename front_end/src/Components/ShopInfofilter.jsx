@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProdCard from "./ProdCard";
 import '@Css/dropdown.css';
 import HashLoader from "react-spinners/HashLoader";
@@ -7,7 +7,7 @@ import ProductInfoApi from "../services/api/user/ProductInfoApi";
 export default function ShopInfofilter() {
   const [prange, setPrange] = useState(0);
   const [category, setCategory] = useState(0);
-  const [brands, setBrands] = useState(0);
+  const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -17,8 +17,9 @@ export default function ShopInfofilter() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await ProductInfoApi.getAllProducts(prange, brands, category, currentPage, searchTerm, order);
+        const response = await ProductInfoApi.getAllProducts(prange, category, currentPage, searchTerm, order);
         setProducts(response.data.products.data);
+        setCategories(response.data.categories);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -26,7 +27,7 @@ export default function ShopInfofilter() {
     }
 
     fetchData();
-  }, [prange, brands, category, currentPage, searchTerm, order]);
+  }, [prange, category, currentPage, searchTerm, order]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -142,99 +143,6 @@ export default function ShopInfofilter() {
           </form>
         </div>
         {/* Price End */}
-       {/* Color Start */}
-       <div className="border-bottom mb-4 pb-4">
-          <h5 className="font-weight-semi-bold mb-4">Filter by brands</h5>
-          <form>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(0)}>
-              <input
-                type="radio"
-                name="brand"
-                className="custom-control-input"
-                defaultChecked=""
-                id="color-all"
-              />
-              <label className="custom-control-label" htmlFor="color-all">
-                All Brands
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(1)}>
-              <input
-                type="radio"
-                name="brand"
-                className="custom-control-input"
-                id="color-1"
-              />
-              <label className="custom-control-label" htmlFor="color-1">
-                Jawda
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(2)}>
-              <input
-                type="radio"
-                name="brand"
-                className="custom-control-input"
-                id="color-2"
-              />
-              <label className="custom-control-label" htmlFor="color-2">
-                Abidas
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(3)}>
-              <input
-                type="radio"
-                name="brand"
-                className="custom-control-input"
-                id="color-3"
-              />
-              <label className="custom-control-label" htmlFor="color-3">
-                Costa
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setBrands(4)}>
-              <input
-                type="radio"
-                name="brand"
-                className="custom-control-input"
-                id="color-4"
-              />
-              <label className="custom-control-label" htmlFor="color-4">
-                Nyke
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-              <a onClick={() => setBrands(5)}>
-              <input
-               type="radio"
-                name="brand"
-                className="custom-control-input"
-                id="color-5"
-              />
-              <label className="custom-control-label" htmlFor="color-5">
-                Dacia
-              </label>
-              </a>
-              
-            </div>
-          </form>
-        </div>
-        {/* Color End */}
-        {/* Size Start */}
         <div className="mb-5">
           <h5 className="font-weight-semi-bold mb-4">Filter by categories</h5>
           <form>
@@ -253,76 +161,22 @@ export default function ShopInfofilter() {
               </a>
               
             </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(1)}>
-              <input
-                type="radio"
-                name="category"
-                className="custom-control-input"
-                id="size-1"
-              />
-              <label className="custom-control-label" htmlFor="size-1">
-                Snekers
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(2)}>
-              <input
-                type="radio"
-                name="category"
-                className="custom-control-input"
-                id="size-2"
-              />
-              <label className="custom-control-label" htmlFor="size-2">
-                Jean
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(3)}>
-              <input
-                type="radio"
-                name="category"
-                className="custom-control-input"
-                id="size-3"
-              />
-              <label className="custom-control-label" htmlFor="size-3">
-                Hoodie
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setCategory(4)}>
-              <input
-                type="radio"
-                name="category"
-                className="custom-control-input"
-                id="size-4"
-              />
-              <label className="custom-control-label" htmlFor="size-4">
-                Jacket
-              </label>
-              </a>
-              
-            </div>
-            <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-              <a onClick={() => setCategory(5)}>
-              <input
-                type="radio"
-                name="category"
-                className="custom-control-input"
-                id="size-5"
-              />
-              <label className="custom-control-label" htmlFor="size-5">
-                T-Shirt
-              </label>
-              </a>
-              
-            </div>
+            {categories.map((cat, index) => (
+              <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" key={index}>
+                <a onClick={() => setCategory(cat.id)}>
+                <input
+                  type="radio"
+                  name="category"
+                  className="form-check-input"
+                  id={`size-${cat.id}`}
+                />
+                <label className="custom-control-label" htmlFor={`size-${cat.id}`}>  &nbsp;
+                  {cat.name}
+                </label>
+                </a>
+                
+              </div>
+            ))}
           </form>
         </div>
         {/* Size End */}

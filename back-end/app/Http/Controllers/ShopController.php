@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\User;
-use App\Models\Brand;
 use App\Models\Report;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 
 class ShopController extends Controller
 {
@@ -54,10 +50,6 @@ class ShopController extends Controller
             $products = Product::where('categorie_product', 'VET')
                 ->whereBetween('regular_price', array($from, $to));
 
-            $q_brands = $request->query("brands");
-            if ($q_brands && $q_brands !== "-1") {
-                $products->where('brand_id', $q_brands);
-            }
 
             $q_categories = $request->query("categories");
             if ($q_categories && $q_categories !== "-1") {
@@ -74,19 +66,14 @@ class ShopController extends Controller
 
             $products = $products->where('featured', 'accepted')->paginate($size);
 
-            $brandIds = Product::where('categorie_product', 'VET')->distinct()->pluck('brand_id');
-            $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
-
-            $categoryIds = Product::where('categorie_product', 'VET')->distinct()->pluck('category_id');
-            $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
+            
+            $categories = Category::where('parent_category', 'VET')->orderBy('name', 'ASC')->get();
 
             return response()->json([
                 'products' => $products,
                 'page' => $page,
                 'size' => $size,
                 'order' => $order,
-                'brands' => $brands,
-                'q_brands' => $q_brands,
                 'categories' => $categories,
                 'q_categories' => $q_categories,
                 'from' => $from,
@@ -140,11 +127,6 @@ class ShopController extends Controller
         $products = Product::where('categorie_product', 'INF')
             ->whereBetween('regular_price', array($from, $to));
 
-        $q_brands = $request->query("brands");
-        if ($q_brands && $q_brands !== "-1") {
-            $products->where('brand_id', $q_brands);
-        }
-
         $q_categories = $request->query("categories");
         if ($q_categories && $q_categories !== "-1") {
             $products->where('category_id', $q_categories);
@@ -160,19 +142,15 @@ class ShopController extends Controller
 
         $products = $products->where('featured', 'accepted')->paginate($size);
 
-        $brandIds = Product::where('categorie_product', 'INF')->distinct()->pluck('brand_id');
-        $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
 
-        $categoryIds = Product::where('categorie_product', 'INF')->distinct()->pluck('category_id');
-        $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
+        
+        $categories = Category::where('parent_category', 'INF')->orderBy('name', 'ASC')->get();
 
         return response()->json([
             'products' => $products,
             'page' => $page,
             'size' => $size,
             'order' => $order,
-            'brands' => $brands,
-            'q_brands' => $q_brands,
             'categories' => $categories,
             'q_categories' => $q_categories,
             'from' => $from,
@@ -184,39 +162,10 @@ class ShopController extends Controller
 public function detail($slug){
         $product = Product::where('slug', $slug)->first();
         $category = Category::where('id', $product->category_id)->first();
-        $brand = Brand::where('id', $product->brand_id)->first();
         $product->category_name = $category->name;
-        $product->brand_name = $brand->name;
         return response()->json($product);
     }
     
-public function update(Request $request, $id){
-    $user = User::find($id);
-    $user->update($request->all());
-    return response()->json($user);
-}
-public function changePassword(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-
-        // Validate the request
-        $request->validate([
-            'oldPassword' => 'required',
-            'newPassword' => 'required|min:6|different:oldPassword',
-        ]);
-
-        // Verify the old password
-        if (!Hash::check($request->oldPassword, $user->password)) {
-            return response()->json(['message' => 'Incorrect old password'], 400);
-        }
-
-        // Update the user's password
-        $user->update([
-            'password' => Hash::make($request->newPassword),
-        ]);
-
-        return response()->json(['message' => 'Password changed successfully']);
-    }
 
     public function getClothes(){
         $clothes = Product::where('categorie_product', 'VET')->where('featured', 'accepted')->take(6)->get();
@@ -230,62 +179,12 @@ public function changePassword(Request $request, $id)
         $products = Product::latest()->where('featured', 'accepted')->take(6)->get();
         return response()->json($products);
     }
-    public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'user_id' => 'required|numeric',
-        'category_name' => 'required|string',
-        'category' => 'required|string',
-        'name' => 'required|string',
-        'description' => 'required|string',
-        'regular_price' => 'required|numeric',
-        'image' => 'required|image',
-        'images.*' => 'required|image',
-        'specification' => 'required|array',
-        'specification.*.attribute' => 'required|string',
-        'specification.*.value' => 'required|string',
-    ]);
-    $categorie_id = Category::where('slug', $validatedData['category'])->value('id');
 
-    $product = new Product();
-
-    $product->user_id = $validatedData['user_id'];
-    $product->featured = 'accepted';
-    $product->categorie_product = $validatedData['category_name'];
-    $product->category_id = $categorie_id;
-    $product->name = $validatedData['name'];
-    $product->description = $validatedData['description'];
-    $product->regular_price = $validatedData['regular_price'];
-    $product->specification = json_encode($validatedData['specification']);
-    $product->brand_id = 1;
-
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images/products');
-        $product->image = basename($imagePath);
+    public function getCategories(){
+        $INF = Category::where('parent_category', 'INF')->orderBy('name', 'ASC')->get();
+        $VET = Category::where('parent_category', 'VET')->orderBy('name', 'ASC')->get();
+        return response()->json(['INF' => $INF, 'VET' => $VET]);
     }
-
-    if ($request->hasFile('images')) {
-        $additionalImages = [];
-        foreach ($request->file('images') as $image) {
-            $imagePath = $image->store('images/products');
-            $additionalImages[] = basename($imagePath); 
-        }
-        $product->images = json_encode($additionalImages);
-    }
-
-    $slug = Str::slug($validatedData['name']);
-    $existingSlug = Product::where('slug', $slug)->exists();
-    if ($existingSlug) {
-        $slug .= '-' . uniqid();
-    }
-
-    $product->slug = $slug;
-
-    $product->save();
-
-    return response()->json(['message' => 'Product stored successfully'], 200);
-}
-
     public function getImage($image)
 {
     $path = storage_path('app/images/products/' . $image);
@@ -333,27 +232,13 @@ public function changePassword(Request $request, $id)
         return response()->json($product);
     }
 
-    public function getUser($id){
-        $user = User::find($id);
-        return response()->json($user);
-    }
 
-    public function getUserProducts($id){
-        $products = Product::where('user_id', $id)->where('featured', 'accepted')->get();
-        $user = User::find($id);
-        return response()->json(['products' => $products, 'user' => $user]);
-    }
+    public function storReport(Request $request){
 
-    public function storReport($id, Request $request){
-        $product = Product::findOrFail($id);
-        $id_reported = $product->user_id;
-
-        
-
-        $id_reporter = $request->input('id_reporter'); 
+        $id_reporter = $request->input('id_reporter');
+        $id_reported = $request->input('id_reported');
         $message = $request->input('message');
-        
-        
+
         $report = Report::create([
             'id_reporter' => $id_reporter,
             'id_reported' => $id_reported,

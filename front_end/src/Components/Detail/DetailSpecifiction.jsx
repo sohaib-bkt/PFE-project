@@ -5,7 +5,6 @@ export default function DetailSpec(props) {
         <div className="table-responsive">
           <table className="table table-part">
             <tbody>
-            {console.log(props.specification)}
               {Array.isArray(props.specification) && props.specification.map((item, index) => (
                 <tr key={index}>
                   <th>{item.attribute}</th>

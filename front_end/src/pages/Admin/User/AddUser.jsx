@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AdminNav from '../AdminNav';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../../api/axios';
-
+import Swal from 'sweetalert2';
 export default function AddUser() {
 
     const navigate = useNavigate();
@@ -23,6 +23,7 @@ export default function AddUser() {
             [name]: value,
         });
     };
+
     const handleAddUser = async () => {
         const data = {
             name: formData.fullName,
@@ -37,15 +38,25 @@ export default function AddUser() {
         try {
             const response = await axiosClient.post('http://localhost:8000/api/dashboard/addUser', data);
             if (response.status === 200) {
+                // Display success message using SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User Added Successfully',
+                    showConfirmButton: false,
+                    timer: 1500 // Close alert after 1.5 seconds
+                });
+    
                 navigate("/users");
-            } else {
-                console.error("Failed to add user:", response.data.message);
-                alert(response.data.message);
             }
         } catch (error) {
+            // Display error message using SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Error Adding User',
+                text: 'An error occurred while adding the user!',
+                confirmButtonColor: "#d33"
+            });
             console.error("Error adding user:", error);
-            alert(error.response.data.message);
-            
         }
     };
     

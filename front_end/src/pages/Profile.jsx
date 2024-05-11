@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import { useState , useEffect } from 'react';
 import UserProfile from '@Components/UserProfile';
 import Anonce from '@Components/Anonce';
 import Wishlist from '@Pages/Wishlist';

@@ -3,35 +3,38 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-const CustomPrevArrow = (props) => {
-    const { onClick } = props;
-    return (
+const CustomPrevArrow = ({ onClick, showArrow }) => {
+    return showArrow ? (
         <div onClick={onClick} style={{ position: "absolute", top: "50%", left: "15px", transform: "translateY(-50%)", cursor: "pointer", zIndex: 999 }}>
             <FontAwesomeIcon icon={faChevronLeft} style={{ fontSize: "24px", color: "black" }} />
         </div>
-    );
+    ) : null;
 };
 
-const CustomNextArrow = (props) => {
-    const { onClick } = props;
-    return (
+const CustomNextArrow = ({ onClick, showArrow }) => {
+    return showArrow ? (
         <div onClick={onClick} style={{ position: "absolute", top: "50%", right: "15px", transform: "translateY(-50%)", cursor: "pointer", zIndex: 999 }}>
             <FontAwesomeIcon icon={faChevronRight} style={{ fontSize: "24px", color: "black" }} />
         </div>
-    );
+    ) : null;
 };
 
-function AdmSlider({ images = "[]" }) {
+function AdmSlider({ images = "[]", Pricipalimage }) {
     const sliderRef = useRef(null);
-    const imagesArray = JSON.parse(images);
+    let imagesArray = JSON.parse(images);
+    // Add the principal image to the beginning of the imagesArray
+    if (Pricipalimage) {
+        imagesArray = [Pricipalimage, ...imagesArray];
+    }
 
     const settings = {
         slidesToShow: 1,
         slidesToScroll: 1,
         speed: 500,
-        arrows: true,
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
+        arrows: imagesArray.length > 1, // Show arrows only when there's more than 1 image
+        prevArrow: <CustomPrevArrow showArrow={imagesArray.length > 1} />,
+        nextArrow: <CustomNextArrow showArrow={imagesArray.length > 1} />,
+        infinite: imagesArray.length > 1,
     };
 
     const handleClick = () => {

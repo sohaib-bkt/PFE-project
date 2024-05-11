@@ -2,7 +2,9 @@ import { useState , useEffect  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import UserApi from '../services/api/user/UserApi';
+import HashLoader from 'react-spinners/HashLoader';
 const loadScripts = () => {
+  
   const scripts = [
     'https://code.jquery.com/jquery-3.6.0.min.js',
     './assets/js/bootstrap/bootstrap.bundle.min.js',
@@ -55,6 +57,47 @@ export default function Login() {
       setLoading(false);
     }
   };
+    const [client, setClient] = useState(null); // Changed initial state to null
+    
+    const [loadingg, setLoadingg] = useState(true); 
+
+    useEffect(() => {
+      const fetchUser = async () => {
+          try {
+              const data = await UserApi.getUser();
+              setClient(data.data);
+              setLoadingg(false);
+          } catch (error) {
+              navigate('/login');
+              setLoadingg(false);
+          }
+      };
+  
+      fetchUser();
+  }, [navigate, setClient, setLoadingg]);
+  
+  useEffect(() => {
+      if (client) {
+          const authenticated = localStorage.getItem('authenticated') === 'true';
+  
+          if (authenticated) {
+              navigate('/');
+              setLoadingg(false);
+          }
+          else {
+            setLoadingg(false);
+        }
+      } 
+  }, [client, navigate]);
+  
+  if (loadingg) {
+      return (
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+              <HashLoader color="red" loading={loadingg} size={80} />
+          </div>
+      );
+  }
+  
   
 
   return (
