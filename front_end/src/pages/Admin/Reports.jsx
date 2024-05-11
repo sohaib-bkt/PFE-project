@@ -7,12 +7,17 @@ import axiosClient from '../../api/axios';
 function AdminAbuseReportsPage() {
   const [abuseReports, setAbuseReports] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredAbuseReports, setFilteredAbuseReports] = useState([]);
+
+useEffect(() => {
+  setFilteredAbuseReports(abuseReports);
+}, [abuseReports]);
+
 
   useEffect(() => {
     axiosClient.get('api/abuse-reports')
       .then(response => {
         setAbuseReports(response.data);
-
         console.log('Abuse reports:', response.data);
       })
       .catch(error => {
@@ -24,14 +29,14 @@ function AdminAbuseReportsPage() {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
     const filteredReports = abuseReports.filter(report =>
-      report.reporter.toLowerCase().includes(query) ||
-      report.reportedUser.toLowerCase().includes(query) ||
-      report.description.toLowerCase().includes(query) ||
-      report.status.toLowerCase().includes(query)
+      report.reporter.name.toLowerCase().includes(query) ||
+      report.reported.name.toLowerCase().includes(query) ||
+      report.message.toLowerCase().includes(query)
     );
-    setAbuseReports(filteredReports);
+    setFilteredAbuseReports(filteredReports);
   };
-
+  
+  
   const handleClearResolved = () => {
     axiosClient.delete('http://localhost:8000/api/abuse-reports/clear-resolved')
       .then(response => {
@@ -40,7 +45,6 @@ function AdminAbuseReportsPage() {
       })
       .catch(error => {
         console.error('Error clearing resolved reports:', error);
-        // Optionally, you can show an error message to the user.
       });
 };
 
@@ -86,7 +90,7 @@ const handleResolveReport = (id) => {
             </div>
           </div>
           <div className="row">
-            {abuseReports.map(report => (
+            {filteredAbuseReports.map(report => (
               <div key={report.id} className="col-lg-4 mb-4">
                 <div className={`card border-left-${report.status == true ? 'success' : 'danger'} shadow h-100`}>
                   <div className="card-body p-3">
