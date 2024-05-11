@@ -155,7 +155,7 @@ export default function Detail() {
         if (formValues) {
             const [text] = formValues;
             if (text) {
-                axiosClient.post('api/product/report_abuse', {
+                axiosClient.post('http://localhost:8000/api/product/report_abuse', {
                     message: text,
                     productId: product.id ,
                     id_reported: product.user_id,
