@@ -8,7 +8,12 @@ import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [scriptsLoaded, setScriptsLoaded] = useState(false);
-  
+  const styles = {
+    tableCell: {
+      textAlign: "center",
+      alignContent: "center",
+    }
+  };
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -60,7 +65,19 @@ const Categories = () => {
     try {
       await axiosClient.delete(`http://localhost:8000/api/dashboard/deleteCategory/${id}`);
       setCategories(categories.filter(category => category.id !== id));
+      Swal.fire({
+        icon: 'success',
+        title: 'Category Deleted Successfully',
+        showConfirmButton: false,
+        timer: 1500 // Close alert after 1.5 seconds
+    });
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'An error occurred while deleting this category!',
+        confirmButtonColor: "#d33"
+    });
       console.error(error);
     }
   };
@@ -80,7 +97,6 @@ const Categories = () => {
                 <span className="text">Add Category</span>
               </Link>
             </div>
-            
             <div className="card shadow mb-4">
               <div className="card-body">
                 
@@ -93,19 +109,19 @@ const Categories = () => {
                   >
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Parent Category</th>
-                        <th>Created At</th>                      
-                        <th>Action</th>
+                        <th style={styles.tableCell}>Name</th>
+                        <th style={styles.tableCell}>Parent Category</th>
+                        <th style={styles.tableCell}>Created At</th>                      
+                        <th style={styles.tableCell}>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       {categories.map(category => (
                         <tr key={category.id}>
-                          <td>{category.name}</td>
-                          <td>{category.parent_category}</td>
-                          <td>{new Date(category.created_at).toLocaleDateString()}</td>
-                          <td style={{ textAlign: "center" }}>
+                          <td style={styles.tableCell}>{category.name}</td>
+                          <td style={styles.tableCell}>{category.parent_category}</td>
+                          <td style={styles.tableCell}>{new Date(category.created_at).toLocaleDateString()}</td>
+                          <td style={styles.tableCell} >
                             <Link to={`/edit-category/${category.id}`} className="btn btn-warning btn-circle btn-sm">
                               <FontAwesomeIcon icon={faEdit} />
                             </Link>&nbsp;

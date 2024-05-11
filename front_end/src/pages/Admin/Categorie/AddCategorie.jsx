@@ -2,6 +2,7 @@ import { useState } from 'react';
 import AdminNav from '../AdminNav';
 import axiosClient from "../../../api/axios";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function AddSubcategory() {
     
@@ -17,15 +18,32 @@ export default function AddSubcategory() {
         setParent_category(e.target.value);
     };
 
+
     const handleAddSubcategory = async () => {
         try {
             await axiosClient.post('http://localhost:8000/api/dashboard/addCategory', { name, parent_category });
+    
+            // Display success message using SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Category Added Successfully',
+                showConfirmButton: false,
+                timer: 1500 // Close alert after 1.5 seconds
+            });
+    
             navigate("/categories");
         } catch (error) {
-            console.error(error);
+            // Display error message using SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Error Adding Category',
+                text: 'An error occurred while adding the category!',
+                confirmButtonColor: "#d33"
+            });
+            console.error("Error adding category:", error);
         }
     };
-
+    
     return (
         <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
