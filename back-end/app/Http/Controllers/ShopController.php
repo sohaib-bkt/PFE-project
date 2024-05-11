@@ -54,10 +54,6 @@ class ShopController extends Controller
             $products = Product::where('categorie_product', 'VET')
                 ->whereBetween('regular_price', array($from, $to));
 
-            $q_brands = $request->query("brands");
-            if ($q_brands && $q_brands !== "-1") {
-                $products->where('brand_id', $q_brands);
-            }
 
             $q_categories = $request->query("categories");
             if ($q_categories && $q_categories !== "-1") {
@@ -74,19 +70,14 @@ class ShopController extends Controller
 
             $products = $products->where('featured', 'accepted')->paginate($size);
 
-            $brandIds = Product::where('categorie_product', 'VET')->distinct()->pluck('brand_id');
-            $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
-
-            $categoryIds = Product::where('categorie_product', 'VET')->distinct()->pluck('category_id');
-            $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
+            
+            $categories = Category::where('parent_category', 'VET')->orderBy('name', 'ASC')->get();
 
             return response()->json([
                 'products' => $products,
                 'page' => $page,
                 'size' => $size,
                 'order' => $order,
-                'brands' => $brands,
-                'q_brands' => $q_brands,
                 'categories' => $categories,
                 'q_categories' => $q_categories,
                 'from' => $from,
@@ -140,11 +131,6 @@ class ShopController extends Controller
         $products = Product::where('categorie_product', 'INF')
             ->whereBetween('regular_price', array($from, $to));
 
-        $q_brands = $request->query("brands");
-        if ($q_brands && $q_brands !== "-1") {
-            $products->where('brand_id', $q_brands);
-        }
-
         $q_categories = $request->query("categories");
         if ($q_categories && $q_categories !== "-1") {
             $products->where('category_id', $q_categories);
@@ -160,19 +146,15 @@ class ShopController extends Controller
 
         $products = $products->where('featured', 'accepted')->paginate($size);
 
-        $brandIds = Product::where('categorie_product', 'INF')->distinct()->pluck('brand_id');
-        $brands = Brand::whereIn('id', $brandIds)->orderBy('name', 'ASC')->get();
 
-        $categoryIds = Product::where('categorie_product', 'INF')->distinct()->pluck('category_id');
-        $categories = Category::whereIn('id', $categoryIds)->orderBy('name', 'ASC')->get();
+        
+        $categories = Category::where('parent_category', 'INF')->orderBy('name', 'ASC')->get();
 
         return response()->json([
             'products' => $products,
             'page' => $page,
             'size' => $size,
             'order' => $order,
-            'brands' => $brands,
-            'q_brands' => $q_brands,
             'categories' => $categories,
             'q_categories' => $q_categories,
             'from' => $from,
@@ -184,9 +166,7 @@ class ShopController extends Controller
 public function detail($slug){
         $product = Product::where('slug', $slug)->first();
         $category = Category::where('id', $product->category_id)->first();
-        $brand = Brand::where('id', $product->brand_id)->first();
         $product->category_name = $category->name;
-        $product->brand_name = $brand->name;
         return response()->json($product);
     }
     
@@ -257,7 +237,7 @@ public function changePassword(Request $request, $id)
     $product->description = $validatedData['description'];
     $product->regular_price = $validatedData['regular_price'];
     $product->specification = json_encode($validatedData['specification']);
-    $product->brand_id = 1;
+
 
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('images/products');
