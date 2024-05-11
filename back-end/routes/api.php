@@ -37,6 +37,7 @@ Route::get('/product/getrejected', [ShopController::class, 'getRejected']);
 Route::get('/product/getpending', [ShopController::class, 'getPending']);
 Route::get('/product/deleteAnnonce/{id}', [ShopController::class, 'deleteAnnonce']);
 Route::get('/product/getcategories', [ShopController::class, 'getCategories']);
+Route::post('/product/report_abuse' , [ShopController::class, 'storReport']);
 Route::get('user/{id}', [ShopController::class, 'getUser']);
 Route::get('/user/{id}/products', [ShopController::class, 'getUserProducts']);
 
@@ -71,3 +72,8 @@ Route::delete('/dashboard/deleteRejectedProducts', [AdminController::class, 'del
 Route::get('/dashboard/rejectProduct/{id}', [AdminController::class, 'rejectProduct']);
 Route::get('/dashboard/approveProduct/{id}', [AdminController::class, 'acceptProduct']);
 Route::get('/dashboard/getPendingProducts', [AdminController::class, 'getPendingProducts']);
+
+
+Route::get('/abuse-reports', [AdminController::class, 'getReports']);
+Route::put('/abuse-reports/{id}/resolve', [AdminController::class, 'updateStatus']);
+Route::delete('/abuse-reports/clear-resolved', [AdminController::class, 'clearResolvedReports']);

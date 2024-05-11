@@ -15,6 +15,7 @@ import DetailSizing from '@Components/Detail/DetailSizing';
 import Slider from '@Components/Slider';
 import Dslider from '@Components/Dslider.jsx';
 import Swal from 'sweetalert2';
+import UserApi from '../services/api/user/UserApi';
 
 export default function Detail() {
 
@@ -23,17 +24,24 @@ export default function Detail() {
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
     const [seler, setSeler] = useState({});
+    const [user , setUser] = useState({});
     const [timeAgo, setTimeAgo] = useState('');
     const [specifications, setSpecifications] = useState([]);
     const { slug } = useParams();
+    useEffect(() => {
+        UserApi.getUser().then(response => {
+            setUser(response.data);
+            
+        })
+    },[])
 
     useEffect(() => {
-        axiosClient.get(`http://localhost:8000/api/detail/${slug}`)
+        axiosClient.get(`api/detail/${slug}`)
             .then(response => {
                 setProduct(response.data);
                 const createdAt = new Date(response.data.created_at);
                 setTimeAgo(formatDistanceToNow(createdAt, { addSuffix: true }));
-                axiosClient.get(`http://localhost:8000/api/user/${response.data.user_id}`).then(response => {
+                axiosClient.get(`api/user/${response.data.user_id}`).then(response => {
                     setSeler(response.data);
                     setLoading(false);
                 })
@@ -122,43 +130,50 @@ export default function Detail() {
             showConfirmButton: false
         });
     };
-    const reportabuseswal = async () => {const { value: formValues } = await Swal.fire({
-        title: 'Report Abuse',
-        html:
-        `<div style="padding: 20px;">
-            <h3>Your Email Address</h3>
-            <input id="swal-input-email" class="swal2-input" placeholder="Enter your email address" type="email">
-        </div>`+
-        `<div >
-            <h3>Message</h3>
-            <textarea id="swal-input-message" class="swal2-textarea" placeholder="Type your message here..." aria-label="Type your message here" rows="2" cols="30" ></textarea>
-        </div>` 
-        ,
-        focusConfirm: false,
-        preConfirm: () => {
-          return [
-            document.getElementById('swal-input-message').value,
-            document.getElementById('swal-input-email').value
-          ];
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Submit',
-        cancelButtonText: 'Cancel',
-        showLoaderOnConfirm: true,
-        allowOutsideClick: () => !Swal.isLoading()
-      });
-      
-      if (formValues) {
-        const [text, email] = formValues;
-        if (text && email) {
-          Swal.fire(`Submitted:\nMessage: ${text}\nEmail: ${email}`);
-        } else {
-          Swal.fire('Both message and email are required.');
+    
+    const reportabuseswal = async () => {
+        const { value: formValues } = await Swal.fire({
+            title: 'Report Abuse',
+            html:
+            `<div>
+                <h3>Message</h3>
+                <textarea id="swal-input-message" class="swal2-textarea" placeholder="Type your message here..." aria-label="Type your message here" rows="2" cols="30"></textarea>
+            </div>`,
+            focusConfirm: false,
+            preConfirm: () => {
+                return [
+                    document.getElementById('swal-input-message').value,
+                ];
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            cancelButtonText: 'Cancel',
+            showLoaderOnConfirm: true,
+            allowOutsideClick: () => !Swal.isLoading()
+        });
+    
+        if (formValues) {
+            const [text] = formValues;
+            if (text) {
+                axiosClient.post('api/product/report_abuse', {
+                    message: text,
+                    productId: product.id ,
+                    id_reported: product.user_id,
+                    id_reporter:user.id
+                })
+                .then(response => {
+                    Swal.fire('Report submitted successfully!');
+                })
+                .catch(error => {
+                    Swal.fire('Failed to submit report. Please try again later.');
+                });
+            } else {
+                Swal.fire('Message is required.');
+            }
         }
-      }
-      
-          
     };
+    
+          
     const createdDate = new Date(product.created_at);
     const currentDate = new Date();
     const diffTime = Math.abs(currentDate - createdDate);
@@ -237,9 +252,24 @@ export default function Detail() {
                                                                     <li><a href=""><i className="fab fa-whatsapp fa-lg" style={{ color: "#25d366" }} /></a></li>
                                                                 </ul>
                                                             </div>
-                                                            <button type="button" onClick={reportabuseswal} className="btn btn-danger rounded-pill shadow-sm" style={{ backgroundColor: "white", color: "#dd4b39", fontFamily: 'monospace', fontSize: "15px", fontWeight: "lighter", padding: '3px 10px 3px 10px' }}>
-                                                                <IoIosInformationCircleOutline style={{ fontSize: "18px" }} /> Report abuse
-                                                            </button>
+                                                            {user.id && (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={reportabuseswal}
+                                                                    className="btn btn-danger rounded-pill shadow-sm"
+                                                                    style={{
+                                                                        backgroundColor: "white",
+                                                                        color: "#dd4b39",
+                                                                        fontFamily: 'monospace',
+                                                                        fontSize: "15px",
+                                                                        fontWeight: "lighter",
+                                                                        padding: '3px 10px 3px 10px'
+                                                                    }}
+                                                                >
+                                                                    <IoIosInformationCircleOutline style={{ fontSize: "18px" }} /> Report abuse
+                                                                </button>
+                                                            )}
+
                                                         </div>
                                                     </div>
                                                 </div>

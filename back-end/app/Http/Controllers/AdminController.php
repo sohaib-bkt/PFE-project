@@ -191,7 +191,7 @@ public function storeCategories(Request $request)
             $category->delete();
             return response()->json(['message' => 'Category deleted successfully.']);
         } else {
-            return response()->json(['message' => 'Category not found.'], Response::HTTP_NOT_FOUND);
+            return response()->json(['message' => 'Category not found.']);
         }
     }
     
@@ -292,9 +292,34 @@ public function storeCategories(Request $request)
         return response()->json(['category' => $category]);
     }
 
-    public function getReport(){
-        $Allreport = Report::all();
-        return response()->json(['report' => $Allreport]);
+    public function getReports()
+    {
+        $abuseReports = Report::all();
+
+        foreach ($abuseReports as $abuseReport) {
+            $abuseReport->reported = User::find($abuseReport->id_reported);
+            $abuseReport->reporter = User::find($abuseReport->id_reporter);
+        }
+
+        return response()->json($abuseReports);
+    }
+
+    public function updateStatus( $id)
+    {
+        $abuseReport = Report::findOrFail($id);
+
+        $abuseReport->status = true; 
+
+        $abuseReport->save();
+
+        return response()->json(['message' => 'Abuse report status updated successfully']);
+    }
+
+    public function clearResolvedReports()
+    {
+        Report::where('status', true)->delete();
+
+        return response()->json(['message' => 'Resolved abuse reports cleared successfully']);
     }
     
 

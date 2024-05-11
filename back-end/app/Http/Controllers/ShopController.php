@@ -329,16 +329,12 @@ public function changePassword(Request $request, $id)
         return response()->json(['products' => $products, 'user' => $user]);
     }
 
-    public function storReport($id, Request $request){
-        $product = Product::findOrFail($id);
-        $id_reported = $product->user_id;
+    public function storReport(Request $request){
 
-        
-
-        $id_reporter = $request->input('id_reporter'); 
+        $id_reporter = $request->input('id_reporter');
+        $id_reported = $request->input('id_reported');
         $message = $request->input('message');
-        
-        
+
         $report = Report::create([
             'id_reporter' => $id_reporter,
             'id_reported' => $id_reported,
