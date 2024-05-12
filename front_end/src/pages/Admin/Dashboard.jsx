@@ -3,8 +3,16 @@ import {Chart as ChartJS} from 'chart.js/auto';
 import {Bar ,Pie} from 'react-chartjs-2'
 import '@Css/customAdmincss.css';
 import AdminNav from './AdminNav';
+import { useEffect, useState } from 'react';
+import axiosClient from '../../api/axios';
 export default function Dashbord() {
-   
+   const [data , setData] = useState({});
+   useEffect(() => {
+     axiosClient.get('http://localhost:8000/api/dashboard/getdatacharts').then((res) => {
+       setData(res.data)
+       console.log(res.data);
+     })
+   },[])
     return (
         <>
      
@@ -35,10 +43,10 @@ export default function Dashbord() {
                         <div className="row no-gutters align-items-center">
                           <div className="col mr-2">
                             <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                              Earnings (Monthly)
+                              Users
                             </div>
                             <div className="h5 mb-0 font-weight-bold text-gray-800">
-                              $40,000
+                              {data.user}
                             </div>
                           </div>
                           <div className="col-auto">
@@ -55,10 +63,10 @@ export default function Dashbord() {
                         <div className="row no-gutters align-items-center">
                           <div className="col mr-2">
                             <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
-                              Earnings (Annual)
+                              Products
                             </div>
                             <div className="h5 mb-0 font-weight-bold text-gray-800">
-                              $215,000
+                              {data.product}
                             </div>
                           </div>
                           <div className="col-auto">
@@ -80,7 +88,7 @@ export default function Dashbord() {
                             <div className="row no-gutters align-items-center">
                               <div className="col-auto">
                                 <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                  50%
+                                  {data.reportTruePercentage}%
                                 </div>
                               </div>
                               <div className="col">
@@ -88,8 +96,8 @@ export default function Dashbord() {
                                   <div
                                     className="progress-bar bg-info"
                                     role="progressbar"
-                                    style={{ width: "50%" }}
-                                    aria-valuenow={50}
+                                    style={{ width: `${data.reportTruePercentage}%` }}
+                                    aria-valuenow={data.reportTruePercentage}
                                     aria-valuemin={0}
                                     aria-valuemax={100}
                                   />
@@ -114,7 +122,7 @@ export default function Dashbord() {
                               Pending Requests
                             </div>
                             <div className="h5 mb-0 font-weight-bold text-gray-800">
-                              18
+                              {data.pending}
                             </div>
                           </div>
                           <div className="col-auto">
@@ -141,7 +149,31 @@ export default function Dashbord() {
                       <div className="card-body">
                         <div  >
                         <Bar
-                         data={{labels: ['Red', 'Blue', 'Yellow'],datasets:[{label:'My First Dataset',data:[300,50,100],backgroundColor:['rgb(255, 99, 132)','rgb(54, 162, 235)','rgb(255, 205, 86)']}]}}/>
+                        data={{
+                          labels: data.months, 
+                          datasets: [
+                            {
+                              label: 'User Registration',
+                              data: data.monthCount, 
+                              backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                              borderColor: 'rgba(54, 162, 235, 1)',
+                              borderWidth: 1,
+                            },
+                          ],
+                        }}
+                        options={{
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              precision: 0,
+                              ticks: {
+                                stepSize: 1,
+                              },  
+                            },
+                          },
+                        }}
+                      />
+
                         </div>
                       </div>
                     </div>

@@ -29,6 +29,22 @@ class DatabaseSeeder extends Seeder
             'address' => 'address',
             'utype' => 'admin',
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'sohaib',
+            'email' => 'sohaib1@gmail.com',
+            'password' => bcrypt('123456'),
+            'phone' => '123456789',
+            'address' => 'address',
+            'utype' => 'admin',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'sohaib',
+            'email' => 'sohaib2@gmail.com',
+            'password' => bcrypt('123456'),
+            'phone' => '123456789',
+            'address' => 'address',
+            'utype' => 'admin',
+        ]);
 
     \App\Models\Category::factory(12)->create();
     \App\Models\Product::factory(10)->create();
