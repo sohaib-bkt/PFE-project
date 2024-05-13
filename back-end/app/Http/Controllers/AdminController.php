@@ -336,6 +336,24 @@ public function storeCategories(Request $request)
             $months[] = $month;
             $monthCount[] = count($values);
         }
+
+        $productStatus = Product::select('featured')
+                            ->get()
+                            ->groupBy('featured')
+                            ->map->count();
+
+        $total = $productStatus->sum();
+        $degrees = $productStatus->mapWithKeys(function ($count, $key) use ($total) {
+            return [$key => ($total > 0) ? ($count / $total) * 360 : 0];
+        });
+
+        $statuses = ['pending', 'accepted', 'rejected'];
+        $statusDegrees = [];
+        foreach ($statuses as $status) {
+            $statusDegrees[$status] = $degrees->get($status, 0);
+        }
+
+
     
         $user = User::count();
         $product = Product::count();
@@ -366,7 +384,8 @@ public function storeCategories(Request $request)
             'reportTrue' => $reportTrue,
             'reportFalse' => $reportFalse,
             'reportTruePercentage' => $reportTruePercentage,
-            'reportFalsePercentage' => $reportFalsePercentage
+            'reportFalsePercentage' => $reportFalsePercentage,
+            'statusDegrees' => $statusDegrees
         ];
     
         return response()->json($data);
