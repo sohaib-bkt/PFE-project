@@ -309,22 +309,17 @@ export default function Detail() {
                             </div>
                         </div>
                     </section>
-                    <section className="ratio_asos section-b-space overflow-hidden">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-12">
-                                    <h2 className="title-3 text-center">Customers Also Bought These</h2>
-                                    <section className="ratio_asos overflow-hidden pb-5">
-                                        <div className="px-0 container-fluid p-sm-0">
-                                            <div className="row m-0">
-                                                <div className="col-12 p-0"></div>
-                                                <Slider />
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
+                    <section className="ratio_asos overflow-hidden pb-5">
+                    <div className="px-0 container-fluid p-sm-0">
+                        <div className="row m-0">
+                        <div className="col-12 p-0">
+                            <div className="title-3 text-center">
+                            <h2>Customers Also Bought These</h2>
                             </div>
                         </div>
+                            <Slider/>
+                        </div>
+                    </div>
                     </section>
                 </>
             )}

@@ -377,10 +377,7 @@ export default function Home() {
           <h2> Latest Products</h2>
         </div>
       </div>
-      
-
-        <Slider />
-      
+        <Slider/>
     </div>
   </div>
 </section>

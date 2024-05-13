@@ -26,7 +26,7 @@ export default function ProdHome({ prod }) {
 
   return (
     <div className="product-box">
-      <div className="img-wrapper" style={{width:'230px'}}>
+      <div className="img-wrapper" style={{objectFit:'cover' , width:'230px', height:'300px' , margin:'auto'}}>
         <Link to={`/detail/${prod.slug}`}>
           <img
             src={`http://localhost:8000/api/images/products/${prod.image}`}

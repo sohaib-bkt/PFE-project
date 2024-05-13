@@ -9,10 +9,9 @@ function AdminAbuseReportsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredAbuseReports, setFilteredAbuseReports] = useState([]);
 
-useEffect(() => {
-  setFilteredAbuseReports(abuseReports);
-}, [abuseReports]);
-
+  useEffect(() => {
+    setFilteredAbuseReports(abuseReports);
+  }, [abuseReports]);
 
   useEffect(() => {
     axiosClient.get('api/abuse-reports')
@@ -35,22 +34,19 @@ useEffect(() => {
     );
     setFilteredAbuseReports(filteredReports);
   };
-  
-  
+
   const handleClearResolved = () => {
     axiosClient.delete('http://localhost:8000/api/abuse-reports/clear-resolved')
       .then(response => {
-        const unresolvedReports = abuseReports.filter(report => report.status != true);
+        const unresolvedReports = abuseReports.filter(report => !report.status);
         setAbuseReports(unresolvedReports);
       })
       .catch(error => {
         console.error('Error clearing resolved reports:', error);
       });
-};
+  };
 
-
-
-const handleResolveReport = (id) => {
+  const handleResolveReport = (id) => {
     axiosClient.put(`http://localhost:8000/api/abuse-reports/${id}/resolve`)
       .then(response => {
         const updatedReports = abuseReports.map(report =>
@@ -61,7 +57,7 @@ const handleResolveReport = (id) => {
       .catch(error => {
         console.error('Error resolving report:', error);
       });
-};
+  };
 
   return (
     <div id="content-wrapper" className="d-flex flex-column">
@@ -79,9 +75,9 @@ const handleResolveReport = (id) => {
                 placeholder="Search reports"
                 value={searchQuery}
                 onChange={handleSearch}
-                style={{ width: "230px" , marginTop: '10px' }}
+                style={{ width: "230px", marginTop: '10px' }}
               />
-              <button className="btn btn-success btn-icon-split" onClick={handleClearResolved} style={{marginTop: '10px'}}>
+              <button className="btn btn-success btn-icon-split" onClick={handleClearResolved} style={{ marginTop: '10px' }}>
                 <span className="icon text-white-50">
                   <FontAwesomeIcon icon={faBroom} />
                 </span>
@@ -92,29 +88,39 @@ const handleResolveReport = (id) => {
           <div className="row">
             {filteredAbuseReports.map(report => (
               <div key={report.id} className="col-lg-4 mb-4">
-                <div className={`card border-left-${report.status == true ? 'success' : 'danger'} shadow h-100`}>
-                  <div className="card-body p-3">
-                    <div className="row">
-                      <div className="col-4">
-                        <div className="text-xs font-weight-bold text-primary text-uppercase">Reporter</div>
-                        <div className="text-xs font-weight-bold text-primary text-uppercase mt-3">Reported User</div>
-                        <div className="text-xs font-weight-bold text-primary text-uppercase mt-3">Description</div>
-                        <div className="text-xs font-weight-bold text-primary text-uppercase mt-3">Status</div>
-                        {report.status == false && (
-                          <button className="btn btn-success btn-sm mt-3" onClick={() => handleResolveReport(report.id)}>
-                            <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
-                            Resolve
-                          </button>
+                <div className={`card border-left-${report.status ? 'success' : 'danger'} shadow h-100`}>
+                  <div className="card-body p-1">
+                    <table className="table table-borderless">
+                      <tbody>
+                        <tr>
+                          <th>Reporter:</th>
+                          <td>{report.reporter.name}</td>
+                        </tr>
+                        <tr>
+                          <th>Reported:</th>
+                          <td>{report.reported.name}</td>
+                        </tr>
+                        <tr>
+                          <th>Description:</th>
+                          <td>{report.message}</td>
+                        </tr>
+                        <tr>
+                          <th>Status:</th>
+                          <td><div className={`h6 mt-1 text-${report.status == true ? 'success' : 'danger'}`}>{report.status == true ? 'Resolved' : 'Unresolved'}</div></td>
+                        </tr>
+                        {!report.status && (
+                          <tr>
+                            <th></th>
+                            <td>
+                              <button className="btn btn-success btn-sm" onClick={() => handleResolveReport(report.id)}>
+                                <FontAwesomeIcon icon={faCheckCircle} className="mr-1" />
+                                Resolve
+                              </button>
+                            </td>
+                          </tr>
                         )}
-                      </div>
-                      <div className="col-8">
-                        <div className="h6">{report.reporter.name}</div>
-                        <div className="h6 mt-3">{report.reported.name}</div>
-                        <div className="h6 mt-3">{report.message}</div>
-                        <div className={`h6 mt-3 text-${report.status == true ? 'success' : 'danger'}`}>{report.status == true ? 'Resolved' : 'Unresolved'}</div>
-                       
-                      </div>
-                    </div>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
