@@ -73,6 +73,7 @@ Route::delete('/dashboard/deleteRejectedProducts', [AdminController::class, 'del
 Route::get('/dashboard/rejectProduct/{id}', [AdminController::class, 'rejectProduct']);
 Route::get('/dashboard/approveProduct/{id}', [AdminController::class, 'acceptProduct']);
 Route::get('/dashboard/getPendingProducts', [AdminController::class, 'getPendingProducts']);
+Route::get('/dashboard/getdatacharts', [AdminController::class, 'datacharts']);
 
 
 Route::get('/abuse-reports', [AdminController::class, 'getReports']);
