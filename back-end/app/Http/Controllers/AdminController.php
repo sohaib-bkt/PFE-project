@@ -372,6 +372,12 @@ public function storeCategories(Request $request)
         return response()->json($data);
 
     }
+
+    public function contactUs()
+    {
+        $contacts = Contact::all();
+        return response()->json(['contacts' => $contacts]);
+    }
     
 
 }
