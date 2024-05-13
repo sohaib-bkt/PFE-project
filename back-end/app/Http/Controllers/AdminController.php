@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Report;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\conctact;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use GuzzleHttp\Psr7\Response;
@@ -331,29 +332,14 @@ public function storeCategories(Request $request)
     
         $months = [];
         $monthCount = [];
+        $totalUsers = 0;
     
         foreach ($data as $month => $values) {
+            $count = count($values);
             $months[] = $month;
-            $monthCount[] = count($values);
+            $monthCount[] = $count;
+            $totalUsers += $count;
         }
-
-        $productStatus = Product::select('featured')
-                            ->get()
-                            ->groupBy('featured')
-                            ->map->count();
-
-        $total = $productStatus->sum();
-        $degrees = $productStatus->mapWithKeys(function ($count, $key) use ($total) {
-            return [$key => ($total > 0) ? ($count / $total) * 360 : 0];
-        });
-
-        $statuses = ['pending', 'accepted', 'rejected'];
-        $statusDegrees = [];
-        foreach ($statuses as $status) {
-            $statusDegrees[$status] = $degrees->get($status, 0);
-        }
-
-
     
         $user = User::count();
         $product = Product::count();
@@ -374,6 +360,10 @@ public function storeCategories(Request $request)
             $reportFalsePercentage = ($reportFalse / $totalReports) * 100;
         }
     
+        $monthPercentages = array_map(function ($count) use ($totalUsers) {
+            return ($totalUsers > 0) ? ($count / $totalUsers) * 360 : 0;
+        }, $monthCount);
+    
         $data = [
             'user' => $user,
             'product' => $product,
@@ -381,11 +371,11 @@ public function storeCategories(Request $request)
             'pending' => $pending,
             'months' => $months,
             'monthCount' => $monthCount,
+            'monthPercentages' => $monthPercentages,  
             'reportTrue' => $reportTrue,
             'reportFalse' => $reportFalse,
             'reportTruePercentage' => $reportTruePercentage,
-            'reportFalsePercentage' => $reportFalsePercentage,
-            'statusDegrees' => $statusDegrees
+            'reportFalsePercentage' => $reportFalsePercentage
         ];
     
         return response()->json($data);
