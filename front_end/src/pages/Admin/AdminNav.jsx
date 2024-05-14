@@ -10,6 +10,9 @@ export default function AdminNav() {
   const navigate = useNavigate();
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem("user"));
+    if (!storedUser) {
+      navigate("/error");
+    }
     setUser(storedUser);
   }, [])
   const handleLogout = async () => {
@@ -269,7 +272,7 @@ export default function AdminNav() {
                       aria-expanded="false"
                     >
                       <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                        {user.name}
+                        {user && user.name}
                       </span>
                       <img
                         className="img-profile rounded-circle"

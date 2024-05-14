@@ -12,7 +12,7 @@ export default function Profile() {
         const authenticated = localStorage.getItem('authenticated') === 'true';
    
             if (!authenticated) {
-                navigate('/login');
+                navigate('/error');
             }
 
         const scripts = [

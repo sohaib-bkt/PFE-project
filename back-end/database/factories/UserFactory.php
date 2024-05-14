@@ -23,6 +23,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // password
             'city' => fake()->city(),
+            'phone' => fake()->phoneNumber(),
             'country' => fake()->country(),
             'address' => fake()->address(),
             'remember_token' => Str::random(10),

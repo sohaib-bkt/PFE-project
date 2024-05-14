@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '@Css/andrp.module.css';
 import axiosClient from '../api/axios';
-import UserApi from '../services/api/user/UserApi';
 import HashLoader from "react-spinners/HashLoader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +39,7 @@ export default function Anonce() {
     
         axiosClient.get('http://127.0.0.1:8000/api/product/count', {
             params: {
-                userId: storedUser.id 
+                userId: storedUser && storedUser.id 
             }
         }).then((response) => {
             const data = response.data;
