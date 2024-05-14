@@ -159,7 +159,8 @@ export default function Detail() {
                     message: text,
                     productId: product.id ,
                     id_reported: product.user_id,
-                    id_reporter:user.id
+                    id_reporter:user.id,
+                    
                 })
                 .then(response => {
                     Swal.fire({

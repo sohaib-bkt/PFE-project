@@ -237,11 +237,13 @@ public function detail($slug){
 
         $id_reporter = $request->input('id_reporter');
         $id_reported = $request->input('id_reported');
+        $id_product = $request->input('productId');
         $message = $request->input('message');
 
         $report = Report::create([
             'id_reporter' => $id_reporter,
             'id_reported' => $id_reported,
+            'id_product' => $id_product,
             'message' => $message,
             'status' => false
         ]);

@@ -11,7 +11,7 @@ class Report extends Model
 
     // Define which attributes you want to be mass assignable
     protected $fillable = [
-        'id_reporter', 'id_reported', 'status', 'message'
+        'id_reporter', 'id_reported', 'status', 'message', 'id_product'
     ];
 
     // Define relationships, for example

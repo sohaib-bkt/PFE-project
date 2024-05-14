@@ -101,7 +101,11 @@ function AdminAbuseReportsPage() {
                           <td>{report.reported.name}</td>
                         </tr>
                         <tr>
-                          <th>Description:</th>
+                          <th>Product Name:</th>
+                          <td>{report.product.name}</td>
+                        </tr>
+                        <tr>
+                          <th>Message:</th>
                           <td>{report.message}</td>
                         </tr>
                         <tr>

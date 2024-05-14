@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_reporter');
             $table->unsignedBigInteger('id_reported');
-            $table->boolean('status')->default(false); // Boolean status with default value as false
+            $table->unsignedBigInteger('id_product');
+            $table->boolean('status')->default(false);
             $table->text('message');
             $table->timestamps();
 

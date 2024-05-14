@@ -19,6 +19,7 @@ class ReportFactory extends Factory
         return [
             'id_reporter' => 1,
             'id_reported' => 1,
+            'id_product' => $this->faker->numberBetween(1, 10),
             'message' => $this->faker->sentence,  
             'status' => $this->faker->randomElement(['1','0']),
         ];

@@ -302,6 +302,7 @@ public function storeCategories(Request $request)
         foreach ($abuseReports as $abuseReport) {
             $abuseReport->reported = User::find($abuseReport->id_reported);
             $abuseReport->reporter = User::find($abuseReport->id_reporter);
+            $abuseReport->product = Product::find($abuseReport->id_product);
         }
 
         return response()->json($abuseReports);
