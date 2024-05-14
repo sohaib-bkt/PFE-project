@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('images');
             $table->text('specification');
+            $table->string('rejectedText')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

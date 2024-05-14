@@ -20,12 +20,12 @@ const CustomNextArrow = ({ onClick, showArrow }) => {
     ) : null;
 };
 
-function AdmSlider({ images = "[]", Pricipalimage }) {
+function AdmSlider({ images = "[]", image }) {
     const sliderRef = useRef(null);
     let imagesArray = JSON.parse(images);
     // Add the principal image to the beginning of the imagesArray
-    if (Pricipalimage) {
-        imagesArray = [Pricipalimage, ...imagesArray];
+    if (image) {
+        imagesArray = [image, ...imagesArray];
     }
 
     const settings = {

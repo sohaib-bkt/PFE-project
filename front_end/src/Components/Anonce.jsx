@@ -358,7 +358,7 @@ const AnnouncementCardR = ({ product }) => {
     </div>
     <div className={`${styles.myCard} alert alert-danger`} role="alert" style={{ borderTopLeftRadius: '0px', borderTopRightRadius: '0px', display: 'flex', alignItems: 'center' }}>
     <span style={{ marginRight: '10px', fontWeight: 'bold', borderRight: '1px solid black', paddingRight: '10px', height: '100%' }}>Reason</span>
-    <span>{rejectionReason}</span>
+    <span>{product.rejectedText || rejectionReason}</span>
     </div>
     </>
 

@@ -70,9 +70,10 @@ class AdminController extends Controller
     }
 
 
-    public function rejectProduct( $id){
+    public function rejectProduct( $id , Request $request){
         $product = Product::find($id);
-        $product->update(['featured' => 'rejected']);
+        $reason = $request->get('reason');
+        $product->update(['featured' => 'rejected' , 'rejectedText' => $reason]);
         return response()->json(['message' => 'Product rejected successfully']);
     }
     public function acceptProduct( $id){
