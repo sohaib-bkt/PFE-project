@@ -15,7 +15,7 @@ import DetailSizing from '@Components/Detail/DetailSizing';
 import Slider from '@Components/Slider';
 import Dslider from '@Components/Dslider.jsx';
 import Swal from 'sweetalert2';
-import UserApi from '../services/api/user/UserApi';
+
 
 export default function Detail() {
 
@@ -29,10 +29,8 @@ export default function Detail() {
     const [specifications, setSpecifications] = useState([]);
     const { slug } = useParams();
     useEffect(() => {
-        UserApi.getUser().then(response => {
-            setUser(response.data);
-            
-        })
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
+        setUser(storedUser);
     },[])
 
     useEffect(() => {
@@ -108,87 +106,92 @@ export default function Detail() {
 
 
     const showSwal = () => {
-        Swal.fire({
-            title: "Attention !",
-            html: `
-            <div>
-                <p>Never send money in advance to the seller via bank transfer or through a money transfer agency when purchasing goods available on the site.</p>
-                <h3>Call ${seler.name} Phone</h3><br/>
-            </div>
-            `,
-            imageUrl: img,
-            imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: "Custom image",
-            input: "text",
-            inputValue: seler.phone,
-            inputAttributes: {
-                autocapitalize: "off",
-                style: "margin: auto;",
-                readOnly: true
-            },
-            showConfirmButton: false
-        });
+        if (seler && seler.id) {
+            Swal.fire({
+                title: "Attention !",
+                html: `
+                <div>
+                    <p>Never send money in advance to the seller via bank transfer or through a money transfer agency when purchasing goods available on the site.</p>
+                    <h3>Call ${seler.name} Phone</h3><br/>
+                </div>
+                `,
+                imageUrl: img,
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "Custom image",
+                input: "text",
+                inputValue: seler.phone,
+                inputAttributes: {
+                    autocapitalize: "off",
+                    style: "margin: auto;",
+                    readOnly: true
+                },
+                showConfirmButton: false
+            });
+        }
     };
     
     const reportabuseswal = async () => {
-        const { value: formValues } = await Swal.fire({
-            title: 'Report Abuse',
-            html:
-            `<div>
-                <h3>Message</h3>
-                <textarea id="swal-input-message" class="swal2-textarea" placeholder="Type your message here..." aria-label="Type your message here" rows="2" cols="30"></textarea>
-            </div>`,
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    document.getElementById('swal-input-message').value,
-                ];
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Submit',
-            cancelButtonText: 'Cancel',
-            showLoaderOnConfirm: true,
-            allowOutsideClick: () => !Swal.isLoading()
-        });
+        if (product && product.id && user && user.id && seler && seler.id) {
+            const { value: formValues } = await Swal.fire({
+                title: 'Report Abuse',
+                html:
+                `<div>
+                    <h3>Message</h3>
+                    <textarea id="swal-input-message" class="swal2-textarea" placeholder="Type your message here..." aria-label="Type your message here" rows="2" cols="30"></textarea>
+                </div>`,
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        document.getElementById('swal-input-message').value,
+                    ];
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading()
+            });
     
-        if (formValues) {
-            const [text] = formValues;
-            if (text) {
-                axiosClient.post('http://localhost:8000/api/product/report_abuse', {
-                    message: text,
-                    productId: product.id ,
-                    id_reported: product.user_id,
-                    id_reporter:user.id,
-                    
-                })
-                .then(response => {
+            if (formValues) {
+                const [text] = formValues;
+                if (text) {
+                    axiosClient.post('http://localhost:8000/api/product/report_abuse', {
+                        message: text,
+                        productId: product.id,
+                        id_reported: product.user_id,
+                        id_reporter: user.id,
+    
+                    })
+                        .then(response => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Report submitted successfully!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        })
+                        .catch(error => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Failed to submit report. Please try again later.',
+                                showConfirmButton: false,
+                                timer: 1500 // Close alert after 1.5 seconds
+                            });
+                        });
+                } else {
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Report submitted successfully!',
+                        icon: 'info',
+                        title: 'Message is required.',
                         showConfirmButton: false,
                         timer: 1500
                     });
-                })
-                .catch(error => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Failed to submit report. Please try again later.',
-                        showConfirmButton: false,
-                        timer: 1500 // Close alert after 1.5 seconds
-                    });
-                });
-            } else {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Message is required.',
-                    showConfirmButton: false,
-                    timer: 1500 
-                });
+                }
             }
         }
     };
+    
     
           
     const createdDate = new Date(product.created_at);
@@ -269,7 +272,7 @@ export default function Detail() {
                                                                     <li><a href=""><i className="fab fa-whatsapp fa-lg" style={{ color: "#25d366" }} /></a></li>
                                                                 </ul>
                                                             </div>
-                                                            {user.id && (
+                                                            {user && (
                                                                 <button
                                                                     type="button"
                                                                     onClick={reportabuseswal}

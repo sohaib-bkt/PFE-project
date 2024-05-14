@@ -83,6 +83,7 @@ export default function Register() {
 
     try {
       await register(data);
+      await UserApi.getUser();
       setAuthenticated(true);
       navigate("/");
 

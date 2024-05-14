@@ -13,10 +13,13 @@ const UserApi = {
     return await axiosClient.post(`${BASE_URL}/login`, { email, password });
   },
   logout: async () => {
+    window.localStorage.removeItem('user');
     return await axiosClient.post(`${BASE_URL}/logout`);
   },
   getUser: async () => {
-    return await axiosClient.get(`${BASE_URL}/api/user`);
+    const data = await axiosClient.get(`${BASE_URL}/api/user`);
+    window.localStorage.setItem('user', JSON.stringify(data.data));
+    return data;
 
   },
   getUserById: async (id) => {

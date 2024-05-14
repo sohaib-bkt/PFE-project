@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axiosClient from '../api/axios';
-import UserApi from '../services/api/user/UserApi';
+
 
 export default function ChangePassword() {
     const [oldPassword, setOldPassword] = useState('');
@@ -52,10 +52,11 @@ export default function ChangePassword() {
         });
     };
     useEffect(() => {
-        UserApi.getUser().then((data) => {
-            setUserId(data.data.id);
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
+        
+        setUserId(storedUser.id);
 
-        });
+        
     }, []);
     return (
         <div className="col-lg-12">

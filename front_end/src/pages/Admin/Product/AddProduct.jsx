@@ -1,14 +1,13 @@
 import styles from '@Css/andrp.module.css';
 import SelectCat from '@Components/Drawer.jsx';
 import { useEffect, useState } from 'react';
-import UserApi from '@Services/UserApi';
 import axiosClient from '@/api/axios.js';
 import { useCategory } from '@Context/CategoryContext.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import AdminNav from '../AdminNav';
 import Swal from 'sweetalert2';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddAdv() {
   const [user, setUser] = useState({});
@@ -19,7 +18,7 @@ export default function AddAdv() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const userData = await UserApi.getUser();
+        const userData = JSON.parse(window.localStorage.getItem("user"));
         setUser(userData.data);
       } catch (error) {
         console.error('Error fetching user data:', error);

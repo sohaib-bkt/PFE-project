@@ -45,6 +45,10 @@ export default function Login() {
       await login(email, password);
       setAuthenticated(true);
       const res = await UserApi.getUser(); 
+    
+      window.localStorage.setItem("user", JSON.stringify(res.data));
+      // const storedUser = JSON.parse(window.localStorage.getItem("user"));
+
       setUser(res.data);     
       if (res.data.utype === "admin") {
         navigate('/dashboard');

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import feather from 'feather-icons';
 import logo from '@Public/assets/images/logo.png';
@@ -8,8 +8,7 @@ import axiosClient from '../../api/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
-import {  useUserContext } from '../../context/UserContext';
-import UserApi from '../../services/api/user/UserApi';
+
 
 const Header = ({ children }) => {
 
@@ -19,11 +18,8 @@ const Header = ({ children }) => {
   const [user , setUser] = useState({})
 
   useEffect(() => {
-    UserApi.getUser().then((data) => {
-      setUser(data.data);
-      
-    })
-
+    const storedUser = JSON.parse(window.localStorage.getItem("user"));
+    setUser(storedUser);
   }, [])
 
   useEffect(() => {

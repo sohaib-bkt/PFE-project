@@ -22,8 +22,8 @@ export default function AddAdv() {
   useEffect(() => {
     const fetchUser = async () => {
         try {
-            const userData = await UserApi.getUser();
-            setUser(userData.data);
+          const storedUser = JSON.parse(window.localStorage.getItem("user"));
+          setUser(storedUser);
             setLoading(false);
         } catch (error) {
             navigate('/login');

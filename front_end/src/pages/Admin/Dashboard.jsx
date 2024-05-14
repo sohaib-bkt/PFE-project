@@ -10,7 +10,7 @@ export default function Dashbord() {
    useEffect(() => {
      axiosClient.get('http://localhost:8000/api/dashboard/getdatacharts').then((res) => {
        setData(res.data)
-       console.log(res.data);
+       
      })
    },[])
     return (
@@ -171,7 +171,7 @@ export default function Dashbord() {
                       {/* Card Body */}
                       <div className="card-body">
                         <div style={{width: '10'}}>
-                        {console.log(data)}
+                       
                           <Pie data={{labels: ['accepted', 'pending', 'rejected'],datasets:[{label:'My First Dataset', data:[data.FalsePercentage , data.TruePercentage , data.PendingPercentage ] ,backgroundColor:['green','orange','red']}]}}/>
                         </div>
                         <div className="mt-4 text-center small">

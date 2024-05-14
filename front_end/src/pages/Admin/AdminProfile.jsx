@@ -2,13 +2,13 @@
 import { useEffect, useState } from 'react';
 import AdminNav from './AdminNav';
 import img from '@Assets/images/user.svg.png';
-import UserApi from '../../services/api/user/UserApi';
 
 export default function AdminProfile() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    UserApi.getUser().then(({data}) => setUser(data))
+    const storedUser = JSON.parse(window.localStorage.getItem("user"));
+    setUser(storedUser);
   }, [])
 
 

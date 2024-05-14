@@ -12,7 +12,7 @@ import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 export default function Anonce() {
-    const [selectedFilter, setSelectedFilter] = useState('Accepted');
+    const [selectedFilter, setSelectedFilter] = useState('accepted');
     const [showReject, setShowReject] = useState(true);
     const [showAccept, setShowAccept] = useState(true);
     const [showPending, setShowPending] = useState(true);
@@ -36,25 +36,28 @@ export default function Anonce() {
         setSelectedFilter(filter);
     };
     useEffect(() => {
-        UserApi.getUser().then((response) => {
-            setLoading(false);
-            axiosClient.get('http://127.0.0.1:8000/api/product/count', {
-                params: {
-                    userId: response.data.id 
-                }
-            }).then((response) => {
-                setAcceptedCount(response.data.approved ?? 0);
-                setPendingCount(response.data.pending ?? 0);
-                setRejectedCount(response.data.rejected ?? 0);   
-                // Set default filter to "Accepted" if count is greater than 0
-                if (response.data.approved > 0) {
-                    setSelectedFilter('accepted');
-                }
-            });
-            
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
     
+        axiosClient.get('http://127.0.0.1:8000/api/product/count', {
+            params: {
+                userId: storedUser.id 
+            }
+        }).then((response) => {
+            const data = response.data;
+            setAcceptedCount(data.approved || 0);
+            setPendingCount(data.pending || 0);
+            setRejectedCount(data.rejected || 0);   
+            setLoading(false);
+            
+            if (data.approved && data.approved > 0) {
+                setSelectedFilter('accepted');
+            }
+        }).catch((error) => {
+            console.error("Error fetching product count:", error);
+            setLoading(false);
         });
     }, []);
+    
 
  
     if (loading) {
@@ -128,16 +131,17 @@ const Acceptdiv = () => {
     const [showAlert, setShowAlert] = useState(true);
 
     useEffect(() => {
-        UserApi.getUser().then((response) => {
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
+        
             axiosClient.get('http://127.0.0.1:8000/api/product/getaccepted', {
                 params: {
-                    userId: response.data.id
+                    userId: storedUser.id
                 }
             }).then((response) => {
                 setProducts(response.data);
                 setLoading(false);
             });
-        });
+        
     }, []);
 
     const handleAlertClose = () => {
@@ -174,16 +178,17 @@ const Rejectdiv = () => {
     const [showAlert, setShowAlert] = useState(true); // State to control the visibility of the alert
 
     useEffect(() => {
-        UserApi.getUser().then((response) => {
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
+       
             axiosClient.get('http://127.0.0.1:8000/api/product/getrejected', {
                 params: {
-                    userId: response.data.id
+                    userId: storedUser.id
                 }
             }).then((response) => {
                 setProducts(response.data);
                 setLoading(false);
             });
-        });
+        
     }, []);
 
     const handleAlertClose = () => {
@@ -220,16 +225,16 @@ const Pendingdiv = () => {
     const [showAlert, setShowAlert] = useState(true); // State to control the visibility of the alert
 
     useEffect(() => {
-        UserApi.getUser().then((response) => {
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
             axiosClient.get('http://127.0.0.1:8000/api/product/getpending', {
                 params: {
-                    userId: response.data.id
+                    userId: storedUser.id
                 }
             }).then((response) => {
                 setProducts(response.data);
                 setLoading(false); 
             });
-        });
+       
     }, []);
 
     const handleAlertClose = () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axiosClient from '../api/axios';
-import UserApi from '../services/api/user/UserApi';
+
 
 export default function EditInfo() {
 
@@ -20,10 +20,8 @@ export default function EditInfo() {
         setEditMode(!editMode);
     };
     useEffect(() => {
-        UserApi.getUser().then((data) => {
-            setFormData(data.data);
-
-        });
+        const storedUser = JSON.parse(window.localStorage.getItem("user"));
+        setFormData(storedUser);
     }, []);
 
     const handleSave = () => {

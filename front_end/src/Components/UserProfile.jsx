@@ -15,8 +15,8 @@ export default function UserProfile() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const data = await UserApi.getUser();
-                setUser(data.data);
+                const storedUser = JSON.parse(window.localStorage.getItem("user"));
+                setUser(storedUser);
                 setLoading(false);
             } catch (error) {
                 navigate('/login');

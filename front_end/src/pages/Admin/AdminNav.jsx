@@ -9,7 +9,8 @@ export default function AdminNav() {
   const {logout} = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
-    UserApi.getUser().then(({data}) => setUser(data))
+    const storedUser = JSON.parse(window.localStorage.getItem("user"));
+    setUser(storedUser);
   }, [])
   const handleLogout = async () => {
     try {
