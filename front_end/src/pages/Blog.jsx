@@ -5,6 +5,8 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosClient from "../api/axios";
+import SectionStart from "@Components/SectionStart"
+import profile from "@Assets/images/user.svg.png";
 
 export default function Blog() {
   const [data, setData] = useState({});
@@ -17,7 +19,8 @@ export default function Blog() {
   }, []);
     return (
         <>
-       
+                   <SectionStart title="Profile" activeBreadcrumb="Profile"/>
+
   <section
     id="portfolio" className="left-sidebar-section masonary-blog-section section-b-space">
     <div className="container">
@@ -27,14 +30,14 @@ export default function Blog() {
             <div className="popular-post">
                 <div className="card-body text-center">
                   <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                    src={profile}
                     alt="avatar"
                     className="rounded-circle img-fluid"
                     style={{ width: 150 }}
                   />
                   <h5 className="my-3">{data.user?.name}</h5>
-                  <p className="text-muted mb-1">Full Stack Developer</p>
-                  <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                  <p className="text-muted mb-1">{data.user?.country} , {data.user?.city}</p>
+                  <p className="text-muted mb-4">{data.user?.address}</p>
                   <div className="d-flex justify-content-center mb-2">
                   </div>
                 </div>

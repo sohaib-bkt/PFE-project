@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 
 export default function AddAdv() {
@@ -29,23 +30,41 @@ export default function AddAdv() {
     fetchUser();
   }, []);
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     formData.append('category_name', selectedCategoryy);
     formData.append('category', name);
-
+  
     const images = document.getElementById('images').files;
     for (let i = 0; i < images.length; i++) {
-        formData.append('images[]', images[i]);
+      formData.append('images[]', images[i]);
     }
+  
     try {
-        const response = await axiosClient.post('http://localhost:8000/api/user/StoreProduct', formData);
-        console.log(response.data);
+      const response = await axiosClient.post('http://localhost:8000/api/user/StoreProduct', formData);
+      console.log(response.data);
+  
+      // Show success message using SweetAlert
+      Swal.fire({
+        icon: 'success',
+        title: 'Product added successfully!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+  
     } catch (error) {
-        console.error('Error submitting form:', error);
+      console.error('Error submitting form:', error);
+      // Show error message using SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong! Please try again.',
+      });
     }
-};
+  };
+  
 
   
   const handleAddInputGroup = () => {

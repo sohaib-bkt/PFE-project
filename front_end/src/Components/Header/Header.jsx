@@ -116,9 +116,7 @@ const Header = ({ children }) => {
                   <div className="menu-right">
                     <ul>
                       <li>
-                        {/* <div className="search-box theme-bg-color">
-                          <i data-feather="search" />
-                        </div> */}
+                   
                           {location.pathname !== '/ajouter-annonce' && location.pathname !== '/edit-annonce' && (
                             <>
                         <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '10px', paddingLeft: '10px' }}>
@@ -140,30 +138,6 @@ const Header = ({ children }) => {
                       {children}
                     </ul>
                   </div>
-
-                  {/* <div className="search-full">
-                  <form method="GET" action="{{ route('search.products') }}">
-                    <div className="input-group">
-                      <span className="input-group-text">
-                        <button type="submit" className="btn btn-light search-icon-open">
-                          <i data-feather="search" className="font-light" />
-                        </button>
-                      </span>
-                      <input
-                        type="text"
-                        name="q"
-                        className="form-control search-type"
-                        placeholder="Search here.."
-                      />
-                      <span className="input-group-text">
-                        <button type="button" className="btn btn-light close-search">
-                          <i data-feather="x" className="font-light" />
-                        </button>
-                      </span>
-                    </div>
-                  </form>
-                  </div> */}
-
                 </div>
               </div>
             </div>

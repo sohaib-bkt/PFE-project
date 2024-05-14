@@ -10,7 +10,6 @@ import { FaSquareXTwitter ,FaSquareInstagram ,FaSquareFacebook   } from "react-i
 
   const loadScripts = () => {
     const scripts = [
-      'https://code.jquery.com/jquery-3.6.0.min.js',
       './assets/js/lazysizes.min.js',
       './assets/js/script.js',
       './assets/js/slick/slick.js',
@@ -321,12 +320,12 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/category/3.jpg"
+                src="assets/images/category/2.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
               <div className="category-content category-text-1">
-                <h3 className="theme-color">Jeans</h3>
+                <h3 className="theme-color">Men</h3>
                 <span className="text-dark">Fashion</span>
               </div>
             </a>
@@ -353,17 +352,17 @@ export default function Home() {
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/category/3.jpg"
+                src="assets/images/category/4.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
               <div className="category-content category-text-1">
-                <h3 className="theme-color">Jeans</h3>
+                <h3 className="theme-color">Jacket</h3>
                 <span className="text-dark">Fashion</span>
               </div>
             </a>
+          </div>  
           </div>
-        </div>
       </div>
     </div>
   </div>

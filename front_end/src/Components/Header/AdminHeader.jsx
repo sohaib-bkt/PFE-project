@@ -28,9 +28,9 @@ export default function AdminHeader(){
           <ul
             className="navbar-nav bg-gradient-primary11 sidebar sidebar-dark accordion"
             id="accordionSidebar" >
-            <a
+            <Link
               className="sidebar-brand d-flex align-items-center justify-content-center"
-              href="index.html"
+              to="/dashboard"
             >
               <div className="sidebar-brand-icon rotate-n-15">
                 <img src={logo} alt="logo" width={'35px'}/>
@@ -38,38 +38,30 @@ export default function AdminHeader(){
               <div className="sidebar-brand-text mx-3" style={{ fontFamily: "sans-serif" , fontWeight: '500', fontSize: '16.4px'}}>
                 Moon Store
               </div>
-            </a>
+            </Link>
             <hr className="sidebar-divider my-0" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-           
             <li className="nav-item active">
               <Link className="nav-link" to="/dashboard">
                 <i className="fas fa-fw fa-tachometer-alt" />
                 <span>Dashboard</span>
               </Link>
             </li>
-            <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-            {/* <div className="sidebar-heading" style={{color: 'white', fontFamily: "monospace", fontSize: '14px'}}>
-            <FontAwesomeIcon icon={faTable}/>&nbsp;Tables</div> */}
-            
-            <li className="nav-item" >
+            <hr className="sidebar-divider my-0" style={{opacity: '0.7', backgroundColor: 'white' }}/>
+            <li className="nav-item active">
             <Link className="nav-link" to="/users">
             &nbsp;&nbsp;<FontAwesomeIcon icon={faUser}/>&nbsp;&nbsp;
                 <span>Users</span>
               </Link>
-              
             </li>
             <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-
-            <li className="nav-item">
+            <li className="nav-item active">
             <Link className="nav-link" to="/categories" style={{paddingTop: '0px'}}>
             &nbsp;&nbsp;<FontAwesomeIcon icon={faList}/>&nbsp;&nbsp;
                 <span>Categories</span>
               </Link>
             </li>
             <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-
-          
-            <li className="nav-item">
+            <li className="nav-item active">
               <a
                 className="nav-link collapsed"
                 href="#"
@@ -103,8 +95,8 @@ export default function AdminHeader(){
               </div>
             </li>
             <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
-            <li className="nav-item">
-            <Link className="nav-link" to="/prod-reports" style={{paddingTop: '0px'}}>
+            <li className="nav-item active">
+            <Link className="nav-link " to="/prod-reports" style={{paddingTop: '0px'}}>
             &nbsp;&nbsp;<FontAwesomeIcon icon={faExclamationTriangle}/>&nbsp;&nbsp;
                 <span>Reports</span>
               </Link>

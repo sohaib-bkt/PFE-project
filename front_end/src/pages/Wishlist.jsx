@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axiosClient from '../api/axios';
 import { Link } from 'react-router-dom';
 import HashLoader from "react-spinners/HashLoader";
+import SectionStart from "@Components/SectionStart"
 
 
 export default function Wishlist() {
@@ -53,6 +54,7 @@ if (loading) {
   return (
     
     <>
+       <SectionStart title="Wishlist" activeBreadcrumb="Wishlist"/>
       <section className="wish-list-section section-b-space">
         <div className="container">
           {Object.keys(wishlistItems).length > 0 ? (
@@ -99,25 +101,24 @@ if (loading) {
 
                 </table>
               </div>
+              <div className="col-md-12 text-end">
+              <Link href='' onClick={clearWishlist}>
+                Clear All Items
+              </Link>
+            </div>
             </div>
           ) : (
             <div className="row">
-              <div className="col-md-12 text-center">
+              <div className="col-md-12 text-center" >
                 <h2>Your wishlist is empty!</h2>
                 <h5 className="mt-3">Add items to it now.</h5>
-                <Link to="/shop/clothes" className="btn btn-warning mt-5">
+                <Link to="/" className="btn btn-warning mt-3" style={{ borderRadius: '6px' }}>
                   Shop Now
                 </Link>
               </div>
             </div>
           )}
-          <div className="row">
-            <div className="col-md-12 text-end">
-              <a  onClick={clearWishlist}>
-                Clear All Items
-              </a>
-            </div>
-          </div>
+         
         </div>
       </section>
     </>

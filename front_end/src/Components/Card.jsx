@@ -13,7 +13,7 @@ export default function Card({product}) {
           <img
             src={`http://localhost:8000/api/images/products/${product.image}`}
             alt=""
-            className="card-img-top blur-up lazyload bg-img"
+            className="card-img-top lazyload bg-img"
             style={{objectFit:'cover' , width:'100%', height:'200px'}}
           />
         </Link>

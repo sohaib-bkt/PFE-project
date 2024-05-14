@@ -162,13 +162,29 @@ export default function Detail() {
                     id_reporter:user.id
                 })
                 .then(response => {
-                    Swal.fire('Report submitted successfully!');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Report submitted successfully!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 })
                 .catch(error => {
-                    Swal.fire('Failed to submit report. Please try again later.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to submit report. Please try again later.',
+                        showConfirmButton: false,
+                        timer: 1500 // Close alert after 1.5 seconds
+                    });
                 });
             } else {
-                Swal.fire('Message is required.');
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Message is required.',
+                    showConfirmButton: false,
+                    timer: 1500 
+                });
             }
         }
     };
@@ -213,16 +229,16 @@ export default function Detail() {
                                                         </ul>
                                                     </div>
                                                     <div className='d-flex justify-content-between border-product'>
-                                                        <p className="price-detail" style={{ marginTop: "5px" , marginBottom: "0px"}}>
-                                                            {product.name}
+                                                        <div className="price-detail" style={{ marginTop: "0px" , marginBottom: "0px"}}>
+                                                           <h3 >{product.name}</h3> 
                                                             <div style={{ color: "grey", fontSize: "12px", marginTop: "8px" , marginBottom: "0px" }}>
-                                                                <FontAwesomeIcon icon={faLocationDot} />&nbsp;{seler.address}adress&nbsp;&nbsp;
-                                                                <FontAwesomeIcon icon={faClock} />  &nbsp;{diffDays} Days ago
+                                                                <FontAwesomeIcon icon={faLocationDot} />&nbsp;{seler.address}&nbsp;&nbsp;
+                                                                <FontAwesomeIcon icon={faClock} />&nbsp;{diffDays} Days ago
                                                             </div>
-                                                        </p>
-                                                        <p className="price-detail" style={{ marginTop: "5px" }}>
-                                                            {product.regular_price} DH
-                                                        </p>
+                                                        </div>
+                                                        <div className="price-detail" style={{ marginTop: "5px" }}>
+                                                            <h3>{product.regular_price} DH</h3>
+                                                        </div>
                                                     </div>
                                                     <div className=' border-product' style={{ marginTop: "0px" }}>
                                                     <div className="label-section" style={{ marginTop: "0px" }}>
@@ -314,7 +330,7 @@ export default function Detail() {
                         <div className="row m-0">
                         <div className="col-12 p-0">
                             <div className="title-3 text-center">
-                            <h2>Customers Also Bought These</h2>
+                            <h2>Other products you may like</h2>
                             </div>
                         </div>
                             <Slider/>

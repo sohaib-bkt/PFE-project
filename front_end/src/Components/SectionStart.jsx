@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 export default function SectionStart({ title, activeBreadcrumb }) {
     return (
         <>
@@ -17,9 +20,9 @@ export default function SectionStart({ title, activeBreadcrumb }) {
                             <nav>
                                 <ol className="breadcrumb">
                                     <li className="breadcrumb-item">
-                                        <a href="index.htm">
+                                        <Link to="/">
                                             <i className="fas fa-home" />
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className={`breadcrumb-item ${activeBreadcrumb ? 'active' : ''}`} aria-current="page">
                                         {title}

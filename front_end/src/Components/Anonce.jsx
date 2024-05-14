@@ -269,7 +269,6 @@ const RadioInput = ({ label, value, selectedFilter, onChange }) => (
             type="radio"
             value={value}
             checked={selectedFilter === value}
-            defaultChecked={selectedFilter === value} // Add this line
             onChange={() => onChange(value)}
         />
         <label className="form-check-label">{label}</label>

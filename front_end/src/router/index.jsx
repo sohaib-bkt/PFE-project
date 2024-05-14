@@ -37,17 +37,7 @@ import Pending from "../pages/Admin/Product/Pending";
 
 export const router = createBrowserRouter([
 
-            {
-                element: <UserLayouth/>,
-                children: [
-                    {
-                        path: "/profile",
-                        element: <Profile/>
-                    },
-               
-
-                ]
-            },
+        
             {
                 element: <SharedLayouth/>,
                 children: [
@@ -99,6 +89,10 @@ export const router = createBrowserRouter([
                     {
                         path: "/edit-annonce",
                         element: <EditAdv/>
+                    },
+                    {
+                        path: "/profile",
+                        element: <Profile/>
                     },
                     
                 ]
