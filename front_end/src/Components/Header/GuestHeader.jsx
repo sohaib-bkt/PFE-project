@@ -7,7 +7,7 @@ import UserApi from '../../services/api/user/UserApi.js';
 export default function GuestHeader() {
     const { logout: contextLogout } = useContext(UserContext);
     const [name, setName] = useState('');
-
+    const [user , setUser] = useState({})
     useEffect(() => {
         getUser();
     }, [name]);
@@ -16,6 +16,7 @@ export default function GuestHeader() {
         try {
             const response = await UserApi.getUser();
             setName(response.data.name);
+            setUser(response.data);
         } catch (error) {
             // Handle error
         }
@@ -44,7 +45,7 @@ export default function GuestHeader() {
                 </div>
                 <div className="onhover-div profile-dropdown">
                     <ul>
-                        <li><Link to="/profile" className="d-block">Profile</Link></li>
+                        <li>{user.utype == 'admin' ? <Link to="/dashboard" className="d-block">Dashboard</Link> : <Link to="/profile" className="d-block">Profile</Link>}</li>
                         
                         <li>
                             <a onClick={logout} className="d-block">Logout</a>

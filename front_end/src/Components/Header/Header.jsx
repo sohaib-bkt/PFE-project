@@ -8,12 +8,23 @@ import axiosClient from '../../api/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
+import {  useUserContext } from '../../context/UserContext';
+import UserApi from '../../services/api/user/UserApi';
 
 const Header = ({ children }) => {
 
   
   const [countWishList, setCountWishList] = useState(0);
   const location = useLocation();
+  const [user , setUser] = useState({})
+
+  useEffect(() => {
+    UserApi.getUser().then((data) => {
+      setUser(data.data);
+      
+    })
+
+  }, [])
 
   useEffect(() => {
     axiosClient.get('http://localhost:8000/api/wishlist/count').then((response) => {
@@ -119,10 +130,14 @@ const Header = ({ children }) => {
                    
                           {location.pathname !== '/ajouter-annonce' && location.pathname !== '/edit-annonce' && (
                             <>
+                            {user && user.utype != 'admin' && (
                         <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '10px', paddingLeft: '10px' }}>
-                         
+
                               <Link to="/ajouter-annonce" ><FontAwesomeIcon icon={faPlus} /><span className="post-ad-link"> Post an ad</span></Link>
+                            
+                              
                               </div>
+                            )}
                             </>
                           )}
                         

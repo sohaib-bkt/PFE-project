@@ -9,26 +9,49 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import HashLoader from 'react-spinners/HashLoader';
 
 
 export default function AddAdv() {
   const [user, setUser] = useState({});
   const { selectedCategoryy , name} = useCategory();
+  const [loading, setLoading] = useState(true);
   const [inputGroups, setInputGroups] = useState([{ attribute: '', value: '' }]);
-
-  
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const userData = await UserApi.getUser();
-        setUser(userData.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
+        try {
+            const userData = await UserApi.getUser();
+            setUser(userData.data);
+            setLoading(false);
+        } catch (error) {
+            navigate('/login');
+        }
     };
-       
+
     fetchUser();
-  }, []);
+}, [navigate]); 
+
+useEffect(() => {
+    if (user) {
+        const authenticated = localStorage.getItem('authenticated') === 'true';
+        
+        if (!authenticated) {
+            navigate('/login');
+        }
+    }
+}, [user, navigate]); 
+
+if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
+
+  
 
 
   const handleSubmit = async (event) => {

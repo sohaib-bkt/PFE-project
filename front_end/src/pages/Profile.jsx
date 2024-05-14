@@ -2,11 +2,19 @@ import { useState , useEffect } from 'react';
 import UserProfile from '@Components/UserProfile';
 import Anonce from '@Components/Anonce';
 import Wishlist from '@Pages/Wishlist';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Profile() {
     const [activeTab, setActiveTab] = useState('anonce'); // Default active tab is 'desc'
+    const navigate = useNavigate();
     useEffect(() => {
+        const authenticated = localStorage.getItem('authenticated') === 'true';
+   
+            if (!authenticated) {
+                navigate('/login');
+            }
+
         const scripts = [
             './assets/js/lazysizes.min.js',     
         ];
