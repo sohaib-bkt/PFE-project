@@ -86,7 +86,7 @@ export default function AddAdv() {
           <div className={`container ${styles.hoverableCard}`} style={{ border: '1px solid #dee2e6', margin: 'auto', width: '90%' }}>
             
           <form className="needs-validation" method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
-    <input type="hidden" name="user_id" defaultValue={user.id} />
+    <input type="hidden" name="user_id" defaultValue={user && user.id} />
     <div id="billingAddress" className="row g-4">
         <h3 className="mb-3 theme-color"></h3>
         <div className="col-md-6">
