@@ -26,6 +26,7 @@ class UserFactory extends Factory
             'country' => fake()->country(),
             'address' => fake()->address(),
             'remember_token' => Str::random(10),
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 

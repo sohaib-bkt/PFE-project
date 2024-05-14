@@ -232,7 +232,7 @@ export default function Detail() {
                                                         <div className="price-detail" style={{ marginTop: "0px" , marginBottom: "0px"}}>
                                                            <h3 >{product.name}</h3> 
                                                             <div style={{ color: "grey", fontSize: "12px", marginTop: "8px" , marginBottom: "0px" }}>
-                                                                <FontAwesomeIcon icon={faLocationDot} />&nbsp;{seler.address}&nbsp;&nbsp;
+                                                                <FontAwesomeIcon icon={faLocationDot} />&nbsp;{seler.city}&nbsp;&nbsp;
                                                                 <FontAwesomeIcon icon={faClock} />&nbsp;{diffDays} Days ago
                                                             </div>
                                                         </div>

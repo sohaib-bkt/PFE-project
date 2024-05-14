@@ -345,6 +345,8 @@ public function storeCategories(Request $request)
         $product = Product::count();
         $report = Report::count();
         $pending = Product::where('featured', 'pending')->count();
+        $accepted = Product::where('featured', 'accepted')->count();
+        $rejected = Product::where('featured', 'rejected')->count();
     
         $reportTrue = 0;
         $reportFalse = 0;
@@ -359,23 +361,27 @@ public function storeCategories(Request $request)
             $reportTruePercentage = ($reportTrue / $totalReports) * 100;
             $reportFalsePercentage = ($reportFalse / $totalReports) * 100;
         }
+            $totalProd = $accepted + $rejected + $pending;
+            $TruePercentage = ($pending / $totalProd) * 360;
+            $FalsePercentage = ($accepted / $totalProd) * 360;
+            $PendingPercentage = ($rejected / $totalProd) * 360;
+        
     
-        $monthPercentages = array_map(function ($count) use ($totalUsers) {
-            return ($totalUsers > 0) ? ($count / $totalUsers) * 360 : 0;
-        }, $monthCount);
-    
+
         $data = [
             'user' => $user,
             'product' => $product,
             'report' => $report,
             'pending' => $pending,
             'months' => $months,
-            'monthCount' => $monthCount,
-            'monthPercentages' => $monthPercentages,  
+            'monthCount' => $monthCount, 
             'reportTrue' => $reportTrue,
             'reportFalse' => $reportFalse,
             'reportTruePercentage' => $reportTruePercentage,
-            'reportFalsePercentage' => $reportFalsePercentage
+            'reportFalsePercentage' => $reportFalsePercentage,
+            'TruePercentage' => $TruePercentage,
+            'FalsePercentage' => $FalsePercentage,
+            'PendingPercentage' => $PendingPercentage
         ];
     
         return response()->json($data);

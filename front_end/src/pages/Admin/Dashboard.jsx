@@ -171,7 +171,8 @@ export default function Dashbord() {
                       {/* Card Body */}
                       <div className="card-body">
                         <div style={{width: '10'}}>
-                          <Pie data={{labels: ['Red', 'Blue', 'Yellow'],datasets:[{label:'My First Dataset',data:[300,50,100],backgroundColor:['rgb(255, 99, 132)','rgb(54, 162, 235)','rgb(255, 205, 86)']}]}}/>
+                        {console.log(data)}
+                          <Pie data={{labels: ['accepted', 'pending', 'rejected'],datasets:[{label:'My First Dataset', data:[data.FalsePercentage , data.TruePercentage , data.PendingPercentage ] ,backgroundColor:['green','orange','red']}]}}/>
                         </div>
                         <div className="mt-4 text-center small">
                           <span className="mr-2">
