@@ -122,7 +122,7 @@ public function storeCategories(Request $request)
     {
        
     $validatedData = $request->validate([
-        
+        'user_id' => 'nullable',
         'category_name' => 'required|string',
         'category' => 'required|string',
         'name' => 'required|string',
@@ -138,7 +138,7 @@ public function storeCategories(Request $request)
 
     $product = new Product();
 
-    $product->user_id = 2;
+    $product->user_id = $validatedData['user_id'];
     $product->featured = 'accepted';
     $product->categorie_product = $validatedData['category_name'];
     $product->category_id = $categorie_id;

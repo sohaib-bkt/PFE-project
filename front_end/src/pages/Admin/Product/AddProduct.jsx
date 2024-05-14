@@ -19,7 +19,7 @@ export default function AddAdv() {
     const fetchUser = async () => {
       try {
         const userData = JSON.parse(window.localStorage.getItem("user"));
-        setUser(userData.data);
+        setUser(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -87,6 +87,7 @@ export default function AddAdv() {
             
           <form className="needs-validation" method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
     <input type="hidden" name="user_id" defaultValue={user && user.id} />
+    
     <div id="billingAddress" className="row g-4">
         <h3 className="mb-3 theme-color"></h3>
         <div className="col-md-6">
