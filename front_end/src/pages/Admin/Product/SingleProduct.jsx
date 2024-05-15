@@ -53,9 +53,7 @@ const PendingProducts = () => {
 
   return (
     <>
-      <div id="content-wrapper" className="d-flex flex-column">
-        <div id="content">
-          <AdminNav />
+    
           <div className="container-fluid">
             <div className="card shadow mb-4">
               <div className="card-header py-3">
@@ -114,8 +112,7 @@ const PendingProducts = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+      
     </>
   );
 }

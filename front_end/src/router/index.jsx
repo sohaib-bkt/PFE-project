@@ -35,6 +35,7 @@ import AdminSettings from "@Pages/Admin/AdminSettings.jsx"
 import Reports from "@Pages/Admin/Reports.jsx"
 import Pending from "../pages/Admin/Product/Pending";
 import Messages from "@Pages/Admin/Messages.jsx"
+import AdminNav from "@Pages/Admin/AdminNav.jsx"
 export const router = createBrowserRouter([
 
         
@@ -178,7 +179,11 @@ export const router = createBrowserRouter([
                     {
                         path: "/messages",
                         element: <Messages/>
-                    }
+                    },
+                    {
+                        path: "/admin-nav",
+                        element: <AdminNav/>
+                    },
                         
 
                 ]

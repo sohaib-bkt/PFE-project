@@ -91,9 +91,7 @@ const approveProduct = async (productId) => {
 
   return (
     <>
-      <div id="content-wrapper" className="d-flex flex-column">
-        <div id="content">
-          <AdminNav />
+     
           <div className="container-fluid">
           <h1 className="h3 mb-2 text-gray-800">Pending Products</h1>
             {products.map((product) => (
@@ -152,8 +150,7 @@ const approveProduct = async (productId) => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
+      
     </>
   );
 }

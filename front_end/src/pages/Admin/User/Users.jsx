@@ -93,9 +93,7 @@ const Users = () => {
 
   return (
     <>
-      <div id="content-wrapper" className="d-flex flex-column">
-        <div id="content">
-        <AdminNav />
+    
           <div className="container-fluid">
             <div className="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 className="h3 mb-0 text-gray-800">Users Table</h1>
@@ -141,8 +139,7 @@ const Users = () => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+   
     </>
   );
 }

@@ -75,12 +75,7 @@ export default function AddAdv() {
     setInputGroups(updatedInputGroups);
   };
   return (
-    <div id="content-wrapper" className="d-flex flex-column">
-    <div id="content">
 
-      <AdminNav />
-
-  
         <section className="section-b-space">
         
           <div className={`container ${styles.hoverableCard}`} style={{ border: '1px solid #dee2e6', margin: 'auto', width: '90%' }}>
@@ -157,7 +152,6 @@ export default function AddAdv() {
        </form>
           </div>
         </section>
-    </div>
-    </div>
+    
   );
 }

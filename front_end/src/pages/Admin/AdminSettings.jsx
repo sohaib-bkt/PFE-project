@@ -12,9 +12,7 @@ export default function UserProfile() {
 
     return (
         <>
-         <div id="content-wrapper" className="d-flex flex-column">
-            <div id="content">
-                <AdminNav />
+    
             <div className="tab-pane fade active show">
                 <div className="col-12">
                     <div className="row">
@@ -57,8 +55,7 @@ export default function UserProfile() {
                     
                 </div>
             </div>
-            </div>
-            </div>
+        
         </>
     );
 }

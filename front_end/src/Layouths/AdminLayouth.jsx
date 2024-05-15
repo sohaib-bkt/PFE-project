@@ -3,11 +3,26 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import AdminHeader from '../Components/Header/AdminHeader.jsx';
 import UserApi from '../services/api/user/UserApi.js';
 import HashLoader from 'react-spinners/HashLoader.js';
-
+import axiosClient from '../api/axios.js';
+import AdminNav from '@Pages/Admin/AdminNav.jsx';
 export default function AdminLayout() {
     const [user, setUser] = useState(null); // Changed initial state to null
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true); 
+    const [abuseReports, setAbuseReports] = useState([]);
+
+
+    useEffect(() => {
+        axiosClient.get('api/abuse-reports')
+          .then(response => {
+            setAbuseReports(response.data);
+            console.log('Abuse reports:', response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching abuse reports:', error);
+          });
+      }, []);
+      const reportCount = abuseReports.length;
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -49,8 +64,13 @@ export default function AdminLayout() {
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
             <link rel="stylesheet" href="../../public/assets/css/vendors/dataTables.bootstrap4.min.css" />
             <div id='wrapper'>
-                <AdminHeader/>
-                <Outlet />
+            <AdminHeader/>
+            <div id="content-wrapper" className="d-flex flex-column">
+                <div id="content">
+                    <AdminNav reportCount={reportCount} abuseReports={abuseReports} />
+                <Outlet/>
+            </div>
+            </div>
             </div>
        </>
     );

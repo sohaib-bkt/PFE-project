@@ -13,9 +13,7 @@ export default function AdminProfile() {
 
 
   return (
-    <div id="content-wrapper" className="d-flex flex-column">
-            <div id="content">
-                <AdminNav />
+ 
                 <section>
   <div className="container">
     <div className="row">
@@ -82,7 +80,6 @@ export default function AdminProfile() {
     </div>
   </div>
 </section>
-    </div>
-    </div>
+   
   );
 }
