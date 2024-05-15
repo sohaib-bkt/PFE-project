@@ -1,4 +1,10 @@
 import SectionStart from "@Components/SectionStart"
+import { FaLocationDot } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
+
+
 export default function Contact() {
     return (
         <>
@@ -86,7 +92,7 @@ export default function Contact() {
                   />
                 </div>
                 <div className="col-auto">
-                  <button type="submit" className="btn btn-solid-default">
+                  <button type="submit" className="btn btn-primary" style={{borderRadius:'6px' , fontFamily:'monospace' , fontSize:'16px'}}>
                     Submit
                   </button>
                 </div>
@@ -103,29 +109,30 @@ export default function Contact() {
               </h5>
               <div className="contact-box">
                 <div className="contact-icon">
-                  <i data-feather="map-pin" />
+                <FaLocationDot />
+
                 </div>
                 <div className="contact-title">
                   <h4>Address :</h4>
-                  <p>NIT, Faridabad, Haryana, India</p>
+                  <p>Kenitra , Morocco</p>
                 </div>
               </div>
               <div className="contact-box">
                 <div className="contact-icon">
-                  <i data-feather="phone" />
+                <FaPhoneAlt />
                 </div>
                 <div className="contact-title">
                   <h4>Phone Number :</h4>
-                  <p>+1 0000000000</p>
+                  <p>+212 6245362</p>
                 </div>
               </div>
               <div className="contact-box">
                 <div className="contact-icon">
-                  <i data-feather="mail" />
+                <MdEmail />
                 </div>
                 <div className="contact-title">
                   <h4>Email Address :</h4>
-                  <p>contact@surfsidemedia.in</p>
+                  <p>MoonStore@gmail.com</p>
                 </div>
               </div>
             </div>

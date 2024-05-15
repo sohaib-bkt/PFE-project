@@ -128,10 +128,7 @@ const Header = ({ children }) => {
                             <>
                             {user && user.utype != 'admin' && (
                         <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '10px', paddingLeft: '10px' }}>
-
-                              <Link to="/ajouter-annonce" ><FontAwesomeIcon icon={faPlus} /><span className="post-ad-link"> Post an ad</span></Link>
-                            
-                              
+                              <Link to="/ajouter-annonce" ><FontAwesomeIcon icon={faPlus} /><span className="post-ad-link"> Post an ad</span></Link>                              
                               </div>
                             )}
                             </>

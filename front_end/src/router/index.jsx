@@ -34,7 +34,7 @@ import AdminProfile from "@Pages/Admin/AdminProfile.jsx"
 import AdminSettings from "@Pages/Admin/AdminSettings.jsx"
 import Reports from "@Pages/Admin/Reports.jsx"
 import Pending from "../pages/Admin/Product/Pending";
-
+import Messages from "@Pages/Admin/Messages.jsx"
 export const router = createBrowserRouter([
 
         
@@ -174,6 +174,10 @@ export const router = createBrowserRouter([
                         path: "/SingleProduct/:id",
                         element: <SingleProduct/>
                     
+                    },
+                    {
+                        path: "/messages",
+                        element: <Messages/>
                     }
                         
 

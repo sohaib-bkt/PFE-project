@@ -3,7 +3,7 @@ import '@Css/customAdmincss.css';
 import $ from 'jquery';
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faExclamationTriangle, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faExclamationTriangle, faUser ,faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import {faList} from '@fortawesome/free-solid-svg-icons'; 
 import {faP} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
@@ -42,7 +42,7 @@ export default function AdminHeader(){
             <hr className="sidebar-divider my-0" style={{opacity: '0.7', backgroundColor: 'white' }}/>
             <li className="nav-item active">
               <Link className="nav-link" to="/dashboard">
-                <i className="fas fa-fw fa-tachometer-alt" />
+              &nbsp;&nbsp;<i className="fas fa-fw fa-tachometer-alt" />
                 <span>Dashboard</span>
               </Link>
             </li>
@@ -99,6 +99,13 @@ export default function AdminHeader(){
             <Link className="nav-link " to="/prod-reports" style={{paddingTop: '0px'}}>
             &nbsp;&nbsp;<FontAwesomeIcon icon={faExclamationTriangle}/>&nbsp;&nbsp;
                 <span>Reports</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider" style={{opacity: '0.7', backgroundColor: 'white' }}/>
+            <li className="nav-item active">
+            <Link className="nav-link" to="/messages" style={{paddingTop: '0px'}}>
+            &nbsp;&nbsp;<FontAwesomeIcon icon={faEnvelope}/>&nbsp;&nbsp;
+                <span>Emails</span>
               </Link>
             </li>
             {/* Divider */}

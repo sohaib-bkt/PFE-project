@@ -129,79 +129,78 @@ export default function Home() {
     <div className="row gy-4">
       <div className="col-lg-4 col-md-6">
         <div className="collection-banner p-bottom p-center text-center">
-          <a href="shop-left-sidebar.html" className="banner-img">
+          <Link to="/shop/clothes" className="banner-img">
             <img
               src="assets/images/banner/6.jpg"
               className="bg-img blur-up lazyload"
               alt=""
             />
-          </a>
+          </Link>
           <div className="banner-detail">
-            <a href="#" className="heart-wishlist" style={{color:'black'}}>
+            <Link to="/shop/clothes" className="heart-wishlist" style={{color:'black'}}>
             <FontAwesomeIcon icon={faShirt} />
-        
-          </a>
+          </Link>
             <span className="font-dark-30">
               <span>NEW</span>
             </span>
           </div>
-          <a href="shop-left-sidebar.html" className="contain-banner">
+          <Link to="/shop/clothes" className="contain-banner">
             <div className="banner-content with-big">
               <h2 className="mb-2">Clothes</h2>
               <span>Explore the latest additions</span>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="col-lg-4 col-md-6">
     <div className="collection-banner p-bottom p-center text-center">
-        <a href="shop-left-sidebar.html" className="banner-img">
+        <Link href="shop-left-sidebar.html" className="banner-img">
             <img
                 src="assets/images/banner/off.jpg"
                 className="bg-img blur-up lazyload"
                 alt=""
             />
-        </a>
+        </Link>
         <div className="banner-detail">
-            <a href="#" className="heart-wishlist" style={{color:'black'}}>
+            <Link to="/shop/clothes" className="heart-wishlist" style={{color:'black'}}>
             <FontAwesomeIcon icon={faHouse} />
-            </a>
+            </Link>
             <span className="font-dark-30">
                 <span>NEW</span>
             </span>
         </div>
-        <a href="shop-left-sidebar.html" className="contain-banner">
+        <Link to="/shop/clothes" className="contain-banner">
             <div className="banner-content with-big">
                 <h2 className="mb-2">Apartments</h2>
                 <span>Explore the latest additions</span>
             </div>
-        </a>
+        </Link>
     </div>
 </div>
 
       <div className="col-lg-4">
         <div className="collection-banner p-bottom p-center text-center">
-          <a href="shop-left-sidebar.html" className="banner-img">
+          <Link to="/shop/clothes"  className="banner-img">
             <img
               src="assets/images/banner/4.jpg"
               className="bg-img blur-up lazyload"
               alt=""
             />
-          </a>
+          </Link>
           <div className="banner-detail">
-            <a href="#" className="heart-wishlist" style={{color:'black'}}>
+            <Link to="/shop/clothes" className="heart-wishlist" style={{color:'black'}}>
             <FontAwesomeIcon icon={faMicrochip} />
-           </a>
+           </Link>
             <span className="font-dark-30">
               <span>NEW</span>
             </span>
           </div>
-          <a href="shop-left-sidebar.html" className="contain-banner">
+          <Link to="/shop/info" className="contain-banner">
             <div className="banner-content with-big">
               <h2 className="mb-2">Electonics</h2>
               <span>Explore the latest additions</span>
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -77,6 +77,8 @@ if (loading) {
         timer: 1500
       });
   
+      navigate('/profile');
+  
     } catch (error) {
       console.error('Error submitting form:', error);
       // Show error message using SweetAlert
