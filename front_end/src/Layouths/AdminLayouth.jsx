@@ -10,17 +10,27 @@ export default function AdminLayout() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [abuseReports, setAbuseReports] = useState([]);
+  const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
     axiosClient.get('api/abuse-reports')
       .then(response => {
         setAbuseReports(response.data);
-        console.log('Abuse reports:', response.data);
       })
       .catch(error => {
         console.error('Error fetching abuse reports:', error);
       });
-  }, [abuseReports]);
+  }, []);
+
+  useEffect(() => {
+    axiosClient.get('http://localhost:8000/api/contact/get')
+      .then(response => {
+        setContacts(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching contacts:', error);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -68,7 +78,7 @@ export default function AdminLayout() {
         <AdminHeader/>
         <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
-            <AdminNav reportCount={abuseReports.length} abuseReports={abuseReports} />
+            <AdminNav reportCount={abuseReports.length} abuseReports={abuseReports} contacts={contacts} contactsCount={contacts.length} />
             <Outlet/>
           </div>
         </div>

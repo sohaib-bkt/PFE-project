@@ -9,6 +9,7 @@ export default function AdminNav(props) {
   const { logout } = useContext(UserContext);
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
+  const [contactCount , setContactCount] = useState(0);
 
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem("user"));
@@ -21,6 +22,10 @@ export default function AdminNav(props) {
   useEffect(() => {
     setCount(props.reportCount);
   }, [props.reportCount]);
+
+  useEffect(() => {
+    setContactCount(props.contactsCount);
+  }, [props.contactsCount]);
 
   const handleLogout = async () => {
     try {
@@ -134,68 +139,31 @@ export default function AdminNav(props) {
                       aria-expanded="false"
                     >
                       <i className="fas fa-envelope fa-fw" />
-                      <span className="badge badge-danger badge-counter">7</span>
+                      <span className="badge badge-danger badge-counter">{contactCount}</span>
                     </a>
                     <div
                       className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                       aria-labelledby="messagesDropdown"
                     >
                       <h6 className="dropdown-header">Message Center</h6>
-                      <a className="dropdown-item d-flex align-items-center" href="#">
+                      {props.contacts.slice(-3).map((contact) => (
+
+                      <li className="dropdown-item d-flex align-items-center">
                         <div className="dropdown-list-image mr-3">
                           <img
                             className="rounded-circle"
-                            src="img/undraw_profile_1.svg"
+                            src={img}
                             alt="..."
                           />
                           <div className="status-indicator bg-success" />
                         </div>
                         <div className="font-weight-bold">
-                          <div className="text-truncate">
-                            Hi there! I am wondering if you can help me with a problem
-                            I've been having.
-                          </div>
-                          <div className="small text-gray-500">
-                            Emily Fowler · 58m
-                          </div>
+                          <div className="text-truncate">{contact.nom}</div>
+                          <div className="small text-gray-500">{contact.email}</div>
                         </div>
-                      </a>
-                      <a className="dropdown-item d-flex align-items-center" href="#">
-                        <div className="dropdown-list-image mr-3">
-                          <img
-                            className="rounded-circle"
-                            src="img/undraw_profile_2.svg"
-                            alt="..."
-                          />
-                          <div className="status-indicator" />
-                        </div>
-                        <div>
-                          <div className="text-truncate">
-                            I have the photos that you ordered last month, how would
-                            you like them sent to you?
-                          </div>
-                          <div className="small text-gray-500">Jae Chun · 1d</div>
-                        </div>
-                      </a>
-                      <a className="dropdown-item d-flex align-items-center" href="#">
-                        <div className="dropdown-list-image mr-3">
-                          <img
-                            className="rounded-circle"
-                            src="img/undraw_profile_3.svg"
-                            alt="..."
-                          />
-                          <div className="status-indicator bg-warning" />
-                        </div>
-                        <div>
-                          <div className="text-truncate">
-                            Last month's report looks great, I am very happy with the
-                            progress so far, keep up the good work!
-                          </div>
-                          <div className="small text-gray-500">
-                            Morgan Alvarez · 2d
-                          </div>
-                        </div>
-                      </a>
+                      </li>
+                     
+                          ))}
                      
                       <Link
                         className="dropdown-item text-center small text-gray-500"
