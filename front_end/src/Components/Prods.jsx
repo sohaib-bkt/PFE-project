@@ -5,16 +5,18 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useProductContext } from "../context/ProductContext";
 export default function Prods({prod}) {
   const [loading, setLoading] = useState(false);
-
+  const {countWishList , setCountWishList} = useProductContext();
   const addToCart = () => {
     setLoading(true);
     axiosClient.post('http://localhost:8000/api/cart/add', {
         id: prod.id,
     })
     .then(response => {
-        console.log('Item added to cart:', response.data);
+
+        setCountWishList(countWishList + 1);
         setLoading(false);
     })
     .catch(error => {

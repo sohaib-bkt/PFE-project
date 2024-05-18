@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useProductContext } from "../context/ProductContext";
 
 export default function ProdHome({ prod }) {
   const [loading, setLoading] = useState(false);
-
+  const {countWishList , setCountWishList} = useProductContext();
   const addToCart = () => {
     setLoading(true);
     axiosClient
@@ -15,7 +16,7 @@ export default function ProdHome({ prod }) {
         id: prod.id,
       })
       .then((response) => {
-        console.log("Item added to cart:", response.data);
+        setCountWishList(countWishList + 1);
         setLoading(false);
       })
       .catch((error) => {

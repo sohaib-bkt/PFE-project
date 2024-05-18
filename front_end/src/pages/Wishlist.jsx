@@ -3,9 +3,11 @@ import axiosClient from '../api/axios';
 import { Link } from 'react-router-dom';
 import HashLoader from "react-spinners/HashLoader";
 import SectionStart from "@Components/SectionStart"
+import { useProductContext } from '../context/ProductContext';
 
 
 export default function Wishlist() {
+  const {countWishList , setCountWishList} = useProductContext();
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +27,7 @@ const removeFromWishlist = (rowId) => {
     data: { rowId: String(rowId) } 
   })
     .then(() => {
+      setCountWishList(countWishList - 1);
       setWishlistItems(prevItems => {
         const itemsArray = Object.values(prevItems); 
         const updatedItems = itemsArray.filter(item => item.rowId !== rowId);

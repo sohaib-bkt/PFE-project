@@ -2,17 +2,19 @@
 import { useState } from 'react';
 import axiosClient from '../api/axios';
 import { Link } from 'react-router-dom';
+import { useProductContext } from '../context/ProductContext';
 
 export default function ProdCard( product ) {
   const [loading, setLoading] = useState(false);
-
+  const {countWishList , setCountWishList} = useProductContext();
   const addToCart = () => {
     setLoading(true);
+    
     axiosClient.post('http://localhost:8000/api/wishlist/add', {
       id: product.product.id,
     })
       .then(response => {
-        console.log('Item added to cart:', response.data);
+        setCountWishList(countWishList + 1);
         setLoading(false);
       })
       .catch(error => {

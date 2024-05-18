@@ -11,9 +11,19 @@ class WishlistController extends Controller
     public function addProductToWishlist(Request $request)
     {
         $product = Product::find($request->id);
-        Cart::instance("wishlist")->add($product->id, $product->name, 1, $product->regular_price)->associate('App\Models\Product');
+    
+        // Check if the product is already in the wishlist
+        $wishlist = Cart::instance('wishlist')->content();
+        $existingProduct = $wishlist->where('id', $product->id)->first();
+    
+        if ($existingProduct) {
+            return response()->json(['status' => 409, 'message' => 'Error! Product is already in your wishlist.']);
+        }
+    
+        Cart::instance('wishlist')->add($product->id, $product->name, 1, $product->regular_price)->associate('App\Models\Product');
         return response()->json(['status' => 200, 'message' => 'Success! Item successfully added to your wishlist.']);
     }
+    
 
     public function getWishlistedProducts()
     {

@@ -1,5 +1,5 @@
-import  { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import feather from 'feather-icons';
 import logo from '@Public/assets/images/logo.png';
 import $ from 'jquery';
@@ -7,28 +7,22 @@ import '@Css/Header.css';
 import axiosClient from '../../api/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useLocation } from 'react-router-dom';
-
+import { useProductContext } from '../../context/ProductContext';
 
 const Header = ({ children }) => {
-
-  
-  const [countWishList, setCountWishList] = useState(0);
+  const { countWishList } = useProductContext();
   const location = useLocation();
-  const [user , setUser] = useState({})
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem("user"));
-    setUser(storedUser);
-  }, [])
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   useEffect(() => {
-    axiosClient.get('http://localhost:8000/api/wishlist/count').then((response) => {
-      setCountWishList(response.data.count);
-
-    })
     feather.replace();
-
     const handleNavToggle = (e) => {
       e.preventDefault();
       $(".nav-menu").css("right", "0px");
@@ -64,7 +58,7 @@ const Header = ({ children }) => {
       $(".toggle-nav, .sidebar-toggle, .back-btn, .bg-overlay").off("click");
       $(".menu-title, .menu-title-level1, .submenu-title").off("click");
     };
-  }, []);
+  }, [location, countWishList]);
 
   return (
     <>
@@ -97,25 +91,23 @@ const Header = ({ children }) => {
                             </div>
                           </li>
                           <li>
-                            <Link to="/" className="nav-link ">Home</Link>
+                            <Link to="/" className="nav-link">Home</Link>
                           </li>
-
-                        <li className="onhover-dropdown">
-                          <Link to="#" className="onhover-dropdown">Shop</Link>
-                          <div  className="onhover-div profile-dropdown">
-                            <ul>
-                                  <li><Link to="/shop/clothes" className="d-block">Shop Vetement</Link></li>
-                                  <li><Link to="/shop/info" className="d-block">Shop Info</Link></li>
-                            </ul>
+                          <li className="onhover-dropdown">
+                            <Link to="#" className="onhover-dropdown">Shop</Link>
+                            <div className="onhover-div profile-dropdown">
+                              <ul>
+                                <li><Link to="/shop/clothes" className="d-block">Shop Vetement</Link></li>
+                                <li><Link to="/shop/info" className="d-block">Shop Info</Link></li>
+                              </ul>
                             </div>
-                        </li>
+                          </li>
                           <li>
                             <Link to="/about" className="nav-link">About Us</Link>
                           </li>
                           <li>
                             <Link to="/contact" className="nav-link">Contact Us</Link>
                           </li>
-                        
                         </ul>
                       </div>
                     </div>
@@ -123,21 +115,15 @@ const Header = ({ children }) => {
                   <div className="menu-right">
                     <ul>
                       <li>
-                   
-                          {location.pathname !== '/ajouter-annonce' && location.pathname !== '/edit-annonce' && (
-                            <>
-                            {user && user.utype != 'admin' && (
-                        <div className="search-box btn btn-light" style={{backgroundColor: '#FAF2F2', border: 'none',  color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '10px', paddingLeft: '10px' }}>
-                              <Link to="/ajouter-annonce" ><FontAwesomeIcon icon={faPlus} /><span className="post-ad-link"> Post an ad</span></Link>                              
-                              </div>
-                            )}
-                            </>
-                          )}
-                        
+                        {location.pathname !== '/ajouter-annonce' && location.pathname !== '/edit-annonce' && user && user.utype !== 'admin' && (
+                          <div className="search-box btn btn-light" style={{ backgroundColor: '#FAF2F2', border: 'none', color: '#3E3E3E', fontWeight: '100', fontFamily: 'monospace', borderRadius: '20px', paddingRight: '10px', paddingLeft: '10px' }}>
+                            <Link to="/ajouter-annonce"><FontAwesomeIcon icon={faPlus} /><span className="post-ad-link"> Post an ad</span></Link>
+                          </div>
+                        )}
                       </li>
-                      <li className="onhover-dropdown wislist-dropdown">
+                      <li className="onhover-dropdown wishlist-dropdown">
                         <div className="cart-media">
-                        <Link to="/wishlist">
+                          <Link to="/wishlist">
                             <i data-feather="heart" />
                             <span id="wishlist-count" className="label label-theme rounded-pill">{countWishList}</span>
                           </Link>
