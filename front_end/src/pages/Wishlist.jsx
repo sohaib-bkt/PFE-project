@@ -44,6 +44,7 @@ const clearWishlist = () => {
   axiosClient.delete('http://localhost:8000/api/wishlist/clear')
     .then(() => {
       setWishlistItems([]);
+      setCountWishList(0);
     })
     .catch(error => console.error('Error clearing wishlist:', error));
 };
