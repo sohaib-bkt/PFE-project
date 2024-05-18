@@ -5,26 +5,32 @@ import UserApi from '../../services/api/user/UserApi';
 import { UserContext } from '../../context/UserContext';
 
 export default function AdminNav(props) {
-  const [user , setUser] = useState({});
-  const {logout} = useContext(UserContext);
+  const [user, setUser] = useState({});
+  const { logout } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log(props.abuseReports);
+  const [count, setCount] = useState(0);
+
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem("user"));
     if (!storedUser) {
       navigate("/error");
     }
     setUser(storedUser);
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setCount(props.reportCount);
+  }, [props.reportCount]);
+
   const handleLogout = async () => {
     try {
-        await UserApi.logout();
-        logout();
-        navigate("/login");
+      await UserApi.logout();
+      logout();
+      navigate("/login");
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  }
   
     return (
         <>
@@ -81,7 +87,7 @@ export default function AdminNav(props) {
                       aria-expanded="false"
                     >
                       <i className="fas fa-bell fa-fw" />
-                      <span className="badge badge-danger badge-counter">{props.reportCount}</span>
+                      <span className="badge badge-danger badge-counter">{count}</span>
                     </a>
                     <div
                       
