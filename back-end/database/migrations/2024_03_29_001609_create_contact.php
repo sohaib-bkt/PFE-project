@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('email')->unique();
+            $table->string('email');
+            $table->boolean('read')->default(false);
             $table->string('phone')->nullable();
             $table->text('commentaire')->nullable(); 
             $table->timestamps();

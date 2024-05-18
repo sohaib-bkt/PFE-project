@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -79,3 +80,8 @@ Route::get('/dashboard/getdatacharts', [AdminController::class, 'datacharts']);
 Route::get('/abuse-reports', [AdminController::class, 'getReports']);
 Route::put('/abuse-reports/{id}/resolve', [AdminController::class, 'updateStatus']);
 Route::delete('/abuse-reports/clear-resolved', [AdminController::class, 'clearResolvedReports']);
+
+Route::post('/contact/store', [ContactController::class, 'store']);
+Route::get('/contact/get', [ContactController::class, 'get']);
+Route::patch('/contact/read' , [ContactController::class, 'read']);
+Route::delete('/contact/clear-read' , [ContactController::class, 'clearReadMessages']);
