@@ -3,20 +3,75 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import UserApi from '../services/api/user/UserApi';
 import HashLoader from 'react-spinners/HashLoader';
-  const loadScripts = () => {
-    const scripts = [
-      'https://code.jquery.com/jquery-3.6.0.min.js',
-      './assets/js/bootstrap/bootstrap.bundle.min.js',
-      './assets/js/script.js',
-    ];
-  
-    scripts.forEach(src => {
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-      document.body.appendChild(script);
-    });
-  };
+import Select from "react-select";
+
+const loadScripts = () => {
+  const scripts = [
+    'https://code.jquery.com/jquery-3.6.0.min.js',
+    './assets/js/bootstrap/bootstrap.bundle.min.js',
+    './assets/js/script.js',
+  ];
+
+  scripts.forEach(src => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    document.body.appendChild(script);
+  });
+};
+
+const customStyles = {
+  control: (provided) => ({
+    ...provided,
+    border: 'none',
+    boxShadow: 'none',
+    fontSize: '16px',  // Increase font size
+    color: '#747474',     // Light grey color
+  }),
+  menu: (provided) => ({
+    ...provided,
+    border: 'none',
+    boxShadow: 'none',
+    zIndex: 9999,
+    fontSize: '16px',  // Increase font size
+    color: '#747474',     // Light grey color
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: '#747474',
+    fontSize: '16px',  // Increase font size
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: '#747474',
+    fontSize: '16px',  // Increase font size
+  }),
+};
+
+const CountrySelect = ({ selectedCountry, setSelectedCountry }) => {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data.countries);
+      });
+  }, []);
+
+  return (
+    <Select
+      options={countries}
+      value={selectedCountry}
+      onChange={setSelectedCountry}
+      styles={customStyles}
+      placeholder="Country"  // Add placeholder text here
+    />
+  );
+};
+
 export default function Register() {
   loadScripts();
 
@@ -27,11 +82,12 @@ export default function Register() {
   const [addressFocused, setAddressFocused] = useState(false);
   const [cityFocused, setCityFocused] = useState(false);
   const [countryFocused, setCountryFocused] = useState(false);
-
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
   const [error, setError] = useState("");
   const { register, setAuthenticated } = useUserContext();
   const navigate = useNavigate();
+
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   const handleFocusName = () => {
     setNameFocused(true);
@@ -57,7 +113,6 @@ export default function Register() {
     setCountryFocused(true);
   };
 
-
   const handleFocusPassword = () => {
     setPasswordFocused(true);
   };
@@ -78,7 +133,7 @@ export default function Register() {
       password_confirmation: formData.get('password_confirmation'),
       address: formData.get('address'),
       city: formData.get('city'),
-      country: formData.get('country')
+      country: selectedCountry ? selectedCountry.label : '', // Get country label
     };
 
     try {
@@ -91,8 +146,8 @@ export default function Register() {
       setError(error.response.data.message);
     }
   };
+
   const [client, setClient] = useState(null); // Changed initial state to null
-    
   const [loadingg, setLoadingg] = useState(true); 
 
   useEffect(() => {
@@ -205,18 +260,13 @@ if (loadingg) {
               </div>
 
               <div className="input">
-                <label htmlFor="country" className={`floating-label ${countryFocused ? 'active' : ''}`}>Country</label>
-                <input
-                  type="text"
-                  id="country"
-                  className="block mt-1 w-full"
-                  name="country"
-                  required=""
-                  onFocus={handleFocusCountry}
+                <CountrySelect 
+                  selectedCountry={selectedCountry}
+                  setSelectedCountry={setSelectedCountry}
                 />
-                <span className="text-danger mt-3">{error}</span>
               </div>
 
+              <span className="text-danger mt-3">{error}</span>
 
               <div className="input">
                 <label htmlFor="password" className={`floating-label ${passwordFocused ? 'active' : ''}`}>Password</label>
