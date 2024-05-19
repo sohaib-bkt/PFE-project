@@ -88,7 +88,7 @@ export const router = createBrowserRouter([
                         element: <AddAdv/>
                     },
                     {
-                        path: "/edit-annonce",
+                        path: "/edit-annonce/:slug",
                         element: <EditAdv/>
                     },
                     {

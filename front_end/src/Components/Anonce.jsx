@@ -296,6 +296,7 @@ const AnnouncementCardP = ({ product }) => {
                 <div className="col-md-9">
                     <div className="card-body d-flex flex-column justify-content-between h-100">
                         <div>
+                        <DropdownMenu key={product.id} product={product}  />
                         <h4 className="card-title">{product.regular_price}</h4>
                         <p className="card-text">{product.name}</p>
                         </div>
@@ -397,9 +398,9 @@ const DropdownMenu = ({ product, isRejected }) => {
                             <Link onClick={deleteProduct} ><FontAwesomeIcon icon={faTrash} /> Delete</Link>
                        </li>
 
-                       {!isRejected && // Render Edit option only if not rejected
+                       {!isRejected && 
                            <li style={{display: 'block'}}>
-                               <Link to='/edit-annonce'><FontAwesomeIcon icon={faEdit} /> Edit</Link>
+                                <Link to={`/edit-annonce/${product.slug}`}><FontAwesomeIcon icon={faEdit} /> Edit</Link>
                            </li>
                        }
                     </ul>

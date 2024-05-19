@@ -1,7 +1,6 @@
 import styles from '@Css/andrp.module.css';
 import SelectCat from '@Components/Drawer.jsx';
 import { useEffect, useState } from 'react';
-import UserApi from '../../services/api/user/UserApi';
 import axiosClient from '../../api/axios';
 import { useCategory } from '../../context/CategoryContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -66,10 +65,7 @@ if (loading) {
     }
   
     try {
-      const response = await axiosClient.post('http://localhost:8000/api/user/StoreProduct', formData);
-      console.log(response.data);
-  
-      // Show success message using SweetAlert
+      await axiosClient.post('http://localhost:8000/api/user/StoreProduct', formData);    
       Swal.fire({
         icon: 'success',
         title: 'Product added successfully!',

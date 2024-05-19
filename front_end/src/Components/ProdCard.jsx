@@ -14,8 +14,13 @@ export default function ProdCard( product ) {
       id: product.product.id,
     })
       .then(response => {
-        setCountWishList(countWishList + 1);
+        console.log(response);
+        if (response.data.status === 200) {
+          setCountWishList(countWishList + 1);
+          setLoading(false);
+        }
         setLoading(false);
+       
       })
       .catch(error => {
         console.error('Error adding item to cart:', error);

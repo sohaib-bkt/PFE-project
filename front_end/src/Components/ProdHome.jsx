@@ -11,19 +11,26 @@ export default function ProdHome({ prod }) {
   const {countWishList , setCountWishList} = useProductContext();
   const addToCart = () => {
     setLoading(true);
-    axiosClient
-      .post("http://localhost:8000/api/wishlist/add", {
-        id: prod.id,
-      })
-      .then((response) => {
-        setCountWishList(countWishList + 1);
+    
+    axiosClient.post('http://localhost:8000/api/wishlist/add', {
+      id: prod.id,
+    })
+      .then(response => {
+        console.log(response);
+        if (response.data.status === 200) {
+          setCountWishList(countWishList + 1);
+          console.log('assssssss');
+          setLoading(false);
+        }
         setLoading(false);
+       
       })
-      .catch((error) => {
-        console.error("Error adding item to cart:", error);
+      .catch(error => {
+        console.error('Error adding item to cart:', error);
         setLoading(false);
       });
   };
+
 
   return (
     <div className="product-box">

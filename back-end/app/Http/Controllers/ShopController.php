@@ -6,7 +6,8 @@ use App\Models\Report;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ShopController extends Controller
 {
@@ -158,6 +159,65 @@ class ShopController extends Controller
             'searchTerm' => $searchTerm
         ]);
     }
+    public function updateProduct(Request $request)
+{
+    
+    $validatedData = $request->validate([
+        'user_id' => 'required|numeric',
+        'category_name' => 'required|string',
+        'category' => 'required|string',
+        'name' => 'required|string',
+        'description' => 'required|string',
+        'regular_price' => 'required|numeric',
+        'image' => 'nullable|image',
+        'images.*' => 'nullable|image',
+        'specification' => 'required|array',
+        'specification.*.attribute' => 'required|string',
+        'specification.*.value' => 'required|string',
+    ]);
+
+    $categorie_id = Category::where('name', $validatedData['category'])->value('id');
+
+    $product = Product::findOrFail($request->input('id'));
+
+    $product->user_id = $validatedData['user_id'];
+    $product->categorie_product = $validatedData['category_name'];
+    $product->category_id = $categorie_id;
+    $product->name = $validatedData['name'];
+    $product->description = $validatedData['description'];
+    $product->regular_price = $validatedData['regular_price'];
+    $product->specification = json_encode($validatedData['specification']);
+    $product->featured = 'pending';
+
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('images/products');
+        $product->image = basename($imagePath);
+    }
+
+    if ($request->hasFile('images')) {
+        $additionalImages = [];
+        foreach ($request->file('images') as $image) {
+            $imagePath = $image->store('images/products');
+            $additionalImages[] = basename($imagePath);
+        }
+        $product->images = json_encode($additionalImages);
+    }
+
+    if ($product->name !== $validatedData['name']) {
+        $slug = Str::slug($validatedData['name']);
+        $existingSlug = Product::where('slug', $slug)->exists();
+        if ($existingSlug) {
+            $slug .= '-' . uniqid();
+        }
+        $product->slug = $slug;
+    }
+
+    // Save the updated product
+    $product->save();
+
+    // Return a success response
+    return response()->json(['message' => 'Product updated successfully'], 200);
+}
 
 public function detail($slug){
         $product = Product::where('slug', $slug)->first();

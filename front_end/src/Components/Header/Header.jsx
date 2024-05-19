@@ -4,7 +4,6 @@ import feather from 'feather-icons';
 import logo from '@Public/assets/images/logo.png';
 import $ from 'jquery';
 import '@Css/Header.css';
-import axiosClient from '../../api/axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useProductContext } from '../../context/ProductContext';
