@@ -5,14 +5,24 @@ import '@Css/customAdmincss.css';
 import AdminNav from './AdminNav';
 import { useEffect, useState } from 'react';
 import axiosClient from '../../api/axios';
+import HashLoader from 'react-spinners/HashLoader';
 export default function Dashbord() {
    const [data , setData] = useState({});
+   const [loading , setLoading] = useState(true);
    useEffect(() => {
      axiosClient.get('http://localhost:8000/api/dashboard/getdatacharts').then((res) => {
-       setData(res.data)
+       setData(res.data);
+        setLoading(false);
        
      })
    },[])
+   if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
     return (
         <>
      

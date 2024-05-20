@@ -4,9 +4,11 @@ import Swal from 'sweetalert2';
 import AdminNav from "../AdminNav";
 import Slider from "@Components/AdmSlider";
 import axiosClient from "../../../api/axios";
+import HashLoader from "react-spinners/HashLoader";
 
 const Pending = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +16,7 @@ const Pending = () => {
       try {
         const response = await axiosClient.get(`http://localhost:8000/api/dashboard/getPendingProducts`);
         setProducts(response.data.products);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -87,6 +90,14 @@ const approveProduct = async (productId) => {
         });
     }
 };
+
+if (loading) {
+  return (
+    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+      <HashLoader color="red" loading={loading} size={80} />
+    </div>
+  );
+}
 
 
   return (

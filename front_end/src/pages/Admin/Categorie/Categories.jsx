@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import axiosClient from "../../../api/axios";
 import AdminNav from "../AdminNav";
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import HashLoader from "react-spinners/HashLoader";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [scriptsLoaded, setScriptsLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
   const styles = {
     tableCell: {
       textAlign: "center",
@@ -30,6 +32,7 @@ const Categories = () => {
     try {
       const response = await axiosClient.get('http://localhost:8000/api/dashboard/getCategories');
       setCategories(response.data.categories);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -81,6 +84,13 @@ const Categories = () => {
       console.error(error);
     }
   };
+  if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
 
   return (
     <>

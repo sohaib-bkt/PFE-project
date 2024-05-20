@@ -5,6 +5,7 @@ import AdminNav from "../AdminNav";
 import { faEye, faTrash , faPlus } from '@fortawesome/free-solid-svg-icons';
 import axiosClient from "../../../api/axios";
 import Swal from 'sweetalert2';
+import HashLoader from "react-spinners/HashLoader";
 
 const Products = () => {
   const styles = {
@@ -16,6 +17,7 @@ const Products = () => {
   
   const [products, setProducts] = useState([]);
   const [scriptsLoaded, setScriptsLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts();
@@ -54,6 +56,7 @@ const Products = () => {
     try {
       const response = await axiosClient.get('http://localhost:8000/api/dashboard/getProducts');
       setProducts(response.data.products);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -165,6 +168,13 @@ const Products = () => {
         return null;
     }
   };
+  if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
 
   return (
     <>

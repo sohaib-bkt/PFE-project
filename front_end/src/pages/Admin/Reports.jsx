@@ -3,11 +3,13 @@ import AdminNav from './AdminNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBroom, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import axiosClient from '../../api/axios';
+import HashLoader from 'react-spinners/HashLoader';
 
 function AdminAbuseReportsPage() {
   const [abuseReports, setAbuseReports] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredAbuseReports, setFilteredAbuseReports] = useState([]);
+  const[loading, setLoading] = useState(true);
 
   useEffect(() => {
     setFilteredAbuseReports(abuseReports);
@@ -17,7 +19,7 @@ function AdminAbuseReportsPage() {
     axiosClient.get('api/abuse-reports')
       .then(response => {
         setAbuseReports(response.data);
-        console.log('Abuse reports:', response.data);
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching abuse reports:', error);
@@ -58,6 +60,13 @@ function AdminAbuseReportsPage() {
         console.error('Error resolving report:', error);
       });
   };
+  if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
   
 
   return (

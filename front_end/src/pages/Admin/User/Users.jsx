@@ -4,14 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from 'react-router-dom';
 import axiosClient from "../../../api/axios";
 import AdminNav from "../AdminNav";
+import HashLoader from "react-spinners/HashLoader";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [scriptsLoaded, setScriptsLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUsers();
+    
   }, []);
+
 
   useEffect(() => {
     if (users.length > 0 && !scriptsLoaded) {
@@ -24,6 +28,7 @@ const Users = () => {
     try {
       const response = await axiosClient.get('http://localhost:8000/api/dashboard/getUsers');
       setUsers(response.data.users);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -90,6 +95,20 @@ const Users = () => {
     };
     document.body.appendChild(jqueryScript);
   };
+  if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
+  if (loading) {
+    return (
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
+        <HashLoader color="red" loading={loading} size={80} />
+      </div>
+    );
+  }
 
   return (
     <>
