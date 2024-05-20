@@ -16,6 +16,7 @@ export default function UpdateProduct() {
   const [loading, setLoading] = useState(true);
   const [inputGroups, setInputGroups] = useState([{ attribute: '', value: '' }]);
   const [product, setProduct] = useState(null);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,7 +80,24 @@ export default function UpdateProduct() {
     for (let i = 0; i < images.length; i++) {
       formData.append('images[]', images[i]);
     }
-    console.log(formData);
+
+    // Validate form fields
+    const newErrors = {};
+    if (!selectedCategoryy) newErrors.category_name = 'Category is required';
+    if (!formData.get('name')) newErrors.name = 'Name is required';
+    if (!formData.get('description')) newErrors.description = 'Description is required';
+    if (!formData.get('regular_price')) newErrors.regular_price = 'Price is required';
+    if (!formData.get('image').name) newErrors.image = 'Main image is required';
+    if (!formData.get('images').name) newErrors.images = 'Additional images are required';
+
+    const hasValidSpecification = inputGroups.some(group => group.attribute.trim() !== '' || group.value.trim() !== '');
+    if (!hasValidSpecification) newErrors.specification = 'At least one specification is required';
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
 
     try {
       await axiosClient.post(`http://localhost:8000/api/product/update`, formData);
@@ -141,7 +159,8 @@ export default function UpdateProduct() {
         <div className="col-md-8">
           <section className="section-b-space">
             <div className={`container ${styles.hoverableCard}`} style={{
-              border: '1px solid #dee2e6', margin: 'auto', width: '90%'
+              border: '1px solid #dee2e6', margin:
+              'auto', width: '90%'
             }}>
               <form className="needs-validation" method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
                 <input type="hidden" name="user_id" defaultValue={user.id} />
@@ -150,10 +169,12 @@ export default function UpdateProduct() {
                   <div className="col-md-6">
                     <label htmlFor="category_name" className="form-label">Categories</label>
                     <SelectCat />
+                    {errors.category_name && <span className="text-danger mt-3">{errors.category_name}</span>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="text" className="form-control form-control3" id="name" name="name" defaultValue={product.name} placeholder="Enter Full Name" />
+                    {errors.name && <span className="text-danger mt-3">{errors.name}</span>}
                   </div>
                   {inputGroups.map((inputGroup, index) => (
                     <div className="col-md-12" key={index}>
@@ -187,24 +208,29 @@ export default function UpdateProduct() {
                       </div>
                     </div>
                   ))}
+                  {errors.specification && <span className="text-danger mt-3">{errors.specification}</span>}
                   <div className="col-md-12">
                     <label htmlFor="description" className="form-label">Description</label>
                     <textarea className="form-control form-control3" id="description" name="description" defaultValue={product.description} />
+                    {errors.description && <span className="text-danger mt-3">{errors.description}</span>}
                   </div>
 
                   <div className="col-md-6">
                     <label htmlFor="image" className="form-label">Main Image</label>
                     <input type="file" className="form-control form-control3" id="image" name="image" placeholder="image" accept="image/png, image/jpeg" />
+                    {errors.image && <span className="text-danger mt-3">{errors.image}</span>}
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="images" className="form-label">Additional Images</label>
                     <input type="file" className="form-control form-control3" id="images" name="images" placeholder="images" accept="image/png, image/jpeg" multiple />
+                    {errors.images && <span className="text-danger mt-3">{errors.images}</span>}
                   </div>
 
                   <div className="col-md-12">
                     <div className="col-md-6">
                       <label htmlFor="regular_price" className="form-label">Price</label>
                       <input type="number" className="form-control form-control3" id="regular_price" name="regular_price" placeholder="Regular Price" defaultValue={product.regular_price} />
+                      {errors.regular_price && <span className="text-danger mt-3">{errors.regular_price}</span>}
                     </div>
                   </div>
                   <button className="btn mt-4" type="submit" style={{

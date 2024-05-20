@@ -1,10 +1,10 @@
-import { useState , useEffect  } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import UserApi from '../services/api/user/UserApi';
 import HashLoader from 'react-spinners/HashLoader';
+
 const loadScripts = () => {
-  
   const scripts = [
     'https://code.jquery.com/jquery-3.6.0.min.js',
     './assets/js/bootstrap/bootstrap.bundle.min.js',
@@ -18,17 +18,20 @@ const loadScripts = () => {
     document.body.appendChild(script);
   });
 };
+
 export default function Login() {
   loadScripts();
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [falseinfo, setFalseinfo] = useState(false);
   const navigate = useNavigate();
-  const { login, setAuthenticated , setUser} = useUserContext();
+  const { login, setAuthenticated, setUser } = useUserContext();
 
   const handleFocusEmail = () => {
     setEmailFocused(true);
@@ -37,72 +40,44 @@ export default function Login() {
   const handleFocusPassword = () => {
     setPasswordFocused(true);
   };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    let hasError = false; 
+    if (!email.trim()) {
+      setEmailError('Email is required');
+      hasError = true;
+    } else {
+      setEmailError(''); 
+    }
+    if (!password.trim()) {
+      setPasswordError('Password is required');
+      hasError = true; 
+    } else {
+      setPasswordError('');
+    }
+    if (hasError) return;
     setLoading(true);
     try {
       await login(email, password);
       setAuthenticated(true);
-      const res = await UserApi.getUser(); 
-    
-      window.localStorage.setItem("user", JSON.stringify(res.data));
-      // const storedUser = JSON.parse(window.localStorage.getItem("user"));
-
-      setUser(res.data);     
-      if (res.data.utype === "admin") {
+      const res = await UserApi.getUser();
+  
+      window.localStorage.setItem('user', JSON.stringify(res.data));
+      setUser(res.data);
+      if (res.data.utype === 'admin') {
         navigate('/dashboard');
       } else {
         navigate('/');
       }
     } catch (error) {
-      setError(error.response.data.message);
+      setFalseinfo(error.response.data.message);
     } finally {
       setLoading(false);
     }
   };
-    const [client, setClient] = useState(null); // Changed initial state to null
-    
-    const [loadingg, setLoadingg] = useState(true); 
+  
 
-    useEffect(() => {
-      const fetchUser = async () => {
-          try {
-              const data = await UserApi.getUser();
-              setClient(data.data);
-              setLoadingg(false);
-          } catch (error) {
-              navigate('/login');
-              setLoadingg(false);
-          }
-      };
-  
-      fetchUser();
-  }, [navigate, setClient, setLoadingg]);
-  
-  useEffect(() => {
-      if (client) {
-          const authenticated = localStorage.getItem('authenticated') === 'true';
-  
-          if (authenticated) {
-              navigate('/');
-              setLoadingg(false);
-          }
-          else {
-            setLoadingg(false);
-        }
-      } 
-  }, [client, navigate]);
-  
-  if (loadingg) {
-      return (
-          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 999 }}>
-              <HashLoader color="red" loading={loadingg} size={80} />
-          </div>
-      );
-  }
-  
-  
+
 
   return (
     <>
@@ -110,6 +85,13 @@ export default function Login() {
         <div className="materialContainer">
           <div className="box">
             <form method="POST" onSubmit={handleSubmit}>
+            {falseinfo && (
+              <div className="alert alert-danger" role="alert">
+                {falseinfo}
+              </div>
+            )}
+                    
+            
               <div className="login-title">
                 <h2>Login</h2>
               </div>
@@ -125,11 +107,14 @@ export default function Login() {
                   id="email"
                   name="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required=""
+                  onChange={e => {
+                    setEmail(e.target.value);
+                    setEmailError('');
+                  }}
+                  
                   onFocus={handleFocusEmail}
                 />
-                <span className="text-danger mt-3"></span>
+                <span className="text-danger mt-3">{emailError}</span>
               </div>
 
               <div className="input">
@@ -145,11 +130,14 @@ export default function Login() {
                   className="block mt-1 w-full"
                   name="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required=""
+                  onChange={e => {
+                    setPassword(e.target.value);
+                    setPasswordError('');
+                  }}
+                  
                   onFocus={handleFocusPassword}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                <span className="text-danger mt-3">{passwordError}</span>
               </div>
 
               <Link to="/forgot-pass" className="pass-forgot">

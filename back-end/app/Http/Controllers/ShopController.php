@@ -67,7 +67,7 @@ class ShopController extends Controller
 
             $products = $products->where('featured', 'accepted')->paginate($size);
 
-            
+
             $categories = Category::where('parent_category', 'VET')->orderBy('name', 'ASC')->get();
 
             return response()->json([
@@ -144,7 +144,7 @@ class ShopController extends Controller
         $products = $products->where('featured', 'accepted')->paginate($size);
 
 
-        
+
         $categories = Category::where('parent_category', 'INF')->orderBy('name', 'ASC')->get();
 
         return response()->json([
@@ -161,7 +161,7 @@ class ShopController extends Controller
     }
     public function updateProduct(Request $request)
 {
-    
+
     $validatedData = $request->validate([
         'user_id' => 'required|numeric',
         'category_name' => 'required|string',
@@ -171,9 +171,9 @@ class ShopController extends Controller
         'regular_price' => 'required|numeric',
         'image' => 'nullable|image',
         'images.*' => 'nullable|image',
-        'specification' => 'required|array',
-        'specification.*.attribute' => 'required|string',
-        'specification.*.value' => 'required|string',
+        'specification' => 'nullable|array',
+        'specification.*.attribute' => 'nullable|string',
+        'specification.*.value' => 'nullable|string',
     ]);
 
     $categorie_id = Category::where('name', $validatedData['category'])->value('id');
@@ -225,7 +225,7 @@ public function detail($slug){
         $product->category_name = $category->name;
         return response()->json($product);
     }
-    
+
 
     public function getClothes(){
         $clothes = Product::where('categorie_product', 'VET')->where('featured', 'accepted')->take(6)->get();
@@ -307,9 +307,9 @@ public function detail($slug){
             'message' => $message,
             'status' => false
         ]);
-        
+
         $report->save();
-    
+
         return response()->json(['message' => 'Report has been submitted successfully']);
     }
 

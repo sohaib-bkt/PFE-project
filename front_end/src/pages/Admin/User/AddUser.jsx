@@ -68,6 +68,7 @@ export default function AddUser() {
   });
 
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,6 +79,21 @@ export default function AddUser() {
   };
 
   const handleAddUser = async () => {
+    // Validate form fields
+    const newErrors = {};
+    if (!formData.fullName) newErrors.fullName = 'Name is required';
+    if (!formData.email) newErrors.email = 'Email is required';
+    if (!formData.phone) newErrors.phone = 'Phone is required';
+    if (!formData.address) newErrors.address = 'Address is required';
+    if (!formData.city) newErrors.city = 'City is required';
+    if (!selectedCountry) newErrors.country = 'Country is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+
     const data = {
       name: formData.fullName,
       email: formData.email,
@@ -129,10 +145,11 @@ export default function AddUser() {
                 <input
                   type="text"
                   name="fullName"
-                  className="form-control"
+                  className={`form-control ${errors.fullName && 'is-invalid'}`}
                   value={formData.fullName}
                   onChange={handleChange}
                 />
+                {errors.fullName && <div className="invalid-feedback">{errors.fullName}</div>}
               </div>
             </div>
             <hr />
@@ -144,10 +161,11 @@ export default function AddUser() {
                 <input
                   type="email"
                   name="email"
-                  className="form-control"
+                  className={`form-control ${errors.email && 'is-invalid'}`}
                   value={formData.email}
                   onChange={handleChange}
                 />
+                {errors.email && <div className="invalid-feedback">{errors.email}</div>}
               </div>
             </div>
             <hr />
@@ -159,10 +177,11 @@ export default function AddUser() {
                 <input
                   type="tel"
                   name="phone"
-                  className="form-control"
+                  className={`form-control ${errors.phone && 'is-invalid'}`}
                   value={formData.phone}
                   onChange={handleChange}
                 />
+                {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
               </div>
             </div>
             <hr />
@@ -174,10 +193,11 @@ export default function AddUser() {
                 <input
                   type="text"
                   name="address"
-                  className="form-control"
+                  className={`form-control ${errors.address && 'is-invalid'}`}
                   value={formData.address}
                   onChange={handleChange}
                 />
+                {errors.address && <div className="invalid-feedback">{errors.address}</div>}
               </div>
             </div>
             <hr />
@@ -189,10 +209,11 @@ export default function AddUser() {
                 <input
                   type="text"
                   name="city"
-                  className="form-control"
+                  className={`form-control ${errors.city && 'is-invalid'}`}
                   value={formData.city}
                   onChange={handleChange}
                 />
+                {errors.city && <div className="invalid-feedback">{errors.city}</div>}
               </div>
             </div>
             <hr />
@@ -205,6 +226,7 @@ export default function AddUser() {
                   selectedCountry={selectedCountry}
                   setSelectedCountry={setSelectedCountry}
                 />
+                {errors.country && <div className="invalid-feedback">{errors.country}</div>}
               </div>
             </div>
             <hr />
@@ -216,10 +238,11 @@ export default function AddUser() {
                 <input
                   type="password"
                   name="password"
-                  className="form-control"
+                  className={`form-control ${errors.password && 'is-invalid'}`}
                   value={formData.password}
                   onChange={handleChange}
                 />
+                {errors.password && <div className="invalid-feedback">{errors.password}</div>}
               </div>
             </div>
           </div>
@@ -233,3 +256,4 @@ export default function AddUser() {
     </div>
   );
 }
+

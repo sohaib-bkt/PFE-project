@@ -63,6 +63,7 @@ export default function EditUser() {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({});
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     UserApi.getUserById(id).then((data) => {
@@ -87,35 +88,43 @@ export default function EditUser() {
   };
 
   const handleSave = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, save it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedData = {
-          ...formData,
-          country: selectedCountry ? selectedCountry.label : '',
-        };
-        axiosClient
-          .put(`http://localhost:8000/api/update/${id}`, updatedData)
-          .then((response) => {
-            toggleEditMode();
-            Swal.fire(
-              'Saved!',
-              'Your changes have been saved.',
-              'success'
-            );
-          })
-          .catch((error) => {
-            console.error('Error updating user:', error);
-          });
-      }
-    });
+    const newErrors = {};
+    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.phone) newErrors.phone = 'Phone is required';
+    if (!formData.address) newErrors.address = 'Address is required';
+    if (!formData.city) newErrors.city = 'City is required';
+    if (!selectedCountry) newErrors.country = 'Country is required';
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      return;
+    }
+
+    const updatedData = {
+      ...formData,
+      country: selectedCountry ? selectedCountry.label : '',
+    };
+
+    axiosClient
+      .put(`http://localhost:8000/api/update/${id}`, updatedData)
+      .then((response) => {
+        toggleEditMode();
+        Swal.fire(
+          'Saved!',
+          'Your changes have been saved.',
+          'success'
+        );
+      })
+      .catch((error) => {
+        console.error('Error updating user:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error Updating User',
+          text: 'An error occurred while updating the user!',
+          confirmButtonColor: "#d33"
+        });
+      });
   };
 
   return (
@@ -132,32 +141,40 @@ export default function EditUser() {
               </div>
               <div className="col-sm-9">
                 {editMode ? (
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
+                  <>
+                    <input
+                      type="text"
+                      name="name"
+                      className={`form-control ${errors.name && 'is-invalid'}`}
+                      value={formData.name}
+                      onChange={handleChange}
+                    />
+                    {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+                  </>
                 ) : (
                   <p className="text-muted mb-0">{formData.name}</p>
                 )}
               </div>
             </div>
             <hr />
-            <div className="row">
+            {/* Repeat similar code blocks for other fields */}
+                     {/* Repeat similar code blocks for other fields */}
+                     <div className="row">
               <div className="col-sm-3">
                 <p className="mb-0">Phone</p>
               </div>
               <div className="col-sm-9">
                 {editMode ? (
-                  <input
-                    type="tel"
-                    name="phone"
-                    className="form-control"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
+                  <>
+                    <input
+                      type="tel"
+                      name="phone"
+                      className={`form-control ${errors.phone && 'is-invalid'}`}
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
+                    {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
+                  </>
                 ) : (
                   <p className="text-muted mb-0">{formData.phone}</p>
                 )}
@@ -170,13 +187,16 @@ export default function EditUser() {
               </div>
               <div className="col-sm-9">
                 {editMode ? (
-                  <input
-                    type="text"
-                    name="address"
-                    className="form-control"
-                    value={formData.address}
-                    onChange={handleChange}
-                  />
+                  <>
+                    <input
+                      type="text"
+                      name="address"
+                      className={`form-control ${errors.address && 'is-invalid'}`}
+                      value={formData.address}
+                      onChange={handleChange}
+                    />
+                    {errors.address && <div className="invalid-feedback">{errors.address}</div>}
+                  </>
                 ) : (
                   <p className="text-muted mb-0">{formData.address}</p>
                 )}
@@ -189,13 +209,16 @@ export default function EditUser() {
               </div>
               <div className="col-sm-9">
                 {editMode ? (
-                  <input
-                    type="text"
-                    name="city"
-                    className="form-control"
-                    value={formData.city}
-                    onChange={handleChange}
-                  />
+                  <>
+                    <input
+                      type="text"
+                      name="city"
+                      className={`form-control ${errors.city && 'is-invalid'}`}
+                      value={formData.city}
+                      onChange={handleChange}
+                    />
+                    {errors.city && <div className="invalid-feedback">{errors.city}</div>}
+                  </>
                 ) : (
                   <p className="text-muted mb-0">{formData.city}</p>
                 )}
@@ -208,10 +231,13 @@ export default function EditUser() {
               </div>
               <div className="col-sm-9">
                 {editMode ? (
-                  <CountrySelect
-                    selectedCountry={selectedCountry}
-                    setSelectedCountry={setSelectedCountry}
-                  />
+                  <>
+                    <CountrySelect
+                      selectedCountry={selectedCountry}
+                      setSelectedCountry={setSelectedCountry}
+                    />
+                    {errors.country && <div className="invalid-feedback">{errors.country}</div>}
+                  </>
                 ) : (
                   <p className="text-muted mb-0">{formData.country}</p>
                 )}
@@ -224,15 +250,18 @@ export default function EditUser() {
               </div>
               <div className="col-sm-9">
                 {editMode ? (
-                  <select
-                    className="form-control"
-                    name="utype"
-                    value={formData.utype}
-                    onChange={handleChange}
-                  >
-                    <option value="USR">User</option>
-                    <option value="admin">Admin</option>
-                  </select>
+                  <>
+                    <select
+                      className={`form-control ${errors.utype && 'is-invalid'}`}
+                      name="utype"
+                      value={formData.utype}
+                      onChange={handleChange}
+                    >
+                      <option value="USR">User</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                    {errors.utype && <div className="invalid-feedback">{errors.utype}</div>}
+                  </>
                 ) : (
                   <p className="text-muted mb-0">{formData.utype}</p>
                 )}

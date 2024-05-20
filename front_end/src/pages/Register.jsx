@@ -75,78 +75,81 @@ const CountrySelect = ({ selectedCountry, setSelectedCountry }) => {
 export default function Register() {
   loadScripts();
 
-  const [nameFocused, setNameFocused] = useState(false);
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [phoneFocused, setPhoneFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
-  const [addressFocused, setAddressFocused] = useState(false);
-  const [cityFocused, setCityFocused] = useState(false);
-  const [countryFocused, setCountryFocused] = useState(false);
-  const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
-  const [error, setError] = useState("");
-  const { register, setAuthenticated } = useUserContext();
-  const navigate = useNavigate();
-
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
   const [selectedCountry, setSelectedCountry] = useState(null);
-
-  const handleFocusName = () => {
-    setNameFocused(true);
-  };
-
-  const handleFocusEmail = () => {
-    setEmailFocused(true);
-  };
-
-  const handleFocusPhone = () => {
-    setPhoneFocused(true);
-  };
-    
-  const handleFocusAddress = () => {
-    setAddressFocused(true);
-  };
-
-  const handleFocusCity = () => {
-    setCityFocused(true);
-  };
-
-  const handleFocusCountry = () => {
-    setCountryFocused(true);
-  };
-
-  const handleFocusPassword = () => {
-    setPasswordFocused(true);
-  };
-
-  const handleFocusConfirmPassword = () => {
-    setConfirmPasswordFocused(true);
-  };
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const { register, setAuthenticated } = useUserContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      password: formData.get('password'),
-      password_confirmation: formData.get('password_confirmation'),
-      address: formData.get('address'),
-      city: formData.get('city'),
-      country: selectedCountry ? selectedCountry.label : '', // Get country label
-    };
+    // Form validation
+    const errors = {};
+    if (!name.trim()) {
+      errors.name = 'Name is required';
+    }
+    if (!email.trim()) {
+      errors.email = 'Email is required';
+    }
+    if (!phone.trim()) {
+      errors.phone = 'Phone is required';
+    }
+    if (!address.trim()) {
+      errors.address = 'Address is required';
+    }
+    if (!city.trim()) {
+      errors.city = 'City is required';
+    }
+    if (!selectedCountry) {
+      errors.country = 'Country is required';
+    }
+    if (!password.trim()) {
+      errors.password = 'Password is required';
+    }
+    if (!passwordConfirmation.trim()) {
+      errors.passwordConfirmation = 'Confirm Password is required';
+    }
+    if (password !== passwordConfirmation) {
+      errors.passwordMatch = 'Passwords do not match';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
+    // If all validations pass, proceed with registration
 
     try {
-      await register(data);
+      setLoading(true);
+      await register({
+        name,
+        email,
+        phone,
+        password,
+        password_confirmation: passwordConfirmation,
+        address,
+        city,
+        country: selectedCountry.label
+      });
       await UserApi.getUser();
+
       setAuthenticated(true);
       navigate("/");
-
     } catch (error) {
-      setError(error.response.data.message);
+      setErrors({ general: error.response.data.message });
+    } finally {
+      setLoading(false);
     }
   };
-
   const [client, setClient] = useState(null); // Changed initial state to null
   const [loadingg, setLoadingg] = useState(true); 
 
@@ -193,111 +196,106 @@ if (loadingg) {
         <div className="materialContainer">
           <div className="box">
             <form onSubmit={handleSubmit}>
+            {errors.general && 
+                  <div class="alert alert-danger" role="alert">
+                      {errors.general}
+                </div>
+              }
               <div className="login-title">
                 <h2>Register</h2>
               </div>
               <div className="input">
-                <label htmlFor="name" className={`floating-label ${nameFocused ? 'active' : ''}`}>Name</label>
+                <label htmlFor="name" className="floating-label">Name</label>
                 <input
                   type="text"
                   id="name"
                   className="block mt-1 w-full"
-                  name="name"
-                  required=""
-                  onFocus={handleFocusName}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.name && <span className="text-danger mt-3">{errors.name}</span>}
               </div>
               <div className="input">
-                <label htmlFor="email" className={`floating-label ${emailFocused ? 'active' : ''}`}>Email Address</label>
+                <label htmlFor="email" className="floating-label">Email Address</label>
                 <input
                   type="email"
                   id="email"
                   className="block mt-1 w-full"
-                  name="email"
-                  required=""
-                  onFocus={handleFocusEmail}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.email && <span className="text-danger mt-3">{errors.email}</span>}
               </div>
-
               <div className="input">
-                <label htmlFor="phone" className={`floating-label ${phoneFocused ? 'active' : ''}`}>Phone</label>
+                <label htmlFor="phone" className="floating-label">Phone</label>
                 <input
                   type="tel"
                   id="phone"
                   className="block mt-1 w-full"
-                  name="phone"
-                  required=""
-                  onFocus={handleFocusPhone}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.phone && <span className="text-danger mt-3">{errors.phone}</span>}
               </div>
               <div className="input">
-                <label htmlFor="address" className={`floating-label ${addressFocused ? 'active' : ''}`}>Address</label>
+                <label htmlFor="address" className="floating-label">Address</label>
                 <input
                   type="text"
                   id="address"
                   className="block mt-1 w-full"
-                  name="address"
-                  required=""
-                  onFocus={handleFocusAddress}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.address && <span className="text-danger mt-3">{errors.address}</span>}
               </div>
-
               <div className="input">
-                <label htmlFor="city" className={`floating-label ${cityFocused ? 'active' : ''}`}>City</label>
+                <label htmlFor="city" className="floating-label">City</label>
                 <input
                   type="text"
                   id="city"
                   className="block mt-1 w-full"
-                  name="city"
-                  required=""
-                  onFocus={handleFocusCity}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.city && <span className="text-danger mt-3">{errors.city}</span>}
               </div>
-
               <div className="input">
                 <CountrySelect 
                   selectedCountry={selectedCountry}
                   setSelectedCountry={setSelectedCountry}
                 />
+                {errors.country && <span className="text-danger mt-3">{errors.country}</span>}
               </div>
-
-              <span className="text-danger mt-3">{error}</span>
-
               <div className="input">
-                <label htmlFor="password" className={`floating-label ${passwordFocused ? 'active' : ''}`}>Password</label>
+                <label htmlFor="password" className="floating-label">Password</label>
                 <input
                   type="password"
                   id="password"
                   className="block mt-1 w-full"
-                  name="password"
-                  required=""
-                  onFocus={handleFocusPassword}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.password && <span className="text-danger mt-3">{errors.password}</span>}
               </div>
               <div className="input">
-                <label htmlFor="password_confirmation" className={`floating-label ${confirmPasswordFocused ? 'active' : ''}`}>Confirm Password</label>
+                <label htmlFor="password_confirmation" className="floating-label">Confirm Password</label>
                 <input
                   type="password"
                   id="password_confirmation"
                   className="block mt-1 w-full"
-                  name="password_confirmation"
-                  required=""
-                  onFocus={handleFocusConfirmPassword}
+                  value={passwordConfirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
                 />
-                <span className="text-danger mt-3">{error}</span>
+                {errors.passwordConfirmation && <span className="text-danger mt-3">{errors.passwordConfirmation}</span>}
               </div>
-              <div className="button login">
-                <button type="submit">
-                  <span>Sign Up</span>
-                  <i className="fa fa-check" />
+              {errors.passwordMatch && <span className="text-danger mt-3">{errors.passwordMatch}</span>}
+              <div className="button login" style={{ marginTop: '40px' }}>
+                <button type="submit" disabled={loading}>
+                  <span>{loading ? 'Signing Up...' : 'Sign Up'}</span>
                 </button>
+               
               </div>
+           
             </form>
           </div>
           <p>

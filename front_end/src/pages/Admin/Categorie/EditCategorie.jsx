@@ -10,8 +10,9 @@ export default function EditCategory() {
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
-        parent_category: '', // Champ pour la catégorie parent
+        parent_category: '', // Field for the parent category
     });
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         fetchCategory();
@@ -42,6 +43,16 @@ export default function EditCategory() {
     };
 
     const handleSave = async () => {
+        // Validate form fields
+        const newErrors = {};
+        if (!formData.name) newErrors.name = 'Category Name is required';
+        if (!formData.parent_category) newErrors.parent_category = 'Parent Category is required';
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) {
+            return;
+        }
+
         try {
             await axiosClient.put(`http://localhost:8000/api/dashboard/updateCategory/${id}`, formData);
             
@@ -68,75 +79,79 @@ export default function EditCategory() {
     
 
     return (
-     
-                <div className='container-fluid'>
-                    <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 className="h3 mb-0 text-gray-800">Edit Category</h1>
-                    </div>
-                    <div className="col-lg-12">
-                        <div className="card mb-4">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Category Name</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        {editMode ? (
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                            />
-                                        ) : (
-                                            <p className="text-muted mb-0">{formData.name}</p>
-                                        )}
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className="row mt-3">
-                                    <div className="col-sm-3">
-                                        <p className="mb-0">Parent Category</p>
-                                    </div>
-                                    <div className="col-sm-9">
-                                        {editMode ? (
-                                            <select
-                                                className="form-control"
-                                                name="parent_category" 
-                                                value={formData.parent_category}
-                                                onChange={handleChange}
-                                            >
-                                                <option value="VET">Vetemant</option>
-                                                <option value="INF">Informatique</option>
-                                            </select>
-                                        ) : (
-                                            <p className="text-muted mb-0">{formData.parent_category}</p>
-                                        )}
-                                    </div>
-                                </div>
-                                <hr />
-
+        <div className='container-fluid'>
+            <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 className="h3 mb-0 text-gray-800">Edit Category</h1>
+            </div>
+            <div className="col-lg-12">
+                <div className="card mb-4">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <p className="mb-0">Category Name</p>
                             </div>
-                            <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
+                            <div className="col-sm-9">
                                 {editMode ? (
                                     <>
-                                        <button onClick={handleSave} style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
-                                            Save
-                                        </button>
-                                        <button className="btn btn-light" onClick={toggleEditMode}>
-                                            Cancel
-                                        </button>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            className={`form-control ${errors.name && 'is-invalid'}`}
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                        />
+                                        {errors.name && <div className="invalid-feedback">{errors.name}</div>}
                                     </>
                                 ) : (
-                                    <button onClick={toggleEditMode} style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
-                                        Edit
-                                    </button>
+                                    <p className="text-muted mb-0">{formData.name}</p>
                                 )}
                             </div>
                         </div>
+                        <hr />
+                        <div className="row mt-3">
+                            <div className="col-sm-3">
+                                <p className="mb-0">Parent Category</p>
+                            </div>
+                            <div className="col-sm-9">
+                                {editMode ? (
+                                    <>
+                                        <select
+                                            className={`form-control ${errors.parent_category && 'is-invalid'}`}
+                                            name="parent_category" 
+                                            value={formData.parent_category}
+                                            onChange={handleChange}
+                                        >
+                                            <option value="">Select Parent Category</option>
+                                            <option value="VET">Vetemant</option>
+                                            <option value="INF">Informatique</option>
+                                        </select>
+                                        {errors.parent_category && <div className="invalid-feedback">{errors.parent_category}</div>}
+                                    </>
+                                ) : (
+                                    <p className="text-muted mb-0">{formData.parent_category}</p>
+                                )}
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                    <div className="card-footer text-muted d-flex justify-content-end" style={{ backgroundColor: '#f8f9fa' }}>
+                        {editMode ? (
+                            <>
+                                <button onClick={handleSave} style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
+                                    Save
+                                </button>
+                                <button className="btn btn-light" onClick={toggleEditMode}>
+                                    Cancel
+                                </button>
+                            </>
+                        ) : (
+                            <button onClick={toggleEditMode} style={{ backgroundColor: '#a01818', borderRadius: '5px', border: 'none', color: 'white', padding: '10px 20px' }}>
+                                Edit
+                            </button>
+                        )}
                     </div>
                 </div>
-         
-    )
+            </div>
+        </div>
+    );
 }

@@ -57,9 +57,9 @@ class UserController extends Controller
             'regular_price' => 'required|numeric',
             'image' => 'required|image',
             'images.*' => 'required|image',
-            'specification' => 'required|array',
-            'specification.*.attribute' => 'required|string',
-            'specification.*.value' => 'required|string',
+            'specification' => 'nullable|array',
+            'specification.*.attribute' => 'nullable|string',
+            'specification.*.value' => 'nullable|string',
         ]);
         $categorie_id = Category::where('name', $validatedData['category'])->value('id');
 
@@ -84,7 +84,7 @@ class UserController extends Controller
             $additionalImages = [];
             foreach ($request->file('images') as $image) {
                 $imagePath = $image->store('images/products');
-                $additionalImages[] = basename($imagePath); 
+                $additionalImages[] = basename($imagePath);
             }
             $product->images = json_encode($additionalImages);
         }
@@ -111,7 +111,7 @@ class UserController extends Controller
                 'phone' => 'required|string|max:255',
                 'commentaire' => 'required|string',
             ]);
-        
+
             $contact = [
                 'nom' => $request->nom,
                 'prenom' => $request->prenom,
@@ -119,13 +119,13 @@ class UserController extends Controller
                 'phone' => $request->phone,
                 'commentaire' => $request->commentaire,
             ];
-        
+
             Mail::send('email-template', $contact, function($message) use ($contact) {
                 $message->from($contact['email'])
                         ->to('bourhanelahmadi@gmail.com')
                         ->subject('Nouveau message de ' . $contact['nom'] . ' ' . $contact['prenom']);
             });
-        
+
             return redirect()->route('app.contactus')->with('success', 'Contact details sent successfully');
         }
 }
