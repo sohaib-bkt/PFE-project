@@ -70,7 +70,7 @@ if (loading) {
                       <th>image</th>
                       <th>product name</th>
                       <th>price</th>
-                      <th>availability</th>
+                      
                       <th>action</th>
                     </tr>
                   </thead>
@@ -92,13 +92,10 @@ if (loading) {
                           <p className="fw-bold">${item.price}</p>
                         </td>
                         <td>
-                          <p>{item.availability ? 'In Stock' : 'Out of Stock'}</p>
-                        </td>
-                        <td>
                           <a className="icon" onClick={() => removeFromWishlist(item.rowId)}>
                             <i className="fas fa-times" />
                           </a>
-                        </td>
+                        </td>``
                       </tr>
                     ))}
                   </tbody>

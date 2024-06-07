@@ -140,9 +140,9 @@ export default function Login() {
                 <span className="text-danger mt-3">{passwordError}</span>
               </div>
 
-              <Link to="/forgot-pass" className="pass-forgot">
+              {/* <Link to="/forgot-pass" className="pass-forgot">
                 Forgot your password?
-              </Link>
+              </Link> */}
 
               <div className="button login flex justify-center items-center">
                 <button type="submit" disabled={loading}>

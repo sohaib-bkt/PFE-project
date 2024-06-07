@@ -43,7 +43,7 @@ class ShopController extends Controller
             $prange = $request->query("prange");
             if (!$prange || !strpos($prange, ',')) {
                 $from = 0;
-                $to = 500;
+                $to = 10000;
             } else {
                 list($from, $to) = explode(",", $prange);
             }
@@ -120,7 +120,7 @@ class ShopController extends Controller
         $prange = $request->query("prange");
         if (!$prange || !strpos($prange, ',')) {
             $from = 0;
-            $to = 500;
+            $to = 10000;
         } else {
             list($from, $to) = explode(",", $prange);
         }

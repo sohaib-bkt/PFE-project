@@ -30,7 +30,7 @@ export default function AdminHeader(){
             id="accordionSidebar" >
             <Link
               className="sidebar-brand d-flex align-items-center justify-content-center"
-              to="/dashboard"
+              to="/"
             >
               <div className="sidebar-brand-icon rotate-n-15">
                 <img src={logo} alt="logo" width={'35px'}/>

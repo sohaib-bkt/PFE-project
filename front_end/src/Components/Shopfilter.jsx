@@ -81,7 +81,7 @@ export default function Shopfilter() {
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-            <a onClick={() => setPrange('5,10')}>
+            <a onClick={() => setPrange('5,100')}>
               <input
                 type="radio"
                 name="price"
@@ -89,13 +89,13 @@ export default function Shopfilter() {
                 id="price-2"
               />
               <label className="custom-control-label" htmlFor="price-2">  &nbsp;
-                $15 - $10
+                $5 - $100
               </label>
               </a>
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setPrange('10,20')}>
+              <a onClick={() => setPrange('100,200')}>
               <input
                 type="radio"
                 name="price"
@@ -103,13 +103,13 @@ export default function Shopfilter() {
                 id="price-3"
               />
               <label className="custom-control-label" htmlFor="price-3">  &nbsp;
-                $10 - $20
+                $100 - $200
               </label>
               </a>
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-              <a onClick={() => setPrange('20,50')}>
+              <a onClick={() => setPrange('200,500')}>
               <input
                 type="radio"
                 name="price"
@@ -117,13 +117,13 @@ export default function Shopfilter() {
                 id="price-4"
               />
               <label className="custom-control-label" htmlFor="price-4">  &nbsp;
-                $20 - $50
+                $200 - $500
               </label>
               </a>
               
             </div>
             <div className="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-              <a onClick={() => setPrange('50,100')}>
+              <a onClick={() => setPrange('500,1000')}>
               <input
                 type="radio"
                 name="price"
@@ -131,7 +131,7 @@ export default function Shopfilter() {
                 id="price-5"
               />
               <label className="custom-control-label" htmlFor="price-5">  &nbsp;
-                $50 - $100
+                $500 - $1000
               </label>
               </a>
               
