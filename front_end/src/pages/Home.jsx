@@ -282,8 +282,8 @@ export default function Home() {
       <div className="col-xxl-10 col-lg-9">
         <div className="category-wrapper category-slider1 white-arrow category-arrow">
           <div>
-            <a
-              href="shop-left-sidebar.html"
+            <Link
+              to="/shop/clothes"
               className="category-wrap category-padding"
             >
               <img
@@ -295,11 +295,27 @@ export default function Home() {
                 <h3 className="theme-color">Shoes</h3>
                 <span className="text-dark">Fashion</span>
               </div>
-            </a>
+            </Link>
           </div>
           <div>
-            <a
-              href="shop-left-sidebar.html"
+            <Link
+              to="/shop/clothes"
+              className="category-wrap category-padding"
+            >
+              <img
+                src="assets/images/category/4.jpg"
+                className="bg-img blur-up lazyload"
+                alt="category image"
+              />
+              <div className="category-content category-text-1">
+                <h3 className="theme-color">Men</h3>
+                <span className="text-dark">Fashion</span>
+              </div>
+            </Link>
+          </div>
+          <div>
+            <Link
+              to="/shop/clothes"
               className="category-wrap category-padding"
             >
               <img
@@ -311,27 +327,11 @@ export default function Home() {
                 <h3 className="theme-color">Men</h3>
                 <span className="text-dark">Fashion</span>
               </div>
-            </a>
+            </Link>
           </div>
           <div>
-            <a
-              href="shop-left-sidebar.html"
-              className="category-wrap category-padding"
-            >
-              <img
-                src="assets/images/category/2.jpg"
-                className="bg-img blur-up lazyload"
-                alt="category image"
-              />
-              <div className="category-content category-text-1">
-                <h3 className="theme-color">Men</h3>
-                <span className="text-dark">Fashion</span>
-              </div>
-            </a>
-          </div>
-          <div>
-            <a
-              href="shop-left-sidebar.html"
+            <Link
+              to="/shop/clothes"
               className="category-wrap category-padding"
             >
               <img
@@ -343,23 +343,23 @@ export default function Home() {
                 <h3 className="theme-color">Jacket</h3>
                 <span className="text-dark">Fashion</span>
               </div>
-            </a>
+            </Link>
           </div>
           <div>
-            <a
-              href="shop-left-sidebar.html"
+            <Link
+              to="/shop/clothes"
               className="category-wrap category-padding"
             >
               <img
-                src="assets/images/category/4.jpg"
+                src="assets/images/category/3.jpg"
                 className="bg-img blur-up lazyload"
                 alt="category image"
               />
               <div className="category-content category-text-1">
-                <h3 className="theme-color">Jacket</h3>
+                <h3 className="theme-color">Jeans</h3>
                 <span className="text-dark">Fashion</span>
               </div>
-            </a>
+            </Link>
           </div>  
           </div>
       </div>
